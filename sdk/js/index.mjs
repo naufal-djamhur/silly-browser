@@ -1,0 +1,102 @@
+import { chromium } from 'playwright-core';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { resolve, join } from 'node:path';
+import { humanizeBrowser,validateHumanConfig } from './humanize.mjs';
+import {persistentSeed} from './profile-seed.mjs';
+export { humanizeBrowser } from './humanize.mjs';
+
+export function normalizeProxy(input) {
+  if (!input) return undefined;
+  if (typeof input === 'object') {
+    if (!input.server) throw new TypeError('Proxy server is required');
+    const parsed = normalizeProxy(input.server);
+    const result = {...parsed, ...input, server: parsed.server};
+    if (result.server.startsWith('socks5:') && (result.username || result.password))
+      throw new Error('Native authenticated SOCKS5 engine patch is not implemented yet');
+    return result;
+  }
+  const url = new URL(input);
+  if (!['http:', 'https:', 'socks5:'].includes(url.protocol) || !url.hostname || !url.port || !['','/'].includes(url.pathname) || url.search || url.hash)
+    throw new TypeError('Proxy must be http(s) or socks5 with a host and explicit port');
+  const username = decodeURIComponent(url.username), password = decodeURIComponent(url.password);
+  if (url.protocol === 'socks5:' && (username || password))
+    throw new Error('Native authenticated SOCKS5 engine patch is not implemented yet');
+  return {server: `${url.protocol}//${url.host}`, ...(username ? {username} : {}), ...(password ? {password} : {})};
+}
+
+export function buildLaunchOptions(options = {}) {
+  const known = new Set(['executablePath','engineMode','headless','proxy','platform','platformVersion','extensionPaths','seed','args','geoip','humanize','humanConfig','locale','timezone','viewport']);
+  for(const key of Object.keys(options)) if(!known.has(key)) throw new TypeError(`Unknown option: ${key}`);
+  if(options.humanize) validateHumanConfig(options.humanConfig??{});
+  const {executablePath, engineMode = 'custom', headless = true, proxy, platform = 'native', extensionPaths = [], seed, args = [], geoip = false} = options;
+  if (!executablePath) throw new Error('Set executablePath to an actual built binary, or choose a stock executable with engineMode: baseline');
+  if (!['custom', 'baseline'].includes(engineMode)) throw new TypeError('Invalid engineMode');
+  if (!['native','windows','linux','macos'].includes(platform)) throw new TypeError('Unsupported platform');
+  if (engineMode === 'baseline' && platform !== 'native') throw new Error('Platform identity requires our compiled custom engine, not baseline mode');
+  if (options.platformVersion !== undefined && (platform === 'native' || !/^\d+\.\d+\.\d+$/.test(options.platformVersion) || options.platformVersion.length > 32)) throw new TypeError('platformVersion requires a preset and major.minor.patch');
+  if (geoip) throw new Error('GeoIP integration is not implemented yet');
+  if (!Array.isArray(args) || !args.every(a => typeof a === 'string')) throw new TypeError('args must be strings');
+  if (args.some(a => /^--(no-sandbox|disable-setuid-sandbox)(=|$)/.test(a))) throw new Error('Sandbox must remain enabled');
+  if (args.some(a => /^--(custom-browser-seed|custom-browser-platform|custom-browser-platform-version|user-data-dir)(=|$)/.test(a))) throw new Error('Use typed options instead of duplicate lifecycle flags');
+  if (!Array.isArray(extensionPaths) || !extensionPaths.every(p => typeof p === 'string' && !p.includes(','))) throw new TypeError('extensionPaths must be paths without commas');
+  if (seed !== undefined && ((typeof seed === 'number' && !Number.isSafeInteger(seed)) || !/^\d+$/.test(String(seed)) || BigInt(seed) > 18446744073709551615n)) throw new TypeError('seed must be a uint64 decimal string');
+  const launchArgs = [...args];
+  if (platform !== 'native') launchArgs.push(`--custom-browser-platform=${platform}`);
+  if (options.platformVersion !== undefined) launchArgs.push(`--custom-browser-platform-version=${options.platformVersion}`);
+  if (engineMode === 'custom' && seed !== undefined) launchArgs.push(`--custom-browser-seed=${seed}`);
+  if (extensionPaths.length) {
+    const paths = extensionPaths.map(p => resolve(p)).join(',');
+    launchArgs.push(`--disable-extensions-except=${paths}`, `--load-extension=${paths}`);
+  }
+  return {executablePath: resolve(executablePath), headless, chromiumSandbox: true, args: launchArgs,
+    ...(extensionPaths.length ? {ignoreDefaultArgs: ['--disable-extensions']} : {}),
+    ...(proxy ? {proxy: normalizeProxy(proxy)} : {})};
+}
+
+async function verifyCustomBinary(options) {
+  if (options.engineMode === 'baseline') return;
+  // Refuse to silently advertise a stock executable as our custom engine.
+  const {execFile} = await import('node:child_process');
+  const {promisify} = await import('node:util');
+  const {stdout} = await promisify(execFile)(options.executablePath,
+    ['--headless', '--custom-browser-engine-info'], {timeout: 10000, windowsHide: true});
+  const info = JSON.parse(stdout.trim());
+  if (info.engine !== 'custom-browser' || info.policyVersion !== 1) throw new Error('Custom engine handshake failed');
+  if (options.args.some(a=>a.startsWith('--custom-browser-platform=')) && (info.sourcePatchCount??0) < 2) throw new Error('Compiled engine does not support platform identity');
+}
+
+export async function launch(options = {}) {
+  if (options.extensionPaths?.length) throw new Error('Extensions require launchContext or launchPersistentContext; Browser.newContext is incognito');
+  const launchOptions = buildLaunchOptions(options);
+  await verifyCustomBinary({...launchOptions, engineMode: options.engineMode});
+  const browser = await chromium.launch(launchOptions);
+  if (options.humanize) humanizeBrowser(browser, options.humanConfig);
+  return browser;
+}
+
+export async function launchPersistentContext(userDataDir, options = {}) {
+  const directory = resolve(userDataDir);
+  // Validate options before writing profile state.
+  buildLaunchOptions(options);
+  const seed = await persistentSeed(directory, options.seed);
+  const launchOptions = buildLaunchOptions({...options, seed});
+  await verifyCustomBinary({...launchOptions, engineMode: options.engineMode});
+  const context = await chromium.launchPersistentContext(directory, {
+    ...launchOptions, ...(options.locale ? {locale: options.locale} : {}),
+    ...(options.timezone ? {timezoneId: options.timezone} : {}),
+    viewport: options.viewport ?? null
+  });
+  if (options.humanize) humanizeBrowser(context, options.humanConfig);
+  return context;
+}
+
+export async function launchContext(options = {}) {
+  const directory = await mkdtemp(join(tmpdir(), 'custom-browser-'));
+  try {
+    const context = await launchPersistentContext(directory, options);
+    const close = context.close.bind(context);
+    context.close = async (...args) => {try {return await close(...args);} finally {await rm(directory, {recursive: true, force: true});}};
+    return context;
+  } catch(error) {await rm(directory, {recursive: true, force: true}); throw error;}
+}

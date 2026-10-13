@@ -1,0 +1,830 @@
+{
+  "commit": "160f56da85860e89f0e7d9bfdc80266b984057d5",
+  "scope": "Public SDK and example/test files; selected-sections review, not a comprehensive audit; no proprietary C++ engine source",
+  "files": [
+    {
+      "path": "cloakbrowser/__init__.py",
+      "sha256": "ad41af4158e65f0a2622ef0d3eb8af2d041a9f99d189c24205505b8b6f141a2e",
+      "bytes": 1795,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/__init__.py"
+    },
+    {
+      "path": "cloakbrowser/__main__.py",
+      "sha256": "77afe36251a1bfa6cd7704ec7fd984db420db007fa1e89bf285f028cb3a39e4b",
+      "bytes": 28894,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/__main__.py"
+    },
+    {
+      "path": "cloakbrowser/_version.py",
+      "sha256": "e1ab1c52349e22122c31b62e85ec87ed251bef67b64fc894497ef5b5057ac564",
+      "bytes": 23,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/_version.py"
+    },
+    {
+      "path": "cloakbrowser/browser.py",
+      "sha256": "ed60894c18a9482bf394bc1f53e70cbbdac702a88ffd621f595cbca804e58d78",
+      "bytes": 79434,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/browser.py"
+    },
+    {
+      "path": "cloakbrowser/config.py",
+      "sha256": "88b77bd2b23db44fa063bdfa51dff70bffd169b80ad88638b23b32cf6ead59d1",
+      "bytes": 23038,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/config.py"
+    },
+    {
+      "path": "cloakbrowser/download.py",
+      "sha256": "9acdf8dbe4e80038d3d5118ade29eda2f83eb8560c9fc4750ef002c4ea260df3",
+      "bytes": 52803,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/download.py"
+    },
+    {
+      "path": "cloakbrowser/geoip.py",
+      "sha256": "8aab75051e497d4274356f243aa3effd7335bf89f762830ec786b90cc2c06f29",
+      "bytes": 14166,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/geoip.py"
+    },
+    {
+      "path": "cloakbrowser/human/__init__.py",
+      "sha256": "0ed72c72f12bd770197541b9dc1049d999fa811040fb6398ab206f1d991d346c",
+      "bytes": 2445,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/human/__init__.py"
+    },
+    {
+      "path": "cloakbrowser/human/config.py",
+      "sha256": "1faeee9840c2aa9aab4925ba7ccbb75a0d1e98fbb270216952804b826bc9f7b0",
+      "bytes": 8128,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/human/config.py"
+    },
+    {
+      "path": "cloakbrowser/human/engine.py",
+      "sha256": "8d4b5085771137168bce8214c7904b0014f4f45488c5cf96945909f6bdd00623",
+      "bytes": 60640,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/human/engine.py"
+    },
+    {
+      "path": "cloakbrowser/human/errors.py",
+      "sha256": "03677bb81066b12b99563766b7a3e3371b7711d90181c465c36e31503664d31e",
+      "bytes": 3158,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/human/errors.py"
+    },
+    {
+      "path": "cloakbrowser/human/fields.py",
+      "sha256": "9445ac16a81a1f6fea6499f273b2ca2d7934a0634ac03e778d6d330292a2cbb2",
+      "bytes": 5691,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/human/fields.py"
+    },
+    {
+      "path": "cloakbrowser/human/injected.py",
+      "sha256": "1c61e2edc8b38b46c6961aa9bbb7a59c57c61c7bf54333877d280b2f177c6a0b",
+      "bytes": 4620,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/human/injected.py"
+    },
+    {
+      "path": "cloakbrowser/human/keyboard.py",
+      "sha256": "73732763bce56da7d657eeccb93054722e3325b06a0294c7dcdc269160de71af",
+      "bytes": 6802,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/human/keyboard.py"
+    },
+    {
+      "path": "cloakbrowser/human/mouse.py",
+      "sha256": "28c48030a126a09982bd230a7d7bd275f1f2fadc9b3a6fcb1dbbb340ea315eaf",
+      "bytes": 4358,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/human/mouse.py"
+    },
+    {
+      "path": "cloakbrowser/human/patch.py",
+      "sha256": "3e5c783548c61f986af5daebf24f62129203d8ba62f27625b5008bee595dc4f6",
+      "bytes": 20722,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/human/patch.py"
+    },
+    {
+      "path": "cloakbrowser/human/world.py",
+      "sha256": "45e336409829d3ca31e48ad63a0933f7b51c8436be3d591b55b4f7bad7254e03",
+      "bytes": 30722,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/human/world.py"
+    },
+    {
+      "path": "cloakbrowser/license.py",
+      "sha256": "affc508e69011ef6936f4f0a98872a4c87b0b20c0f775aae38dc604729744369",
+      "bytes": 25275,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/license.py"
+    },
+    {
+      "path": "cloakbrowser/widevine.py",
+      "sha256": "4ab390d36eb5cba3491f77078964685622599a4efe18b728a505f095a225be46",
+      "bytes": 6009,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/cloakbrowser/widevine.py"
+    },
+    {
+      "path": "js/src/args.ts",
+      "sha256": "5339ede886bc4efa3facb7d5c95a59046dadd580f0ca52826c6f029632ed1560",
+      "bytes": 4233,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/args.ts"
+    },
+    {
+      "path": "js/src/cli.ts",
+      "sha256": "4be5fa66c96021ccb125f999041f82dc5de28d2a9ea1c694b7cf92846a164e37",
+      "bytes": 26651,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/cli.ts"
+    },
+    {
+      "path": "js/src/config.ts",
+      "sha256": "a3078f792fd1f84487e3f6334f455fd7fd2122f0b177586a2e783b1b624bcaaf",
+      "bytes": 18336,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/config.ts"
+    },
+    {
+      "path": "js/src/download.ts",
+      "sha256": "6dc7c192b98c9578ff832d5832835e63b6121a5b8a7d6aa6e3c269530aeb1f7e",
+      "bytes": 49822,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/download.ts"
+    },
+    {
+      "path": "js/src/fonts.ts",
+      "sha256": "88c277b28ab5b780c5e56a39a241b8d2fb73ee0cfee9329d25a81e4ffb7878bc",
+      "bytes": 5589,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/fonts.ts"
+    },
+    {
+      "path": "js/src/geoip.ts",
+      "sha256": "850f6b498a0ca9e7cff86205640830925548b8163c45e86378227f4a9fa88c06",
+      "bytes": 20684,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/geoip.ts"
+    },
+    {
+      "path": "js/src/human/config.ts",
+      "sha256": "203155d395f3ffa03bca77067bd7ec81ce9e10e08294d47de46d6d78bb341b1f",
+      "bytes": 7837,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/human/config.ts"
+    },
+    {
+      "path": "js/src/human/engine.ts",
+      "sha256": "aa27bfd107233e64a0df749b9b64d4fb057dddc409638d494106d99d9cbbbf5b",
+      "bytes": 55054,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/human/engine.ts"
+    },
+    {
+      "path": "js/src/human/errors.ts",
+      "sha256": "e1fd8394f735d68f5e77c375e231e27703bbd8dea8b4106d51b955f70134447d",
+      "bytes": 3057,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/human/errors.ts"
+    },
+    {
+      "path": "js/src/human/fields.ts",
+      "sha256": "ad3ebdb50581d0544306fd85bad0988ea149c4630fa56131f1da7d63926e0d46",
+      "bytes": 4828,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/human/fields.ts"
+    },
+    {
+      "path": "js/src/human/index.ts",
+      "sha256": "e4705b46e0bd2e00a95310f7bc1df87146d8384b717d0ea0c2e33612bd810894",
+      "bytes": 1587,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/human/index.ts"
+    },
+    {
+      "path": "js/src/human/injected.ts",
+      "sha256": "d3897065589da6819ee4d4f1de9f24c6a47958dd6b8eca28db68a4b349a9edbc",
+      "bytes": 4709,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/human/injected.ts"
+    },
+    {
+      "path": "js/src/human/keyboard.ts",
+      "sha256": "5561262da5e90449f94040abb6f95065c87b22ba4160bd1b20ff5a21f2c15603",
+      "bytes": 7564,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/human/keyboard.ts"
+    },
+    {
+      "path": "js/src/human/mouse.ts",
+      "sha256": "92f2ae961fc27e33d07040dafd2c81c2f03b95fbca646ce74a879b52263c01f7",
+      "bytes": 6808,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/human/mouse.ts"
+    },
+    {
+      "path": "js/src/human/patch.ts",
+      "sha256": "ba65d1c56ef1117fdf3dc35b1b127df740b3dade207499075be48455867ffd7c",
+      "bytes": 19141,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/human/patch.ts"
+    },
+    {
+      "path": "js/src/human/world.ts",
+      "sha256": "5df5fbb8260602d9b654da96a6a9ea94df0fe131d3e61c4a10063c998cdb28ed",
+      "bytes": 14732,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/human/world.ts"
+    },
+    {
+      "path": "js/src/human/worldHelpers.ts",
+      "sha256": "f7c00b338c7fceabcb5bb08c98b10447d65729a84fa9384922a4f45339821a08",
+      "bytes": 15571,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/human/worldHelpers.ts"
+    },
+    {
+      "path": "js/src/human-puppeteer/index.ts",
+      "sha256": "1fa60ec5de89a8896d71b56ad6f2e660e0d1bcadafd7832ffad2c930c21e66fc",
+      "bytes": 36604,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/human-puppeteer/index.ts"
+    },
+    {
+      "path": "js/src/human-puppeteer/keyboard.ts",
+      "sha256": "099017635d2e1119ca37f9f66fb1dfd8b0818ca0451852ced8bdfddb20f08d66",
+      "bytes": 6363,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/human-puppeteer/keyboard.ts"
+    },
+    {
+      "path": "js/src/human-puppeteer/scroll.ts",
+      "sha256": "d4e4b0a307a39504c20feae40195d1e2c65a4d8adf786136837bfed36e02935c",
+      "bytes": 9176,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/human-puppeteer/scroll.ts"
+    },
+    {
+      "path": "js/src/index.ts",
+      "sha256": "d146eea5bbd7e1e230326edaf575eac87443035725964dd5ed72011652f0c071",
+      "bytes": 1049,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/index.ts"
+    },
+    {
+      "path": "js/src/license.ts",
+      "sha256": "275117161db1b97b7cef4b2f6cd5363104726f9400ebe41127b48c5b91cf6261",
+      "bytes": 31085,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/license.ts"
+    },
+    {
+      "path": "js/src/playwright.ts",
+      "sha256": "a071bed28a520d09ad513134a103ac8f11a51d35cb6849448a18238c027df618",
+      "bytes": 17121,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/playwright.ts"
+    },
+    {
+      "path": "js/src/profile-seed.ts",
+      "sha256": "816b52eb958f50371c566d9ae162d334799bac19a79d2bd9567bc11938dc710c",
+      "bytes": 4037,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/profile-seed.ts"
+    },
+    {
+      "path": "js/src/proxy.ts",
+      "sha256": "bf82ed56a84aef8040f4a3b3f141f2397dcfa6620d11c2dfd3a858ffa99dab00",
+      "bytes": 13931,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/proxy.ts"
+    },
+    {
+      "path": "js/src/puppeteer.ts",
+      "sha256": "2685dfcec92b1492674b478d28a00c2e915d1dff35581d925614e59b121eba47",
+      "bytes": 11117,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/puppeteer.ts"
+    },
+    {
+      "path": "js/src/types.ts",
+      "sha256": "b71fbfcd352d2fdec023f907cc84aeecd041e542df9462251b12aee7141d7dae",
+      "bytes": 3452,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/types.ts"
+    },
+    {
+      "path": "js/src/widevine.ts",
+      "sha256": "bb8840ae4aab4505ec417ec0584bd1b6696291f6cef04d98afef1cae1acd5535",
+      "bytes": 5169,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/src/widevine.ts"
+    },
+    {
+      "path": "tests/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/__init__.py"
+    },
+    {
+      "path": "tests/conftest.py",
+      "sha256": "dc7c6080b6e386dae6b0a00d0ad2cdeccd3f07f101bf25ac10856e8d344a12df",
+      "bytes": 1196,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/conftest.py"
+    },
+    {
+      "path": "tests/test_build_args.py",
+      "sha256": "0b98658b99a5707da828f78def392a193568ce37f37691c553b19164a35c4ab4",
+      "bytes": 8983,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_build_args.py"
+    },
+    {
+      "path": "tests/test_cli.py",
+      "sha256": "74a9b7dd2ae6952f41775277b6bad17de9bfa1e82e5ccf8524db688a19d04e6d",
+      "bytes": 18548,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_cli.py"
+    },
+    {
+      "path": "tests/test_cloakserve.py",
+      "sha256": "35a74885b86d96e9475bfd1c3792e03a7339f58aecbcd0e0332e56461048b013",
+      "bytes": 26508,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_cloakserve.py"
+    },
+    {
+      "path": "tests/test_config.py",
+      "sha256": "0384c8b4ecee835324ca51ce7cc474e7c1c93fe417d46fe4cee179b579684a60",
+      "bytes": 10084,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_config.py"
+    },
+    {
+      "path": "tests/test_extension_loading.py",
+      "sha256": "bdf02c72884cf5c6e174661a49a19cdf3bab31d74db4eb68f3788e0641376dd7",
+      "bytes": 849,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_extension_loading.py"
+    },
+    {
+      "path": "tests/test_extract.py",
+      "sha256": "9af7b7e8d510e81a2c12c6a09f86e756e9e0d822b76231e5eb44239c3b0b3cbd",
+      "bytes": 12972,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_extract.py"
+    },
+    {
+      "path": "tests/test_fetch_widevine.py",
+      "sha256": "01bbc26e5c932088a62fe67204a793cd6cbfc840a13481923ec562ab2ec7b1b5",
+      "bytes": 12866,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_fetch_widevine.py"
+    },
+    {
+      "path": "tests/test_font_warning.py",
+      "sha256": "34d47160977f4c2eb53f386066637ba514c95aa26683b0395673aa8d1f03dc31",
+      "bytes": 5664,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_font_warning.py"
+    },
+    {
+      "path": "tests/test_free_version_pin.py",
+      "sha256": "580c9649029107805044c3ad156ba0212f6979c83d9a4fb3928f1ff68a3fb9a1",
+      "bytes": 1563,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_free_version_pin.py"
+    },
+    {
+      "path": "tests/test_geoip.py",
+      "sha256": "9a057db48a064e3180c050017a033d1b179c92b146c92122b7090828c8167506",
+      "bytes": 16161,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_geoip.py"
+    },
+    {
+      "path": "tests/test_human_visual.mjs",
+      "sha256": "ae4b1ba4a5d7e448d641a32f4bdbdc70aab097c8cf1a0a5a64827414ac86abd8",
+      "bytes": 9581,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_human_visual.mjs"
+    },
+    {
+      "path": "tests/test_human_visual.py",
+      "sha256": "dd39c5faddf7fe4ff17a179085ea8751a4e7e57a65b0da5f040edf05fd4575ea",
+      "bytes": 14739,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_human_visual.py"
+    },
+    {
+      "path": "tests/test_humanize_engine.py",
+      "sha256": "30e0153d542c32d892e2435e1c602a2e4152e434606738332d9084abba6a789f",
+      "bytes": 33055,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_humanize_engine.py"
+    },
+    {
+      "path": "tests/test_humanize_unit.mjs",
+      "sha256": "3129c63e48c948492720e9b80894e6db6e738403f5326dad4604edd542197a3a",
+      "bytes": 18807,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_humanize_unit.mjs"
+    },
+    {
+      "path": "tests/test_humanize_unit.py",
+      "sha256": "617711a6745ce341b3fb56997fdae541a74046396cbf4cac1661e48bd68c0f20",
+      "bytes": 41247,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_humanize_unit.py"
+    },
+    {
+      "path": "tests/test_lambda_security.py",
+      "sha256": "2ca0ae77e12591e0e4b21a196cc920c0f53817757043187375dd74561bb448f2",
+      "bytes": 7438,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_lambda_security.py"
+    },
+    {
+      "path": "tests/test_launch.py",
+      "sha256": "77201a507cf95682f03951c16de791b36fb12dc49b2530a9cdb8b539f778db5f",
+      "bytes": 3847,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_launch.py"
+    },
+    {
+      "path": "tests/test_launch_context.py",
+      "sha256": "9d7557b86cdec48c8a2564d1782a67aa537047d05c35e735295ef654dd8c1a05",
+      "bytes": 17917,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_launch_context.py"
+    },
+    {
+      "path": "tests/test_license.py",
+      "sha256": "8fbe2fee6638798506e84b776c73c423f978254f23ea17139a9326ecc2c682bd",
+      "bytes": 45974,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_license.py"
+    },
+    {
+      "path": "tests/test_license_error.py",
+      "sha256": "2b01e8a0f335eba681e7d2da89464a1de2357040ba984d07a869b1fef3e93c27",
+      "bytes": 13318,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_license_error.py"
+    },
+    {
+      "path": "tests/test_login.py",
+      "sha256": "66160d8b3b694003185b0020c84e64dccd185d904ae04486ee911fae30fadeb9",
+      "bytes": 2880,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_login.py"
+    },
+    {
+      "path": "tests/test_persistent_context.py",
+      "sha256": "bfe2166012fdae8a935f4b5fe46970adaa683255243131e81c4d00a8ccaef675",
+      "bytes": 19785,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_persistent_context.py"
+    },
+    {
+      "path": "tests/test_profile_seed.py",
+      "sha256": "3a0ac7ea6478cdc402726a7f20ae80e99cc59f0f0070ce677871e1a5da2335ef",
+      "bytes": 5870,
+      "reviewStatus": "selected-sections-reviewed",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_profile_seed.py"
+    },
+    {
+      "path": "tests/test_proxy.py",
+      "sha256": "6e18f76199fa1b0ffa673351e0d7f5caa839590f9f826cec073ccadec8ccaa41",
+      "bytes": 28993,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_proxy.py"
+    },
+    {
+      "path": "tests/test_resolver_sources_match.py",
+      "sha256": "96cf684ab7a76a0b710c42a1b70076007e19d658e0e39514385f2f5389082d64",
+      "bytes": 2049,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_resolver_sources_match.py"
+    },
+    {
+      "path": "tests/test_stealth.py",
+      "sha256": "5394f8295afb2b59ee962dbfe680ee2e88b096782428b8cbdd1d894e981991df",
+      "bytes": 11047,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_stealth.py"
+    },
+    {
+      "path": "tests/test_stealth_dom_browser.py",
+      "sha256": "66a18f16abf4927ccdd4f1175708f7cded6e0c6b33dea66bc0a60deda573b735",
+      "bytes": 24541,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_stealth_dom_browser.py"
+    },
+    {
+      "path": "tests/test_stealth_reproduction_110.py",
+      "sha256": "5f19e35a5a230cfaa8780da2dc5a2736d5341566f86f04f641758bc354556212",
+      "bytes": 6212,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_stealth_reproduction_110.py"
+    },
+    {
+      "path": "tests/test_stealth_unit.py",
+      "sha256": "ea62e14556b4925595870ec26b3644dfa08f10b077db0031b06d85b175dbcd18",
+      "bytes": 27134,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_stealth_unit.py"
+    },
+    {
+      "path": "tests/test_update.py",
+      "sha256": "755244156ad1917a135e12bb1eca07c8a187f8010480879c1353208d3fa0e622",
+      "bytes": 64137,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_update.py"
+    },
+    {
+      "path": "tests/test_welcome_banner.py",
+      "sha256": "3abc913f96a297d396bcbcddb85b6b11d6710b2aa1face860b241875710a324d",
+      "bytes": 3656,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_welcome_banner.py"
+    },
+    {
+      "path": "tests/test_widevine.py",
+      "sha256": "ad1fec0f8dc99a634e7a7ff0c093bca84b9343a298167ded947b9afeca83795c",
+      "bytes": 8289,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/tests/test_widevine.py"
+    },
+    {
+      "path": "examples/basic.py",
+      "sha256": "60de09a270c31c735fc794dba282d1087feb11caf74c66b77e43acf37196d2b9",
+      "bytes": 342,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/basic.py"
+    },
+    {
+      "path": "examples/fingerprint_scan_test.py",
+      "sha256": "bf7c17f9bb7c4d3847012698b665565a61afa80291dcd9ed7d35c63ca6241fe1",
+      "bytes": 8575,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/fingerprint_scan_test.py"
+    },
+    {
+      "path": "examples/integrations/agent_browser.sh",
+      "sha256": "e168d93b2ac2d3eaace46c914edca38aac54201399cc9e33f1309eac51974c1d",
+      "bytes": 1360,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/integrations/agent_browser.sh"
+    },
+    {
+      "path": "examples/integrations/aws_lambda/Dockerfile",
+      "sha256": "7042124cd00947c48799f6babf6cdb58e38fa4a0531c6985bbd5191c0e6858bd",
+      "bytes": 4910,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/integrations/aws_lambda/Dockerfile"
+    },
+    {
+      "path": "examples/integrations/aws_lambda/INSTRUCTIONS.md",
+      "sha256": "d386685c1b653769e79292d111df9dcbcd03ccc9214ff9dadaafe9fb46b953df",
+      "bytes": 12640,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/integrations/aws_lambda/INSTRUCTIONS.md"
+    },
+    {
+      "path": "examples/integrations/aws_lambda/lambda-entrypoint.sh",
+      "sha256": "41bb389e4197f9f6fd1072c2ae630f9f497870c751369f9af5bbccd942cdb81b",
+      "bytes": 2378,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/integrations/aws_lambda/lambda-entrypoint.sh"
+    },
+    {
+      "path": "examples/integrations/aws_lambda/lambda_handler.py",
+      "sha256": "9a532aa52f66d0d98a504cd3f2ad740ee7d5d76e8c9f1fe272486bb664dd0557",
+      "bytes": 15441,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/integrations/aws_lambda/lambda_handler.py"
+    },
+    {
+      "path": "examples/integrations/browser_use_example.py",
+      "sha256": "a3b3f8f314009c207bb1f9cb404ccbde9ab09980d97db6da026d9e003f4193ca",
+      "bytes": 1240,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/integrations/browser_use_example.py"
+    },
+    {
+      "path": "examples/integrations/crawl4ai_example.py",
+      "sha256": "03f7f42a6f012d92f95828ddbe917f17d73a8be2cfbb3c6a15932439e713fd6e",
+      "bytes": 1167,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/integrations/crawl4ai_example.py"
+    },
+    {
+      "path": "examples/integrations/crawlee_example.py",
+      "sha256": "fe6315878e9f78d3090666d7d898f9c438eeee28fba0e376116b9b2053df4f57",
+      "bytes": 2580,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/integrations/crawlee_example.py"
+    },
+    {
+      "path": "examples/integrations/langchain_loader.py",
+      "sha256": "5a7c51764585039dd2656c1612e4bfe50d81efd432baac9e9e9d48f087f19121",
+      "bytes": 1492,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/integrations/langchain_loader.py"
+    },
+    {
+      "path": "examples/integrations/scrapling_example.py",
+      "sha256": "cc634008f6d1e3b3cb6b794f8ff057d38a7701d1cf7822611e1aa2eb7f86fd08",
+      "bytes": 1175,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/integrations/scrapling_example.py"
+    },
+    {
+      "path": "examples/integrations/selenium_example.py",
+      "sha256": "45e47d2cac4b78daeae9daaf3920d3c37c38c9991ee2d96374fe278c1878d488",
+      "bytes": 1163,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/integrations/selenium_example.py"
+    },
+    {
+      "path": "examples/integrations/undetected_chromedriver.py",
+      "sha256": "f9dc0da1c3868517e6dd6e47ac900d40b6ae4255db56c6523cffc6a0a26747a9",
+      "bytes": 1228,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/integrations/undetected_chromedriver.py"
+    },
+    {
+      "path": "examples/persistent_context.py",
+      "sha256": "538137eb9f79475641c7bcb9f88984c1710682b160ca42e9a292160ab07daa16",
+      "bytes": 1147,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/persistent_context.py"
+    },
+    {
+      "path": "examples/recaptcha_score.py",
+      "sha256": "4e820ebde3f3be9dc8576e2cb02eb9b1d4a538edb025995d5349738d5e91b0d9",
+      "bytes": 1246,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/recaptcha_score.py"
+    },
+    {
+      "path": "examples/stealth_test.py",
+      "sha256": "1db275fbf112b058bd3177f0906186dcfc3fe6205631988d2630242240471dde",
+      "bytes": 13059,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/examples/stealth_test.py"
+    },
+    {
+      "path": "js/examples/basic-playwright.ts",
+      "sha256": "4b0683a9f840805375976ee47028ad4d2a08c73a02a6da7695b7e151a838aabb",
+      "bytes": 473,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/examples/basic-playwright.ts"
+    },
+    {
+      "path": "js/examples/basic-puppeteer.ts",
+      "sha256": "6da69326aac92ccd7acc7aa6f25a9be4b51439bc67ad90ac1864f47c350a5221",
+      "bytes": 475,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/examples/basic-puppeteer.ts"
+    },
+    {
+      "path": "js/examples/persistent-context.ts",
+      "sha256": "824dd793d889cff5c6d86520c294fcb6bdfb4cfd63cc806a9f7e96cb6e8d8c18",
+      "bytes": 1381,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/examples/persistent-context.ts"
+    },
+    {
+      "path": "js/examples/stagehand.ts",
+      "sha256": "2980f854e5cf5ee364b90953a8f5029f2cd95e7b86ca57210b996ef15018f317",
+      "bytes": 1031,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/examples/stagehand.ts"
+    },
+    {
+      "path": "js/examples/stealth-test.ts",
+      "sha256": "53a8876a90956c1b5742bf6d70ab8cd20594f683aebf472b0987a3609be77a78",
+      "bytes": 9617,
+      "reviewStatus": "inventoried",
+      "executionStatus": "not-executed",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/160f56da85860e89f0e7d9bfdc80266b984057d5/js/examples/stealth-test.ts"
+    }
+  ]
+}

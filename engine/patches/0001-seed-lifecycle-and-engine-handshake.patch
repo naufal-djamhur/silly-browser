@@ -1,0 +1,114 @@
+diff --git a/chrome/app/chrome_main_delegate.cc b/chrome/app/chrome_main_delegate.cc
+--- a/chrome/app/chrome_main_delegate.cc
++++ b/chrome/app/chrome_main_delegate.cc
+@@ -5,6 +5,7 @@
+ #include "chrome/app/chrome_main_delegate.h"
+ 
+ #include <stddef.h>
++#include <stdio.h>
+ 
+ #include <string>
+ #include <variant>
+@@ -28,8 +29,10 @@
+ #include "base/process/memory.h"
+ #include "base/process/process.h"
+ #include "base/process/process_handle.h"
++#include "base/rand_util.h"
+ #include "base/profiler/thread_group_profiler.h"
+ #include "base/strings/string_util.h"
++#include "base/strings/string_number_conversions.h"
+ #include "base/strings/sys_string_conversions.h"
+ #include "base/strings/utf_string_conversions.h"
+ #include "base/task/thread_pool/thread_pool_instance.h"
+@@ -54,6 +57,7 @@
+ #include "chrome/common/chrome_paths_internal.h"
+ #include "chrome/common/chrome_result_codes.h"
+ #include "chrome/common/chrome_switches.h"
++#include "chrome/common/custom_browser_seed_policy.h"
+ #include "chrome/common/crash_keys.h"
+ #include "chrome/common/logging_chrome.h"
+ #include "chrome/common/profiler/chrome_thread_group_profiler_client.h"
+@@ -114,6 +118,7 @@
+ #include "base/base_switches.h"
+ #include "base/files/important_file_writer_cleaner.h"
+ #include "base/process/process_handle.h"
++#include "base/rand_util.h"
+ #include "base/win/atl.h"
+ #include "base/win/dark_mode_support.h"
+ #include "base/win/resource_exhaustion.h"
+@@ -1093,6 +1098,29 @@
+       !devtools_pipe::AreFileDescriptorsOpen()) {
+     LOG(ERROR) << "Remote debugging pipe file descriptors are not open.";
+     return CHROME_RESULT_CODE_UNSUPPORTED_PARAM;
++  }
++
++  // The seed is infrastructure only; renderer fingerprint patches are not yet
++  // implemented. Initialize after checking the remote debugging pipe descriptors.
++  if (is_browser) {
++    base::CommandLine* mutable_command_line =
++        base::CommandLine::ForCurrentProcess();
++    if (command_line.HasSwitch("custom-browser-seed")) {
++      if (!custom_browser::ParseSeed(
++              command_line.GetSwitchValueASCII("custom-browser-seed"))) {
++        LOG(ERROR) << "custom-browser-seed must be a uint64 decimal value";
++        return CHROME_RESULT_CODE_UNSUPPORTED_PARAM;
++      }
++    } else {
++      mutable_command_line->AppendSwitchASCII(
++          "custom-browser-seed", base::NumberToString(base::RandUint64()));
++    }
++    if (command_line.HasSwitch("custom-browser-engine-info")) {
++      printf("{\"engine\":\"custom-browser\",\"policyVersion\":1,"
++             "\"fingerprintPatchesImplemented\":0,\"seed\":\"%s\"}\n",
++             command_line.GetSwitchValueASCII("custom-browser-seed").c_str());
++      return 0;
++    }
+   }
+ 
+ #if BUILDFLAG(IS_WIN)
+diff --git a/chrome/browser/chrome_content_browser_client.cc b/chrome/browser/chrome_content_browser_client.cc
+--- a/chrome/browser/chrome_content_browser_client.cc
++++ b/chrome/browser/chrome_content_browser_client.cc
+@@ -2740,6 +2740,7 @@
+       *base::CommandLine::ForCurrentProcess();
+ 
+   static const char* const kCommonSwitchNames[] = {
++      "custom-browser-seed",
+       embedder_support::kUserAgent,
+       switches::kUserDataDir,  // Make logs go to the right file.
+   };
+diff --git a/chrome/common/BUILD.gn b/chrome/common/BUILD.gn
+--- a/chrome/common/BUILD.gn
++++ b/chrome/common/BUILD.gn
+@@ -452,6 +452,7 @@
+     "chrome_constants.h",
+     "chrome_switches.cc",
+     "chrome_switches.h",
++    "custom_browser_seed_policy.h",
+     "env_vars.h",
+   ]
+   configs += [ "//build/config/compiler:wexit_time_destructors" ]
+diff --git a/chrome/common/custom_browser_seed_policy.h b/chrome/common/custom_browser_seed_policy.h
+new file mode 100644
+--- /dev/null
++++ b/chrome/common/custom_browser_seed_policy.h
+@@ -0,0 +1,19 @@
++// Copyright 2026 Custom Browser contributors. MIT license.
++#ifndef CHROME_COMMON_CUSTOM_BROWSER_SEED_POLICY_H_
++#define CHROME_COMMON_CUSTOM_BROWSER_SEED_POLICY_H_
++#include <charconv>
++#include <cstdint>
++#include <optional>
++#include <string_view>
++namespace custom_browser {
++inline std::optional<uint64_t> ParseSeed(std::string_view value) {
++  if (value.empty()) return std::nullopt;
++  for (char c : value) if (c < '0' || c > '9') return std::nullopt;
++  uint64_t seed = 0;
++  auto result = std::from_chars(value.data(), value.data()+value.size(), seed);
++  if (result.ec != std::errc{} || result.ptr != value.data()+value.size())
++    return std::nullopt;
++  return seed;
++}
++}  // namespace custom_browser
++#endif  // CHROME_COMMON_CUSTOM_BROWSER_SEED_POLICY_H_

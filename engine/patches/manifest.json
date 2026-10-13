@@ -1,0 +1,68 @@
+{
+  "upstreamFiles": {
+    "chrome/app/chrome_main_delegate.cc": "11a79a6d58b29c54ec219af2f7421d17561ccfb04061263b5cc2e3cb7d0ec602",
+    "chrome/browser/chrome_content_browser_client.cc": "251cc70c9342e1009dbe5c33ba99ba03a40ec9696c21ffbbc863ed221d799807",
+    "chrome/common/BUILD.gn": "6bb2677d9a03d52ef795e11898291f1638fbb768ebc62e2bc32a88cd58044643",
+    "components/embedder_support/user_agent_utils.cc": "fbcc70aa144b5ba31f40fc2212d87f3ecb3774bf69177776377b7a6b48c58220",
+    "third_party/blink/renderer/core/execution_context/navigator_base.cc": "03ba02210b80655c8d7bed577372b0ec6364b49c2f7a87d7254f1efcd9a260e0",
+    "third_party/blink/public/common/BUILD.gn": "d9fbbc1626f86580ad288e29e7fd4c5bf24a76ac968dbfbbb7816b6962010fed"
+  },
+  "fingerprintPatchesImplemented": 0,
+  "patches": [
+    {
+      "id": "CB-0001",
+      "file": "0001-seed-lifecycle-and-engine-handshake.patch",
+      "scope": "Browser seed initialization, child switch propagation and engine handshake",
+      "status": "source-written-not-Chromium-compiled",
+      "platforms": [
+        "windows",
+        "linux"
+      ],
+      "regressions": [
+        "tests/seed_policy_test.cc"
+      ],
+      "limitations": [
+        "No renderer fingerprint modification",
+        "Persistent seed currently managed by SDK",
+        "GPU/network service propagation requires further validation"
+      ]
+    },
+    {
+      "id": "CB-0002",
+      "file": "0002-platform-web-identity.patch",
+      "scope": "Explicit desktop web identity presets in UA, Client Hints and NavigatorBase",
+      "status": "source-written-not-Chromium-compiled",
+      "dependencies": [
+        "CB-0001"
+      ],
+      "platforms": [
+        "windows",
+        "linux"
+      ],
+      "regressions": [
+        "tests/platform_policy_test.cc"
+      ],
+      "limitations": [
+        "No font/GPU/network OS emulation",
+        "Synthetic platform-version defaults",
+        "Full browser/worker coverage needs compiled validation"
+      ]
+    }
+  ],
+  "plannedFamilies": [
+    "identity",
+    "canvas",
+    "geometry",
+    "fonts",
+    "webgl",
+    "webgpu",
+    "audio",
+    "display",
+    "webrtc",
+    "authenticated-socks5",
+    "udp-associate",
+    "network-exposure",
+    "cdp-input"
+  ],
+  "fingerprintSourcePatchFamiliesWritten": 1
+}

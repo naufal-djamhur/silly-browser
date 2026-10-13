@@ -1,0 +1,125 @@
+{
+  "retrievedAt": "2026-10-13T18:34:12.505Z",
+  "commit": "214a2beb69150aed39484f2730e3ed88dd8f699a",
+  "items": [
+    {
+      "path": "examples/basic.py",
+      "sha": "951d581ebd2606a60b0510ebae52fddd491f6f17",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/basic.py",
+      "status": "inventoried-not-run",
+      "kind": "browser-example"
+    },
+    {
+      "path": "examples/fingerprint_scan_test.py",
+      "sha": "472dc99b9faa3cb8f4f006f56b45ee83d75573d8",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/fingerprint_scan_test.py",
+      "status": "inventoried-not-run",
+      "kind": "browser-example"
+    },
+    {
+      "path": "examples/integrations/agent_browser.sh",
+      "sha": "c7ac6ff8c00dfdce2adb0e80c33bdf3cea9b5569",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/integrations/agent_browser.sh",
+      "status": "inventoried-not-run",
+      "kind": "integration"
+    },
+    {
+      "path": "examples/integrations/aws_lambda/Dockerfile",
+      "sha": "5f5a3b7a9d37160ab8c195eff741888609840fcf",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/integrations/aws_lambda/Dockerfile",
+      "status": "inventoried-not-run",
+      "kind": "integration"
+    },
+    {
+      "path": "examples/integrations/aws_lambda/INSTRUCTIONS.md",
+      "sha": "4171a7c68f56758f3f23657a98e13d0ccd6ea531",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/integrations/aws_lambda/INSTRUCTIONS.md",
+      "status": "inventoried-not-run",
+      "kind": "integration"
+    },
+    {
+      "path": "examples/integrations/aws_lambda/lambda-entrypoint.sh",
+      "sha": "0118084b600d70b3e3df04c1197d3752e9fb5ad7",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/integrations/aws_lambda/lambda-entrypoint.sh",
+      "status": "inventoried-not-run",
+      "kind": "integration"
+    },
+    {
+      "path": "examples/integrations/aws_lambda/lambda_handler.py",
+      "sha": "8821e7063ff162e739af7dc291d498aaf59b5622",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/integrations/aws_lambda/lambda_handler.py",
+      "status": "inventoried-not-run",
+      "kind": "integration"
+    },
+    {
+      "path": "examples/integrations/browser_use_example.py",
+      "sha": "aa9e0e33e8b465de396ba5f4ba05812b860e46b2",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/integrations/browser_use_example.py",
+      "status": "inventoried-not-run",
+      "kind": "integration"
+    },
+    {
+      "path": "examples/integrations/crawl4ai_example.py",
+      "sha": "fbe0399ce6d765575dda32beb1638ec687b19e83",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/integrations/crawl4ai_example.py",
+      "status": "inventoried-not-run",
+      "kind": "integration"
+    },
+    {
+      "path": "examples/integrations/crawlee_example.py",
+      "sha": "a7543d2857519ad7444e84c19faf419bb325ef8f",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/integrations/crawlee_example.py",
+      "status": "inventoried-not-run",
+      "kind": "integration"
+    },
+    {
+      "path": "examples/integrations/langchain_loader.py",
+      "sha": "b9e6b352a9880ed47fe1630c2027ad4a9c03dfd1",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/integrations/langchain_loader.py",
+      "status": "inventoried-not-run",
+      "kind": "integration"
+    },
+    {
+      "path": "examples/integrations/scrapling_example.py",
+      "sha": "e95c5b71cefbc2b28ad661283b41dd0cdb2e7583",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/integrations/scrapling_example.py",
+      "status": "inventoried-not-run",
+      "kind": "integration"
+    },
+    {
+      "path": "examples/integrations/selenium_example.py",
+      "sha": "7edd52b73912fc3366bc29167be9125c79a5e0bd",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/integrations/selenium_example.py",
+      "status": "inventoried-not-run",
+      "kind": "integration"
+    },
+    {
+      "path": "examples/integrations/undetected_chromedriver.py",
+      "sha": "dd6c36bb12ebac57e8114e7565b45460dfa7057e",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/integrations/undetected_chromedriver.py",
+      "status": "inventoried-not-run",
+      "kind": "integration"
+    },
+    {
+      "path": "examples/persistent_context.py",
+      "sha": "e8978d1b2a8ebc79b9ab9038adb96a877d05e553",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/persistent_context.py",
+      "status": "inventoried-not-run",
+      "kind": "browser-example"
+    },
+    {
+      "path": "examples/recaptcha_score.py",
+      "sha": "50202e13a80c22c981c77a5f1bbba1a59f53957b",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/recaptcha_score.py",
+      "status": "inventoried-not-run",
+      "kind": "browser-example"
+    },
+    {
+      "path": "examples/stealth_test.py",
+      "sha": "bf9d26ed631c4b71e3131d2a00945c7f268f776c",
+      "source": "https://github.com/CloakHQ/CloakBrowser/blob/214a2beb69150aed39484f2730e3ed88dd8f699a/examples/stealth_test.py",
+      "status": "inventoried-not-run",
+      "kind": "browser-example"
+    }
+  ]
+}

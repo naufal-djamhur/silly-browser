@@ -1,0 +1,10 @@
+[
+  {"id":"fingerprint-scan","url":"https://fingerprint-scan.com/","adapter":"fingerprint-scan","scoreDirection":"lower-is-better","threshold":20},
+  {"id":"recaptcha-v3","url":"https://recaptcha-demo.appspot.com/recaptcha-v3-request-scores.php","adapter":"recaptcha","scoreDirection":"higher-is-better","threshold":0.7},
+  {"id":"sannysoft","url":"https://bot.sannysoft.com/","adapter":"sannysoft"},
+  {"id":"incolumitas","url":"https://bot.incolumitas.com/","adapter":"capture"},
+  {"id":"rebrowser","url":"https://bot-detector.rebrowser.net/","adapter":"rebrowser"},
+  {"id":"deviceandbrowserinfo","url":"https://deviceandbrowserinfo.com/are_you_a_bot","adapter":"device"},
+  {"id":"browserscan","url":"https://www.browserscan.net/bot-detection","adapter":"capture"},
+  {"id":"creepjs","url":"https://abrahamjuliot.github.io/creepjs/","adapter":"capture"}
+]

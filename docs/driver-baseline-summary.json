@@ -1,0 +1,88 @@
+{
+  "engineMode": "baseline",
+  "binarySha256": "f76f0234efb271041dc84f9f38fb858e01859d5da6f775f5108668eb3ae80975",
+  "host": {
+    "platform": "win32",
+    "arch": "x64"
+  },
+  "libraryVersions": {
+    "node": "v24.19.0",
+    "playwright": "1.62.1",
+    "puppeteer": "25.13.0"
+  },
+  "startedAt": "2026-10-13T19:39:48.160Z",
+  "completedAt": "2026-10-13T19:45:46.817Z",
+  "scope": "Local navigation, input, iframe, storage, and protocol smoke checks. No detector or universal compatibility claims.",
+  "browserVersion": "155.0.8059.40",
+  "sourceReportPolicy": "Selected result fields; local paths, hardware observations and raw captures excluded.",
+  "results": [
+    {
+      "driver": "playwright-js-sdk",
+      "headless": true,
+      "status": "passed",
+      "elapsedMs": 45862
+    },
+    {
+      "driver": "playwright-js-cdp",
+      "headless": true,
+      "status": "passed",
+      "elapsedMs": 82233
+    },
+    {
+      "driver": "puppeteer-cdp",
+      "headless": true,
+      "status": "passed",
+      "elapsedMs": 16472
+    },
+    {
+      "driver": "playwright-python",
+      "headless": true,
+      "status": "passed",
+      "elapsedMs": 45291,
+      "libraryVersion": "1.62.0"
+    },
+    {
+      "driver": "selenium",
+      "headless": true,
+      "status": "passed",
+      "elapsedMs": 19841,
+      "libraryVersion": "4.51.0",
+      "chromeDriverVersion": "155.0.8059.39 (3ff7ac5a9224be9156d7f8703a06e22890aafd34-refs/branch-heads/8059@{#935})"
+    },
+    {
+      "driver": "playwright-js-sdk",
+      "headless": false,
+      "status": "passed",
+      "elapsedMs": 30730
+    },
+    {
+      "driver": "playwright-js-cdp",
+      "headless": false,
+      "status": "passed",
+      "elapsedMs": 31203
+    },
+    {
+      "driver": "puppeteer-cdp",
+      "headless": false,
+      "status": "passed",
+      "elapsedMs": 31477
+    },
+    {
+      "driver": "playwright-python",
+      "headless": false,
+      "status": "passed",
+      "elapsedMs": 34166,
+      "libraryVersion": "1.62.0"
+    },
+    {
+      "driver": "selenium",
+      "headless": false,
+      "status": "passed",
+      "elapsedMs": 21203,
+      "libraryVersion": "4.51.0",
+      "chromeDriverVersion": "155.0.8059.39 (3ff7ac5a9224be9156d7f8703a06e22890aafd34-refs/branch-heads/8059@{#935})"
+    }
+  ],
+  "passed": 10,
+  "failed": 0
+}

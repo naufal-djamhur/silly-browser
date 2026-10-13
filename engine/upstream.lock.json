@@ -1,0 +1,8 @@
+{
+  "repository": "https://chromium.googlesource.com/chromium/src.git",
+  "tag": "146.0.7680.177",
+  "commit": "ae03f7fb2cf1215853896d6a4c15fdceee2badb7",
+  "purpose": "Historical reproducibility anchor; not a current production release",
+  "windows": {"visualStudioMinimum": "17.0.0", "sdk": "10.0.26100.4654", "freeDiskGBMinimum": 100},
+  "built": false
+}

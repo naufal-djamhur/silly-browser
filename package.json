@@ -1,0 +1,22 @@
+{
+  "name": "silly-browser",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/config.test.mjs tests/browser.test.mjs tests/profile-seed.test.mjs",
+    "benchmark": "node benchmarks/run.mjs",
+    "inventory": "node benchmarks/inventory.mjs",
+    "test:engine": "node --test tests/custom-engine.test.mjs",
+    "compatibility": "node compatibility/run.mjs"
+  },
+  "dependencies": {
+    "playwright-core": "1.62.1"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "devDependencies": {
+    "puppeteer-core": "25.13.0"
+  }
+}

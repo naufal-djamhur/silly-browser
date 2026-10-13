@@ -1,0 +1,11 @@
+import {writeFile, mkdir} from 'node:fs/promises';
+const commitResponse=await fetch('https://api.github.com/repos/CloakHQ/CloakBrowser/commits/main');
+if(!commitResponse.ok) throw new Error(`GitHub: ${commitResponse.status}`);
+const commit=(await commitResponse.json()).sha;
+const treeResponse=await fetch(`https://api.github.com/repos/CloakHQ/CloakBrowser/git/trees/${commit}?recursive=1`);
+if(!treeResponse.ok) throw new Error(`GitHub: ${treeResponse.status}`);
+const tree=await treeResponse.json();if(tree.truncated) throw new Error('Truncated tree');
+const items=tree.tree.filter(x=>x.type==='blob'&&x.path.startsWith('examples/')).map(x=>({path:x.path,sha:x.sha,source:`https://github.com/CloakHQ/CloakBrowser/blob/${commit}/${x.path}`,status:'inventoried-not-run',kind:x.path.includes('/integrations/')?'integration':'browser-example'}));
+await mkdir('docs',{recursive:true});
+await writeFile('docs/reference-examples.json',JSON.stringify({retrievedAt:new Date().toISOString(),commit,items},null,2));
+console.log(`Inventoried ${items.length} examples at ${commit}`);

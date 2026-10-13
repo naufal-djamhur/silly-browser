@@ -1,0 +1,14 @@
+node_modules/
+docs/native-build.log
+docs/native-build-status.json
+docs/environment.json
+.env
+.env.*
+!.env.example
+.venv/
+__pycache__/
+profiles/
+artifacts/
+upstream/
+*.pyc
+*.egg-info/
