@@ -8,6 +8,8 @@ As of 14 October 2026, the prerequisite checks, full dependency sync and build g
 
 The planned scope includes multiple Chromium revisions, a public SDK review and driver compatibility. [Completion tracker](docs/engine-roadmap.md), [public SDK review](docs/public-sdk-review.md), and [version pins](engine/versions.json) distinguish planned releases from validated support. No custom version is advertised as supported yet.
 
+To continue development, read the [implementation plan](docs/implementation-plan.md), [session handoff](docs/session-handoff.md), and [ECC command guide](docs/orchestration.md). The plan defines 26 iterations with dependencies and acceptance criteria. The current local build/test pipeline does not execute those future iterations automatically.
+
 Ten local Windows checks pass on stock Chrome 155: JS Playwright SDK, JS Playwright CDP, Puppeteer CDP, Python Playwright and Selenium/ChromeDriver, each headed and headless. See [driver checks](compatibility/README.md) and the [baseline summary](docs/driver-baseline-summary.json). Custom-engine checks are queued after compilation. Raw captures and local machine/build reports are excluded from this repository.
 
 ## What works now

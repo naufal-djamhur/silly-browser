@@ -2,6 +2,8 @@
 
 Project scope as of 14 October 2026: an independent Chromium engine, multiple Chromium revisions, public SDK review, and measured driver compatibility. The initial native build is a prerequisite, not product completion.
 
+The [implementation plan](implementation-plan.md) turns these gates into 26 iterations with dependencies and acceptance criteria. The [session handoff](session-handoff.md) records the current checkpoint; the [ECC routing guide](orchestration.md) provides optional commands without executing them. Qualification is per declared release/platform tuple, so a Windows release need not wait for optional Linux/macOS support.
+
 ## Release lines
 
 See `engine/versions.json` for exact revision pins. Chromium 146 is the historical integration build. Chromium 155 is a previous-major rebase target; the installed stock Chrome 155 only supplies harness evidence. Chromium 156 is the stable Windows target reported by Chromium Dash on 14 October 2026. No custom Chromium version is advertised as supported yet.
