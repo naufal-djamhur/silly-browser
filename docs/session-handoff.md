@@ -2,7 +2,18 @@
 
 Repository: https://github.com/naufal-djamhur/silly-browser
 
-**Completed iterations:** [step 1](implementation-plan.md#step-1), native Windows compilation, and [step 2](implementation-plan.md#step-2), expanded local integration validation. **Next ready iteration:** [step 3](implementation-plan.md#step-3), a separate rebase onto the current supported stable Chromium revision. No compiler/build process was active when this iteration began; the existing binary and manual-testing profile were preserved.
+**Completed iterations:** [step 1](implementation-plan.md#step-1), native Windows compilation, and [step 2](implementation-plan.md#step-2), expanded local integration validation. **Current iteration:** [step 3](implementation-plan.md#step-3), supported stable rebase. The exact stable source checkout and installed toolchain are verified. Dependency sync and build hooks remain incomplete; no stable native compilation has started. The historical runtime and manual-testing profile are preserved.
+
+## Current continuation boundary
+
+- Stable pin: **155.0.8059.80**, commit `43a195105613ac83c21d3f14de279f4a045c7da0`, separate three-patch series under `engine/releases/155.0.8059.80`. Original-file hashes match the full source checkout and the ordered patches apply to a pristine fixture.
+- VS **18.11.12306.390**, MFC/ATL, SDK **10.0.28000.2705** and debugger **10.0.26100.4654** pass installed-toolchain checks.
+- The main checkout was recovered using the official GitHub mirror after Git-server timeouts. Dependency sync was interrupted when a source URL mismatch sent it back to the stalled server; mirror configuration is now consistent.
+- **First unresolved action:** automatic approval review rejected restarting the stable native pipeline as “blocked by policy,” without a further reason. No compiler/build process is active. Preserve the checkout; do not infer active compilation from a process-record file.
+- Puppeteer SDK launch, profile and explicit input helpers pass on the historical binary in headed and headless modes. Eight JS foundation checks, three Puppeteer checks and two release-selection checks pass. See [iteration 3](iteration-03.md) for hashes, scope and limitations.
+- Three Python WebRTC capability/configuration checks and five historical-engine Python checks also pass after the SDK changes.
+- The stable WebRTC policy/parser and local STUN fixture are source-written. No native stable WebRTC behavior is qualified. Historical engines reject the missing capability explicitly.
+- The other browser chat measured custom Chromium 146 Fingerprint Scan scores of **100/100**, one run per display mode. The below-10 target is unfulfilled. Its legacy CB-0003/CB-0004 candidates are uncompiled, no legacy rebuild was launched, and those source files/checkout belong to that separate iteration. Preserve them.
 
 ## Measured checkpoint
 
@@ -25,9 +36,9 @@ The engine-info `fingerprintIntegrationValidated=false` field remains a conserva
 ## Resume next session
 
 1. Read this note, [implementation plan](implementation-plan.md), [completion tracker](engine-roadmap.md) and [ECC routing guide](orchestration.md).
-2. Inspect actual build processes, local stage/log files and binary hashes. Preserve any active build and do not reapply the two patches to this existing source checkout.
-3. For step 3, verify the current stable revision from official Chromium release data. Use a separate checkout or output workflow so the known integration binary remains available for comparisons and manual tests. October version pins are snapshots, not automatic current-version claims.
-4. Rebase, compile and repeat applicable identity/driver gates for the exact new binary before advertising support. Record the first unresolved error and next action in this note at each boundary.
+2. Inspect actual processes, `work/stable-native-status.json`, `work/stable-native-build.log`, checkout HEAD and binary hashes. The rejected restart left no stable compiler active; preserve any new active build discovered on resume. Leave the separate legacy candidate checkout alone.
+3. Continue pinned stable dependencies and hooks, then apply the selected release using `--release 155.0.8059.80`. Use a separate stable output directory. Recheck current support/security requirements before an eventual release; October pins remain snapshots.
+4. Compile and run applicable identity, Python and driver gates with `CUSTOM_BROWSER_RELEASE=155.0.8059.80`. Run the local WebRTC/STUN fixture against the capable actual binary. Record outcomes and failures; do not advertise source-written features as browser-qualified.
 
 Source checkpoint entering this iteration: `39e5aebceaa7972f3be52bd03df49711f5a1dbc4`. The completion commit is the commit that records this handoff and its evidence; use `git log -1` for its exact identifier. Public reports omit private paths, credentials and raw captures.
 

@@ -2,7 +2,7 @@
 
 Dated 14 October 2026, Asia/Jakarta. Repository: https://github.com/naufal-djamhur/silly-browser
 
-This document is a resumable engineering plan, not an automatic execution schedule. The initial local pipeline completed the Windows binary, driver smoke checks and original identity integration test. The expanded checks for steps 1 and 2 have now passed. Further implementation starts only in a resumed working session.
+This document is a resumable engineering plan, not an automatic execution schedule. Steps 1 and 2 passed. Step 3 is now in progress: the separate stable source checkout and toolchain are verified, but native compilation has not started. See [iteration 3](iteration-03.md) and the [session handoff](session-handoff.md) for the build boundary and independently validated SDK work.
 
 ## Checkpoint and first action
 

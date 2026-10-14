@@ -5,6 +5,7 @@ import { resolve, join } from 'node:path';
 import { humanizeBrowser,validateHumanConfig } from './humanize.mjs';
 import {persistentSeed} from './profile-seed.mjs';
 export { humanizeBrowser } from './humanize.mjs';
+export {launchPuppeteer,launchPuppeteerPersistent,humanizePuppeteerBrowser} from './puppeteer.mjs';
 
 export function normalizeProxy(input) {
   if (!input) return undefined;
@@ -26,24 +27,28 @@ export function normalizeProxy(input) {
 }
 
 export function buildLaunchOptions(options = {}) {
-  const known = new Set(['executablePath','engineMode','headless','proxy','platform','platformVersion','extensionPaths','seed','args','geoip','humanize','humanConfig','locale','timezone','viewport']);
+  const known = new Set(['executablePath','engineMode','headless','proxy','platform','platformVersion','webrtcPolicy','extensionPaths','seed','args','geoip','humanize','humanConfig','locale','timezone','viewport']);
   for(const key of Object.keys(options)) if(!known.has(key)) throw new TypeError(`Unknown option: ${key}`);
   if(options.humanize) validateHumanConfig(options.humanConfig??{});
   const {executablePath, engineMode = 'custom', headless = true, proxy, platform = 'native', extensionPaths = [], seed, args = [], geoip = false} = options;
   if (!executablePath) throw new Error('Set executablePath to an actual built binary, or choose a stock executable with engineMode: baseline');
   if (!['custom', 'baseline'].includes(engineMode)) throw new TypeError('Invalid engineMode');
   if (!['native','windows','linux','macos'].includes(platform)) throw new TypeError('Unsupported platform');
+  const webrtcPolicy=options.webrtcPolicy??'native';
+  if(!['native','default','default_public_interface_only','default_public_and_private_interfaces','disable_non_proxied_udp'].includes(webrtcPolicy)) throw new TypeError('Unsupported webrtcPolicy');
+  if(engineMode==='baseline' && webrtcPolicy!=='native') throw new Error('WebRTC policy requires our compiled custom engine');
   if (engineMode === 'baseline' && platform !== 'native') throw new Error('Platform identity requires our compiled custom engine, not baseline mode');
   if (options.platformVersion !== undefined && (platform === 'native' || !/^\d+\.\d+\.\d+$/.test(options.platformVersion) || options.platformVersion.length > 32)) throw new TypeError('platformVersion requires a preset and major.minor.patch');
   if (geoip) throw new Error('GeoIP integration is not implemented yet');
   if (!Array.isArray(args) || !args.every(a => typeof a === 'string')) throw new TypeError('args must be strings');
   if (args.some(a => /^--(no-sandbox|disable-setuid-sandbox)(=|$)/.test(a))) throw new Error('Sandbox must remain enabled');
-  if (args.some(a => /^--(custom-browser-seed|custom-browser-platform|custom-browser-platform-version|user-data-dir)(=|$)/.test(a))) throw new Error('Use typed options instead of duplicate lifecycle flags');
+  if (args.some(a => /^--(custom-browser-seed|custom-browser-platform|custom-browser-platform-version|custom-browser-webrtc-policy|user-data-dir)(=|$)/.test(a))) throw new Error('Use typed options instead of duplicate lifecycle flags');
   if (!Array.isArray(extensionPaths) || !extensionPaths.every(p => typeof p === 'string' && !p.includes(','))) throw new TypeError('extensionPaths must be paths without commas');
   if (seed !== undefined && ((typeof seed === 'number' && !Number.isSafeInteger(seed)) || !/^\d+$/.test(String(seed)) || BigInt(seed) > 18446744073709551615n)) throw new TypeError('seed must be a uint64 decimal string');
   const launchArgs = [...args];
   if (platform !== 'native') launchArgs.push(`--custom-browser-platform=${platform}`);
   if (options.platformVersion !== undefined) launchArgs.push(`--custom-browser-platform-version=${options.platformVersion}`);
+  if (webrtcPolicy!=='native') launchArgs.push(`--custom-browser-webrtc-policy=${webrtcPolicy}`);
   if (engineMode === 'custom' && seed !== undefined) launchArgs.push(`--custom-browser-seed=${seed}`);
   if (extensionPaths.length) {
     const paths = extensionPaths.map(p => resolve(p)).join(',');
@@ -54,7 +59,7 @@ export function buildLaunchOptions(options = {}) {
     ...(proxy ? {proxy: normalizeProxy(proxy)} : {})};
 }
 
-async function verifyCustomBinary(options) {
+export async function verifyCustomBinary(options) {
   if (options.engineMode === 'baseline') return;
   // Refuse to silently advertise a stock executable as our custom engine.
   const {execFile} = await import('node:child_process');
@@ -64,6 +69,7 @@ async function verifyCustomBinary(options) {
   const info = JSON.parse(stdout.trim());
   if (info.engine !== 'custom-browser' || info.policyVersion !== 1) throw new Error('Custom engine handshake failed');
   if (options.args.some(a=>a.startsWith('--custom-browser-platform=')) && (info.sourcePatchCount??0) < 2) throw new Error('Compiled engine does not support platform identity');
+  if (options.args.some(a=>a.startsWith('--custom-browser-webrtc-policy=')) && !info.capabilities?.includes('webrtc-policy')) throw new Error('Compiled engine does not support the native WebRTC policy patch');
 }
 
 export async function launch(options = {}) {

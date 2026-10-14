@@ -4,6 +4,8 @@
 
 **Update, 14 October 2026:** the Windows x64 Chromium 146 integration build completed. Twenty-eight JavaScript engine checks, five Python custom-engine checks and ten custom-engine driver smoke checks pass. Exact source and executable/runtime hashes, scope and limitations are recorded in [validation summary](engine-validation-summary.json). Earlier SDK and stock-browser outcomes remain foundation evidence. Steps 1 and 2 are complete; the next iteration is the supported-stable rebase in step 3. Original detector baseline measurements below are unchanged.
 
+**Later checkpoint:** step 3 now has verified Chromium 155.0.8059.80 source, an applicable three-patch source series and a ready VS 2026/SDK toolchain. The stable build is uncompiled; dependency sync/hooks remain pending and restarting the native pipeline was rejected by automatic approval review. Puppeteer SDK launch/input/profile checks pass on the historical custom binary in both display modes. See [iteration 3](iteration-03.md).
+
 ## Built and verified
 
 - Git repository with pinned Chromium revision, build settings, checkout instructions, preflight checks, patch application tooling, and a patch manifest.
@@ -47,7 +49,7 @@ The full Chromium checkout and dependency sync completed using a short workspace
 
 ## Work still required
 
-The desktop web identity family and seed infrastructure are locally validated on the Windows x64 compiled integration binary. Canvas, audio, fonts, WebGL/WebGPU, graphics/display consistency, WebRTC policies, network timing/header policies, authenticated SOCKS5, UDP/HTTP3 proxy transport and CDP input changes remain outstanding. There are two source patches; no 87-patch count or broad fingerprint capability is claimed.
+The desktop web identity family and seed infrastructure are locally validated on the Windows x64 historical binary containing two patches. The separate stable series contains three source-written patches, including WebRTC policy selection, and has not compiled. Canvas, audio, fonts, WebGL/WebGPU, graphics/display consistency, actual WebRTC routing, network policies, authenticated SOCKS5, UDP/HTTP3 proxy transport and CDP input changes remain outstanding. No 87-patch count or broad fingerprint capability is claimed.
 
 SDK HTTP credential handling currently uses Playwright, not custom network-layer support. GeoIP deliberately fails as not implemented. Platform presets require the custom engine handshake and Windows integration validation passed. Extension loading options are provided for profile contexts but custom-engine extension behavior has not been tested. Humanization covers documented SDK operations, not every raw CDP/driver call; explicit cancellation handles remain pending.
 

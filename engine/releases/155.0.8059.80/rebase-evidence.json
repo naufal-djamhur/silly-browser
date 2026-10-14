@@ -1,0 +1,18 @@
+{
+  "version": "155.0.8059.80",
+  "commit": "43a195105613ac83c21d3f14de279f4a045c7da0",
+  "sourcePatchCount": 3,
+  "status": "ordered-source-rebase-written",
+  "compiled": false,
+  "requirements": {
+    "visualStudioMinimum": "18.0.0",
+    "sdk": "10.0.28000.2270",
+    "debuggerMinimum": "10.0.26100.3323",
+    "freeDiskGBMinimum": 100
+  },
+  "patchSha256": {
+    "0001-seed-lifecycle-and-engine-handshake.patch": "b1981e6030e7b6b7ee9bf157db3ff2761a201a984aa4193d96e80c42fa6f8914",
+    "0002-platform-web-identity.patch": "06451f26e8080411cb084911e52c604bb88140e4f6f10a2a119f0677e0b0a9d3",
+    "0003-webrtc-privacy-policy.patch": "d2f228e5c2c38b864a105150e525121b3d0cd898a648b0a40673575d4c7bab83"
+  }
+}

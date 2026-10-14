@@ -6,7 +6,7 @@ The [implementation plan](implementation-plan.md) turns these gates into 26 iter
 
 ## Release lines
 
-See `engine/versions.json` for exact revision pins. Chromium 146 is the historical integration build. Chromium 155 is a previous-major rebase target; the installed stock Chrome 155 only supplies harness evidence. Chromium 156 is the stable Windows target reported by Chromium Dash on 14 October 2026. No custom Chromium version is advertised as supported yet.
+See `engine/versions.json` for exact revision pins. Chromium 146 is the historical integration build. The current independently verified stable rebase target is **155.0.8059.80**; its source and toolchain are ready, but dependency sync and compilation are incomplete. Stock Chrome 155.0.8059.40 only supplies harness evidence. The earlier 156 pin is retained as a proposed snapshot, not a verified current-stable claim. No custom Chromium version is advertised as supported yet.
 
 Every maintained revision needs a separate ordered patch series, clean checkout verification, build output, binary hash, feature report, and driver matrix. A user-agent override never selects an engine version. A release line becomes supported only after its actual binary qualifies. Security updates require rebasing and re-running these gates.
 
@@ -21,7 +21,7 @@ Every maintained revision needs a separate ordered patch series, clean checkout 
 | ENGINE-05 | Canvas and geometry policies | Not implemented | Consistent behavior for canvas, OffscreenCanvas, worker rendering, image export and rectangles; native mode regression checks |
 | ENGINE-06 | Audio policies | Not implemented | Offline/real-time audio consistency, stable profile policy, bounded changes and native-mode comparison |
 | ENGINE-07 | Screen/display consistency | Native defaults only | Multiple displays, scaling, viewport and outer-window geometry; headed/headless coverage |
-| ENGINE-08 | WebRTC privacy/routing | Not implemented | ICE/STUN/TURN, IPv4/IPv6, proxy routing and leak tests; explicit policy and failure behavior |
+| ENGINE-08 | WebRTC privacy/routing | Stable source policy and standalone parser checks written; native browser/network qualification pending | ICE/STUN/TURN, IPv4/IPv6, proxy routing and leak tests; explicit policy and failure behavior |
 | NET-09 | Native HTTP proxy credentials | SDK uses Playwright HTTP authentication | Native auth challenge, HTTPS CONNECT, encoded credentials and authenticated proxy fixture tests |
 | NET-10 | Native SOCKS5 authentication | Unsupported and rejected explicitly | RFC negotiation, credentials, remote DNS, IPv6, timeouts and error propagation |
 | NET-11 | SOCKS5 UDP and HTTP/3 | Not implemented | UDP ASSOCIATE and QUIC end-to-end traffic capture; truthful fallback behavior |
@@ -29,9 +29,9 @@ Every maintained revision needs a separate ordered patch series, clean checkout 
 | INPUT-13 | Engine/CDP input behavior | SDK pacing only | Native event semantics, actionability, cancellation, timeouts, nested frames and raw driver coverage |
 | SDK-14 | GeoIP/timezone/locale | GeoIP rejected explicitly | Deadline-limited resolution through the configured proxy, explicit overrides, cache and failure tests |
 | SDK-15 | Extensions and profiles | Profile storage tests pass; extension load unverified | Actual extension worker/content script executes; storage, seeds and lifecycle survive relaunch |
-| SDK-16 | Public SDK parity | Scoped reference review recorded | Typed API/options, Python sync/async behavior, Puppeteer launch adapter and lifecycle contracts |
+| SDK-16 | Public SDK parity | Scoped review; Puppeteer launch/profile/input helpers pass on historical Windows headed/headless binary, broader parity pending | Typed API/options, Python sync/async behavior, Puppeteer launch adapter and lifecycle contracts |
 | DRIVER-17 | Driver compatibility | Ten stock-Chrome and ten custom-146 Windows smoke checks passed; expanded feature matrix pending | Same suite on custom binaries, supported exact library versions, headed/headless evidence |
-| RELEASE-18 | Multiple Chromium lines | Exact pins and support policy recorded | Rebase/build/test each line separately; no broad untested range |
+| RELEASE-18 | Multiple Chromium lines | Stable three-patch rebase applies to pristine pinned files; full stable build pending | Rebase/build/test each line separately; no broad untested range |
 | RELEASE-19 | Distribution | Not implemented | Reproducible packaging, signed version/platform manifests, verified download and safe extraction |
 | QA-20 | Competitive evidence | Stock baselines only | Repeated custom and reference runs with comparable versions, profiles, network and environment; retain failures/unavailable results |
 | PLATFORM-21 | Linux/macOS builds | Not built/tested | Native platform builders, graphics/font fixtures, driver matrices and signed artifacts |

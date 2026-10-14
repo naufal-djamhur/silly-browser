@@ -1,0 +1,97 @@
+{
+  "checkpoint": "2026-10-14-stable-source-and-sdk",
+  "stable": {
+    "version": "155.0.8059.80",
+    "commit": "43a195105613ac83c21d3f14de279f4a045c7da0",
+    "mainSourceCheckedOut": true,
+    "originalSourceHashesVerified": 7,
+    "sourcePatchesWritten": 3,
+    "orderedPristineFixturePassed": true,
+    "toolchainVerified": true,
+    "dependenciesComplete": false,
+    "compiled": false,
+    "browserValidated": false,
+    "pipelineRestart": "automatic-approval-review-blocked-by-policy"
+  },
+  "historicalRuntime": {
+    "version": "146.0.7680.177",
+    "compiledPatchCount": 2,
+    "binarySha256": "c6b180610bb528ba2eb4f84490ff7f45e95c49a4b30c4d3663da4af906436927",
+    "runtimeSha256": "29f1d515805c781d8c279ddf53f6f9e655dcf11d8416404ad8055b7841836e23"
+  },
+  "sdkChecks": {
+    "javascriptFoundation": {
+      "passed": 8,
+      "failed": 0,
+      "includesRealStockBrowserFixture": true
+    },
+    "puppeteer": {
+      "library": "25.13.0",
+      "node": "v24.19.0",
+      "passed": 3,
+      "failed": 0,
+      "observations": [
+        {
+          "headless": true,
+          "status": "passed",
+          "version": "Chrome/146.0.7680.177",
+          "inputAndActionability": true,
+          "cancellation": true,
+          "cookiesAndStorageRetained": true,
+          "seedPreserved": true,
+          "temporaryCleanup": true
+        },
+        {
+          "headless": false,
+          "status": "passed",
+          "version": "Chrome/146.0.7680.177",
+          "inputAndActionability": true,
+          "cancellation": true,
+          "cookiesAndStorageRetained": true,
+          "seedPreserved": true,
+          "temporaryCleanup": true
+        }
+      ]
+    },
+    "pythonCustomEngine": {
+      "passed": 5,
+      "failed": 0,
+      "results": [
+        {
+          "name": "test_async_macos_persistent_profile",
+          "status": "passed"
+        },
+        {
+          "name": "test_async_native_context_and_temporary_cleanup",
+          "status": "passed"
+        },
+        {
+          "name": "test_rejected_options_preserve_profile",
+          "status": "passed"
+        },
+        {
+          "name": "test_sync_browser_linux_identity",
+          "status": "passed"
+        },
+        {
+          "name": "test_sync_windows_persistent_profile",
+          "status": "passed"
+        }
+      ]
+    },
+    "pythonWebRtcGuards": {
+      "passed": 3,
+      "failed": 0
+    },
+    "releaseSelection": {
+      "passed": 2,
+      "failed": 0
+    }
+  },
+  "limitations": [
+    "Stable C++ linkage and native browser behavior are unqualified",
+    "WebRTC STUN/TURN/IPv6/proxy/managed policy fixtures remain pending",
+    "Puppeteer popup/frame/context wrapping and authenticated proxy/locale/timezone support remain pending",
+    "Detector target below 10 and production release gates are unfulfilled"
+  ]
+}

@@ -30,11 +30,13 @@ def _proxy(value):
     if password:result['password']=password
     return result
 
-def _options(executable_path=None, engine_mode='custom', headless=True, proxy=None, platform='native', platform_version=None, extension_paths=None, seed=None, args=None, geoip=False, **kwargs):
+def _options(executable_path=None, engine_mode='custom', headless=True, proxy=None, platform='native', platform_version=None, webrtc_policy='native', extension_paths=None, seed=None, args=None, geoip=False, **kwargs):
     if kwargs:raise TypeError(f'Unknown options: {", ".join(kwargs)}')
     if not executable_path:raise ValueError('An explicit executable_path is required')
     if engine_mode not in ('custom','baseline'):raise ValueError('Invalid engine_mode')
     if platform not in ('native','windows','linux','macos'):raise ValueError('Unsupported platform')
+    if webrtc_policy not in ('native','default','default_public_interface_only','default_public_and_private_interfaces','disable_non_proxied_udp'):raise ValueError('Unsupported webrtc_policy')
+    if engine_mode=='baseline' and webrtc_policy!='native':raise ValueError('WebRTC policy requires our compiled custom engine')
     if engine_mode=='baseline' and platform!='native':raise ValueError('Platform identity requires our compiled custom engine')
     if geoip:raise NotImplementedError('GeoIP is not implemented yet')
     if platform_version is not None:
@@ -42,7 +44,7 @@ def _options(executable_path=None, engine_mode='custom', headless=True, proxy=No
         if platform=='native' or not isinstance(platform_version,str) or len(platform_version)>32 or not re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+',platform_version):raise ValueError('platform_version requires a preset and major.minor.patch')
     launch_args=list(args or [])
     if not all(isinstance(a,str) for a in launch_args):raise TypeError('args must be strings')
-    if any(a.split('=')[0] in ('--no-sandbox','--disable-setuid-sandbox','--custom-browser-seed','--custom-browser-platform','--custom-browser-platform-version','--user-data-dir') for a in launch_args):
+    if any(a.split('=')[0] in ('--no-sandbox','--disable-setuid-sandbox','--custom-browser-seed','--custom-browser-platform','--custom-browser-platform-version','--custom-browser-webrtc-policy','--user-data-dir') for a in launch_args):
         raise ValueError('Sandbox and profile lifecycle flags cannot be overridden')
     if seed is not None:
         value=str(seed)
@@ -50,6 +52,7 @@ def _options(executable_path=None, engine_mode='custom', headless=True, proxy=No
         if engine_mode == 'custom':launch_args.append(f'--custom-browser-seed={value}')
     if platform!='native':launch_args.append(f'--custom-browser-platform={platform}')
     if platform_version is not None:launch_args.append(f'--custom-browser-platform-version={platform_version}')
+    if webrtc_policy!='native':launch_args.append(f'--custom-browser-webrtc-policy={webrtc_policy}')
     paths=extension_paths or []
     if not isinstance(paths,list) or any(not isinstance(p,str) or ',' in p for p in paths):raise TypeError('Invalid extension_paths')
     if paths:
@@ -66,6 +69,7 @@ def _handshake(options,mode):
     info=json.loads(result.stdout.strip())
     if info.get('engine')!='custom-browser' or info.get('policyVersion')!=1:raise RuntimeError('Custom engine handshake failed')
     if any(a.startswith('--custom-browser-platform=') for a in options['args']) and info.get('sourcePatchCount',0)<2:raise RuntimeError('Compiled engine does not support platform identity')
+    if any(a.startswith('--custom-browser-webrtc-policy=') for a in options['args']) and 'webrtc-policy' not in info.get('capabilities',[]):raise RuntimeError('Compiled engine does not support the native WebRTC policy patch')
 
 def _seed(directory,explicit):
     directory.mkdir(parents=True,exist_ok=True)

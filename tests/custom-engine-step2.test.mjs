@@ -14,6 +14,9 @@ import {launch, launchContext, launchPersistentContext} from '../sdk/js/index.mj
 const exec = promisify(execFile), executablePath = process.env.CUSTOM_BROWSER_EXECUTABLE;
 if (!executablePath) throw new Error('Set CUSTOM_BROWSER_EXECUTABLE to the built engine; skipped checks cannot qualify a release.');
 const root = fileURLToPath(new URL('../', import.meta.url));
+const release = process.env.CUSTOM_BROWSER_RELEASE;
+if (release && !/^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$/.test(release)) throw new Error('CUSTOM_BROWSER_RELEASE must be an exact Chromium version');
+const engineRoot = release ? join(root, 'engine/releases', release) : join(root, 'engine');
 const output = resolve(process.env.CUSTOM_ENGINE_REPORT ?? join(root, 'artifacts/engine-validation/windows-146-step2/results.json'));
 const report = {schemaVersion: 1, iteration: 2, engineMode: 'custom', startedAt: new Date().toISOString(), host: {platform: platform(), arch: arch()}, results: []};
 const controls = new Map();
@@ -81,11 +84,12 @@ function check(name, operation) {
 before(async () => {
   if (!executablePath) return;
   for (const filename of ['chrome.exe', 'chrome.dll']) report[filename === 'chrome.exe' ? 'binarySha256' : 'runtimeSha256'] = createHash('sha256').update(await readFile(join(dirname(executablePath), filename))).digest('hex');
-  const lock = JSON.parse(await readFile(join(root, 'engine/upstream.lock.json'), 'utf8'));
+  const lock = JSON.parse(await readFile(join(engineRoot, 'upstream.lock.json'), 'utf8'));
+  const manifest = JSON.parse(await readFile(join(engineRoot, 'patches/manifest.json'), 'utf8'));
   report.upstreamCommit = lock.commit; report.expectedVersion = lock.tag; report.node = process.version;
   report.playwright = JSON.parse(await readFile(join(root, 'node_modules/playwright-core/package.json'), 'utf8')).version;
   report.engineInfo = JSON.parse((await exec(executablePath, ['--headless', '--custom-browser-engine-info'], {timeout: 10000, windowsHide: true})).stdout.trim());
-  assert.equal(report.engineInfo.engine, 'custom-browser'); assert.equal(report.engineInfo.sourcePatchCount, 2);
+  assert.equal(report.engineInfo.engine, 'custom-browser'); assert.equal(report.engineInfo.sourcePatchCount, manifest.patches.length);
   server = createServer((req, res) => {
     res.setHeader('Accept-CH', 'Sec-CH-UA-Platform-Version, Sec-CH-UA-Arch, Sec-CH-UA-Bitness, Sec-CH-UA-Full-Version-List');
     if (req.url === '/headers') {res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(req.headers)); return;}

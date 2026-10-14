@@ -1,0 +1,102 @@
+{
+  "upstreamFiles": {
+    "chrome/app/chrome_main_delegate.cc": "f0c26e4db79a0ec99cb1de5876f8b162a3ce0ac9f1fdad574f5161a6d4bb6f44",
+    "chrome/browser/chrome_content_browser_client.cc": "5acf5a81454ca1ad8da7474d4aeee057c2ad7f765a443957ffe4a0bb5e70326f",
+    "chrome/common/BUILD.gn": "cbf3b87b865bf44777757d2702cb15372e00ffc763b271608f190b71eb6ac2ab",
+    "components/embedder_support/user_agent_utils.cc": "21d06edd8f0b76a0bfef8c7aab2448e4f046f788e24da5591713c3561ea54708",
+    "third_party/blink/renderer/core/execution_context/navigator_base.cc": "64b29bb294db26511bd68cb304837bca69fd13b16daf318eae6efbe0565d944b",
+    "third_party/blink/public/common/BUILD.gn": "4ac2f2eca3762d426cd06f54bc2cf03a5e6f899097ca5af52da9e6b7d04ecd7f",
+    "chrome/browser/renderer_preferences_util.cc": "5704803c2ccce48ae3b614b876ff1a3730e07b2dcbbe2ab08a527372074bbef4"
+  },
+  "fingerprintPatchesImplemented": 0,
+  "patches": [
+    {
+      "id": "CB-0001",
+      "file": "0001-seed-lifecycle-and-engine-handshake.patch",
+      "scope": "Browser seed initialization, child switch propagation and engine handshake",
+      "status": "rebased-source-not-compiled",
+      "platforms": [
+        "windows",
+        "linux"
+      ],
+      "regressions": [
+        "tests/seed_policy_test.cc",
+        "tests/custom-engine-step2.test.mjs",
+        "tests/python_custom_engine_test.py"
+      ],
+      "limitations": [
+        "No renderer fingerprint modification",
+        "Persistent seed currently managed by SDK",
+        "GPU/network service propagation requires further validation",
+        "Full stable Chromium compilation and browser integration pending"
+      ],
+      "validatedPlatforms": []
+    },
+    {
+      "id": "CB-0002",
+      "file": "0002-platform-web-identity.patch",
+      "scope": "Explicit desktop web identity presets in UA, Client Hints and NavigatorBase",
+      "status": "rebased-source-not-compiled",
+      "dependencies": [
+        "CB-0001"
+      ],
+      "platforms": [
+        "windows",
+        "linux"
+      ],
+      "regressions": [
+        "tests/platform_policy_test.cc",
+        "tests/custom-engine-step2.test.mjs",
+        "tests/python_custom_engine_test.py"
+      ],
+      "limitations": [
+        "No font/GPU/network OS emulation",
+        "Synthetic platform-version defaults",
+        "Full stable Chromium compilation and browser integration pending"
+      ],
+      "validatedPlatforms": []
+    },
+    {
+      "id": "CB-0003",
+      "file": "0003-webrtc-privacy-policy.patch",
+      "scope": "Explicit native WebRTC policy selection and renderer-preference routing with managed-policy precedence",
+      "status": "source-written-not-Chromium-compiled",
+      "dependencies": [
+        "CB-0001",
+        "CB-0002"
+      ],
+      "platforms": [
+        "windows",
+        "linux",
+        "macos"
+      ],
+      "validatedPlatforms": [],
+      "regressions": [
+        "tests/webrtc_policy_test.cc"
+      ],
+      "limitations": [
+        "Standalone policy checks do not validate ICE/STUN/TURN or actual proxy routing",
+        "No IP spoofing or fabricated candidates",
+        "Full stable build and browser integration pending"
+      ]
+    }
+  ],
+  "plannedFamilies": [
+    "identity",
+    "canvas",
+    "geometry",
+    "fonts",
+    "webgl",
+    "webgpu",
+    "audio",
+    "display",
+    "webrtc",
+    "authenticated-socks5",
+    "udp-associate",
+    "network-exposure",
+    "cdp-input"
+  ],
+  "fingerprintSourcePatchFamiliesWritten": 1,
+  "browserValidatedFingerprintFamilies": [],
+  "privacySourcePatchFamiliesWritten": 1
+}

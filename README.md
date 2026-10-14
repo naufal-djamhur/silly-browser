@@ -6,6 +6,8 @@ An independent source-patched Chromium project with Python and JavaScript contro
 
 Chromium 146 is a historical integration build. Rendering, graphics, network, WebRTC and input engine changes remain outstanding; no current production release or broad version range is qualified.
 
+The separate Chromium **155.0.8059.80** stable source checkout and installed Windows toolchain are verified. Its three-patch source series has not compiled. The new Puppeteer launch adapter passes local headed/headless checks on the preserved historical binary. See the [stable rebase checkpoint](docs/iteration-03.md) for evidence and the current build boundary.
+
 The planned scope includes multiple Chromium revisions, a public SDK review and driver compatibility. [Completion tracker](docs/engine-roadmap.md), [public SDK review](docs/public-sdk-review.md), and [version pins](engine/versions.json) distinguish planned releases from validated support. No custom version is advertised as supported yet.
 
 To continue development, read the [implementation plan](docs/implementation-plan.md), [session handoff](docs/session-handoff.md), and [ECC command guide](docs/orchestration.md). The plan defines 26 iterations with dependencies and acceptance criteria. The current local build/test pipeline does not execute those future iterations automatically.
@@ -58,6 +60,22 @@ For persistent state use `launchPersistentContext('profiles/my-profile', options
 
 `launch()` returns a Playwright Browser; `launchContext()` returns a profile-backed BrowserContext with temporary-directory cleanup. Custom mode is the default and requires the engine handshake; stock Chrome is allowed only when explicitly labeled baseline. No bundled/downloaded binary is misrepresented as our engine.
 
+### Puppeteer adapter
+
+```javascript
+import {launchPuppeteer, launchPuppeteerPersistent} from './sdk/js/index.mjs';
+const browser = await launchPuppeteer({executablePath: 'PATH_TO_CUSTOM_CHROME.exe', humanize: true});
+try {
+  const page = await browser.newPage();
+  await page.goto('https://example.com');
+  await page.mouse.move(200, 150, {humanConfig: {durationMs: 200}});
+} finally {await browser.close();}
+```
+
+`launchPuppeteerPersistent(profileDirectory, options)` preserves profile data and seeds. Explicit `page.humanClick(selector, options)` and `page.humanType(selector, text, options)` wait for an actionable target. Mouse/keyboard helpers accept per-call `humanConfig` and an AbortSignal; `mouse.wheel` retains Puppeteer's object argument. Popup pages, separate contexts and nested frames are not automatically wrapped. Authenticated proxies and locale/timezone options fail explicitly in this adapter until qualified.
+
+`webrtcPolicy` (Python: `webrtc_policy`) defaults to `native`. Other standard IP-handling policies require the explicit `webrtc-policy` engine capability. The historical binary rejects them; the stable implementation awaits compilation and routing validation.
+
 ## Python API
 
 ```powershell
@@ -101,11 +119,10 @@ py tests/python_browser_test.py
 $env:CUSTOM_BROWSER_EXECUTABLE="PATH_TO_BUILT_CHROME.exe"
 npm run test:engine
 py tests/python_custom_engine_test.py
-# Set this to your actual custom build before running engine qualification:
-$env:CUSTOM_BROWSER_EXECUTABLE="PATH_TO_BUILT_CHROME.exe"
-npm run test:engine
-py tests/python_custom_engine_test.py
 py build/verify_patches.py --workspace PATH_TO_EMPTY_VERIFICATION_DIRECTORY
+# Select the separate stable source series explicitly:
+py build/verify_patches.py --release 155.0.8059.80 --workspace ANOTHER_EMPTY_DIRECTORY
+npm run test:puppeteer
 ```
 
 Python tests require the installed SDK package. Native parser tests compile `tests/seed_policy_test.cc` with C++17; they do not compile Chromium. Browser tests use a local fixture to exercise input, disabled-target waiting, storage, cookies, profile seeds, and cleanup. The report distinguishes these checks from detector tests.
@@ -116,6 +133,6 @@ Desktop platform presets are compiled and locally validated on the Windows x64 i
 
 Canvas/audio/font/graphics/display consistency, native HTTP credential support, authenticated SOCKS5, UDP ASSOCIATE and HTTP3 transport, WebRTC candidate/routing policies, GeoIP, network exposure policies, and CDP input changes are not implemented. Corresponding unsupported SDK options fail explicitly. No 87-patch claim or universal detector-pass claim is made.
 
-AI/MCP adapters, expanded expanded custom-engine Selenium checks, undetected-chromedriver integration runs, Linux/macOS native builds, artifact signing, release downloads, and integration dependency suites remain outstanding. See `docs/reference-examples.json` for the full reference coverage inventory.
+AI/MCP adapters, expanded custom-engine Selenium checks, undetected-chromedriver integration runs, Linux/macOS native builds, artifact signing, release downloads, and integration dependency suites remain outstanding. See `docs/reference-examples.json` for the full reference coverage inventory.
 
 The project uses upstream Chromium and our own patches. CloakBrowser remains a benchmark reference, not the engine dependency or a copied proprietary patch set.

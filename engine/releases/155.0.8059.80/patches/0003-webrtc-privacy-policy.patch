@@ -1,0 +1,135 @@
+diff --git a/chrome/app/chrome_main_delegate.cc b/chrome/app/chrome_main_delegate.cc
+index 6fe16ea..1788909 100644
+--- a/chrome/app/chrome_main_delegate.cc
++++ b/chrome/app/chrome_main_delegate.cc
+@@ -51,6 +51,7 @@
+ #include "chrome/common/chrome_switches.h"
+ #include "chrome/common/crash_keys.h"
+ #include "chrome/common/custom_browser_seed_policy.h"
++#include "chrome/common/custom_browser_webrtc_policy.h"
+ #include "chrome/common/logging_chrome.h"
+ #include "chrome/common/profiler/chrome_thread_group_profiler_client.h"
+ #include "chrome/common/profiler/chrome_thread_profiler_client.h"
+@@ -1204,9 +1205,16 @@ std::optional<int> ChromeMainDelegate::BasicStartupComplete() {
+       LOG(ERROR) << "Platform version requires a preset and major.minor.patch";
+       return CHROME_RESULT_CODE_UNSUPPORTED_PARAM;
+     }
++    if (command_line.HasSwitch("custom-browser-webrtc-policy") &&
++        !custom_browser::ParseWebRtcPolicy(command_line.GetSwitchValueASCII(
++            "custom-browser-webrtc-policy"))) {
++      LOG(ERROR) << "Unsupported custom-browser-webrtc-policy";
++      return CHROME_RESULT_CODE_UNSUPPORTED_PARAM;
++    }
+     if (command_line.HasSwitch("custom-browser-engine-info")) {
+       printf("{\"engine\":\"custom-browser\",\"policyVersion\":1,"
+-             "\"sourcePatchCount\":2,\"fingerprintIntegrationValidated\":false,"
++             "\"sourcePatchCount\":3,\"capabilities\":[\"seed\",\"platform-identity\",\"webrtc-policy\"],"
++             "\"fingerprintIntegrationValidated\":false,"
+              "\"seed\":\"%s\"}\n",
+              command_line.GetSwitchValueASCII("custom-browser-seed").c_str());
+       return 0;
+diff --git a/chrome/browser/renderer_preferences_util.cc b/chrome/browser/renderer_preferences_util.cc
+index 2b542a4..7fc1a53 100644
+--- a/chrome/browser/renderer_preferences_util.cc
++++ b/chrome/browser/renderer_preferences_util.cc
+@@ -9,6 +9,7 @@
+ #include <string>
+ #include <vector>
+ 
++#include "base/command_line.h"
+ #include "base/logging.h"
+ #include "base/strings/string_number_conversions.h"
+ #include "base/strings/string_util.h"
+@@ -21,6 +22,7 @@
+ #include "chrome/browser/ash/login/demo_mode/demo_session.h"
+ #endif
+ #include "chrome/browser/profiles/profile.h"
++#include "chrome/common/custom_browser_webrtc_policy.h"
+ #include "chrome/common/pref_names.h"
+ #include "components/autofill/core/common/autofill_prefs.h"
+ #include "components/language/core/browser/language_prefs.h"
+@@ -170,6 +172,21 @@ void UpdateFromSystemSettings(blink::RendererPreferences* prefs,
+   prefs->webrtc_ip_handling_policy = blink::ToWebRTCIPHandlingPolicy(
+       pref_service->GetString(prefs::kWebRTCIPHandlingPolicy));
+ 
++  // Keep managed policy authoritative. Native mode retains the profile value;
++  // explicit launch policy is sent through the normal renderer preferences IPC.
++  const auto& command_line = *base::CommandLine::ForCurrentProcess();
++  if (command_line.HasSwitch("custom-browser-webrtc-policy") &&
++      !pref_service->IsManagedPreference(prefs::kWebRTCIPHandlingPolicy)) {
++    if (auto policy = custom_browser::ParseWebRtcPolicy(
++            command_line.GetSwitchValueASCII("custom-browser-webrtc-policy"))) {
++      const std::string_view value = custom_browser::ChromiumWebRtcPolicy(*policy);
++      if (!value.empty()) {
++        prefs->webrtc_ip_handling_policy =
++            blink::ToWebRTCIPHandlingPolicy(std::string(value));
++      }
++    }
++  }
++
+   for (const base::Value& entry :
+        pref_service->GetList(prefs::kWebRTCIPHandlingUrl)) {
+     const base::DictValue& dict = entry.GetDict();
+diff --git a/chrome/common/BUILD.gn b/chrome/common/BUILD.gn
+index 7b14da1..f9886f9 100644
+--- a/chrome/common/BUILD.gn
++++ b/chrome/common/BUILD.gn
+@@ -469,6 +469,7 @@ static_library("non_code_constants") {
+     "chrome_constants.h",
+     "chrome_switches.h",
+     "custom_browser_seed_policy.h",
++    "custom_browser_webrtc_policy.h",
+     "env_vars.h",
+   ]
+   configs += [ "//build/config/compiler:wexit_time_destructors" ]
+diff --git a/chrome/common/custom_browser_webrtc_policy.h b/chrome/common/custom_browser_webrtc_policy.h
+new file mode 100644
+index 0000000..6f11b14
+--- /dev/null
++++ b/chrome/common/custom_browser_webrtc_policy.h
+@@ -0,0 +1,45 @@
++// Copyright 2026 Custom Browser contributors. MIT license.
++#ifndef CHROME_COMMON_CUSTOM_BROWSER_WEBRTC_POLICY_H_
++#define CHROME_COMMON_CUSTOM_BROWSER_WEBRTC_POLICY_H_
++
++#include <optional>
++#include <string_view>
++
++namespace custom_browser {
++
++enum class WebRtcPolicy {
++  kNative,
++  kDefault,
++  kPublicInterfaceOnly,
++  kPublicAndPrivateInterfaces,
++  kDisableNonProxiedUdp,
++};
++
++inline std::optional<WebRtcPolicy> ParseWebRtcPolicy(std::string_view name) {
++  if (name == "native") return WebRtcPolicy::kNative;
++  if (name == "default") return WebRtcPolicy::kDefault;
++  if (name == "default_public_interface_only")
++    return WebRtcPolicy::kPublicInterfaceOnly;
++  if (name == "default_public_and_private_interfaces")
++    return WebRtcPolicy::kPublicAndPrivateInterfaces;
++  if (name == "disable_non_proxied_udp")
++    return WebRtcPolicy::kDisableNonProxiedUdp;
++  return std::nullopt;
++}
++
++inline std::string_view ChromiumWebRtcPolicy(WebRtcPolicy policy) {
++  switch (policy) {
++    case WebRtcPolicy::kNative: return {};
++    case WebRtcPolicy::kDefault: return "default";
++    case WebRtcPolicy::kPublicInterfaceOnly:
++      return "default_public_interface_only";
++    case WebRtcPolicy::kPublicAndPrivateInterfaces:
++      return "default_public_and_private_interfaces";
++    case WebRtcPolicy::kDisableNonProxiedUdp:
++      return "disable_non_proxied_udp";
++  }
++  return {};
++}
++
++}  // namespace custom_browser
++#endif  // CHROME_COMMON_CUSTOM_BROWSER_WEBRTC_POLICY_H_

@@ -4,12 +4,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test tests/config.test.mjs tests/browser.test.mjs tests/profile-seed.test.mjs",
+    "test": "node --test tests/config.test.mjs tests/browser.test.mjs tests/profile-seed.test.mjs tests/webrtc-capability.test.mjs",
     "benchmark": "node benchmarks/run.mjs",
     "inventory": "node benchmarks/inventory.mjs",
     "test:engine": "node --test tests/custom-engine-step2.test.mjs",
     "compatibility": "node compatibility/run.mjs",
-    "test:engine:python": "python tests/python_custom_engine_test.py"
+    "test:engine:python": "python tests/python_custom_engine_test.py",
+    "test:puppeteer": "node --test tests/puppeteer-sdk.test.mjs",
+    "test:webrtc": "node --test tests/webrtc-browser.test.mjs"
   },
   "dependencies": {
     "playwright-core": "1.62.1"

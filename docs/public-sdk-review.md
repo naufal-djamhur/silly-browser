@@ -34,6 +34,8 @@ The compatibility fixture tests navigation, DOM input, iframe access, storage re
 
 These results validate the local test harness and the current SDK paths on stock Chrome. Separate iteration-2 evidence now qualifies the same ten smoke paths and the documented identity/seed checks on our custom Windows 146 integration binary. See [custom-engine summary](engine-validation-summary.json). These checks do not qualify native Linux/macOS, arbitrary library versions, all Playwright features, or third-party framework integrations. The reference examples remain an inventory until executed independently.
 
+The [iteration-3 checkpoint](iteration-03.md) adds a Puppeteer launch/profile adapter with real headed/headless historical-engine checks for explicit actionability, per-call input settings, cancellation and cleanup. It does not establish complete reference SDK parity; popup/context/frame coverage, authenticated proxy support and locale/timezone integration remain pending.
+
 ## Public references
 
 - [Pinned public repository](https://github.com/CloakHQ/CloakBrowser/tree/160f56da85860e89f0e7d9bfdc80266b984057d5)

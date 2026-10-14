@@ -10,6 +10,16 @@ function config(defaults = {}, overrides = {}) {
 }
 export const validateHumanConfig = defaults => config(defaults);
 function random(seed) {let s = seed >>> 0; return () => {s = (Math.imul(s, 1664525) + 1013904223) >>> 0; return s / 4294967296;};}
+export function motionPoints(start, end, settings) {
+  if (![start.x,start.y,end.x,end.y].every(Number.isFinite)) throw new TypeError('Mouse coordinates must be finite');
+  const bend=(random(settings.seed)()-0.5)*80;
+  const p1={x:start.x+(end.x-start.x)/3,y:start.y+(end.y-start.y)/3+bend};
+  const p2={x:start.x+2*(end.x-start.x)/3,y:start.y+2*(end.y-start.y)/3-bend};
+  return Array.from({length:Math.max(1,Math.ceil(settings.durationMs/16))},(_,index)=>{
+    const t=(index+1)/Math.max(1,Math.ceil(settings.durationMs/16)),u=1-t;
+    return {x:u*u*u*start.x+3*u*u*t*p1.x+3*u*t*t*p2.x+t*t*t*end.x,y:u*u*u*start.y+3*u*u*t*p1.y+3*u*t*t*p2.y+t*t*t*end.y};
+  });
+}
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 function wrapPage(page, defaults) {
   if (wrapped.has(page)) return;
@@ -20,17 +30,13 @@ function wrapPage(page, defaults) {
   const nativeMouseClick = page.mouse.click.bind(page.mouse);
   const nativeType = page.keyboard.type.bind(page.keyboard);
   page.mouse.move = async (x, y, opts = {}) => {
-    const {humanConfig, ...native} = opts, c = config(defaults, humanConfig), r = random(c.seed);
-    const start = {...position}, bend = (r() - 0.5) * 80;
-    const p1 = {x: start.x + (x-start.x)/3, y: start.y + (y-start.y)/3 + bend};
-    const p2 = {x: start.x + 2*(x-start.x)/3, y: start.y + 2*(y-start.y)/3 - bend};
-    const steps = Math.max(1, Math.ceil(c.durationMs / 16));
-    for (let i=1; i<=steps; i++) {
+    const {humanConfig, ...native} = opts, c = config(defaults, humanConfig);
+    const points=motionPoints(position,{x,y},c);
+    for (const point of points) {
       if (page.isClosed()) throw new Error('Page closed during motion');
-      const t=i/steps, u=1-t;
-      position = {x: u*u*u*start.x+3*u*u*t*p1.x+3*u*t*t*p2.x+t*t*t*x, y:u*u*u*start.y+3*u*u*t*p1.y+3*u*t*t*p2.y+t*t*t*y};
+      position = point;
       await nativeMove(position.x, position.y, native);
-      await sleep(c.durationMs / steps);
+      await sleep(c.durationMs / points.length);
     }
   };
   page.mouse.wheel = async (dx, dy, opts = {}) => {

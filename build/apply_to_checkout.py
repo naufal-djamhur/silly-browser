@@ -5,15 +5,19 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import argparse
+from release_config import load_release
 root=pathlib.Path(__file__).resolve().parents[1]
-if len(sys.argv)!=2:raise SystemExit('Usage: python build/apply_to_checkout.py CHROMIUM_SRC')
-source=pathlib.Path(sys.argv[1]).resolve()
-lock=json.loads((root/'engine/upstream.lock.json').read_text())
+parser=argparse.ArgumentParser()
+parser.add_argument('source',type=pathlib.Path)
+parser.add_argument('--release')
+args=parser.parse_args()
+directory,lock,manifest=load_release(args.release)
+source=args.source.resolve()
 head=subprocess.check_output(['git','-C',str(source),'rev-parse','HEAD'],text=True).strip()
 if head!=lock['commit']:raise SystemExit('Checkout revision does not match upstream lock')
 if subprocess.check_output(['git','-C',str(source),'status','--porcelain'],text=True).strip():raise SystemExit('Checkout must be clean')
-manifest=json.loads((root/'engine/patches/manifest.json').read_text())
-patches=[str(root/'engine/patches'/p['file']) for p in manifest['patches']]
+patches=[str(directory/'patches'/p['file']) for p in manifest['patches']]
 # Later patches depend on earlier changes. Check the ordered series in a
 # disposable fixture before changing the real checkout.
 with tempfile.TemporaryDirectory(prefix='custom-browser-patches-') as fixture:
