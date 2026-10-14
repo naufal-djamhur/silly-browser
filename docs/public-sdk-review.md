@@ -32,7 +32,7 @@ Sources:
 
 The compatibility fixture tests navigation, DOM input, iframe access, storage retained across reload, observed browser values and protocol access. On stock Chrome `155.0.8059.40`, Windows x64, all ten checks passed: JS Playwright SDK, JS Playwright CDP, Puppeteer CDP, Python Playwright, and Selenium/ChromeDriver, each headed and headless. See [baseline summary](driver-baseline-summary.json) for recorded versions and outcomes. Raw local observations are excluded from the public repository.
 
-These results validate the local test harness and the current SDK paths on stock Chrome. They do not qualify our custom engine, Linux/macOS, arbitrary library versions, all Playwright features, or third-party framework integrations. The reference examples remain an inventory until executed independently.
+These results validate the local test harness and the current SDK paths on stock Chrome. Separate iteration-2 evidence now qualifies the same ten smoke paths and the documented identity/seed checks on our custom Windows 146 integration binary. See [custom-engine summary](engine-validation-summary.json). These checks do not qualify native Linux/macOS, arbitrary library versions, all Playwright features, or third-party framework integrations. The reference examples remain an inventory until executed independently.
 
 ## Public references
 

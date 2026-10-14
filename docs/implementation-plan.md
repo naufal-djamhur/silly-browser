@@ -2,12 +2,12 @@
 
 Dated 14 October 2026, Asia/Jakarta. Repository: https://github.com/naufal-djamhur/silly-browser
 
-This document is a resumable engineering plan, not an automatic execution schedule. The existing local pipeline currently compiles the first Windows binary, then runs driver smoke checks and the identity integration test. Further implementation starts only in a resumed working session.
+This document is a resumable engineering plan, not an automatic execution schedule. The initial local pipeline completed the Windows binary, driver smoke checks and original identity integration test. The expanded checks for steps 1 and 2 have now passed. Further implementation starts only in a resumed working session.
 
 ## Checkpoint and first action
 
-- Source: Chromium 146.0.7680.177, with two applied C++ patches. No custom binary or browser-validated fingerprint family is available at this checkpoint.
-- Six JavaScript SDK tests, five Python SDK tests and ten stock-Chrome Windows driver smoke checks have passed. Stock evidence does not qualify a custom release.
+- Source: Chromium 146.0.7680.177, with two applied C++ patches. The Windows x64 custom integration binary is built; seed infrastructure and the desktop web identity family have local browser evidence. See [validation summary](engine-validation-summary.json).
+- Six JavaScript SDK tests, five Python SDK tests and ten stock-Chrome Windows driver smoke checks have passed. Separately, ten custom-engine driver checks, 28 JavaScript engine checks and five Python custom-engine checks pass. These are integration results, not a production release.
 - The public SDK review inventories 103 files with selected-section review of 17. Proprietary reference engine patches are unavailable.
 - On resume, inspect the ignored local `docs/native-build-status.json`, the end of `docs/native-build.log`, the actual compiler processes, the output binary and `artifacts/compatibility/custom-windows-146/results.json`. A stage timestamp is not live progress; an executable left by a failed run is not a validated release.
 - If compilation is active, leave that checkout and build invocation alone. If failed, use step 1. If the whole pipeline succeeded, verify its evidence before completing steps 1 and 2. Never launch a duplicate build merely because the previous chat ended.
@@ -43,7 +43,7 @@ Dependencies below are explicit, not a promise that all numerical steps must run
 
 ## Step 1 — Complete or repair the first native compilation
 
-**Iteration:** 1 · **Status:** in-progress · **Depends on:** none · **Tracker:** BUILD-01
+**Iteration:** 1 · **Status:** integration-validated · **Depends on:** none · **Tracker:** BUILD-01
 
 Observe the existing Windows Chromium 146 pipeline. If it failed, preserve the first actionable diagnostic, correct only that failure, verify the patched checkout and resume incrementally. A later session must inspect the actual process and log before starting another build.
 
@@ -59,7 +59,7 @@ Observe the existing Windows Chromium 146 pipeline. If it failed, preserve the f
 
 ## Step 2 — Test the current custom engine and driver paths
 
-**Iteration:** 2 · **Status:** planned · **Depends on:** 1 · **Tracker:** ENGINE-02, DRIVER-17
+**Iteration:** 2 · **Status:** integration-validated · **Depends on:** 1 · **Tracker:** ENGINE-02, DRIVER-17
 
 Inspect the automatic ten-case driver report and identity test after compilation. Extend validation where the existing test is incomplete: native identity, all explicit platform presets, high-entropy Client Hints, frames, workers and invalid options. Repeat only missing or failed checks.
 

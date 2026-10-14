@@ -1,31 +1,36 @@
 # silly-browser progress — 14 October 2026
 
-An independent Chromium source project with JavaScript and Python automation SDKs. This is an experimental development snapshot; no custom browser binary or supported custom Chromium release is available yet.
+**Steps 1 and 2 are integration-validated.** The Windows x64 Chromium 146 custom binary compiled and passed its driver, identity and seed checks. It remains a historical development build; no production release or broad Chromium version range is supported.
 
-## Completed foundation
+## Measured results
 
-- Pinned Chromium 146.0.7680.177 source checkout, full dependencies and successful native build generation on Windows.
-- Two C++ source patches applied and checked against the exact upstream revision: seed lifecycle/engine identification and desktop platform web identity.
-- Standalone C++ policy checks pass. Full Chromium compilation and browser-level patch validation are pending.
-- JavaScript SDK: six tests passed. Python SDK: five tests passed. Coverage includes configuration, local browser behavior and concurrent persistent seed initialization.
-- Persistent/temporary profiles, seed storage, documented SDK input pacing helpers, actionability checks and per-call configuration.
-- Ten local driver smoke checks passed using **stock Chrome 155.0.8059.40** on Windows x64, in headed and headless modes: JS Playwright SDK, Playwright CDP, Puppeteer CDP, Python Playwright and Selenium/ChromeDriver. See [versioned summary](driver-baseline-summary.json).
-- Benchmark collection tools and a public reference SDK review. The review inventories 103 files and examines selected sections of 17 files; it is not an audit of proprietary engine patches or a complete source audit.
+| Check | Result | Scope |
+|---|---|---|
+| JavaScript custom-engine suite | 28 passed, zero failed | Native/preset identities, default/explicit versions, five JS surfaces, headed/headless modes, seed lifecycle/propagation and startup rejection |
+| Python custom-engine suite | Five passed, zero failed | Sync/async launch options, native identity, persistent seed/storage, invalid options and temporary cleanup |
+| Custom-browser driver smoke suite | Ten passed, zero failed | JS Playwright SDK/CDP, Puppeteer CDP, Python Playwright and Selenium/ChromeDriver, headed/headless |
+| Exact two-patch source verification | Passed | Pinned Chromium 146 checkout and unchanged patch contents |
 
-## Current checkpoint
+The [public validation summary](engine-validation-summary.json) records exact source, executable/runtime hashes, libraries, outcomes and limitations. The original six JavaScript and five Python SDK tests on stock Chrome remain earlier foundation evidence. Stock detector observations have not been relabeled as custom-browser results.
 
-The first native Windows compilation is running with six workers. Its completion will be followed by custom-engine driver and identity checks. The build can still fail, and successful compilation alone will not establish fingerprint behavior or detector performance.
+## Implemented foundation
 
-The two patches are the initial foundation. There are **zero browser-validated fingerprint patch families** at this checkpoint. Existing stock-browser results do not qualify the custom engine.
+- Two C++ patches: seed lifecycle/engine identification and desktop web identity settings.
+- Profile storage and atomic persistent seed publication, plus temporary-profile cleanup.
+- Documented SDK input pacing, actionability helpers and per-call settings.
+- Basic custom-engine driver connections with the sandbox enabled.
+- Reference SDK inventory of 103 files, with selected sections reviewed in 17. Proprietary engine patches were not reviewed or copied.
 
-## Remaining work
+Only the desktop web identity family has the current narrow browser validation. Default and explicit values agree in tested document/frame/worker JavaScript surfaces; HTTP Client Hints are checked where the native fixture emits them. Native worker fetches omit those headers. Native preservation uses direct launches of the same custom binary as the control.
 
-Canvas/audio/font/graphics/display consistency, WebRTC privacy and routing, native authenticated HTTP/SOCKS5 transport, UDP/HTTP3 proxy support, network exposure policies, engine input changes, GeoIP behavior, extension validation, SDK coverage, additional platforms and release packaging remain outstanding. See the [completion tracker](engine-roadmap.md) for individual gates.
+## Next iteration
 
-Chromium 146 is a historical integration anchor. Chromium 155 and 156 are planned rebase targets; neither is a validated custom release. A current supported engine is required before production distribution.
+[Step 3](implementation-plan.md#step-3): verify the current supported stable Chromium revision, rebase the validated patch series in a separate checkout, compile and requalify that exact binary. No stable rebase was started in iteration 2.
 
-## Baseline findings
+Rendering/audio/font/graphics/display work, native authenticated HTTP/SOCKS5 and UDP/HTTP3 transport, WebRTC/privacy policies, engine input changes, GeoIP, extension qualification, agent adapters, additional platforms and release distribution remain outstanding. See [completion tracker](engine-roadmap.md).
 
-Stock Chrome runs returned Fingerprint Scan bot-risk scores of 100/100 in three repetitions. The three-run reCAPTCHA demo collection produced no verified scores within the collection window; a separate initial probe observed one verified 0.9. Sannysoft, Rebrowser and Device & Browser Info failed their current adapters. Other detector pages were captured without a validated pass verdict.
+## Historical stock-browser detector observations
 
-These observations describe the stock-browser harness only. No superiority over CloakBrowser, universal detector pass, 87-patch implementation or guaranteed CAPTCHA score is claimed. Raw captures, local profiles, machine reports and build logs are excluded from the public repository.
+Stock Chrome 155 returned Fingerprint Scan bot-risk scores of 100/100 in three repetitions. The three-run reCAPTCHA demo collection produced no verified scores; a separate initial probe observed one verified 0.9. Sannysoft, Rebrowser and Device & Browser Info failed their current adapters. Other pages were captured without validated pass verdicts.
+
+Those observations remain stock-browser harness evidence. This iteration made no custom detector pass, comparative superiority, 87-patch implementation or guaranteed CAPTCHA-score claim. Raw captures, profiles and machine/build reports remain excluded from the public repository.

@@ -2,15 +2,15 @@
 
 An independent source-patched Chromium project with Python and JavaScript control APIs and a reproducible detector benchmark harness.
 
-**Current status: native Chromium compilation is running. No custom Chromium executable has been completed. No fingerprint patch family is validated in Chromium.** Two source patches implement seed infrastructure and desktop web identity settings. Both apply to the full pinned checkout; shared C++ policy tests compile and pass independently. Full Chromium compilation and integration validation are outstanding.
+**Current status: the Windows x64 Chromium 146 integration binary compiled and passed local validation.** Two applied C++ patches provide seed infrastructure and desktop web identity settings. Twenty-eight JavaScript engine checks, five Python custom-engine checks and ten custom-engine driver smoke checks pass. See [measured evidence](docs/engine-validation-summary.json).
 
-As of 14 October 2026, the prerequisite checks, full dependency sync and build generation pass. The first native compilation is in progress. See the dated [progress report](docs/progress.md). Rendering, graphics, network, WebRTC, and input engine work still needs implementation and validation.
+Chromium 146 is a historical integration build. Rendering, graphics, network, WebRTC and input engine changes remain outstanding; no current production release or broad version range is qualified.
 
 The planned scope includes multiple Chromium revisions, a public SDK review and driver compatibility. [Completion tracker](docs/engine-roadmap.md), [public SDK review](docs/public-sdk-review.md), and [version pins](engine/versions.json) distinguish planned releases from validated support. No custom version is advertised as supported yet.
 
 To continue development, read the [implementation plan](docs/implementation-plan.md), [session handoff](docs/session-handoff.md), and [ECC command guide](docs/orchestration.md). The plan defines 26 iterations with dependencies and acceptance criteria. The current local build/test pipeline does not execute those future iterations automatically.
 
-Ten local Windows checks pass on stock Chrome 155: JS Playwright SDK, JS Playwright CDP, Puppeteer CDP, Python Playwright and Selenium/ChromeDriver, each headed and headless. See [driver checks](compatibility/README.md) and the [baseline summary](docs/driver-baseline-summary.json). Custom-engine checks are queued after compilation. Raw captures and local machine/build reports are excluded from this repository.
+Ten local Windows checks pass on stock Chrome 155: JS Playwright SDK, JS Playwright CDP, Puppeteer CDP, Python Playwright and Selenium/ChromeDriver, each headed and headless. See [driver checks](compatibility/README.md) and the [baseline summary](docs/driver-baseline-summary.json). The same ten driver paths also passed on the custom Chromium 146 binary; see [custom-engine evidence](docs/engine-validation-summary.json). Raw captures and local machine/build reports are excluded from this repository.
 
 ## What works now
 
@@ -97,6 +97,14 @@ The 146 lock is a historical reference anchor, not a current production recommen
 $env:TEST_CHROMIUM_EXECUTABLE='C:\Program Files\Google\Chrome\Application\chrome.exe'
 npm test
 py tests/python_browser_test.py
+# Set this to your actual custom build before running engine qualification:
+$env:CUSTOM_BROWSER_EXECUTABLE="PATH_TO_BUILT_CHROME.exe"
+npm run test:engine
+py tests/python_custom_engine_test.py
+# Set this to your actual custom build before running engine qualification:
+$env:CUSTOM_BROWSER_EXECUTABLE="PATH_TO_BUILT_CHROME.exe"
+npm run test:engine
+py tests/python_custom_engine_test.py
 py build/verify_patches.py --workspace PATH_TO_EMPTY_VERIFICATION_DIRECTORY
 ```
 
@@ -104,10 +112,10 @@ Python tests require the installed SDK package. Native parser tests compile `tes
 
 ## Remaining engine work
 
-Desktop platform presets are source-written but not yet Chromium-compiled. Custom-mode SDK options map `platform` and `platformVersion` (Python: `platform_version`) to source-level settings; baseline mode rejects identity overrides. Synthetic preset versions default to Windows `13.0.0`, macOS `15.0.0`, and blank Linux Client Hints platform version. Native mode retains the actual engine defaults. Fonts, GPU, and network behavior are not changed by these identity settings.
+Desktop platform presets are compiled and locally validated on the Windows x64 integration binary. Custom-mode SDK options map `platform` and `platformVersion` (Python: `platform_version`) to source-level settings; baseline mode rejects identity overrides. Synthetic preset versions default to Windows `13.0.0`, macOS `15.0.0`, and blank Linux Client Hints platform version. Native mode retains the actual engine defaults. Fonts, GPU, and network behavior are not changed by these identity settings.
 
 Canvas/audio/font/graphics/display consistency, native HTTP credential support, authenticated SOCKS5, UDP ASSOCIATE and HTTP3 transport, WebRTC candidate/routing policies, GeoIP, network exposure policies, and CDP input changes are not implemented. Corresponding unsupported SDK options fail explicitly. No 87-patch claim or universal detector-pass claim is made.
 
-AI/MCP adapters, custom-engine Selenium checks, undetected-chromedriver integration runs, Linux/macOS native builds, artifact signing, release downloads, and integration dependency suites remain outstanding. See `docs/reference-examples.json` for the full reference coverage inventory.
+AI/MCP adapters, expanded expanded custom-engine Selenium checks, undetected-chromedriver integration runs, Linux/macOS native builds, artifact signing, release downloads, and integration dependency suites remain outstanding. See `docs/reference-examples.json` for the full reference coverage inventory.
 
 The project uses upstream Chromium and our own patches. CloakBrowser remains a benchmark reference, not the engine dependency or a copied proprietary patch set.

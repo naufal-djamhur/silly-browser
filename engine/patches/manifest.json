@@ -7,31 +7,37 @@
     "third_party/blink/renderer/core/execution_context/navigator_base.cc": "03ba02210b80655c8d7bed577372b0ec6364b49c2f7a87d7254f1efcd9a260e0",
     "third_party/blink/public/common/BUILD.gn": "d9fbbc1626f86580ad288e29e7fd4c5bf24a76ac968dbfbbb7816b6962010fed"
   },
-  "fingerprintPatchesImplemented": 0,
+  "fingerprintPatchesImplemented": 1,
   "patches": [
     {
       "id": "CB-0001",
       "file": "0001-seed-lifecycle-and-engine-handshake.patch",
       "scope": "Browser seed initialization, child switch propagation and engine handshake",
-      "status": "source-written-not-Chromium-compiled",
+      "status": "browser-validated-windows-x64-146",
       "platforms": [
         "windows",
         "linux"
       ],
       "regressions": [
-        "tests/seed_policy_test.cc"
+        "tests/seed_policy_test.cc",
+        "tests/custom-engine-step2.test.mjs",
+        "tests/python_custom_engine_test.py"
       ],
       "limitations": [
         "No renderer fingerprint modification",
         "Persistent seed currently managed by SDK",
         "GPU/network service propagation requires further validation"
-      ]
+      ],
+      "validatedPlatforms": [
+        "windows-x64"
+      ],
+      "evidence": "../../docs/engine-validation-summary.json"
     },
     {
       "id": "CB-0002",
       "file": "0002-platform-web-identity.patch",
       "scope": "Explicit desktop web identity presets in UA, Client Hints and NavigatorBase",
-      "status": "source-written-not-Chromium-compiled",
+      "status": "browser-validated-windows-x64-146",
       "dependencies": [
         "CB-0001"
       ],
@@ -40,13 +46,19 @@
         "linux"
       ],
       "regressions": [
-        "tests/platform_policy_test.cc"
+        "tests/platform_policy_test.cc",
+        "tests/custom-engine-step2.test.mjs",
+        "tests/python_custom_engine_test.py"
       ],
       "limitations": [
         "No font/GPU/network OS emulation",
         "Synthetic platform-version defaults",
-        "Full browser/worker coverage needs compiled validation"
-      ]
+        "Native Linux/macOS builds and foreign font/GPU behavior are not validated"
+      ],
+      "validatedPlatforms": [
+        "windows-x64"
+      ],
+      "evidence": "../../docs/engine-validation-summary.json"
     }
   ],
   "plannedFamilies": [
@@ -64,5 +76,8 @@
     "network-exposure",
     "cdp-input"
   ],
-  "fingerprintSourcePatchFamiliesWritten": 1
+  "fingerprintSourcePatchFamiliesWritten": 1,
+  "browserValidatedFingerprintFamilies": [
+    "desktop-web-identity"
+  ]
 }

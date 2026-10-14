@@ -14,8 +14,8 @@ Every maintained revision needs a separate ordered patch series, clean checkout 
 
 | ID | Work | Current evidence/status | Required completion evidence |
 |---|---|---|---|
-| BUILD-01 | Windows native engine | Dependencies, source patching and build generation pass; compilation running | Successful build, engine handshake, exact binary version/hash |
-| ENGINE-02 | Platform identity | C++ policy and patch application pass; browser integration pending | UA and Client Hints agree across HTTP, main page, frames and workers; native mode preserved |
+| BUILD-01 | Windows native engine | Windows 146 compilation, version/hash and handshake pass; [evidence](engine-validation-summary.json) | Successful build, engine handshake, exact binary version/hash |
+| ENGINE-02 | Platform identity | Windows 146 headed/headless native/preset identities pass on page, frame and three worker types | UA and Client Hints agree across HTTP, main page, frames and workers; native mode preserved |
 | ENGINE-03 | Native graphics | Chromium defaults retained; no custom spoofing implemented | Record hardware adapter, WebGL/WebGPU values and rendering on headed/headless custom builds |
 | ENGINE-04 | Fonts | Native Chromium font facilities retained | Font rendering/enumeration coverage, permissions, installed-font provenance and native fallback behavior |
 | ENGINE-05 | Canvas and geometry policies | Not implemented | Consistent behavior for canvas, OffscreenCanvas, worker rendering, image export and rectangles; native mode regression checks |
@@ -30,7 +30,7 @@ Every maintained revision needs a separate ordered patch series, clean checkout 
 | SDK-14 | GeoIP/timezone/locale | GeoIP rejected explicitly | Deadline-limited resolution through the configured proxy, explicit overrides, cache and failure tests |
 | SDK-15 | Extensions and profiles | Profile storage tests pass; extension load unverified | Actual extension worker/content script executes; storage, seeds and lifecycle survive relaunch |
 | SDK-16 | Public SDK parity | Scoped reference review recorded | Typed API/options, Python sync/async behavior, Puppeteer launch adapter and lifecycle contracts |
-| DRIVER-17 | Driver compatibility | Ten stock-Chrome Windows checks passed | Same suite on custom binaries, supported exact library versions, headed/headless evidence |
+| DRIVER-17 | Driver compatibility | Ten stock-Chrome and ten custom-146 Windows smoke checks passed; expanded feature matrix pending | Same suite on custom binaries, supported exact library versions, headed/headless evidence |
 | RELEASE-18 | Multiple Chromium lines | Exact pins and support policy recorded | Rebase/build/test each line separately; no broad untested range |
 | RELEASE-19 | Distribution | Not implemented | Reproducible packaging, signed version/platform manifests, verified download and safe extraction |
 | QA-20 | Competitive evidence | Stock baselines only | Repeated custom and reference runs with comparable versions, profiles, network and environment; retain failures/unavailable results |
@@ -39,6 +39,6 @@ Every maintained revision needs a separate ordered patch series, clean checkout 
 
 ## Order of execution
 
-Finish the Windows build and validate the existing identity changes. Run the driver suite and native graphics/font diagnostics. Complete each engine family with its own local fixture before cross-family testing. Bring SDK option handling and lifecycle behavior into parity. Rebase the validated source onto the stable target, then qualify previous-major and additional-platform releases individually. Compare detector measurements only after a custom binary exists.
+Steps 1 and 2 passed the Windows integration build and identity/driver checks. Next verify and rebase onto the current supported stable revision, then collect native graphics/font diagnostics. Complete each engine family with its own local fixture before cross-family testing. Bring SDK option handling and lifecycle behavior into parity. Rebase the validated source onto the stable target, then qualify previous-major and additional-platform releases individually. Compare detector measurements only after a custom binary exists.
 
 The project is complete only when the required gates have evidence. Successful compilation, a marketing patch count, a mocked launch test or a single detector score does not satisfy those gates.

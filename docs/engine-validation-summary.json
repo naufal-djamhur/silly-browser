@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "iteration": 2,
+  "status": "integration-validated",
+  "productionEligible": false,
+  "completedAt": "2026-10-14T15:02:52.554Z",
+  "engineMode": "custom",
+  "version": "146.0.7680.177",
+  "upstreamCommit": "ae03f7fb2cf1215853896d6a4c15fdceee2badb7",
+  "binarySha256": "c6b180610bb528ba2eb4f84490ff7f45e95c49a4b30c4d3663da4af906436927",
+  "runtimeSha256": "29f1d515805c781d8c279ddf53f6f9e655dcf11d8416404ad8055b7841836e23",
+  "host": {
+    "platform": "win32",
+    "arch": "x64"
+  },
+  "libraryVersions": {
+    "node": "v24.19.0",
+    "playwrightJS": "1.62.1",
+    "python": "3.13.5",
+    "playwrightPython": "1.62.0",
+    "puppeteer": "25.13.0",
+    "selenium": "4.51.0"
+  },
+  "engineInfo": {
+    "engine": "custom-browser",
+    "policyVersion": 1,
+    "sourcePatchCount": 2,
+    "fingerprintIntegrationValidated": false
+  },
+  "totals": {
+    "javascriptEngine": 28,
+    "pythonEngine": 5,
+    "retainedDriverSmokeChecks": 10,
+    "failed": 0
+  },
+  "nativeIdentity": {
+    "platform": "Win32",
+    "hintPlatform": "Windows",
+    "platformVersion": "19.0.0"
+  },
+  "javascriptChecks": [
+    {
+      "name": "native control headless",
+      "status": "passed",
+      "elapsedMs": 795
+    },
+    {
+      "name": "SDK native identity preserved headless",
+      "status": "passed",
+      "elapsedMs": 1033
+    },
+    {
+      "name": "windows default platformVersion headless",
+      "status": "passed",
+      "elapsedMs": 1025
+    },
+    {
+      "name": "windows explicit platformVersion headless",
+      "status": "passed",
+      "elapsedMs": 1023
+    },
+    {
+      "name": "linux default platformVersion headless",
+      "status": "passed",
+      "elapsedMs": 1039
+    },
+    {
+      "name": "linux explicit platformVersion headless",
+      "status": "passed",
+      "elapsedMs": 1021
+    },
+    {
+      "name": "macos default platformVersion headless",
+      "status": "passed",
+      "elapsedMs": 1014
+    },
+    {
+      "name": "macos explicit platformVersion headless",
+      "status": "passed",
+      "elapsedMs": 1038
+    },
+    {
+      "name": "persistent seed and storage lifecycle headless",
+      "status": "passed",
+      "elapsedMs": 4385
+    },
+    {
+      "name": "native control headed",
+      "status": "passed",
+      "elapsedMs": 916
+    },
+    {
+      "name": "SDK native identity preserved headed",
+      "status": "passed",
+      "elapsedMs": 1145
+    },
+    {
+      "name": "windows default platformVersion headed",
+      "status": "passed",
+      "elapsedMs": 1116
+    },
+    {
+      "name": "windows explicit platformVersion headed",
+      "status": "passed",
+      "elapsedMs": 1188
+    },
+    {
+      "name": "linux default platformVersion headed",
+      "status": "passed",
+      "elapsedMs": 1129
+    },
+    {
+      "name": "linux explicit platformVersion headed",
+      "status": "passed",
+      "elapsedMs": 1140
+    },
+    {
+      "name": "macos default platformVersion headed",
+      "status": "passed",
+      "elapsedMs": 1165
+    },
+    {
+      "name": "macos explicit platformVersion headed",
+      "status": "passed",
+      "elapsedMs": 1327
+    },
+    {
+      "name": "persistent seed and storage lifecycle headed",
+      "status": "passed",
+      "elapsedMs": 4777
+    },
+    {
+      "name": "seed boundaries and generated startup seed",
+      "status": "passed",
+      "elapsedMs": 665
+    },
+    {
+      "name": "engine rejects --custom-browser-seed=",
+      "status": "passed",
+      "elapsedMs": 137
+    },
+    {
+      "name": "engine rejects --custom-browser-seed=-1",
+      "status": "passed",
+      "elapsedMs": 127
+    },
+    {
+      "name": "engine rejects --custom-browser-seed=18446744073709551616",
+      "status": "passed",
+      "elapsedMs": 138
+    },
+    {
+      "name": "engine rejects --custom-browser-seed=1.0",
+      "status": "passed",
+      "elapsedMs": 133
+    },
+    {
+      "name": "engine rejects --custom-browser-platform=freebsd",
+      "status": "passed",
+      "elapsedMs": 125
+    },
+    {
+      "name": "engine rejects --custom-browser-platform-version=12.3.4",
+      "status": "passed",
+      "elapsedMs": 129
+    },
+    {
+      "name": "engine rejects --custom-browser-platform=windows --custom-browser-platform-version=broken",
+      "status": "passed",
+      "elapsedMs": 139
+    },
+    {
+      "name": "engine rejects --custom-browser-platform=macos --custom-browser-platform-version=",
+      "status": "passed",
+      "elapsedMs": 130
+    },
+    {
+      "name": "browser and renderer receive typed seed/platform switches",
+      "status": "passed",
+      "elapsedMs": 1277
+    }
+  ],
+  "pythonChecks": [
+    {
+      "name": "test_async_macos_persistent_profile",
+      "status": "passed"
+    },
+    {
+      "name": "test_async_native_context_and_temporary_cleanup",
+      "status": "passed"
+    },
+    {
+      "name": "test_rejected_options_preserve_profile",
+      "status": "passed"
+    },
+    {
+      "name": "test_sync_browser_linux_identity",
+      "status": "passed"
+    },
+    {
+      "name": "test_sync_windows_persistent_profile",
+      "status": "passed"
+    }
+  ],
+  "driverChecks": [
+    {
+      "driver": "playwright-js-sdk",
+      "headless": true,
+      "status": "passed",
+      "libraryVersion": null,
+      "chromeDriverVersion": null
+    },
+    {
+      "driver": "playwright-js-cdp",
+      "headless": true,
+      "status": "passed",
+      "libraryVersion": null,
+      "chromeDriverVersion": null
+    },
+    {
+      "driver": "puppeteer-cdp",
+      "headless": true,
+      "status": "passed",
+      "libraryVersion": null,
+      "chromeDriverVersion": null
+    },
+    {
+      "driver": "playwright-python",
+      "headless": true,
+      "status": "passed",
+      "libraryVersion": "1.62.0",
+      "chromeDriverVersion": null
+    },
+    {
+      "driver": "selenium",
+      "headless": true,
+      "status": "passed",
+      "libraryVersion": "4.51.0",
+      "chromeDriverVersion": "146.0.7680.165 (4b989da09e15a7dc0de0785cb5ff232aadae3f0f-refs/branch-heads/7680@{#2932})"
+    },
+    {
+      "driver": "playwright-js-sdk",
+      "headless": false,
+      "status": "passed",
+      "libraryVersion": null,
+      "chromeDriverVersion": null
+    },
+    {
+      "driver": "playwright-js-cdp",
+      "headless": false,
+      "status": "passed",
+      "libraryVersion": null,
+      "chromeDriverVersion": null
+    },
+    {
+      "driver": "puppeteer-cdp",
+      "headless": false,
+      "status": "passed",
+      "libraryVersion": null,
+      "chromeDriverVersion": null
+    },
+    {
+      "driver": "playwright-python",
+      "headless": false,
+      "status": "passed",
+      "libraryVersion": "1.62.0",
+      "chromeDriverVersion": null
+    },
+    {
+      "driver": "selenium",
+      "headless": false,
+      "status": "passed",
+      "libraryVersion": "4.51.0",
+      "chromeDriverVersion": "146.0.7680.165 (4b989da09e15a7dc0de0785cb5ff232aadae3f0f-refs/branch-heads/7680@{#2932})"
+    }
+  ],
+  "qualifications": [
+    "Seed lifecycle and desktop web identity on the Windows x64 integration binary only"
+  ],
+  "limitations": [
+    "Historical Chromium 146 is not production-qualified.",
+    "Linux/macOS are identity presets on Windows, not native platform builds.",
+    "Native-mode comparison uses direct launches of the same custom binary, not an independently built unpatched Chromium 146 control.",
+    "Native worker fetches omit Client Hints in this fixture; JavaScript values and HTTP UA are verified, and header availability is preserved.",
+    "Command-line seed checks explicitly use --enable-automation for diagnostics.",
+    "The engine-info fingerprintIntegrationValidated=false field is a fixed conservative build marker, not derived from the test report.",
+    "No rendering/GPU/font/network/WebRTC privacy, detector score or broad driver qualification.",
+    "Existing driver smoke report recorded the executable hash; runtime DLL hash was additionally captured by this iteration."
+  ]
+}

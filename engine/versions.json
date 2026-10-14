@@ -7,8 +7,9 @@
       "version": "146.0.7680.177",
       "commit": "ae03f7fb2cf1215853896d6a4c15fdceee2badb7",
       "role": "historical-integration",
-      "status": "full-source-patches-applied-compiling",
-      "productionEligible": false
+      "status": "integration-validated-windows-x64",
+      "productionEligible": false,
+      "evidence": "../docs/engine-validation-summary.json"
     },
     {
       "version": "155.0.8059.40",

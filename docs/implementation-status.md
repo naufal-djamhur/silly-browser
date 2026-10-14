@@ -1,13 +1,13 @@
 # Implementation status — 14 October 2026, Asia/Jakarta
 
-**Outcome: source project and tested control/benchmark foundation created. The requested source-patched fingerprint browser is not complete.**
+**Outcome: the first Windows custom Chromium integration binary and its local validation are complete. The requested full browser remains in development.**
 
-**Update, 14 October 2026:** SDK and debugging tools are now `10.0.26100.4654`, installed by the user. Native prerequisite checks, the full Chromium dependency checkout, both patch applications and GN build generation pass. Compilation is active with six workers. Six JS and five Python SDK tests pass, including concurrent profile seed publication. Ten local driver checks pass on stock Chrome 155 in headed/headless modes; custom-engine execution remains pending. The accepted multi-version scope and remaining engine work are tracked in `engine-roadmap.md`; the scoped public SDK review is in `public-sdk-review.md`. Original detector baseline measurements below are unchanged.
+**Update, 14 October 2026:** the Windows x64 Chromium 146 integration build completed. Twenty-eight JavaScript engine checks, five Python custom-engine checks and ten custom-engine driver smoke checks pass. Exact source and executable/runtime hashes, scope and limitations are recorded in [validation summary](engine-validation-summary.json). Earlier SDK and stock-browser outcomes remain foundation evidence. Steps 1 and 2 are complete; the next iteration is the supported-stable rebase in step 3. Original detector baseline measurements below are unchanged.
 
 ## Built and verified
 
 - Git repository with pinned Chromium revision, build settings, checkout instructions, preflight checks, patch application tooling, and a patch manifest.
-- Two source patches for seed startup, child switch propagation, an engine handshake, and desktop web identity presets. Both apply cleanly to exact upstream source, including build-file changes. Full Chromium compilation remains unverified.
+- Two source patches for seed startup, child switch propagation, an engine handshake, and desktop web identity presets. Both apply cleanly to exact upstream source and compiled successfully. Windows identity and seed behavior have actual browser evidence.
 - C++17 seed parser compiled using the installed Visual Studio compiler; boundary and invalid-input tests pass.
 - JavaScript SDK and six tests, including real-browser local input/profile behavior and concurrent seed creation, pass.
 - Python sync/async SDK and five real-browser/configuration/concurrency tests pass.
@@ -43,14 +43,14 @@ The pinned Chromium revision requires Windows SDK 10.0.26100.4654. The SDK and d
 
 The required SDK and debugger update is installed and verified.
 
-The full Chromium checkout and dependency sync completed using a short workspace drive mapping. Both patches have been applied to the actual pinned source and verified before build resume. Build generation produced 29,494 targets; compilation is running. No completed binary or engine integration pass is claimed.
+The full Chromium checkout and dependency sync completed using a short workspace drive mapping. Both applied patches were verified again in iteration 2. Build generation and native compilation completed; custom-engine driver and expanded identity/seed checks passed. The build remains a historical integration artifact rather than a production release.
 
 ## Work still required
 
-One identity patch family is written but has not been validated in a compiled Chromium binary. Canvas, audio, fonts, WebGL/WebGPU, graphics/display consistency, WebRTC policies, network timing/header policies, authenticated SOCKS5, UDP/HTTP3 proxy transport, and CDP input changes remain outstanding. There are zero browser-validated fingerprint patches and two source patches; no 87-patch count is claimed.
+The desktop web identity family and seed infrastructure are locally validated on the Windows x64 compiled integration binary. Canvas, audio, fonts, WebGL/WebGPU, graphics/display consistency, WebRTC policies, network timing/header policies, authenticated SOCKS5, UDP/HTTP3 proxy transport and CDP input changes remain outstanding. There are two source patches; no 87-patch count or broad fingerprint capability is claimed.
 
-SDK HTTP credential handling currently uses Playwright, not custom network-layer support. GeoIP deliberately fails as not implemented. Platform presets require the custom engine handshake and compiled integration validation remains pending. Extension loading options are provided for profile contexts but custom-engine extension behavior has not been tested. Humanization covers documented SDK operations, not every raw CDP/driver call; explicit cancellation handles remain pending.
+SDK HTTP credential handling currently uses Playwright, not custom network-layer support. GeoIP deliberately fails as not implemented. Platform presets require the custom engine handshake and Windows integration validation passed. Extension loading options are provided for profile contexts but custom-engine extension behavior has not been tested. Humanization covers documented SDK operations, not every raw CDP/driver call; explicit cancellation handles remain pending.
 
-Native browser builds on Linux/macOS, custom UI, AI/MCP adapters, release signing/downloads, custom-engine custom-engine custom-engine Selenium and undetected-chromedriver integration execution, and comparisons against CloakBrowser/Camoufox/Patchright remain pending. All reference example files are inventoried; their external integration suites have not been run or claimed passing.
+Native browser builds on Linux/macOS, custom UI, AI/MCP adapters, release signing/downloads, expanded Selenium and undetected-chromedriver integration execution, and comparisons against CloakBrowser/Camoufox/Patchright remain pending. Basic Selenium/ChromeDriver custom-engine smoke checks passed. All reference example files are inventoried; their external integration suites have not been run or claimed passing.
 
-After native prerequisites are available: perform the pinned build, validate the infrastructure patch inside Chromium, establish custom-binary baselines, implement one fingerprint family at a time, and compare repeated measured results. Rebase to a current supported engine before production release.
+Next: verify and rebase onto the current supported stable engine in a separate checkout, qualify that binary, collect native diagnostics and implement one family at a time according to the [implementation plan](implementation-plan.md). Repeated benchmark comparisons and production release gates remain later work.

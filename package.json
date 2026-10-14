@@ -7,8 +7,9 @@
     "test": "node --test tests/config.test.mjs tests/browser.test.mjs tests/profile-seed.test.mjs",
     "benchmark": "node benchmarks/run.mjs",
     "inventory": "node benchmarks/inventory.mjs",
-    "test:engine": "node --test tests/custom-engine.test.mjs",
-    "compatibility": "node compatibility/run.mjs"
+    "test:engine": "node --test tests/custom-engine-step2.test.mjs",
+    "compatibility": "node compatibility/run.mjs",
+    "test:engine:python": "python tests/python_custom_engine_test.py"
   },
   "dependencies": {
     "playwright-core": "1.62.1"
