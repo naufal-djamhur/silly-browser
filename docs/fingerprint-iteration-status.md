@@ -2,6 +2,8 @@
 
 The requested score below 10 has **not** been achieved.
 
+The [15 October reference-example assessment](reference-tests-prestable.md) confirms 100/100 again in both modes on the preserved runtime. It adds the requested basic, CreepJS, reCAPTCHA and stealth-suite observations without a new native build.
+
 The user clarified that the intended use is legitimate automation and avoiding mistaken classification. That intent is recorded here. An automated session may still be classified as automated; a score alone does not establish that a detector made a mistake. Compatibility and documented privacy defects can be investigated without concealing automation.
 
 This checkpoint and the [sanitized measurement summary](fingerprint-measurement-summary.json) are saved for continuation. The [post-build checklist](post-build-validation.md) records how to qualify a completed native build. Uncompiled candidate source changes remain local and are excluded from the documentation commit.

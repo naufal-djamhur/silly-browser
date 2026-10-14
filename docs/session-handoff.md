@@ -17,6 +17,8 @@ Repository: https://github.com/naufal-djamhur/silly-browser
 
 The dedicated [measurement checkpoint](fingerprint-iteration-status.md) and [sanitized score summary](fingerprint-measurement-summary.json) preserve those observations. Candidate legacy engine changes remain local and unpublished. Follow the [post-build validation checklist](post-build-validation.md) after a completed native build; compatibility results do not establish detector or CAPTCHA outcomes.
 
+**15 October update:** the user's four selected CloakBrowser reference examples have now been assessed in both display modes on the preserved two-patch binary. Fingerprint Scan remains **100/100** in each mode; CreepJS and the stealth suite fail. One headless reCAPTCHA backend response scored 0.9, while subsequent/headed attempts returned no verified score. Missing data and unsupported variants are not passes. See the [reference-test report](reference-tests-prestable.md) and [sanitized results](reference-test-summary.json). The collector timing correction, original evidence and adaptations are documented there. This session also reran all 43 existing engine/Python/driver checks successfully. The expanded [local interaction plan](headless-headed-e2e-plan.md) remains planned work; its proposed matrix has not been implemented or qualified.
+
 ## Measured checkpoint
 
 - Chromium **146.0.7680.177**, Windows x64, source commit `ae03f7fb2cf1215853896d6a4c15fdceee2badb7`; two applied C++ patches. Exact patched-checkout verification passed again.

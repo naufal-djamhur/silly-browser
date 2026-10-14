@@ -54,6 +54,8 @@ The optional `npm run test:puppeteer` suite writes to the fixed `artifacts/compa
 
 ## Record results and choose the next C++ change
 
+The [headless/headed E2E plan](headless-headed-e2e-plan.md) defines the next local interaction fixtures, paired controls and bounded reliability gate. It is planned work, not completed validation.
+
 Update the handoff with the exact binary hashes, passed/failed checks, logs, feature limitations and first unresolved regression. Keep source-written and browser-validated capabilities distinct. Public summaries should omit credentials, private profiles, IP addresses and raw page captures.
 
 Appropriate next native work is driven by a reproducible engineering failure: compile/link errors, crashes, resource leaks, protocol interoperability defects or incorrect behavior of a documented privacy control. Reproduce the failure locally, make one narrow C++ change, rebuild and repeat the affected compatibility checks. Preserve the earlier evidence and broaden testing only when the change warrants it.

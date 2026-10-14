@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "sessionDate": "2026-10-15",
+  "sessionTimezone": "Asia/Jakarta",
+  "referenceCommit": "fbf005bc199920b592df17ac4d489324e29d56d8",
+  "requestedExamples": [
+    "basic.py",
+    "fingerprint_scan_test.py",
+    "recaptcha_score.py",
+    "stealth_test.py"
+  ],
+  "browserVersion": "146.0.7680.177",
+  "compiledSourcePatchCount": 2,
+  "fingerprintScanTarget": "<10",
+  "targetAchieved": false,
+  "allRequestedExamplesPassBothModes": false,
+  "modes": [
+    {
+      "headless": true,
+      "startedAt": "2026-10-14T17:23:08Z",
+      "completedAt": "2026-10-14T17:25:25Z",
+      "originalEvidence": "artifacts/reference-examples/20261015-historical-headless/results.json",
+      "recaptchaRetryEvidence": "artifacts/reference-examples/20261015-recaptcha-response-fix-headless/results.json",
+      "suitePassed": false,
+      "results": [
+        {
+          "example": "basic.py",
+          "name": "basic",
+          "status": "pass"
+        },
+        {
+          "example": "fingerprint_scan_test.py",
+          "name": "fingerprint-scan",
+          "status": "fail",
+          "score": 100
+        },
+        {
+          "example": "fingerprint_scan_test.py",
+          "name": "creepjs-headless",
+          "status": "fail",
+          "countsOrMetrics": {
+            "likeHeadlessPct": 38,
+            "headlessPct": 100,
+            "stealthPct": 0
+          }
+        },
+        {
+          "example": "recaptcha_score.py",
+          "name": "recaptcha-v3",
+          "status": "unavailable",
+          "score": null,
+          "recordedVerifiedScores": [
+            0.9
+          ],
+          "initialCollectorStatus": "unavailable",
+          "derivedStatusFromRecordedResponse": "pass",
+          "retryStatus": "unavailable",
+          "retryScore": null,
+          "repeatQualification": "not-established"
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "sannysoft",
+          "status": "fail",
+          "countsOrMetrics": {
+            "passed": 52,
+            "total": 56
+          },
+          "literalReferenceReportedPass": false
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "incolumitas",
+          "status": "fail",
+          "countsOrMetrics": {
+            "passed": 30,
+            "total": 36
+          },
+          "literalReferenceReportedPass": false
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "rebrowser",
+          "status": "fail",
+          "countsOrMetrics": {
+            "passed": 4,
+            "total": 10,
+            "totalFails": 3,
+            "notTriggered": 3
+          },
+          "literalReferenceReportedPass": false
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "deviceandbrowserinfo",
+          "status": "fail",
+          "countsOrMetrics": {
+            "isBot": true
+          },
+          "literalReferenceReportedPass": false
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "browserscan",
+          "status": "captured-unqualified",
+          "countsOrMetrics": {
+            "normal": 17,
+            "abnormal": 0
+          },
+          "literalReferenceReportedPass": true
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "creepjs-noise-off",
+          "status": "unsupported-reference-option",
+          "literalReferenceReportedPass": true
+        }
+      ]
+    },
+    {
+      "headless": false,
+      "startedAt": "2026-10-14T17:23:08Z",
+      "completedAt": "2026-10-14T17:25:37Z",
+      "originalEvidence": "artifacts/reference-examples/20261015-historical-headed/results.json",
+      "recaptchaRetryEvidence": "artifacts/reference-examples/20261015-recaptcha-response-fix-headed/results.json",
+      "suitePassed": false,
+      "results": [
+        {
+          "example": "basic.py",
+          "name": "basic",
+          "status": "pass"
+        },
+        {
+          "example": "fingerprint_scan_test.py",
+          "name": "fingerprint-scan",
+          "status": "fail",
+          "score": 100
+        },
+        {
+          "example": "fingerprint_scan_test.py",
+          "name": "creepjs-headless",
+          "status": "fail",
+          "countsOrMetrics": {
+            "likeHeadlessPct": 31,
+            "headlessPct": 33,
+            "stealthPct": 0
+          }
+        },
+        {
+          "example": "recaptcha_score.py",
+          "name": "recaptcha-v3",
+          "status": "unavailable",
+          "score": null,
+          "recordedVerifiedScores": [],
+          "initialCollectorStatus": "unavailable",
+          "derivedStatusFromRecordedResponse": "unavailable",
+          "retryStatus": "unavailable",
+          "retryScore": null,
+          "repeatQualification": "not-established"
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "sannysoft",
+          "status": "fail",
+          "countsOrMetrics": {
+            "passed": 55,
+            "total": 56
+          },
+          "literalReferenceReportedPass": false
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "incolumitas",
+          "status": "fail",
+          "countsOrMetrics": {
+            "passed": 32,
+            "total": 35
+          },
+          "literalReferenceReportedPass": false
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "rebrowser",
+          "status": "fail",
+          "countsOrMetrics": {
+            "passed": 4,
+            "total": 10,
+            "totalFails": 3,
+            "notTriggered": 3
+          },
+          "literalReferenceReportedPass": false
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "deviceandbrowserinfo",
+          "status": "fail",
+          "countsOrMetrics": {
+            "isBot": true
+          },
+          "literalReferenceReportedPass": false
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "browserscan",
+          "status": "captured-unqualified",
+          "countsOrMetrics": {
+            "normal": 17,
+            "abnormal": 0
+          },
+          "literalReferenceReportedPass": true
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "creepjs-noise-off",
+          "status": "unsupported-reference-option",
+          "literalReferenceReportedPass": true
+        }
+      ]
+    }
+  ],
+  "adaptations": [
+    "Own binary and SDK instead of the reference binary download/launcher",
+    "Hash-checked reviewed measurement functions reused without their module launch code",
+    "Local capture paths; fresh contexts with 1920x1080 viewport",
+    "Unsupported reference fingerprint/GeoIP flags omitted and not qualified",
+    "Missing, untriggered or ambiguous verdicts do not count as passing"
+  ],
+  "limitations": [
+    "One full run per mode; one further reCAPTCHA-only attempt per mode",
+    "A single demo score does not establish production CAPTCHA or detector behavior",
+    "Initial reCAPTCHA collector classified before a late response; original evidence retained",
+    "No C++ patch was compiled or tested in this iteration",
+    "No native stable release or expanded local interaction matrix is qualified by these results"
+  ],
+  "executableSha256": "c6b180610bb528ba2eb4f84490ff7f45e95c49a4b30c4d3663da4af906436927",
+  "runtimeSha256": "29f1d515805c781d8c279ddf53f6f9e655dcf11d8416404ad8055b7841836e23",
+  "separateCompatibilityChecks": {
+    "javascriptEnginePassed": 28,
+    "pythonEnginePassed": 5,
+    "driverSmokePassed": 10,
+    "scope": "These are compatibility outcomes, not detector outcomes."
+  }
+}
