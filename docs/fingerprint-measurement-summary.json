@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "sessionDate": "2026-10-14",
+  "sessionTimezone": "Asia/Jakarta",
+  "sourceCheckpoint": "2a116650f8248b1c1fc03eb9ee50603579106cc7",
+  "engineMode": "custom",
+  "browserVersion": "146.0.7680.177",
+  "compiledSourcePatchCount": 2,
+  "executableSha256": "c6b180610bb528ba2eb4f84490ff7f45e95c49a4b30c4d3663da4af906436927",
+  "runtimeSha256": "29f1d515805c781d8c279ddf53f6f9e655dcf11d8416404ad8055b7841836e23",
+  "requestedTarget": {
+    "site": "https://fingerprint-scan.com/",
+    "comparison": "strictly-less-than",
+    "score": 10,
+    "achieved": false
+  },
+  "observations": [
+    {
+      "headless": true,
+      "startedAt": "2026-10-14T15:18:43.037Z",
+      "score": 100,
+      "runs": 1,
+      "localEvidence": "artifacts/custom-fingerprint-initial-headless/results.json"
+    },
+    {
+      "headless": false,
+      "startedAt": "2026-10-14T15:19:10.549Z",
+      "score": 100,
+      "runs": 1,
+      "localEvidence": "artifacts/custom-fingerprint-initial-headed/results.json"
+    }
+  ],
+  "conditions": {
+    "profileMode": "fresh-temporary-per-repetition",
+    "humanize": false,
+    "proxyConfigured": false
+  },
+  "limitations": [
+    "One run per mode; no repeated-run distribution established",
+    "Raw local captures are excluded from GitHub",
+    "Original runner threshold was 20; neither run passes the requested target",
+    "Unpublished candidate patches CB-0003 and CB-0004 have not compiled or been browser-validated",
+    "No guarantee of third-party detector or CAPTCHA outcomes"
+  ]
+}

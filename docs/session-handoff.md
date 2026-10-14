@@ -15,6 +15,8 @@ Repository: https://github.com/naufal-djamhur/silly-browser
 - The stable WebRTC policy/parser and local STUN fixture are source-written. No native stable WebRTC behavior is qualified. Historical engines reject the missing capability explicitly.
 - The other browser chat measured custom Chromium 146 Fingerprint Scan scores of **100/100**, one run per display mode. The below-10 target is unfulfilled. Its legacy CB-0003/CB-0004 candidates are uncompiled, no legacy rebuild was launched, and those source files/checkout belong to that separate iteration. Preserve them.
 
+The dedicated [measurement checkpoint](fingerprint-iteration-status.md) and [sanitized score summary](fingerprint-measurement-summary.json) preserve those observations. Candidate legacy engine changes remain local and unpublished. Follow the [post-build validation checklist](post-build-validation.md) after a completed native build; compatibility results do not establish detector or CAPTCHA outcomes.
+
 ## Measured checkpoint
 
 - Chromium **146.0.7680.177**, Windows x64, source commit `ae03f7fb2cf1215853896d6a4c15fdceee2badb7`; two applied C++ patches. Exact patched-checkout verification passed again.
@@ -39,6 +41,7 @@ The engine-info `fingerprintIntegrationValidated=false` field remains a conserva
 2. Inspect actual processes, `work/stable-native-status.json`, `work/stable-native-build.log`, checkout HEAD and binary hashes. The rejected restart left no stable compiler active; preserve any new active build discovered on resume. Leave the separate legacy candidate checkout alone.
 3. Continue pinned stable dependencies and hooks, then apply the selected release using `--release 155.0.8059.80`. Use a separate stable output directory. Recheck current support/security requirements before an eventual release; October pins remain snapshots.
 4. Compile and run applicable identity, Python and driver gates with `CUSTOM_BROWSER_RELEASE=155.0.8059.80`. Run the local WebRTC/STUN fixture against the capable actual binary. Record outcomes and failures; do not advertise source-written features as browser-qualified.
+5. Save new reports in a distinct run directory following [post-build validation](post-build-validation.md). Select further C++ work from reproducible build, correctness, compatibility or documented privacy-policy defects. Work specifically aimed at concealing automation to bypass anti-bot/CAPTCHA protections will not continue.
 
 Source checkpoint entering this iteration: `39e5aebceaa7972f3be52bd03df49711f5a1dbc4`. The completion commit is the commit that records this handoff and its evidence; use `git log -1` for its exact identifier. Public reports omit private paths, credentials and raw captures.
 
