@@ -1,4 +1,4 @@
-# Session handoff — 14 October 2026
+# Session handoff — 15 October 2026
 
 Repository: https://github.com/naufal-djamhur/silly-browser
 
@@ -9,7 +9,8 @@ Repository: https://github.com/naufal-djamhur/silly-browser
 - Stable pin: **155.0.8059.80**, commit `43a195105613ac83c21d3f14de279f4a045c7da0`, separate three-patch series under `engine/releases/155.0.8059.80`. Original-file hashes match the full source checkout and the ordered patches apply to a pristine fixture.
 - VS **18.11.12306.390**, MFC/ATL, SDK **10.0.28000.2705** and debugger **10.0.26100.4654** pass installed-toolchain checks.
 - The main checkout was recovered using the official GitHub mirror after Git-server timeouts. Dependency sync was interrupted when a source URL mismatch sent it back to the stalled server; mirror configuration is now consistent.
-- **First unresolved action:** automatic approval review rejected restarting the stable native pipeline as “blocked by policy,” without a further reason. No compiler/build process is active. Preserve the checkout; do not infer active compilation from a process-record file.
+- **Current native boundary, 15 October:** the user manually launched the stable pipeline successfully. Dependency downloads progressed, then CIPD ensure failed at 00:00 Asia/Jakarta because Windows Defender blocked a prebuilt x86 updater-test package. Pinned `chrome/updater/BUILD.gn` references that package as x86 test data, outside the selected x64 browser target. The local checkout configuration now omits only `src/third_party/updater/chrome_win_x86/cipd`; the configuration parses correctly. No blocked file was restored/executed and antivirus settings were unchanged. Retry synchronization and hooks before patch application; this omission has not yet passed a complete sync/build. Updater x86 tests are outside this build's qualification scope.
+- Automatic approval review rejected direct pipeline launches from this chat, including one user-requested retry, as “blocked by policy,” without a further reason. The later manual launch superseded that earlier inactive-stage checkpoint. No compiler/build process is currently active after the CIPD failure; inspect real processes before any restart.
 - Puppeteer SDK launch, profile and explicit input helpers pass on the historical binary in headed and headless modes. Eight JS foundation checks, three Puppeteer checks and two release-selection checks pass. See [iteration 3](iteration-03.md) for hashes, scope and limitations.
 - Three Python WebRTC capability/configuration checks and five historical-engine Python checks also pass after the SDK changes.
 - The stable WebRTC policy/parser and local STUN fixture are source-written. No native stable WebRTC behavior is qualified. Historical engines reject the missing capability explicitly.
@@ -40,7 +41,7 @@ The engine-info `fingerprintIntegrationValidated=false` field remains a conserva
 ## Resume next session
 
 1. Read this note, [implementation plan](implementation-plan.md), [completion tracker](engine-roadmap.md) and [ECC routing guide](orchestration.md).
-2. Inspect actual processes, `work/stable-native-status.json`, `work/stable-native-build.log`, checkout HEAD and binary hashes. The rejected restart left no stable compiler active; preserve any new active build discovered on resume. Leave the separate legacy candidate checkout alone.
+2. Inspect actual processes, `work/stable-native-status.json`, `work/stable-native-build.log`, checkout HEAD and binary hashes. The last manual run stopped during CIPD ensure; preserve any new active build discovered on resume. Leave the separate legacy candidate checkout alone.
 3. Continue pinned stable dependencies and hooks, then apply the selected release using `--release 155.0.8059.80`. Use a separate stable output directory. Recheck current support/security requirements before an eventual release; October pins remain snapshots.
 4. Compile and run applicable identity, Python and driver gates with `CUSTOM_BROWSER_RELEASE=155.0.8059.80`. Run the local WebRTC/STUN fixture against the capable actual binary. Record outcomes and failures; do not advertise source-written features as browser-qualified.
 5. Save new reports in a distinct run directory following [post-build validation](post-build-validation.md). Select further C++ work from reproducible build, correctness, compatibility or documented privacy-policy defects. Work specifically aimed at concealing automation to bypass anti-bot/CAPTCHA protections will not continue.

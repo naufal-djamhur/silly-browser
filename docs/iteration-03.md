@@ -34,6 +34,8 @@ A local STUN fixture is source-written to compare real direct UDP traffic under 
 
 ## First unresolved boundary
 
+**15 October update:** the user subsequently launched the pipeline manually. Dependency sync progressed but failed at 00:00 Asia/Jakarta when Windows Defender blocked the prebuilt `chrome_win_x86` updater-test fixture. Its pinned BUILD.gn reference is x86 updater-test data, outside the selected x64 browser target. The local `custom_deps` now omits that single fixture; parsing was checked. Antivirus settings were unchanged and the blocked file was not restored or executed. No complete sync/build has yet validated the adjusted checkout. Updater x86 tests are excluded from qualification; no native compiler is active. The earlier automatic-launch rejection below remains historical context.
+
 Dependency sync was interrupted after its main-source URL mismatch caused a broad refetch from the stalled server. The separate checkout configuration now consistently uses the verified official mirror. Automatic approval review then rejected restarting the stable native pipeline as **“blocked by policy”**, without a further reason. No stable compiler is active and no stable binary exists. No attempt was made to bypass that rejection.
 
 Preserve the source checkout and the historical tested runtime. The next engineering action is dependency synchronization, then build hooks and clean patch verification, native compilation, exact-version identity/seed checks, Python checks, WebRTC fixture checks and the driver matrix. Do not advertise stable support until the actual binary passes its gates.
