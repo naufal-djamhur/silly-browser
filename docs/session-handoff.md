@@ -6,6 +6,8 @@ Repository: https://github.com/naufal-djamhur/silly-browser
 
 ## Current continuation boundary
 
+**SDK compatibility/privacy continuation:** [the latest report](sdk-compatibility-privacy-analysis.md) pins 14 public wrapper files and records 26 browser-free own SDK observations, with reproducible probes under `compatibility/`. Confirmed gaps include silently dropped JS context fields, Python viewport/argument handling and dropped Puppeteer proxy bypass. The [coverage ledger](native-analysis-coverage.md) defines subsequent qualification gates. No implementation source or active build input changed in that analysis; no further native function was analysed. Retained REA locale/font views preserve partial callee coverage and font truncation. Finish actual 155 qualification before the next implementation iteration. Do not infer runtime parity from these driver stubs.
+
 **Latest checkpoint:** see [the build-resume report](iteration-03-build-resume.md). The path-only CIPD exclusion proved ineffective on an actual retry. It was replaced with an audited browser-only manifest selected by `deps_file`, and synchronization/hooks passed. Compilation then exposed mapped-path inconsistencies in TypeScript and Dawn. Both exact failing actions pass using the physical Windows checkout path consistently, including the default Go TypeScript compiler. The incremental build is running from that physical path with completed output preserved. Consult live state before treating any older inactive-build note as current.
 
 - Stable pin: **155.0.8059.80**, commit `43a195105613ac83c21d3f14de279f4a045c7da0`, separate three-patch series under `engine/releases/155.0.8059.80`. Original-file hashes match the full source checkout and the ordered patches apply to a pristine fixture.

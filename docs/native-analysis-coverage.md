@@ -4,12 +4,14 @@ Checkpoint: 22 October 2026. The selected free Windows CloakBrowser artifact is 
 
 The investigation is **partial**. Four function dossiers, nine retained records and nine analyst-selected function seeds are evidence counts, not percentages of the product or its patches. The PE exception table's runtime-function records are also not a denominator for feature coverage. There is no established denominator for a “100% inspected” claim.
 
+**SDK continuation:** the [compatibility/privacy report](sdk-compatibility-privacy-analysis.md) now inventories selected contracts at one pinned wrapper revision and records 26 browser-free observations of our actual SDK. It reproduces dropped JS context fields, Python viewport/argument differences and dropped Puppeteer proxy bypass. These close specific source/adapter questions; they do not qualify native runtime behavior or resolve the remaining ledger entries.
+
 ## Coverage ledger
 
 | Question | Existing evidence | Status | Acceptance criteria for a bounded conclusion |
 | --- | --- | --- | --- |
 | Which artifact was inspected? | Original archive/DLL hashes, version resource and resource inventory | Answered for the selected artifact | Retain original identity and bind every derived observation to it |
-| What does the public SDK promise? | Selected public wrapper source revision and example comparison plan | Partial | Enumerate documented options, defaults, scopes and explicit unsupported cases at one pinned revision; distinguish SDK code from native behavior |
+| What does the public SDK promise? | Fourteen pinned public source files, six Python launch signatures, three JS launch interfaces, comparison report and 26 own adapter observations | Answered for selected launch contracts; broader product remains partial | Runtime behavior, native semantics, distribution and all platform claims require separate qualification |
 | How does locale configuration behave? | One native slice dossier; partial callee coverage; SDK launch-path gap | Partial | Trace relevant value validation/fallback boundaries and test navigator, Intl and HTTP language behavior on local fixtures; specify process/context/worker scope |
 | How does timezone configuration behave? | One native slice dossier; partial callee coverage | Partial | Establish supported identifiers, invalid-input handling, Date/Intl and DST behavior across declared contexts/workers using local fixtures |
 | How does font configuration behave? | Native option-dependent cache branch; truncated value flow | Partial | Resolve collection loading, validation, fallback and cache invalidation; measure font availability, metrics and rendering on supported hosts |
@@ -29,10 +31,10 @@ For each subsequent compatibility or documented privacy feature, write an indepe
 
 The next concrete source-observed issue is the JavaScript locale/timezone/viewport contract described in the [inspection report](cloakbrowser-native-inspection.md): ordinary browser launch accepts fields that are not applied as context defaults. Choose explicit propagation or rejection without silently changing legitimate context isolation. This is separate from native engine recovery.
 
-Any further native inspection retains the previous two-logical-CPU affinity, BelowNormal priority, 2 GiB Java heap and 4 GiB total job committed-memory cap. Use existing retained evidence first. A larger pass is complete only for its declared questions and search boundary; unresolved callees, omitted ranges and truncation stay visible.
+The earlier native pass used two logical CPUs, BelowNormal priority, a 2 GiB Java heap and a 4 GiB job committed-memory cap. The user subsequently authorized a larger budget as needed while preserving compilation; choose that budget from live available resources rather than exhausting the machine. This continuation reused retained evidence and ran lightweight SDK probes, with no new Ghidra worker. A larger pass is complete only for its declared questions and search boundary; unresolved callees, omitted ranges and truncation stay visible.
 
 ## Scope boundary
 
 Compatibility, rendering correctness, profile persistence, explicit privacy policies and driver integration are supported investigation and implementation scopes. Reproducing automation-concealment or anti-bot/CAPTCHA-bypass mechanisms is outside this work. Detector scores do not substitute for these acceptance criteria.
 
-No new native analysis or browser patch was performed when creating this coverage ledger. It changes the continuation criteria, not the measured coverage.
+No new browser patch or native function analysis was performed when creating this ledger or its SDK continuation. The continuation adds source/adapter observations and retained native views; it does not increase native function coverage.

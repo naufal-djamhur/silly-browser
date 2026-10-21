@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "scope": "Own SDK validation and stubbed driver-boundary observations; no browser runtime, comparator execution, downloads or external traffic",
+  "runtime": "v24.22.1",
+  "sources": {
+    "sdk/js/index.mjs": "bf9b1fc126e52d6dcdde0054368c85baf1d8c3c560c00f6bb7bd579f007fa8d3",
+    "sdk/js/puppeteer.mjs": "63514d30fa78126195d996b890fa0b0e4ecf4b8b6caa5337844c173d196e9127",
+    "sdk/js/profile-seed.mjs": "eeeea8357a886bc83fa299c88d26857282e1e745e1ee317ab63c05d969c87bad"
+  },
+  "observations": [
+    {
+      "id": "js-browser-context-fields",
+      "observation": {
+        "launchFieldsForwarded": false,
+        "newContextDefaultsApplied": false
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "js-persistent-context-fields",
+      "observation": {
+        "localeForwarded": true,
+        "timezoneForwarded": true,
+        "viewportForwarded": true
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "js-temporary-context-cleanup",
+      "observation": {
+        "profileRemovedAfterSuccessfulStubClose": true
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "js-http-credential-routing",
+      "observation": {
+        "credentialsSeparatedFromServer": true,
+        "credentialPresentInProcessArgs": false,
+        "credentialsStillSensitiveInLaunchObject": true
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "js-authenticated-socks5",
+      "observation": {
+        "rejected": true,
+        "errorType": "Error",
+        "message": "Native authenticated SOCKS5 engine patch is not implemented yet"
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "js-geoip",
+      "observation": {
+        "rejected": true,
+        "errorType": "Error",
+        "message": "GeoIP integration is not implemented yet"
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "js-browser-extensions",
+      "observation": {
+        "rejected": true,
+        "errorType": "Error",
+        "message": "Extensions require launchContext or launchPersistentContext; Browser.newContext is incognito"
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "js-puppeteer-locale",
+      "observation": {
+        "rejected": true,
+        "errorType": "Error",
+        "message": "Puppeteer locale/timezone options are not implemented yet"
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "js-puppeteer-authenticated-http",
+      "observation": {
+        "rejected": true,
+        "errorType": "Error",
+        "message": "Puppeteer authenticated proxies require a qualified native proxy capability; not implemented yet"
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "js-puppeteer-proxy-bypass",
+      "observation": {
+        "proxyServerForwarded": true,
+        "explicitBypassForwarded": false
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "js-raw-args-string",
+      "observation": {
+        "rejected": true,
+        "errorType": "TypeError",
+        "message": "args must be strings"
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "js-context-options-passthrough",
+      "observation": {
+        "rejected": true,
+        "errorType": "TypeError",
+        "message": "Unknown option: contextOptions"
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "js-sandbox-policy",
+      "observation": {
+        "rejected": true,
+        "errorType": "Error",
+        "message": "Sandbox must remain enabled"
+      },
+      "browserRuntimeValidated": false
+    }
+  ]
+}

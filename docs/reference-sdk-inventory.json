@@ -1,0 +1,199 @@
+{
+  "schemaVersion": 1,
+  "referenceRepository": "https://github.com/CloakHQ/CloakBrowser",
+  "referenceRevision": "160f56da85860e89f0e7d9bfdc80266b984057d5",
+  "scope": "Selected public SDK launch signatures, typed fields and file identities; static source observations, no wrapper or comparator execution; not a native patch inventory",
+  "sources": {
+    "cloakbrowser/__init__.py": {
+      "sha256": "ad41af4158e65f0a2622ef0d3eb8af2d041a9f99d189c24205505b8b6f141a2e",
+      "gitBlob": "bb8febf2a8ab1cca78fa0868461af55874b03d62"
+    },
+    "cloakbrowser/browser.py": {
+      "sha256": "ed60894c18a9482bf394bc1f53e70cbbdac702a88ffd621f595cbca804e58d78",
+      "gitBlob": "dbd6b16e2c1f28ffbbe63c6af40f66a5cc410696"
+    },
+    "cloakbrowser/config.py": {
+      "sha256": "88b77bd2b23db44fa063bdfa51dff70bffd169b80ad88638b23b32cf6ead59d1",
+      "gitBlob": "097aaec65e5997335790adb37503472bbb863d0a"
+    },
+    "cloakbrowser/geoip.py": {
+      "sha256": "8aab75051e497d4274356f243aa3effd7335bf89f762830ec786b90cc2c06f29",
+      "gitBlob": "319e2a555ca3f59e7c5cc295130e13d6d70041d8"
+    },
+    "js/src/index.ts": {
+      "sha256": "d146eea5bbd7e1e230326edaf575eac87443035725964dd5ed72011652f0c071",
+      "gitBlob": "b108814a6df8b6cdda72df911b9491bb188d6a55"
+    },
+    "js/src/types.ts": {
+      "sha256": "b71fbfcd352d2fdec023f907cc84aeecd041e542df9462251b12aee7141d7dae",
+      "gitBlob": "2f10b366c2830f26df274c4feb3d06757124d507"
+    },
+    "js/src/playwright.ts": {
+      "sha256": "a071bed28a520d09ad513134a103ac8f11a51d35cb6849448a18238c027df618",
+      "gitBlob": "b6562a654f434484f21bd1e40364d697834f0f4a"
+    },
+    "js/src/puppeteer.ts": {
+      "sha256": "2685dfcec92b1492674b478d28a00c2e915d1dff35581d925614e59b121eba47",
+      "gitBlob": "6efedfc876cfc161a4aa3dde74bb8d76f65a15c0"
+    },
+    "js/src/proxy.ts": {
+      "sha256": "bf82ed56a84aef8040f4a3b3f141f2397dcfa6620d11c2dfd3a858ffa99dab00",
+      "gitBlob": "54d973b730cf819fa0e3479501b1c6374e60f985"
+    },
+    "js/src/profile-seed.ts": {
+      "sha256": "816b52eb958f50371c566d9ae162d334799bac19a79d2bd9567bc11938dc710c",
+      "gitBlob": "ac559a277a12c3f63ab376f89748316dd30af4e5"
+    },
+    "js/src/config.ts": {
+      "sha256": "a3078f792fd1f84487e3f6334f455fd7fd2122f0b177586a2e783b1b624bcaaf",
+      "gitBlob": "1a17ae8bf0c1435d8635ccdeb2752456ce683067"
+    },
+    "js/src/args.ts": {
+      "sha256": "5339ede886bc4efa3facb7d5c95a59046dadd580f0ca52826c6f029632ed1560",
+      "gitBlob": "da769a5aa7aaee145d9219e874a7b3a9cab77b4b"
+    },
+    "js/src/fonts.ts": {
+      "sha256": "88c277b28ab5b780c5e56a39a241b8d2fb73ee0cfee9329d25a81e4ffb7878bc",
+      "gitBlob": "7b1eb4b0ebd2a82c369aeb5289eddfea0374f394"
+    },
+    "js/src/download.ts": {
+      "sha256": "6dc7c192b98c9578ff832d5832835e63b6121a5b8a7d6aa6e3c269530aeb1f7e",
+      "gitBlob": "69a74850934a4c1cf6bba8f0947dd3e4706dc179"
+    }
+  },
+  "pythonLaunchFunctions": [
+    {
+      "name": "launch",
+      "async": false,
+      "line": 321,
+      "signature": "headless: bool=True, proxy: str | ProxySettings | None=None, args: list[str] | None=None, stealth_args: bool=True, timezone: str | None=None, locale: str | None=None, geoip: bool=False, humanize: bool=False, human_preset: HumanPreset='default', human_config: HumanConfigOverrides | None=None, extension_paths: list[str] | None=None, license_key: str | None=None, browser_version: str | None=None, release_channel: str | None=None, _suppress_maximize: bool=False, **kwargs: Any"
+    },
+    {
+      "name": "launch_async",
+      "async": true,
+      "line": 457,
+      "signature": "headless: bool=True, proxy: str | ProxySettings | None=None, args: list[str] | None=None, stealth_args: bool=True, timezone: str | None=None, locale: str | None=None, geoip: bool=False, humanize: bool=False, human_preset: HumanPreset='default', human_config: HumanConfigOverrides | None=None, extension_paths: list[str] | None=None, license_key: str | None=None, browser_version: str | None=None, release_channel: str | None=None, _suppress_maximize: bool=False, **kwargs: Any"
+    },
+    {
+      "name": "launch_persistent_context",
+      "async": false,
+      "line": 587,
+      "signature": "user_data_dir: str | os.PathLike, headless: bool=True, proxy: str | ProxySettings | None=None, args: list[str] | None=None, stealth_args: bool=True, user_agent: str | None=None, viewport: Any=_VIEWPORT_UNSET, locale: str | None=None, timezone: str | None=None, color_scheme: Literal['light', 'dark', 'no-preference'] | None=None, geoip: bool=False, humanize: bool=False, human_preset: HumanPreset='default', human_config: HumanConfigOverrides | None=None, extension_paths: list[str] | None=None, license_key: str | None=None, browser_version: str | None=None, release_channel: str | None=None, **kwargs: Any"
+    },
+    {
+      "name": "launch_persistent_context_async",
+      "async": true,
+      "line": 756,
+      "signature": "user_data_dir: str | os.PathLike, headless: bool=True, proxy: str | ProxySettings | None=None, args: list[str] | None=None, stealth_args: bool=True, user_agent: str | None=None, viewport: Any=_VIEWPORT_UNSET, locale: str | None=None, timezone: str | None=None, color_scheme: Literal['light', 'dark', 'no-preference'] | None=None, geoip: bool=False, humanize: bool=False, human_preset: HumanPreset='default', human_config: HumanConfigOverrides | None=None, extension_paths: list[str] | None=None, license_key: str | None=None, browser_version: str | None=None, release_channel: str | None=None, **kwargs: Any"
+    },
+    {
+      "name": "launch_context",
+      "async": false,
+      "line": 926,
+      "signature": "headless: bool=True, proxy: str | ProxySettings | None=None, args: list[str] | None=None, stealth_args: bool=True, user_agent: str | None=None, viewport: Any=_VIEWPORT_UNSET, locale: str | None=None, timezone: str | None=None, color_scheme: Literal['light', 'dark', 'no-preference'] | None=None, geoip: bool=False, humanize: bool=False, human_preset: HumanPreset='default', human_config: HumanConfigOverrides | None=None, extension_paths: list[str] | None=None, license_key: str | None=None, browser_version: str | None=None, release_channel: str | None=None, **kwargs: Any"
+    },
+    {
+      "name": "launch_context_async",
+      "async": true,
+      "line": 1039,
+      "signature": "headless: bool=True, proxy: str | ProxySettings | None=None, args: list[str] | None=None, stealth_args: bool=True, user_agent: str | None=None, viewport: Any=_VIEWPORT_UNSET, locale: str | None=None, timezone: str | None=None, color_scheme: Literal['light', 'dark', 'no-preference'] | None=None, geoip: bool=False, humanize: bool=False, human_preset: HumanPreset='default', human_config: HumanConfigOverrides | None=None, extension_paths: list[str] | None=None, license_key: str | None=None, browser_version: str | None=None, release_channel: str | None=None, **kwargs: Any"
+    }
+  ],
+  "jsLaunchInterfaces": {
+    "LaunchOptions": [
+      {
+        "name": "headless",
+        "line": 10
+      },
+      {
+        "name": "proxy",
+        "line": 17
+      },
+      {
+        "name": "args",
+        "line": 19
+      },
+      {
+        "name": "extensionPaths",
+        "line": 21
+      },
+      {
+        "name": "stealthArgs",
+        "line": 23
+      },
+      {
+        "name": "timezone",
+        "line": 25
+      },
+      {
+        "name": "locale",
+        "line": 27
+      },
+      {
+        "name": "geoip",
+        "line": 29
+      },
+      {
+        "name": "licenseKey",
+        "line": 31
+      },
+      {
+        "name": "browserVersion",
+        "line": 33
+      },
+      {
+        "name": "releaseChannel",
+        "line": 35
+      },
+      {
+        "name": "launchOptions",
+        "line": 37
+      },
+      {
+        "name": "humanize",
+        "line": 39
+      },
+      {
+        "name": "humanPreset",
+        "line": 41
+      },
+      {
+        "name": "humanConfig",
+        "line": 43
+      }
+    ],
+    "LaunchContextOptions": [
+      {
+        "name": "userAgent",
+        "line": 48
+      },
+      {
+        "name": "viewport",
+        "line": 50
+      },
+      {
+        "name": "locale",
+        "line": 52
+      },
+      {
+        "name": "timezoneId",
+        "line": 54
+      },
+      {
+        "name": "colorScheme",
+        "line": 56
+      },
+      {
+        "name": "contextOptions",
+        "line": 65
+      }
+    ],
+    "LaunchPersistentContextOptions": [
+      {
+        "name": "userDataDir",
+        "line": 70
+      }
+    ]
+  },
+  "binaryRuntimeValidated": false
+}
