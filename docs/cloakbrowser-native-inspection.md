@@ -71,6 +71,8 @@ The font-directory reference in the selected native range tests an option-depend
 4. Treat storage-accounting changes as a separate correctness-sensitive iteration. Test real writes/usage/limits and profile reopening before exposing an option. Do not copy constants from a proprietary binary into engine accounting without an independently justified design.
 5. Investigate authenticated proxies, extension loading and broader transport behavior with dedicated fixtures. They are not qualified by a successful fingerprint or navigation example.
 
+The [coverage ledger and acceptance criteria](native-analysis-coverage.md) define the unresolved questions and implementation gates. These counts must not be represented as a percentage of all native patches.
+
 ## Question status
 
 | Question | Status |
