@@ -1,0 +1,15 @@
+{
+  "version": "155.0.8059.80",
+  "commit": "43a195105613ac83c21d3f14de279f4a045c7da0",
+  "upstreamDepsSha256": "0de821c77defd871dfad6c35deedd27a58e39fb26f9f89be798df8f703288881",
+  "browserDepsSha256": "408be06977df37d67b733f40d8f689dde4d0e5a1fb23d82e2e70aab23569f6cb",
+  "omittedDependency": "src/third_party/updater/chrome_win_x86/cipd",
+  "omittedPackage": "chromium/third_party/updater/chrome_win_x86",
+  "scope": "Windows x64 browser; x86 updater integration-test fixture excluded",
+  "trackedSourceModified": false,
+  "antivirusSettingsChanged": false,
+  "dependencySyncValidated": true,
+  "buildHooksCompleted": true,
+  "validation": "Actual gclient sync and build hooks completed; two manifest scope/guard tests passed",
+  "nativeBuildCompleted": false
+}

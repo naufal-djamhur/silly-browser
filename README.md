@@ -6,7 +6,7 @@ An independent source-patched Chromium project with Python and JavaScript contro
 
 Chromium 146 is a historical integration build. Rendering, graphics, network, WebRTC and input engine changes remain outstanding; no current production release or broad version range is qualified.
 
-The separate Chromium **155.0.8059.80** stable source checkout and installed Windows toolchain are verified. Its three-patch source series has not compiled. The new Puppeteer launch adapter passes local headed/headless checks on the preserved historical binary. See the [stable rebase checkpoint](docs/iteration-03.md) for evidence and the current build boundary.
+The separate Chromium **155.0.8059.80** build has passed dependency sync, hooks and exact three-patch application/verification; native Windows compilation is in progress. There is no completed 155 binary qualification yet. The Puppeteer launch adapter passes local headed/headless checks on the preserved historical binary. See the [latest build checkpoint](docs/iteration-03-build-resume.md).
 
 The planned scope includes multiple Chromium revisions, a public SDK review and driver compatibility. [Completion tracker](docs/engine-roadmap.md), [public SDK review](docs/public-sdk-review.md), and [version pins](engine/versions.json) distinguish planned releases from validated support. No custom version is advertised as supported yet.
 
@@ -108,6 +108,8 @@ Use `page.human_click(locator, human_config=...)` or `page.human_type(locator, t
 5. Verify `chrome.exe --headless --custom-browser-engine-info` and run actual browser integration tests before publishing a custom artifact.
 
 The 146 lock is a historical reference anchor, not a current production recommendation. Rebase onto a current supported revision before shipping. Do not turn off sandboxing to make tests pass.
+
+For the pinned 155 Windows x64 browser-only dependency profile, run `python build/prepare_browser_deps.py CHROMIUM_SRC --release 155.0.8059.80` after checking out the main source. In that checkout's `.gclient`, select `deps_file: '../.silly-browser-155.0.8059.80.DEPS'` instead of `DEPS`. This omits only unused prebuilt x86 updater-test data; path-only `custom_deps` did not exclude the CIPD package. Keep antivirus enabled. Use the [release-specific arguments](engine/releases/155.0.8059.80/args-windows-x64.gn) for a SUBST workspace; the supported JS TypeScript compiler avoids a cross-drive validation error. See [repair evidence and limitations](docs/iteration-03-build-resume.md).
 
 ## Verification
 

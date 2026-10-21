@@ -1,0 +1,9 @@
+is_debug = false
+is_component_build = false
+symbol_level = 0
+is_official_build = false
+target_cpu = "x64"
+
+# tsgo canonicalizes SUBST paths to another drive during definition validation.
+# Keep the upstream JS compiler for this Windows short-path workspace.
+use_typescript_go = false

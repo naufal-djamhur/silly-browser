@@ -1,10 +1,12 @@
-# Session handoff — 15 October 2026
+# Session handoff — 22 October 2026
 
 Repository: https://github.com/naufal-djamhur/silly-browser
 
-**Completed iterations:** [step 1](implementation-plan.md#step-1), native Windows compilation, and [step 2](implementation-plan.md#step-2), expanded local integration validation. **Current iteration:** [step 3](implementation-plan.md#step-3), supported stable rebase. The exact stable source checkout and installed toolchain are verified. Dependency sync and build hooks remain incomplete; no stable native compilation has started. The historical runtime and manual-testing profile are preserved.
+**Completed iterations:** [step 1](implementation-plan.md#step-1), historical native Windows compilation, and [step 2](implementation-plan.md#step-2), expanded local integration validation. **Current iteration:** [step 3](implementation-plan.md#step-3), pinned 155 rebase. Dependency sync, hooks, three-patch application/verification and GN generation passed. Native compilation has resumed in a visible PowerShell window with six workers. Preserve the active build; no completed 155 binary or stable integration qualification exists yet. The historical runtime and manual-testing profile are preserved.
 
 ## Current continuation boundary
+
+**Latest checkpoint:** see [the build-resume report](iteration-03-build-resume.md). The path-only CIPD exclusion below proved ineffective on an actual retry. It was replaced with an audited browser-only manifest selected by `deps_file`, and synchronization/hooks passed. The first compile then hit a TypeScript mapped-drive mismatch; the supported `use_typescript_go=false` option fixed the exact failed action. The incremental build is now running. Consult live state before treating any older inactive-build note as current.
 
 - Stable pin: **155.0.8059.80**, commit `43a195105613ac83c21d3f14de279f4a045c7da0`, separate three-patch series under `engine/releases/155.0.8059.80`. Original-file hashes match the full source checkout and the ordered patches apply to a pristine fixture.
 - VS **18.11.12306.390**, MFC/ATL, SDK **10.0.28000.2705** and debugger **10.0.26100.4654** pass installed-toolchain checks.
@@ -41,8 +43,8 @@ The engine-info `fingerprintIntegrationValidated=false` field remains a conserva
 ## Resume next session
 
 1. Read this note, [implementation plan](implementation-plan.md), [completion tracker](engine-roadmap.md) and [ECC routing guide](orchestration.md).
-2. Inspect actual processes, `work/stable-native-status.json`, `work/stable-native-build.log`, checkout HEAD and binary hashes. The last manual run stopped during CIPD ensure; preserve any new active build discovered on resume. Leave the separate legacy candidate checkout alone.
-3. Continue pinned stable dependencies and hooks, then apply the selected release using `--release 155.0.8059.80`. Use a separate stable output directory. Recheck current support/security requirements before an eventual release; October pins remain snapshots.
+2. Inspect actual processes, `work/stable-native-status.json`, `work/stable-native-build.log`, checkout HEAD and binary hashes. Native compilation was active at this checkpoint; preserve it. Leave the separate legacy candidate checkout alone.
+3. Dependencies/hooks and three-patch application are complete. Do not sync or reapply patches into the active checkout. If it stops, verify the exact series and use the incremental resume path. Keep the release-specific Windows arguments, including the supported JS TypeScript compiler selection. Recheck current support/security requirements before an eventual release; the 155 pin is an exact historical snapshot.
 4. Compile and run applicable identity, Python and driver gates with `CUSTOM_BROWSER_RELEASE=155.0.8059.80`. Run the local WebRTC/STUN fixture against the capable actual binary. Record outcomes and failures; do not advertise source-written features as browser-qualified.
 5. Save new reports in a distinct run directory following [post-build validation](post-build-validation.md). Select further C++ work from reproducible build, correctness, compatibility or documented privacy-policy defects. Work specifically aimed at concealing automation to bypass anti-bot/CAPTCHA protections will not continue.
 
