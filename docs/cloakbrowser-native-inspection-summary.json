@@ -1,0 +1,198 @@
+{
+  "date": "2026-10-22",
+  "scope": "Selected native control inspection using source-bound address-preserving analytical slices; not full engine recovery",
+  "release": "chromium-v146.0.7680.177.5",
+  "originalDllSha256": "ed7009a70d76fa4da222a5b37c34012d77fcc04092ef8df5fb572062940fa4dd",
+  "sliceSha256": "f3a82793b25eed3865b006faedff28182d9807c185089782c1c104e38b258b99",
+  "sliceBytes": 231936,
+  "mappedSourceRanges": 48,
+  "functionSeeds": 9,
+  "provider": "Ghidra 12.1.4 through REA 6.7.0",
+  "records": [
+    {
+      "name": "02-timezone",
+      "evidenceId": "ev_9880d5b5c5d55ed9046fc8fb98e926664668d1d6b31162bc6c3492fc3d0ccfe4",
+      "operation": "analyze_function",
+      "subjectSha256": "f3a82793b25eed3865b006faedff28182d9807c185089782c1c104e38b258b99",
+      "procedureAddress": "0x18b6d2470",
+      "relationshipCoverage": {
+        "status": "partial",
+        "limitations": [
+          "Ghidra's callee inventory omits targets of 12 call reference(s) or decoded call(s) without destinations."
+        ],
+        "limited_directions": [
+          "callees"
+        ],
+        "diagnostics": [
+          "Only resolved Ghidra call references are returned; unresolved computed or indirect calls remain unknown, while function classifications distinguish thunks and externals."
+        ]
+      },
+      "decompilerWarnings": [
+        "/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */"
+      ],
+      "valueFlowTruncated": false,
+      "unresolvedCallCount": 12,
+      "runtimeValidated": false
+    },
+    {
+      "name": "04-locale",
+      "evidenceId": "ev_932ad5c9a11a710d16a231357d568311bb3d9937ec1e1a1dd94ff16572558547",
+      "operation": "analyze_function",
+      "subjectSha256": "f3a82793b25eed3865b006faedff28182d9807c185089782c1c104e38b258b99",
+      "procedureAddress": "0x1868cfe00",
+      "relationshipCoverage": {
+        "status": "partial",
+        "limitations": [
+          "Ghidra's callee inventory omits targets of 20 call reference(s) or decoded call(s) without destinations."
+        ],
+        "limited_directions": [
+          "callees"
+        ],
+        "diagnostics": [
+          "Only resolved Ghidra call references are returned; unresolved computed or indirect calls remain unknown, while function classifications distinguish thunks and externals."
+        ]
+      },
+      "decompilerWarnings": [
+        "/* WARNING: Type propagation algorithm not settling */",
+        "/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */"
+      ],
+      "valueFlowTruncated": false,
+      "unresolvedCallCount": 20,
+      "runtimeValidated": false
+    },
+    {
+      "name": "05-storage",
+      "evidenceId": "ev_bb9cd19e58a0c85d7af4fa55a2868e25496351a8262c41d400924936a93118ed",
+      "operation": "analyze_function",
+      "subjectSha256": "f3a82793b25eed3865b006faedff28182d9807c185089782c1c104e38b258b99",
+      "procedureAddress": "0x18ca2bb30",
+      "relationshipCoverage": {
+        "status": "partial",
+        "limitations": [
+          "Ghidra's callee inventory omits targets of 25 call reference(s) or decoded call(s) without destinations."
+        ],
+        "limited_directions": [
+          "callees"
+        ],
+        "diagnostics": [
+          "Only resolved Ghidra call references are returned; unresolved computed or indirect calls remain unknown, while function classifications distinguish thunks and externals."
+        ]
+      },
+      "decompilerWarnings": [
+        "/* WARNING: Control flow encountered bad instruction data */",
+        "/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */",
+        "/* WARNING: Bad instruction - Truncating control flow here */",
+        "/* WARNING: Does not return */"
+      ],
+      "valueFlowTruncated": false,
+      "unresolvedCallCount": 25,
+      "runtimeValidated": false
+    },
+    {
+      "name": "06-fonts",
+      "evidenceId": "ev_b6b51ba25eea0178245158fd541163156b1fc9203844768a3de6ca21c77f4962",
+      "operation": "analyze_function",
+      "subjectSha256": "f3a82793b25eed3865b006faedff28182d9807c185089782c1c104e38b258b99",
+      "procedureAddress": "0x18ad5be20",
+      "relationshipCoverage": {
+        "status": "partial",
+        "limitations": [
+          "Ghidra's callee inventory omits targets of 93 call reference(s) or decoded call(s) without destinations."
+        ],
+        "limited_directions": [
+          "callees"
+        ],
+        "diagnostics": [
+          "Only resolved Ghidra call references are returned; unresolved computed or indirect calls remain unknown, while function classifications distinguish thunks and externals."
+        ]
+      },
+      "decompilerWarnings": [
+        "/* WARNING: Type propagation algorithm not settling */",
+        "/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */",
+        "/* WARNING: Does not return */"
+      ],
+      "valueFlowTruncated": true,
+      "unresolvedCallCount": 93,
+      "runtimeValidated": false
+    },
+    {
+      "name": "07-timezone-xrefs",
+      "evidenceId": "ev_b14f3180f9df0598930d9015e845541f5a5d2b09e9ca58a11d8a2e2776c68c8e",
+      "operation": "xrefs",
+      "subjectSha256": "f3a82793b25eed3865b006faedff28182d9807c185089782c1c104e38b258b99",
+      "procedureAddress": null,
+      "relationshipCoverage": null,
+      "decompilerWarnings": [],
+      "valueFlowTruncated": null,
+      "unresolvedCallCount": 0,
+      "runtimeValidated": false
+    },
+    {
+      "name": "07a-timezone-bytes",
+      "evidenceId": "ev_b764f8b6a3e471ac8cf68054e7230f43be9e849cdc01b2cf141ddf6cfa6941f9",
+      "operation": "read_bytes",
+      "subjectSha256": "f3a82793b25eed3865b006faedff28182d9807c185089782c1c104e38b258b99",
+      "procedureAddress": null,
+      "relationshipCoverage": null,
+      "decompilerWarnings": [],
+      "valueFlowTruncated": null,
+      "unresolvedCallCount": 0,
+      "runtimeValidated": false
+    },
+    {
+      "name": "07b-locale-bytes",
+      "evidenceId": "ev_e21b609af1f69d9570db5b77b57739861f566c56d3d31d34736b333545d03280",
+      "operation": "read_bytes",
+      "subjectSha256": "f3a82793b25eed3865b006faedff28182d9807c185089782c1c104e38b258b99",
+      "procedureAddress": null,
+      "relationshipCoverage": null,
+      "decompilerWarnings": [],
+      "valueFlowTruncated": null,
+      "unresolvedCallCount": 0,
+      "runtimeValidated": false
+    },
+    {
+      "name": "07c-storage-bytes",
+      "evidenceId": "ev_c94593002cd43b359809e344d6dc4a143c00b03db762d430027af4ba9228f5fc",
+      "operation": "read_bytes",
+      "subjectSha256": "f3a82793b25eed3865b006faedff28182d9807c185089782c1c104e38b258b99",
+      "procedureAddress": null,
+      "relationshipCoverage": null,
+      "decompilerWarnings": [],
+      "valueFlowTruncated": null,
+      "unresolvedCallCount": 0,
+      "runtimeValidated": false
+    },
+    {
+      "name": "07d-fonts-bytes",
+      "evidenceId": "ev_bd59738867c3aa0ccaed440a4ee422f271d4518a9858d46415753c57673d6203",
+      "operation": "read_bytes",
+      "subjectSha256": "f3a82793b25eed3865b006faedff28182d9807c185089782c1c104e38b258b99",
+      "procedureAddress": null,
+      "relationshipCoverage": null,
+      "decompilerWarnings": [],
+      "valueFlowTruncated": null,
+      "unresolvedCallCount": 0,
+      "runtimeValidated": false
+    }
+  ],
+  "limits": {
+    "logicalCpus": 2,
+    "javaHeap": "2G",
+    "jobCommittedMemoryBytes": 4294967296,
+    "priority": "BelowNormal"
+  },
+  "comparatorsExecuted": false,
+  "nativeBrowserPatchesImplemented": false,
+  "fullPatchInventoryRecovered": false,
+  "detectionParityEstablished": false,
+  "analysisClosed": true,
+  "limitations": [
+    "Callees, globals and metadata outside selected ranges are omitted",
+    "Analyst seed names are not recovered symbols",
+    "Pseudocode and high p-code are inferred representations, not original C++",
+    "Storage includes an original UD2 guard; do not infer runtime corruption from the decompiler warning",
+    "Font value-flow is truncated; full callee semantics remain unresolved",
+    "No actual runtime or stock-binary comparison was performed"
+  ]
+}
