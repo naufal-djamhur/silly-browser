@@ -4,6 +4,5 @@ symbol_level = 0
 is_official_build = false
 target_cpu = "x64"
 
-# tsgo canonicalizes SUBST paths to another drive during definition validation.
-# Keep the upstream JS compiler for this Windows short-path workspace.
-use_typescript_go = false
+# Use the physical Windows checkout path consistently across GN, Python and Go.
+# Keep Chromium's default TypeScript compiler selection.
