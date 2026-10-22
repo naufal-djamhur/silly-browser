@@ -12,3 +12,9 @@ artifacts/
 upstream/
 *.pyc
 *.egg-info/
+dist/
+sdk/python/build/
+sdk/python/dist/
+*.tgz
+packages/fonts/build/
+packages/fonts/dist/

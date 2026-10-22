@@ -1,7 +1,7 @@
 import {mkdtemp, rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {basename, dirname, join, resolve} from 'node:path';
-import {buildLaunchOptions, buildContextOptions, verifyCustomBinary} from './index.mjs';
+import {buildLaunchOptions, buildContextOptions, verifyCustomBinary, prepareExecutable} from './index.mjs';
 import {persistentSeed} from './profile-seed.mjs';
 import {validateHumanConfig, motionPoints} from './humanize.mjs';
 
@@ -74,9 +74,10 @@ async function launchProfile(directory,options,temporary) {
     await rm(directory,{recursive:true,force:true,maxRetries:3,retryDelay:100});
   };
   try {
-    const validated=buildLaunchOptions(options);
+    const validated=buildLaunchOptions({...options,executablePath:options.executablePath || '__validate_only__'});
     if(options.locale||options.timezone)throw Error('Puppeteer locale/timezone options are not implemented yet');
     if(validated.proxy?.username||validated.proxy?.password)throw Error('Puppeteer authenticated proxies require a qualified native proxy capability; not implemented yet');
+    options=await prepareExecutable(options);
     const seed=await persistentSeed(directory,options.seed);
     const launchOptions=buildLaunchOptions({...options,seed});
     await verifyCustomBinary({...launchOptions,engineMode:options.engineMode});
@@ -95,7 +96,7 @@ async function launchProfile(directory,options,temporary) {
 
 export async function launchPuppeteer(options={}) {
   // A plain launch owns an isolated temporary profile; this is a Puppeteer Browser.
-  buildLaunchOptions(options);
+  buildLaunchOptions({...options,executablePath:options.executablePath || '__validate_only__'});
   const directory=await mkdtemp(join(tmpdir(),'silly-puppeteer-'));
   return launchProfile(directory,options,true);
 }

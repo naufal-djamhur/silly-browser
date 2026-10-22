@@ -8,6 +8,7 @@ import tempfile
 import shutil
 from urllib.parse import urlsplit, unquote
 from .humanize import humanize as _humanize, _config as _human_config
+from .browser_manager import browser_path, install_browser, browser_status, ensure_browser
 
 def _proxy(value):
     if not value:
@@ -30,9 +31,8 @@ def _proxy(value):
     if password:result['password']=password
     return result
 
-def _options(executable_path=None, engine_mode='custom', headless=True, proxy=None, platform='native', platform_version=None, webrtc_policy='native', extension_paths=None, seed=None, args=None, geoip=False, **kwargs):
+def _options(executable_path=None, engine_mode='custom', headless=True, proxy=None, platform='native', platform_version=None, webrtc_policy='native', extension_paths=None, seed=None, args=None, geoip=False, font_directory=None, font_pack=None, **kwargs):
     if kwargs:raise TypeError(f'Unknown options: {", ".join(kwargs)}')
-    if not executable_path:raise ValueError('An explicit executable_path is required')
     if engine_mode not in ('custom','baseline'):raise ValueError('Invalid engine_mode')
     if platform not in ('native','windows','linux','macos'):raise ValueError('Unsupported platform')
     if webrtc_policy not in ('native','default','default_public_interface_only','default_public_and_private_interfaces','disable_non_proxied_udp'):raise ValueError('Unsupported webrtc_policy')
@@ -45,6 +45,11 @@ def _options(executable_path=None, engine_mode='custom', headless=True, proxy=No
     if args is not None and (not isinstance(args,list) or not all(isinstance(a,str) for a in args)):
         raise TypeError('args must be a list of strings')
     launch_args=list(args) if args is not None else []
+    directory=_font_directory(font_directory,font_pack)
+    if directory:
+        if engine_mode=='baseline':raise ValueError('Native font configuration requires our compiled custom engine')
+        if any(a.split('=')[0]=='--custom-browser-fonts-dir' for a in launch_args):raise ValueError('Duplicate native font directory configuration')
+        launch_args.append(f'--custom-browser-fonts-dir={directory}')
     if any(a.split('=')[0] in ('--no-sandbox','--disable-setuid-sandbox','--custom-browser-seed','--custom-browser-platform','--custom-browser-platform-version','--custom-browser-webrtc-policy','--user-data-dir') for a in launch_args):
         raise ValueError('Sandbox and profile lifecycle flags cannot be overridden')
     if seed is not None:
@@ -59,7 +64,8 @@ def _options(executable_path=None, engine_mode='custom', headless=True, proxy=No
     if paths:
         joined=','.join(str(pathlib.Path(p).resolve()) for p in paths)
         launch_args.extend([f'--load-extension={joined}',f'--disable-extensions-except={joined}'])
-    result={'executable_path':str(pathlib.Path(executable_path).resolve()),'headless':headless,'chromium_sandbox':True,'args':launch_args}
+    if not executable_path and engine_mode=='baseline':raise ValueError('Baseline mode requires an explicit executable_path')
+    result={'executable_path':str(pathlib.Path(executable_path or browser_path()).resolve()),'headless':headless,'chromium_sandbox':True,'args':launch_args}
     if paths:result['ignore_default_args']=['--disable-extensions']
     if proxy:result['proxy']=_proxy(proxy)
     return result
@@ -71,6 +77,20 @@ def _handshake(options,mode):
     if info.get('engine')!='custom-browser' or info.get('policyVersion')!=1:raise RuntimeError('Custom engine handshake failed')
     if any(a.startswith('--custom-browser-platform=') for a in options['args']) and info.get('sourcePatchCount',0)<2:raise RuntimeError('Compiled engine does not support platform identity')
     if any(a.startswith('--custom-browser-webrtc-policy=') for a in options['args']) and 'webrtc-policy' not in info.get('capabilities',[]):raise RuntimeError('Compiled engine does not support the native WebRTC policy patch')
+    if any(a.startswith('--custom-browser-fonts-dir=') for a in options['args']) and 'font-directory-windows' not in info.get('capabilities',[]):raise RuntimeError('Compiled engine does not support native Windows font-directory loading')
+
+def _font_directory(directory,pack):
+    if directory is not None and pack is not None:raise TypeError('Choose font_directory or font_pack')
+    if directory is not None:
+        if not isinstance(directory,(str,os.PathLike)) or not str(directory) or '\x00' in str(directory):raise TypeError('font_directory must be a nonempty path')
+        return str(pathlib.Path(directory).resolve())
+    if pack is None:return None
+    if pack!='noto-core':raise ValueError('Supported font_pack: noto-core')
+    try:
+        from silly_browser_fonts import get_font_directory
+    except ImportError as error:
+        raise RuntimeError('Install the optional font pack: python -m pip install silly-browser-fonts') from error
+    return get_font_directory()
 
 def _seed(directory,explicit):
     directory.mkdir(parents=True,exist_ok=True)
@@ -113,8 +133,19 @@ def _context_settings(kwargs):
     humanize=launch_kwargs.pop('humanize',False)
     human_config=launch_kwargs.pop('human_config',None)
     if humanize:_human_config(human_config or {})
-    _options(**launch_kwargs)
+    _validate_options(launch_kwargs)
     return launch_kwargs,context,humanize,human_config
+
+def _validate_options(kwargs):
+    validated=dict(kwargs)
+    validated['executable_path']=validated.get('executable_path') or '__validate_only__'
+    _options(**validated)
+
+def _prepare_executable(kwargs):
+    _validate_options(kwargs)
+    if kwargs.get('executable_path'):return kwargs
+    if kwargs.get('engine_mode')=='baseline':raise ValueError('Baseline mode requires an explicit executable_path')
+    return {**kwargs,'executable_path':ensure_browser()}
 
 def _reject_browser_context_options(kwargs):
     if any(key in kwargs for key in ('locale','timezone','viewport')):
@@ -127,6 +158,7 @@ def launch(**kwargs):
     human_config=kwargs.pop('human_config',None)
     if humanize:_human_config(human_config or {})
     if kwargs.get('extension_paths'):raise ValueError('Extensions require launch_context or launch_persistent_context')
+    kwargs=_prepare_executable(kwargs)
     options=_options(**kwargs);_handshake(options,kwargs.get('engine_mode','custom'))
     pw=sync_playwright().start()
     try:browser=pw.chromium.launch(**options)
@@ -142,6 +174,7 @@ def launch(**kwargs):
 def launch_persistent_context(user_data_dir,**kwargs):
     from playwright.sync_api import sync_playwright
     kwargs,context_options,humanize,human_config=_context_settings(kwargs)
+    kwargs=_prepare_executable(kwargs)
     directory=pathlib.Path(user_data_dir).resolve()
     kwargs['seed']=_seed(directory,kwargs.get('seed'))
     options=_options(**kwargs);_handshake(options,kwargs.get('engine_mode','custom'))
@@ -176,6 +209,7 @@ async def launch_async(**kwargs):
     humanize=kwargs.pop('humanize',False);human_config=kwargs.pop('human_config',None)
     if humanize:_human_config(human_config or {})
     if kwargs.get('extension_paths'):raise ValueError('Extensions require a profile context')
+    kwargs=await asyncio.to_thread(_prepare_executable,kwargs)
     options=_options(**kwargs)
     await asyncio.to_thread(_handshake,options,kwargs.get('engine_mode','custom'))
     pw=await async_playwright().start()
@@ -193,6 +227,7 @@ async def launch_persistent_context_async(user_data_dir,**kwargs):
     from playwright.async_api import async_playwright
     import asyncio
     kwargs,context_options,humanize,human_config=_context_settings(kwargs)
+    kwargs=await asyncio.to_thread(_prepare_executable,kwargs)
     directory=pathlib.Path(user_data_dir).resolve()
     kwargs['seed']=await asyncio.to_thread(_seed,directory,kwargs.get('seed'))
     options=_options(**kwargs)

@@ -39,6 +39,6 @@ The earlier native pass used two logical CPUs, BelowNormal priority, a 2 GiB Jav
 
 ## Scope boundary
 
-Compatibility, rendering correctness, profile persistence, explicit privacy policies and driver integration are supported investigation and implementation scopes. Reproducing automation-concealment or anti-bot/CAPTCHA-bypass mechanisms is outside this work. Detector scores do not substitute for these acceptance criteria.
+Compatibility, rendering correctness, profile persistence, explicit privacy policies and driver integration are supported investigation and implementation scopes. On 23 October the user clarified that investigating and reducing reproducible automation-specific differences for authorized E2E is part of the project, while CAPTCHA solving/bypass is outside the requested scope. Use native, driver and user-controlled browsing comparisons to identify actual differences. Detector scores do not substitute for these acceptance criteria or establish universal outcomes.
 
 No new browser patch or native function analysis was performed when creating this ledger or its SDK continuation. The continuation adds source/adapter observations and retained native views; it does not increase native function coverage.

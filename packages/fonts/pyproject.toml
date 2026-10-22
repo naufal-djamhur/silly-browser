@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "silly-browser-fonts"
+version = "0.1.0"
+description = "Optional unmodified Noto core fonts for native silly-browser loading"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT AND OFL-1.1"
+license-files = ["LICENSE", "OFL.txt"]
+authors = [{name = "silly-browser contributors"}]
+classifiers = ["Development Status :: 3 - Alpha", "Programming Language :: Python :: 3"]
+
+[project.urls]
+Repository = "https://github.com/naufal-djamhur/silly-browser/tree/main/packages/fonts"
+
+[project.scripts]
+silly-browser-fonts = "silly_browser_fonts.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["silly_browser_fonts*"]
+
+[tool.setuptools.package-data]
+silly_browser_fonts = ["manifest.json", "fonts/*.ttf"]

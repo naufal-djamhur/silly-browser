@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-23",
+  "scope": "SDK and optional fonts packaging; no new native runtime results",
+  "javascript": {
+    "passed": 23,
+    "skipped": 3
+  },
+  "pythonSelectedLightweight": {
+    "passed": 21
+  },
+  "pythonPackageMetadataChecksPassed": 4,
+  "isolatedNpmInstallationPassed": true,
+  "isolatedPythonInstallationPassed": true,
+  "separateFontPackage": "silly-browser-fonts",
+  "nativeFontBrowserQualified": false,
+  "linuxRecipeExecuted": false,
+  "publishedToRegistries": false,
+  "artifacts": [
+    {
+      "artifact": "npm/silly-browser-0.1.0.tgz",
+      "bytes": 17277,
+      "sha256": "390618f8c1ea5c8074bab267d118985114f591aedc0704b36b19c015f58a5d77",
+      "regularFileCount": 14,
+      "fontCount": 0
+    },
+    {
+      "artifact": "npm/silly-browser-fonts-0.1.0.tgz",
+      "bytes": 2884774,
+      "sha256": "9f4e9522826fc005030f4e31c574f5d7f4cb566bf844d8ccf16c17d9be1ed965",
+      "regularFileCount": 17,
+      "fontCount": 10
+    },
+    {
+      "artifact": "python/silly_browser-0.1.0-py3-none-any.whl",
+      "bytes": 16913,
+      "sha256": "fc369b2e05d9d824ab61f87ba873f10b0552902f957a2318a4066afca5a80b26",
+      "regularFileCount": 15,
+      "fontCount": 0
+    },
+    {
+      "artifact": "python/silly_browser-0.1.0.tar.gz",
+      "bytes": 15868,
+      "sha256": "02f28589ea3eb71814578c902ebf7a85bb3054be3f48ed823cf93ee1b193b239",
+      "regularFileCount": 20,
+      "fontCount": 0
+    },
+    {
+      "artifact": "python/silly_browser_fonts-0.1.0-py3-none-any.whl",
+      "bytes": 2866489,
+      "sha256": "62c11ad5b5233212ddfda0c2733191d0190033b589508be40cfeffc48f655015",
+      "regularFileCount": 20,
+      "fontCount": 10
+    },
+    {
+      "artifact": "python/silly_browser_fonts-0.1.0.tar.gz",
+      "bytes": 2863896,
+      "sha256": "36a95310161d9af2fe6c74e9a37f33d5b9ca52a82cdbe1540cf7e0bfb1d8d6d7",
+      "regularFileCount": 24,
+      "fontCount": 10
+    }
+  ],
+  "fontFilesIdenticalAcrossAllFontArchives": true,
+  "fonts": 10,
+  "uncompressedFontBytes": 5878396,
+  "upstreamFontCommit": "ffebf8c1ee449e544955a7e813c54f9b73848eac",
+  "checked": "Contents, path bounds, notices, identical font inventory and every font byte digest; runtime binaries excluded."
+}

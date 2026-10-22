@@ -1,0 +1,24 @@
+silly-browser
+Copyright (c) 2026 Custom Browser contributors
+
+Original project code is distributed under the MIT license in LICENSE.
+
+Chromium source excerpts, patch context and modified Chromium components retain
+their upstream licenses. The Chromium license is reproduced in
+LICENSES/Chromium.txt. Chromium contains additional third-party components under
+their own licenses; a distributed browser runtime must include its generated
+third-party notices (for example, chrome://credits and its license document).
+The SDK license does not replace those licenses.
+
+JavaScript and Python dependency licenses remain with their respective authors.
+Playwright and Puppeteer use Apache-2.0; yauzl and the development-only fflate
+library use MIT. Consult installed dependency notices for their complete terms.
+
+The separately installed silly-browser-fonts package contains unmodified Noto
+font files licensed under SIL OFL 1.1. Its own OFL.txt and provenance inventory
+must accompany those fonts; the core SDK package does not bundle the font files.
+
+This is an independent project. It is not an official Google Chrome release and
+is not affiliated with Google, Microsoft, Playwright or CloakBrowser. Reference
+analysis does not grant rights to redistribute reference binaries or proprietary
+patch implementations. Such artifacts are not included in these SDK packages.

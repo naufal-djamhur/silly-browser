@@ -1,0 +1,15 @@
+{
+  "name": "silly-browser-fonts",
+  "version": "0.1.0",
+  "description": "Optional, unmodified Noto core fonts for native silly-browser font loading",
+  "type": "module",
+  "license": "MIT AND OFL-1.1",
+  "author": "silly-browser contributors",
+  "repository": {"type": "git", "url": "git+https://github.com/naufal-djamhur/silly-browser.git", "directory": "packages/fonts"},
+  "main": "./index.mjs",
+  "exports": {".": "./index.mjs", "./package.json": "./package.json", "./manifest.json": "./silly_browser_fonts/manifest.json"},
+  "bin": {"silly-browser-fonts": "./cli.mjs"},
+  "files": ["index.mjs", "cli.mjs", "silly_browser_fonts/fonts/", "silly_browser_fonts/manifest.json", "README.md", "LICENSE", "OFL.txt"],
+  "publishConfig": {"access": "public"},
+  "engines": {"node": ">=22.12.0"}
+}

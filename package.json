@@ -1,27 +1,47 @@
 {
   "name": "silly-browser",
   "version": "0.1.0",
-  "private": true,
+  "description": "Experimental source-patched Chromium with JavaScript and Python automation SDKs",
+  "license": "MIT",
+  "author": "silly-browser contributors",
+  "repository": {"type": "git", "url": "git+https://github.com/naufal-djamhur/silly-browser.git"},
+  "homepage": "https://github.com/naufal-djamhur/silly-browser#readme",
+  "bugs": "https://github.com/naufal-djamhur/silly-browser/issues",
+  "keywords": ["chromium", "browser", "automation", "playwright", "e2e"],
+  "main": "./sdk/js/index.mjs",
+  "exports": {".": "./sdk/js/index.mjs", "./puppeteer": "./sdk/js/puppeteer.mjs", "./browser-manager": "./sdk/js/browser-manager.mjs", "./package.json": "./package.json"},
+  "bin": {"silly-browser": "./sdk/js/cli.mjs"},
+  "files": ["sdk/js/", "LICENSE", "NOTICE", "LICENSES/", "README.md"],
+  "publishConfig": {"access": "public"},
   "type": "module",
   "scripts": {
     "test": "node --test tests/config.test.mjs tests/browser.test.mjs tests/profile-seed.test.mjs tests/webrtc-capability.test.mjs tests/sdk-contract.test.mjs",
     "test:context": "node --test tests/context-browser.test.mjs",
     "test:native-environment": "node --test tests/native-environment-browser.test.mjs",
+    "test:font-pack:engine": "node --test tests/native-font-pack-browser.test.mjs",
     "benchmark": "node benchmarks/run.mjs",
     "inventory": "node benchmarks/inventory.mjs",
     "test:engine": "node --test tests/custom-engine-step2.test.mjs",
     "compatibility": "node compatibility/run.mjs",
     "test:engine:python": "python tests/python_custom_engine_test.py",
     "test:puppeteer": "node --test tests/puppeteer-sdk.test.mjs",
-    "test:webrtc": "node --test tests/webrtc-browser.test.mjs"
+    "test:webrtc": "node --test tests/webrtc-browser.test.mjs",
+    "test:installer": "node --test tests/browser-manager.test.mjs tests/font-pack.test.mjs",
+    "browser:install": "node sdk/js/cli.mjs install",
+    "browser:status": "node sdk/js/cli.mjs status"
   },
   "dependencies": {
-    "playwright-core": "1.62.1"
+    "playwright-core": "1.62.1",
+    "yauzl": "3.4.0"
   },
+  "peerDependencies": {"puppeteer-core": "^25.13.0", "silly-browser-fonts": "^0.1.0"},
+  "peerDependenciesMeta": {"puppeteer-core": {"optional": true}, "silly-browser-fonts": {"optional": true}},
   "engines": {
     "node": ">=22.12.0"
   },
   "devDependencies": {
-    "puppeteer-core": "25.13.0"
+    "puppeteer-core": "25.13.0",
+    "fflate": "0.8.3",
+    "silly-browser-fonts": "file:packages/fonts"
   }
 }

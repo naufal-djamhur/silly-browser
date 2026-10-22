@@ -19,7 +19,7 @@ The continuation runner requires engine identity/seed checks, Python integration
 
 Native flags are tested without SDK locale/timezone emulation. The native fixture checks HTTP language, document/iframe and worker values, DST, and a native `local()` Ahem font load with expected canvas advance width. See [native implementation and qualification](native-environment-fonts-20261023.md) and [post-build validation](post-build-validation.md).
 
-If a check fails, retain its evidence and reproduce the specific browser, rendering, configuration or driver defect before changing source. A user-driven browsing comparison and REA can support that diagnosis. Detector classification alone does not establish an incorrect browser behavior, and this checkpoint does not prescribe automation-concealment patches or claim CloakBrowser parity.
+If a check fails, retain its evidence and reproduce the specific browser, rendering, configuration or driver difference before changing source. A user-driven browsing comparison and REA can support authorized E2E diagnosis. The user clarified that reducing automation-specific differences is in scope, while CAPTCHA solving/bypass is outside the requested project. Detector classification alone does not establish an incorrect browser behavior; this checkpoint does not claim universal detector outcomes or CloakBrowser parity.
 
 ## Hardware and build settings
 
