@@ -14,7 +14,7 @@ class ReleaseSelection(unittest.TestCase):
         self.assertEqual(new['commit'],'43a195105613ac83c21d3f14de279f4a045c7da0')
         self.assertEqual(new['windows']['visualStudioMinimum'],'18.0.0')
         self.assertFalse(new['built'])
-        self.assertEqual([item['id'] for item in manifest['patches']],['CB-0001','CB-0002','CB-0003'])
+        self.assertEqual([item['id'] for item in manifest['patches']],['CB-0001','CB-0002','CB-0003','CB-0004','CB-0005'])
     def test_path_and_range_inputs_are_rejected(self):
         for value in ['../146.0.7680.177','155','155.*','C:/src','155.0.8059.80/../../','']:
             with self.assertRaises(ValueError):load_release(value)

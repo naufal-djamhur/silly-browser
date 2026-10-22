@@ -1,0 +1,272 @@
+diff --git a/chrome/app/chrome_main_delegate.cc b/chrome/app/chrome_main_delegate.cc
+index 1788909..87efba1 100644
+--- a/chrome/app/chrome_main_delegate.cc
++++ b/chrome/app/chrome_main_delegate.cc
+@@ -6,6 +6,7 @@
+ 
+ #include <stddef.h>
+ #include <stdio.h>
++#include <cstdlib>
+ 
+ #include <string>
+ #include <variant>
+@@ -51,6 +52,7 @@
+ #include "chrome/common/chrome_switches.h"
+ #include "chrome/common/crash_keys.h"
+ #include "chrome/common/custom_browser_seed_policy.h"
++#include "chrome/common/custom_browser_locale_policy.h"
+ #include "chrome/common/custom_browser_webrtc_policy.h"
+ #include "chrome/common/logging_chrome.h"
+ #include "chrome/common/profiler/chrome_thread_group_profiler_client.h"
+@@ -1211,14 +1213,7 @@ std::optional<int> ChromeMainDelegate::BasicStartupComplete() {
+       LOG(ERROR) << "Unsupported custom-browser-webrtc-policy";
+       return CHROME_RESULT_CODE_UNSUPPORTED_PARAM;
+     }
+-    if (command_line.HasSwitch("custom-browser-engine-info")) {
+-      printf("{\"engine\":\"custom-browser\",\"policyVersion\":1,"
+-             "\"sourcePatchCount\":3,\"capabilities\":[\"seed\",\"platform-identity\",\"webrtc-policy\"],"
+-             "\"fingerprintIntegrationValidated\":false,"
+-             "\"seed\":\"%s\"}\n",
+-             command_line.GetSwitchValueASCII("custom-browser-seed").c_str());
+-      return 0;
+-    }
++
+   }
+ #elif BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC)
+   const bool is_browser = false;
+@@ -1523,6 +1518,41 @@ void ChromeMainDelegate::PreSandboxStartup() {
+   std::string process_type =
+       command_line.GetSwitchValueASCII(switches::kProcessType);
+ 
++  // Explicit process defaults; ICU is initialized before PreSandboxStartup.
++  auto* environment_command_line = base::CommandLine::ForCurrentProcess();
++  if (command_line.HasSwitch("custom-browser-locale")) {
++    const auto locale = custom_browser::CanonicalLocale(
++        command_line.GetSwitchValueASCII("custom-browser-locale"));
++    if (!locale) {
++      LOG(ERROR) << "custom-browser-locale requires a complete BCP 47 tag";
++      std::exit(CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
++    }
++    environment_command_line->AppendSwitchASCII("custom-browser-locale", *locale);
++    environment_command_line->AppendSwitchASCII(switches::kLang, *locale);
++    base::i18n::SetICUDefaultLocale(*locale);
++  }
++  if (command_line.HasSwitch("custom-browser-timezone")) {
++    const auto zone = custom_browser::CanonicalTimezone(
++        command_line.GetSwitchValueASCII("custom-browser-timezone"));
++    if (!zone) {
++      LOG(ERROR) << "custom-browser-timezone requires an ICU system timezone";
++      std::exit(CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
++    }
++    environment_command_line->AppendSwitchASCII("custom-browser-timezone", *zone);
++    const std::u16string utf16_zone = base::UTF8ToUTF16(*zone);
++    UErrorCode status = U_ZERO_ERROR;
++    ucal_setDefaultTimeZone(utf16_zone.c_str(), &status);
++    if (U_FAILURE(status)) std::exit(CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
++  }
++  if (process_type.empty() && command_line.HasSwitch("custom-browser-engine-info")) {
++    printf("{\"engine\":\"custom-browser\",\"policyVersion\":1,"
++           "\"sourcePatchCount\":4,\"capabilities\":[\"seed\",\"platform-identity\","
++           "\"webrtc-policy\",\"native-timezone\",\"native-locale\"],"
++           "\"fingerprintIntegrationValidated\":false,\"seed\":\"%s\"}\n",
++           command_line.GetSwitchValueASCII("custom-browser-seed").c_str());
++    std::exit(0);
++  }
++
+   crash_reporter::InitializeCrashKeys();
+ 
+ #if BUILDFLAG(IS_POSIX)
+@@ -1742,6 +1772,12 @@ void ChromeMainDelegate::SandboxInitialized(const std::string& process_type) {
+     }
+   }
+ #endif  // !defined(BUILDING_CHROME_RENDERER)
++  // Resource packs can select a fallback UI language. Preserve the explicit
++  // ICU web default after loading them; UI resource fallback remains intact.
++  if (command_line.HasSwitch("custom-browser-locale"))
++    base::i18n::SetICUDefaultLocale(
++        command_line.GetSwitchValueASCII("custom-browser-locale"));
++
+ }
+ 
+ #if BUILDFLAG(IS_MAC)
+diff --git a/chrome/browser/chrome_content_browser_client.cc b/chrome/browser/chrome_content_browser_client.cc
+index 5dc1c17..fd019c4 100644
+--- a/chrome/browser/chrome_content_browser_client.cc
++++ b/chrome/browser/chrome_content_browser_client.cc
+@@ -2934,6 +2934,8 @@ void ChromeContentBrowserClient::AppendExtraCommandLineSwitches(
+       "custom-browser-seed",
+       "custom-browser-platform",
+       "custom-browser-platform-version",
++      "custom-browser-timezone",
++      "custom-browser-locale",
+       embedder_support::kUserAgent,
+       switches::kUserDataDir,  // Make logs go to the right file.
+   };
+@@ -3297,6 +3299,10 @@ std::string ChromeContentBrowserClient::GetApplicationLocale() {
+ std::string ChromeContentBrowserClient::GetAcceptLangs(
+     content::BrowserContext* context) {
+   Profile* profile = Profile::FromBrowserContext(context);
++  const auto& command = *base::CommandLine::ForCurrentProcess();
++  if (command.HasSwitch("custom-browser-locale") &&
++      !profile->GetPrefs()->IsManagedPreference(language::prefs::kAcceptLanguages))
++    return command.GetSwitchValueASCII("custom-browser-locale");
+   return profile->GetPrefs()->GetString(language::prefs::kAcceptLanguages);
+ }
+ 
+diff --git a/chrome/browser/net/profile_network_context_service.cc b/chrome/browser/net/profile_network_context_service.cc
+index 67be696..ff01840 100644
+--- a/chrome/browser/net/profile_network_context_service.cc
++++ b/chrome/browser/net/profile_network_context_service.cc
+@@ -719,6 +719,11 @@ void ProfileNetworkContextService::OnThirdPartyCookieBlockingChanged(
+ }
+ 
+ std::string ProfileNetworkContextService::ComputeAcceptLanguage() const {
++  const auto& command = *base::CommandLine::ForCurrentProcess();
++  if (command.HasSwitch("custom-browser-locale") &&
++      !profile_->GetPrefs()->IsManagedPreference(language::prefs::kAcceptLanguages))
++    return ComputeAcceptLanguageFromPref(
++        command.GetSwitchValueASCII("custom-browser-locale"));
+   return ComputeAcceptLanguageFromPref(
+       content::ReduceAcceptLanguageUtils::GetLanguagesWithMaxCount(
+           profile_->IsOffTheRecord() ? language::GetIncognitoLanguageList(
+diff --git a/chrome/browser/renderer_preferences_util.cc b/chrome/browser/renderer_preferences_util.cc
+index 7fc1a53..d5a1efc 100644
+--- a/chrome/browser/renderer_preferences_util.cc
++++ b/chrome/browser/renderer_preferences_util.cc
+@@ -102,6 +102,10 @@ std::vector<std::string> GetLocalIpsAllowedUrls(
+ 
+ std::string GetLanguageListForProfile(Profile* profile,
+                                       const std::string& language_list) {
++  const auto& command = *base::CommandLine::ForCurrentProcess();
++  if (command.HasSwitch("custom-browser-locale") &&
++      !profile->GetPrefs()->IsManagedPreference(language::prefs::kAcceptLanguages))
++    return command.GetSwitchValueASCII("custom-browser-locale");
+   return content::ReduceAcceptLanguageUtils::GetLanguagesWithMaxCount(
+       profile->IsOffTheRecord()
+           ? language::GetIncognitoLanguageList(language_list)
+diff --git a/chrome/common/BUILD.gn b/chrome/common/BUILD.gn
+index f9886f9..35275a5 100644
+--- a/chrome/common/BUILD.gn
++++ b/chrome/common/BUILD.gn
+@@ -468,6 +468,7 @@ static_library("non_code_constants") {
+     "chrome_constants.cc",
+     "chrome_constants.h",
+     "chrome_switches.h",
++    "custom_browser_locale_policy.h",
+     "custom_browser_seed_policy.h",
+     "custom_browser_webrtc_policy.h",
+     "env_vars.h",
+@@ -485,6 +486,7 @@ static_library("non_code_constants") {
+     "//build:branding_buildflags",
+     "//extensions/buildflags",
+     "//printing/buildflags",
++    "//third_party/icu",
+     "//ui/base:buildflags",
+   ]
+ 
+diff --git a/chrome/common/custom_browser_locale_policy.h b/chrome/common/custom_browser_locale_policy.h
+new file mode 100644
+index 0000000..653515c
+--- /dev/null
++++ b/chrome/common/custom_browser_locale_policy.h
+@@ -0,0 +1,56 @@
++// Copyright 2026 Custom Browser contributors. MIT license.
++#ifndef CHROME_COMMON_CUSTOM_BROWSER_LOCALE_POLICY_H_
++#define CHROME_COMMON_CUSTOM_BROWSER_LOCALE_POLICY_H_
++#include <array>
++#include <optional>
++#include <string>
++#include <string_view>
++#include "third_party/icu/source/common/unicode/uloc.h"
++#include "third_party/icu/source/i18n/unicode/ucal.h"
++
++namespace custom_browser {
++inline bool IsEnvironmentIdentifier(std::string_view value) {
++  if (value.empty() || value.size() > 128) return false;
++  for (const unsigned char c : value)
++    if (c <= 32 || c >= 127) return false;
++  return true;
++}
++
++inline std::optional<std::string> CanonicalLocale(std::string_view value) {
++  if (!IsEnvironmentIdentifier(value)) return std::nullopt;
++  const std::string input(value);
++  std::array<char, ULOC_FULLNAME_CAPACITY> id{};
++  std::array<char, ULOC_FULLNAME_CAPACITY> tag{};
++  UErrorCode status = U_ZERO_ERROR;
++  int32_t parsed = 0;
++  uloc_forLanguageTag(input.c_str(), id.data(), static_cast<int32_t>(id.size()),
++                     &parsed, &status);
++  if (U_FAILURE(status) || parsed != static_cast<int32_t>(value.size()) ||
++      id[0] == '\0') return std::nullopt;
++  uloc_toLanguageTag(id.data(), tag.data(), static_cast<int32_t>(tag.size()),
++                    true, &status);
++  if (U_FAILURE(status) || tag[0] == '\0') return std::nullopt;
++  return std::string(tag.data());
++}
++
++inline std::optional<std::string> CanonicalTimezone(std::string_view value) {
++  if (!IsEnvironmentIdentifier(value)) return std::nullopt;
++  std::array<UChar, 129> input{};
++  std::array<UChar, 256> canonical{};
++  for (size_t i = 0; i < value.size(); ++i) input[i] = value[i];
++  UErrorCode status = U_ZERO_ERROR;
++  UBool system = false;
++  const int32_t length = ucal_getCanonicalTimeZoneID(
++      input.data(), static_cast<int32_t>(value.size()), canonical.data(),
++      static_cast<int32_t>(canonical.size()), &system, &status);
++  if (U_FAILURE(status) || !system || length <= 0) return std::nullopt;
++  std::string result;
++  result.reserve(length);
++  for (int32_t i = 0; i < length; ++i) {
++    if (canonical[i] > 127) return std::nullopt;
++    result.push_back(static_cast<char>(canonical[i]));
++  }
++  return result;
++}
++}  // namespace custom_browser
++#endif
+diff --git a/services/device/time_zone_monitor/time_zone_monitor.cc b/services/device/time_zone_monitor/time_zone_monitor.cc
+index 5851ef7..0acd1fc 100644
+--- a/services/device/time_zone_monitor/time_zone_monitor.cc
++++ b/services/device/time_zone_monitor/time_zone_monitor.cc
+@@ -5,6 +5,7 @@
+ #include "services/device/time_zone_monitor/time_zone_monitor.h"
+ 
+ #include "base/logging.h"
++#include "base/command_line.h"
+ #include "base/memory/ptr_util.h"
+ #include "base/trace_event/trace_event.h"
+ #include "third_party/icu/source/common/unicode/unistr.h"
+@@ -39,6 +40,10 @@ void TimeZoneMonitor::UpdateIcuAndNotifyClients(
+   DCHECK(thread_checker_.CalledOnValidThread());
+   TRACE_EVENT0("device", "TimeZoneMonitor::UpdateIcuAndNotifyClients");
+ 
++  const auto& command = *base::CommandLine::ForCurrentProcess();
++  if (command.HasSwitch("custom-browser-timezone"))
++    new_zone.reset(icu::TimeZone::createTimeZone(icu::UnicodeString::fromUTF8(
++        command.GetSwitchValueASCII("custom-browser-timezone"))));
+   // Do not notify clients if the timezone didn't change.
+   if (*timezone_ == *new_zone) {
+     return;
+diff --git a/third_party/blink/renderer/core/timezone/timezone_controller.cc b/third_party/blink/renderer/core/timezone/timezone_controller.cc
+index 270c78b..521f50d 100644
+--- a/third_party/blink/renderer/core/timezone/timezone_controller.cc
++++ b/third_party/blink/renderer/core/timezone/timezone_controller.cc
+@@ -255,10 +255,14 @@ void TimeZoneController::OnTimeZoneChange(const String& timezone_id) {
+ 
+   // Remember requested timezone id so we can set it when timezone
+   // override is removed.
+-  instance().host_timezone_id_ = timezone_id;
++  const auto& command = *base::CommandLine::ForCurrentProcess();
++  const String effective_timezone = command.HasSwitch("custom-browser-timezone")
++      ? String::FromUtf8(command.GetSwitchValueASCII("custom-browser-timezone"))
++      : timezone_id;
++  instance().host_timezone_id_ = effective_timezone;
+ 
+   if (!HasTimeZoneOverride())
+-    SetIcuTimeZoneAndNotifyV8(timezone_id);
++    SetIcuTimeZoneAndNotifyV8(effective_timezone);
+ }
+ 
+ const String& TimeZoneController::GetHostTimezoneId() {

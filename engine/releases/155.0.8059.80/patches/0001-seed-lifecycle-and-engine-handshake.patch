@@ -83,25 +83,28 @@ index e2dcc54..7b14da1 100644
    configs += [ "//build/config/compiler:wexit_time_destructors" ]
 diff --git a/chrome/common/custom_browser_seed_policy.h b/chrome/common/custom_browser_seed_policy.h
 new file mode 100644
-index 0000000..da27116
+index 0000000..be3e564
 --- /dev/null
 +++ b/chrome/common/custom_browser_seed_policy.h
-@@ -0,0 +1,19 @@
+@@ -0,0 +1,22 @@
 +// Copyright 2026 Custom Browser contributors. MIT license.
 +#ifndef CHROME_COMMON_CUSTOM_BROWSER_SEED_POLICY_H_
 +#define CHROME_COMMON_CUSTOM_BROWSER_SEED_POLICY_H_
-+#include <charconv>
 +#include <cstdint>
++#include <limits>
 +#include <optional>
 +#include <string_view>
 +namespace custom_browser {
 +inline std::optional<uint64_t> ParseSeed(std::string_view value) {
 +  if (value.empty()) return std::nullopt;
-+  for (char c : value) if (c < '0' || c > '9') return std::nullopt;
 +  uint64_t seed = 0;
-+  auto result = std::from_chars(value.data(), value.data()+value.size(), seed);
-+  if (result.ec != std::errc{} || result.ptr != value.data()+value.size())
-+    return std::nullopt;
++  for (const char c : value) {
++    if (c < '0' || c > '9') return std::nullopt;
++    const uint64_t digit = static_cast<uint64_t>(c - '0');
++    if (seed > (std::numeric_limits<uint64_t>::max() - digit) / 10)
++      return std::nullopt;
++    seed = seed * 10 + digit;
++  }
 +  return seed;
 +}
 +}  // namespace custom_browser

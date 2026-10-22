@@ -6,7 +6,13 @@
     "components/embedder_support/user_agent_utils.cc": "21d06edd8f0b76a0bfef8c7aab2448e4f046f788e24da5591713c3561ea54708",
     "third_party/blink/renderer/core/execution_context/navigator_base.cc": "64b29bb294db26511bd68cb304837bca69fd13b16daf318eae6efbe0565d944b",
     "third_party/blink/public/common/BUILD.gn": "4ac2f2eca3762d426cd06f54bc2cf03a5e6f899097ca5af52da9e6b7d04ecd7f",
-    "chrome/browser/renderer_preferences_util.cc": "5704803c2ccce48ae3b614b876ff1a3730e07b2dcbbe2ab08a527372074bbef4"
+    "chrome/browser/renderer_preferences_util.cc": "5704803c2ccce48ae3b614b876ff1a3730e07b2dcbbe2ab08a527372074bbef4",
+    "chrome/browser/net/profile_network_context_service.cc": "55d29972186221adc500576187a5ac9f4b4084aa5384bda05a6f9359ed2350bc",
+    "third_party/blink/renderer/core/timezone/timezone_controller.cc": "c378fecb1cd84682c73ac7ec7122dff402f4a1c9afc4156803f53ccb2db1ea3b",
+    "services/device/time_zone_monitor/time_zone_monitor.cc": "d982fe5b64046b8fa754d9a2fd67885869fd139023fe7caaf858eb8f5b9554c9",
+    "ui/gfx/BUILD.gn": "303909a22f7b045ef7820a7df59716d09f4dd0c8f42dc73c4166149b771c9054",
+    "ui/gfx/win/direct_write.cc": "8ef8fd82b4ce653e336ad5cc696503ceb0df0a3bbd86f3759732f3ed45918dad",
+    "content/browser/renderer_host/dwrite_font_proxy_impl_win.cc": "629f77c916de27a09da6535fed3a2a163a2a813504c2815372b59d97656b9587"
   },
   "fingerprintPatchesImplemented": 0,
   "patches": [
@@ -22,7 +28,8 @@
       "regressions": [
         "tests/seed_policy_test.cc",
         "tests/custom-engine-step2.test.mjs",
-        "tests/python_custom_engine_test.py"
+        "tests/python_custom_engine_test.py",
+        "tests/native_seed_policy_test.cc"
       ],
       "limitations": [
         "No renderer fingerprint modification",
@@ -79,6 +86,52 @@
         "No IP spoofing or fabricated candidates",
         "Full stable build and browser integration pending"
       ]
+    },
+    {
+      "id": "CB-0004",
+      "file": "0004-native-locale-timezone.patch",
+      "scope": "Explicit ICU-validated process locale/timezone, language routing and host-change handling",
+      "status": "source-written-full-browser-build-pending",
+      "dependencies": [
+        "CB-0003"
+      ],
+      "platforms": [
+        "windows",
+        "linux",
+        "macos"
+      ],
+      "validatedPlatforms": [],
+      "regressions": [
+        "tests/native_environment_policy_test.cc"
+      ],
+      "limitations": [
+        "Full browser compile, linking and both-mode runtime qualification pending",
+        "Explicit process defaults, not per-context configuration; CDP emulation remains a separate layer",
+        "Managed Accept-Language policy remains authoritative; UI resources may use a fallback locale",
+        "IANA/ICU system timezone identifiers only; no arbitrary GMT offsets"
+      ]
+    },
+    {
+      "id": "CB-0005",
+      "file": "0005-windows-font-directory.patch",
+      "scope": "Bounded additive Windows font directory in DirectWrite and FontDataService collection paths",
+      "status": "source-written-full-browser-build-pending",
+      "dependencies": [
+        "CB-0004"
+      ],
+      "platforms": [
+        "windows"
+      ],
+      "validatedPlatforms": [],
+      "regressions": [
+        "tests/native_font_directory_test.cc"
+      ],
+      "limitations": [
+        "Full browser compile, linking and both-mode runtime qualification pending",
+        "Windows local fixed-drive directories only; additive system fallback; restart required for changes",
+        "At most 256 TTF/OTF/TTC files, 64 MiB per file, 512 MiB total; no reparse points",
+        "Local Font Access OS enumeration and browser UI font metadata remain separately unqualified"
+      ]
     }
   ],
   "plannedFamilies": [
@@ -98,5 +151,10 @@
   ],
   "fingerprintSourcePatchFamiliesWritten": 1,
   "browserValidatedFingerprintFamilies": [],
-  "privacySourcePatchFamiliesWritten": 1
+  "privacySourcePatchFamiliesWritten": 1,
+  "nativeConfigurationFamiliesWritten": [
+    "timezone",
+    "locale",
+    "font-directory-windows"
+  ]
 }

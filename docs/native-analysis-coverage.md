@@ -8,6 +8,8 @@ The investigation is **partial**. Four function dossiers, nine retained records 
 
 **23 October implementation:** [the compatibility patch checkpoint](compatibility-patches-20261023.md) records the native API repair and implemented SDK regressions. The failed native translation unit passes syntax checking; full linking and browser qualification are pending. Updated driver-boundary reports are separate from the preserved pre-change observations. No additional native function recovery or detector parity is claimed.
 
+**Subsequent native features:** [the environment/font checkpoint](native-environment-fonts-20261023.md) adds two native patches for process timezone/locale and additive Windows font directories. Standalone policy programs pass, with bounded compiler checks recorded separately from blocked full translation units and pending browser tests. Source implementation closes part of the missing-feature gap; it does not establish runtime coverage or comparator parity. The full build remains stopped at the user's request.
+
 ## Coverage ledger
 
 | Question | Existing evidence | Status | Acceptance criteria for a bounded conclusion |

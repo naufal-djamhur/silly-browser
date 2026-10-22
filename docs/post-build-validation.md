@@ -39,10 +39,13 @@ $env:CUSTOM_CONTEXT_REPORT = Join-Path $validationDir 'context-results.json'
 npm run test:engine
 & $validationPython tests/python_custom_engine_test.py
 npm run test:context
+npm run test:native-environment
 npm run compatibility -- --executable $env:CUSTOM_BROWSER_EXECUTABLE --engine-mode custom --python $validationPython --both-modes --output (Join-Path $validationDir 'drivers')
 ```
 
 The identity/seed checks cover HTTP, document, iframe and worker agreement, persistent storage and profile ownership. The driver matrix covers Playwright, Puppeteer CDP, Python Playwright and Selenium in both display modes. These gates exercise ordinary browser control; they do not qualify detector or CAPTCHA outcomes. A skipped or unavailable check cannot qualify a feature.
+
+For the five-patch 155 series, configure `CUSTOM_BROWSER_FONT_TEST_DIR` with the owned Ahem fixture directory and `CUSTOM_NATIVE_ENV_REPORT` with a fresh evidence path before the native-environment check. See [native configuration qualification](native-environment-fonts-20261023.md) for its exact scope. Omitting the font fixture does not qualify font rendering. The workspace continuation runner now prepares this fixture and requires both context and native-environment checks after linking; it remains stopped until build continuation is requested.
 
 For a build advertising the `webrtc-policy` capability, also run:
 

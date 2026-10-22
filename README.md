@@ -80,6 +80,8 @@ try {
 
 `webrtcPolicy` (Python: `webrtc_policy`) defaults to `native`. Other standard IP-handling policies require the explicit `webrtc-policy` engine capability. The historical binary rejects them; the stable implementation awaits compilation and routing validation.
 
+The 155 source series also contains opt-in native `--custom-browser-timezone`, `--custom-browser-locale` and Windows-only `--custom-browser-fonts-dir` configuration. These are process defaults, separate from SDK context emulation. The font directory adds validated local fonts to system fallback without installing fonts or disabling sandboxing. **The five-patch browser has not linked or passed runtime qualification.** See [native implementation and test evidence](docs/native-environment-fonts-20261023.md) for flags, limits, platform scope and pending headed/headless checks.
+
 ## Python API
 
 ```powershell

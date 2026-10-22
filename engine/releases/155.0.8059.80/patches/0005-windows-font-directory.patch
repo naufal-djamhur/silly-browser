@@ -1,0 +1,325 @@
+diff --git a/chrome/app/chrome_main_delegate.cc b/chrome/app/chrome_main_delegate.cc
+index 87efba1..6e9e8ab 100644
+--- a/chrome/app/chrome_main_delegate.cc
++++ b/chrome/app/chrome_main_delegate.cc
+@@ -53,6 +53,9 @@
+ #include "chrome/common/crash_keys.h"
+ #include "chrome/common/custom_browser_seed_policy.h"
+ #include "chrome/common/custom_browser_locale_policy.h"
++#if BUILDFLAG(IS_WIN)
++#include "ui/gfx/win/custom_browser_font_files.h"
++#endif
+ #include "chrome/common/custom_browser_webrtc_policy.h"
+ #include "chrome/common/logging_chrome.h"
+ #include "chrome/common/profiler/chrome_thread_group_profiler_client.h"
+@@ -1544,11 +1547,27 @@ void ChromeMainDelegate::PreSandboxStartup() {
+     ucal_setDefaultTimeZone(utf16_zone.c_str(), &status);
+     if (U_FAILURE(status)) std::exit(CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
+   }
++  if (process_type.empty() && command_line.HasSwitch("custom-browser-fonts-dir")) {
++#if BUILDFLAG(IS_WIN)
++    if (!custom_browser::ConfiguredFontFiles()) {
++      LOG(ERROR) << "custom-browser-fonts-dir requires a bounded local directory of valid TTF/OTF/TTC files";
++      std::exit(CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
++    }
++#else
++    LOG(ERROR) << "custom-browser-fonts-dir is currently Windows-only";
++    std::exit(CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
++#endif
++  }
+   if (process_type.empty() && command_line.HasSwitch("custom-browser-engine-info")) {
+     printf("{\"engine\":\"custom-browser\",\"policyVersion\":1,"
+-           "\"sourcePatchCount\":4,\"capabilities\":[\"seed\",\"platform-identity\","
+-           "\"webrtc-policy\",\"native-timezone\",\"native-locale\"],"
++           "\"sourcePatchCount\":5,\"capabilities\":[\"seed\",\"platform-identity\","
++           "\"webrtc-policy\",\"native-timezone\",\"native-locale\"%s],"
+            "\"fingerprintIntegrationValidated\":false,\"seed\":\"%s\"}\n",
++#if BUILDFLAG(IS_WIN)
++           ",\"font-directory-windows\"",
++#else
++           "",
++#endif
+            command_line.GetSwitchValueASCII("custom-browser-seed").c_str());
+     std::exit(0);
+   }
+diff --git a/content/browser/renderer_host/dwrite_font_proxy_impl_win.cc b/content/browser/renderer_host/dwrite_font_proxy_impl_win.cc
+index 6b59bf2..2b3c402 100644
+--- a/content/browser/renderer_host/dwrite_font_proxy_impl_win.cc
++++ b/content/browser/renderer_host/dwrite_font_proxy_impl_win.cc
+@@ -36,6 +36,7 @@
+ #include "third_party/blink/public/common/font_unique_name_lookup/font_unique_name_table.pb.h"
+ #include "third_party/blink/public/common/font_unique_name_lookup/icu_fold_case_util.h"
+ #include "ui/gfx/win/direct_write.h"
++#include "ui/gfx/win/custom_browser_font_files.h"
+ #include "ui/gfx/win/text_analysis_source.h"
+ 
+ namespace mswr = Microsoft::WRL;
+@@ -125,7 +126,13 @@ bool CheckRequiredStylesPresent(IDWriteFontCollection* collection,
+ 
+ HRESULT GetLocalFontCollection(mswr::ComPtr<IDWriteFactory3>& factory,
+                                IDWriteFontCollection** collection) {
+-  if (!g_sideloaded_fonts) {
++  const auto& configured = custom_browser::ConfiguredFontFiles();
++  CHECK(configured.has_value());
++  std::vector<base::FilePath> font_files;
++  for (const auto& path : *configured) font_files.emplace_back(path);
++  if (g_sideloaded_fonts)
++    font_files.insert(font_files.end(), g_sideloaded_fonts->begin(), g_sideloaded_fonts->end());
++  if (font_files.empty()) {
+     // Normal path - use the system's font collection with no sideloading.
+     return factory->GetSystemFontCollection(collection);
+   }
+@@ -136,20 +143,21 @@ HRESULT GetLocalFontCollection(mswr::ComPtr<IDWriteFactory3>& factory,
+   if (!SUCCEEDED(hr)) {
+     return hr;
+   }
+-  for (auto& path : *g_sideloaded_fonts) {
++  for (const auto& path : font_files) {
+     mswr::ComPtr<IDWriteFontFile> font_file;
+     hr = factory->CreateFontFileReference(path.value().c_str(), nullptr,
+                                           &font_file);
+     if (!SUCCEEDED(hr)) {
+       return hr;
+     }
+-    BOOL supported;
++    BOOL supported = FALSE;
+     DWRITE_FONT_FILE_TYPE file_type;
+-    UINT32 n_fonts;
++    UINT32 n_fonts = 0;
+     hr = font_file->Analyze(&supported, &file_type, nullptr, &n_fonts);
+     if (!SUCCEEDED(hr)) {
+       return hr;
+     }
++    if (!supported || !n_fonts) return E_INVALIDARG;
+     for (UINT32 font_index = 0; font_index < n_fonts; ++font_index) {
+       mswr::ComPtr<IDWriteFontFaceReference> font_face;
+       hr = factory->CreateFontFaceReference(font_file.Get(), font_index,
+diff --git a/ui/gfx/BUILD.gn b/ui/gfx/BUILD.gn
+index 6b5120f..1ef782c 100644
+--- a/ui/gfx/BUILD.gn
++++ b/ui/gfx/BUILD.gn
+@@ -323,6 +323,8 @@ component("gfx") {
+       "system_fonts_win.h",
+       "win/crash_id_helper.cc",
+       "win/crash_id_helper.h",
++      "win/custom_browser_font_directory.h",
++      "win/custom_browser_font_files.h",
+       "win/d3d_shared_fence.cc",
+       "win/d3d_shared_fence.h",
+       "win/direct_write.cc",
+diff --git a/ui/gfx/win/custom_browser_font_directory.h b/ui/gfx/win/custom_browser_font_directory.h
+new file mode 100644
+index 0000000..5bca5b6
+--- /dev/null
++++ b/ui/gfx/win/custom_browser_font_directory.h
+@@ -0,0 +1,79 @@
++// Copyright 2026 Custom Browser contributors. MIT license.
++#ifndef UI_GFX_WIN_CUSTOM_BROWSER_FONT_DIRECTORY_H_
++#define UI_GFX_WIN_CUSTOM_BROWSER_FONT_DIRECTORY_H_
++#include <windows.h>
++#include <dwrite_3.h>
++#include <wrl/client.h>
++#include <algorithm>
++#include <cstdint>
++#include <optional>
++#include <string>
++#include <vector>
++
++namespace custom_browser {
++// Local fixed-drive, nonrecursive collections, bounded before DirectWrite reads.
++inline std::optional<std::vector<std::wstring>> ReadFontDirectory(
++    const std::wstring& directory) {
++  if (directory.size() < 3 || directory[1] != L':' ||
++      (directory[2] != L'\\' && directory[2] != L'/') ||
++      directory.find(L'\0') != std::wstring::npos) return std::nullopt;
++  std::wstring root = directory;
++  std::replace(root.begin(), root.end(), L'/', L'\\');
++  if (root.find(L"\\..\\") != std::wstring::npos || root.ends_with(L"\\..") ||
++      GetDriveTypeW(root.substr(0, 3).c_str()) != DRIVE_FIXED)
++    return std::nullopt;
++  // Reject reparse points in every existing path component, not only the leaf.
++  for (size_t end = 3; end <= root.size(); ++end) {
++    if (end != root.size() && root[end] != L'\\') continue;
++    const DWORD attributes = GetFileAttributesW(root.substr(0, end).c_str());
++    if (attributes == INVALID_FILE_ATTRIBUTES ||
++        !(attributes & FILE_ATTRIBUTE_DIRECTORY) ||
++        (attributes & FILE_ATTRIBUTE_REPARSE_POINT)) return std::nullopt;
++  }
++  WIN32_FIND_DATAW entry{};
++  const HANDLE raw = FindFirstFileW((root + L"\\*").c_str(), &entry);
++  if (raw == INVALID_HANDLE_VALUE) return std::nullopt;
++  struct FindHandle {
++    HANDLE value;
++    ~FindHandle() { FindClose(value); }
++  } handle{raw};
++  std::vector<std::wstring> files;
++  uint64_t total = 0;
++  do {
++    if (entry.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY) continue;
++    const std::wstring name(entry.cFileName);
++    const size_t dot = name.find_last_of(L'.');
++    if (dot == std::wstring::npos) continue;
++    const std::wstring extension = name.substr(dot);
++    if (_wcsicmp(extension.c_str(), L".ttf") && _wcsicmp(extension.c_str(), L".otf") &&
++        _wcsicmp(extension.c_str(), L".ttc")) continue;
++    const uint64_t size = (static_cast<uint64_t>(entry.nFileSizeHigh) << 32) |
++                          entry.nFileSizeLow;
++    total += size;
++    if ((entry.dwFileAttributes & FILE_ATTRIBUTE_REPARSE_POINT) || !size ||
++        size > 64ull * 1024 * 1024 || total > 512ull * 1024 * 1024 ||
++        files.size() >= 256) return std::nullopt;
++    files.push_back(root + L"\\" + name);
++  } while (FindNextFileW(handle.value, &entry));
++  if (GetLastError() != ERROR_NO_MORE_FILES || files.empty()) return std::nullopt;
++  std::sort(files.begin(), files.end());
++  Microsoft::WRL::ComPtr<IUnknown> unknown;
++  if (FAILED(DWriteCreateFactory(DWRITE_FACTORY_TYPE_ISOLATED,
++                                __uuidof(IDWriteFactory3), &unknown)))
++    return std::nullopt;
++  Microsoft::WRL::ComPtr<IDWriteFactory3> factory;
++  if (FAILED(unknown.As(&factory))) return std::nullopt;
++  for (const auto& path : files) {
++    Microsoft::WRL::ComPtr<IDWriteFontFile> file;
++    if (FAILED(factory->CreateFontFileReference(path.c_str(), nullptr, &file)))
++      return std::nullopt;
++    BOOL supported = FALSE;
++    DWRITE_FONT_FILE_TYPE type{};
++    UINT32 faces = 0;
++    if (FAILED(file->Analyze(&supported, &type, nullptr, &faces)) ||
++        !supported || !faces || faces > 64) return std::nullopt;
++  }
++  return files;
++}
++}  // namespace custom_browser
++#endif
+diff --git a/ui/gfx/win/custom_browser_font_files.h b/ui/gfx/win/custom_browser_font_files.h
+new file mode 100644
+index 0000000..d336014
+--- /dev/null
++++ b/ui/gfx/win/custom_browser_font_files.h
+@@ -0,0 +1,22 @@
++// Copyright 2026 Custom Browser contributors. MIT license.
++#ifndef UI_GFX_WIN_CUSTOM_BROWSER_FONT_FILES_H_
++#define UI_GFX_WIN_CUSTOM_BROWSER_FONT_FILES_H_
++#include "base/command_line.h"
++#include "base/files/file_path.h"
++#include "base/no_destructor.h"
++#include "ui/gfx/win/custom_browser_font_directory.h"
++namespace custom_browser {
++inline const std::optional<std::vector<std::wstring>>& ConfiguredFontFiles() {
++  static const base::NoDestructor<std::optional<std::vector<std::wstring>>> files(
++      []() -> std::optional<std::vector<std::wstring>> {
++        if (!base::CommandLine::InitializedForCurrentProcess())
++          return std::vector<std::wstring>();
++        const auto& command = *base::CommandLine::ForCurrentProcess();
++        if (command.HasSwitch("type") || !command.HasSwitch("custom-browser-fonts-dir"))
++          return std::vector<std::wstring>();
++        return ReadFontDirectory(command.GetSwitchValuePath("custom-browser-fonts-dir").value());
++      }());
++  return *files;
++}
++}  // namespace custom_browser
++#endif
+diff --git a/ui/gfx/win/direct_write.cc b/ui/gfx/win/direct_write.cc
+index 83a9552..cbf9b85 100644
+--- a/ui/gfx/win/direct_write.cc
++++ b/ui/gfx/win/direct_write.cc
+@@ -3,6 +3,7 @@
+ // found in the LICENSE file.
+ 
+ #include "ui/gfx/win/direct_write.h"
++#include "ui/gfx/win/custom_browser_font_files.h"
+ 
+ #include <dwrite.h>
+ #include <dwrite_2.h>
+@@ -35,7 +36,13 @@ std::vector<base::FilePath>* g_sideloaded_fonts = nullptr;
+ 
+ bool GetFontCollection(Microsoft::WRL::ComPtr<IDWriteFactory>& factory,
+                        IDWriteFontCollection** collection) {
+-  if (!g_sideloaded_fonts) {
++  const auto& configured = custom_browser::ConfiguredFontFiles();
++  CHECK(configured.has_value());
++  std::vector<base::FilePath> font_files;
++  for (const auto& path : *configured) font_files.emplace_back(path);
++  if (g_sideloaded_fonts)
++    font_files.insert(font_files.end(), g_sideloaded_fonts->begin(), g_sideloaded_fonts->end());
++  if (font_files.empty()) {
+     // Normal path - The DirectWrite font manager will use the system's font
+     // collection with no sideloading when passed `nullptr` for the collection.
+     return false;
+@@ -57,51 +64,51 @@ bool GetFontCollection(Microsoft::WRL::ComPtr<IDWriteFactory>& factory,
+   // collection.
+   Microsoft::WRL::ComPtr<IDWriteFontSetBuilder> font_set_builder;
+   HRESULT hr = factory3->CreateFontSetBuilder(&font_set_builder);
+-  DCHECK(SUCCEEDED(hr));
++  if (FAILED(hr)) return false;
+ 
+-  for (auto& path : *g_sideloaded_fonts) {
++  for (const auto& path : font_files) {
+     Microsoft::WRL::ComPtr<IDWriteFontFile> font_file;
+     hr = factory3->CreateFontFileReference(path.value().c_str(), nullptr,
+                                            &font_file);
+-    DCHECK(SUCCEEDED(hr));
++    if (FAILED(hr)) return false;
+ 
+-    BOOL supported;
++    BOOL supported = FALSE;
+     DWRITE_FONT_FILE_TYPE file_type;
+-    UINT32 n_fonts;
++    UINT32 n_fonts = 0;
+     hr = font_file->Analyze(&supported, &file_type, nullptr, &n_fonts);
+-    DCHECK(SUCCEEDED(hr));
++    if (FAILED(hr) || !supported || !n_fonts) return false;
+ 
+     for (UINT32 font_index = 0; font_index < n_fonts; ++font_index) {
+       Microsoft::WRL::ComPtr<IDWriteFontFaceReference> font_face;
+       hr = factory3->CreateFontFaceReference(font_file.Get(), font_index,
+                                              DWRITE_FONT_SIMULATIONS_NONE,
+                                              &font_face);
+-      DCHECK(SUCCEEDED(hr));
++      if (FAILED(hr)) return false;
+ 
+       hr = font_set_builder->AddFontFaceReference(font_face.Get());
+-      DCHECK(SUCCEEDED(hr));
++      if (FAILED(hr)) return false;
+     }
+   }
+   // Now add the system fonts.
+   Microsoft::WRL::ComPtr<IDWriteFontSet> system_font_set;
+   hr = factory3->GetSystemFontSet(&system_font_set);
+-  DCHECK(SUCCEEDED(hr));
++  if (FAILED(hr)) return false;
+ 
+   hr = font_set_builder->AddFontSet(system_font_set.Get());
+-  DCHECK(SUCCEEDED(hr));
++  if (FAILED(hr)) return false;
+ 
+   // Make the set.
+   Microsoft::WRL::ComPtr<IDWriteFontSet> font_set;
+   hr = font_set_builder->CreateFontSet(&font_set);
+-  DCHECK(SUCCEEDED(hr));
++  if (FAILED(hr)) return false;
+ 
+   // Make the collection.
+   Microsoft::WRL::ComPtr<IDWriteFontCollection1> collection1;
+   hr = factory3->CreateFontCollectionFromFontSet(font_set.Get(), &collection1);
+-  DCHECK(SUCCEEDED(hr));
++  if (FAILED(hr)) return false;
+ 
+   hr = collection1->QueryInterface(collection);
+-  DCHECK(SUCCEEDED(hr));
++  if (FAILED(hr)) return false;
+ 
+   return true;
+ }
+@@ -157,8 +164,8 @@ void InitializeDirectWrite() {
+   // SkFontMgr_DirectWrite increments this object's ref count.
+   Microsoft::WRL::ComPtr<IDWriteFontCollection> collection;
+   bool should_use_collection = GetFontCollection(factory, &collection);
+-  if (g_sideloaded_fonts) {
+-    DCHECK(should_use_collection);
++  if (g_sideloaded_fonts || !custom_browser::ConfiguredFontFiles()->empty()) {
++    CHECK(should_use_collection);
+   } else {
+     DCHECK(!should_use_collection);
+   }

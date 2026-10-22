@@ -1,7 +1,7 @@
 {
   "version": "155.0.8059.80",
   "commit": "43a195105613ac83c21d3f14de279f4a045c7da0",
-  "sourcePatchCount": 3,
+  "sourcePatchCount": 5,
   "status": "ordered-source-rebase-written",
   "compiled": false,
   "requirements": {
@@ -11,14 +11,29 @@
     "freeDiskGBMinimum": 100
   },
   "patchSha256": {
-    "0001-seed-lifecycle-and-engine-handshake.patch": "b1981e6030e7b6b7ee9bf157db3ff2761a201a984aa4193d96e80c42fa6f8914",
+    "0001-seed-lifecycle-and-engine-handshake.patch": "01077b66f90e755707b2582bf56d7c209bd0e780dfe99e5bc216afee0f3e3609",
     "0002-platform-web-identity.patch": "08b189c9e05c93094b90c137c649088b29e422a60fce88b3827d94b884bdb706",
-    "0003-webrtc-privacy-policy.patch": "d2f228e5c2c38b864a105150e525121b3d0cd898a648b0a40673575d4c7bab83"
+    "0003-webrtc-privacy-policy.patch": "d2f228e5c2c38b864a105150e525121b3d0cd898a648b0a40673575d4c7bab83",
+    "0004-native-locale-timezone.patch": "0e624643ff3d6e40961ada56ce54c92d2b7f9cfca0d2537a6dbc09f3c256b5fb",
+    "0005-windows-font-directory.patch": "fa0aacd8a71daec166cfbe89301eadff8b8a9bb96aa6e2b535b8ef282c8579ca"
   },
   "nativeCompatibilityFix": {
     "date": "2026-10-23",
     "file": "third_party/blink/renderer/core/execution_context/navigator_base.cc",
     "change": "Use the Chromium 155 String::FromUtf8(std::string_view) overload",
     "validation": "Direct clang-cl /Zs on the previously failing translation unit passed; full linking and browser runtime pending"
+  },
+  "nativeEnvironmentIteration": {
+    "date": "2026-10-23",
+    "fullBrowserBuildStarted": false,
+    "standalonePolicyProgramsPassed": [
+      "ICU locale/timezone/DST",
+      "Windows DirectWrite font directory",
+      "bounded native seed parser"
+    ],
+    "fullTranslationUnitsSyntaxPassed": 6,
+    "additionalInsertedBodySyntaxProbesPassed": 2,
+    "fullTranslationUnitsBlockedByMissingGeneratedHeaders": 2,
+    "browserRuntimeValidated": false
   }
 }

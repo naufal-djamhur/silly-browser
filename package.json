@@ -6,6 +6,7 @@
   "scripts": {
     "test": "node --test tests/config.test.mjs tests/browser.test.mjs tests/profile-seed.test.mjs tests/webrtc-capability.test.mjs tests/sdk-contract.test.mjs",
     "test:context": "node --test tests/context-browser.test.mjs",
+    "test:native-environment": "node --test tests/native-environment-browser.test.mjs",
     "benchmark": "node benchmarks/run.mjs",
     "inventory": "node benchmarks/inventory.mjs",
     "test:engine": "node --test tests/custom-engine-step2.test.mjs",
