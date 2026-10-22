@@ -14,7 +14,7 @@
     "0001-seed-lifecycle-and-engine-handshake.patch": "01077b66f90e755707b2582bf56d7c209bd0e780dfe99e5bc216afee0f3e3609",
     "0002-platform-web-identity.patch": "08b189c9e05c93094b90c137c649088b29e422a60fce88b3827d94b884bdb706",
     "0003-webrtc-privacy-policy.patch": "d2f228e5c2c38b864a105150e525121b3d0cd898a648b0a40673575d4c7bab83",
-    "0004-native-locale-timezone.patch": "0e624643ff3d6e40961ada56ce54c92d2b7f9cfca0d2537a6dbc09f3c256b5fb",
+    "0004-native-locale-timezone.patch": "1ff476aa4bf4796e07aea78ba4af57c5acceff97a31c2e609d39b26be6dd376b",
     "0005-windows-font-directory.patch": "fa0aacd8a71daec166cfbe89301eadff8b8a9bb96aa6e2b535b8ef282c8579ca"
   },
   "nativeCompatibilityFix": {

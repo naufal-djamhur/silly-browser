@@ -23,14 +23,16 @@ inline std::optional<std::string> CanonicalLocale(std::string_view value) {
   std::array<char, ULOC_FULLNAME_CAPACITY> tag{};
   UErrorCode status = U_ZERO_ERROR;
   int32_t parsed = 0;
-  uloc_forLanguageTag(input.c_str(), id.data(), static_cast<int32_t>(id.size()),
+  const int32_t id_length = uloc_forLanguageTag(input.c_str(), id.data(), static_cast<int32_t>(id.size()),
                      &parsed, &status);
-  if (U_FAILURE(status) || parsed != static_cast<int32_t>(value.size()) ||
-      id[0] == '\0') return std::nullopt;
-  uloc_toLanguageTag(id.data(), tag.data(), static_cast<int32_t>(tag.size()),
+  if (U_FAILURE(status) || id_length <= 0 ||
+      id_length >= static_cast<int32_t>(id.size()) ||
+      parsed != static_cast<int32_t>(value.size())) return std::nullopt;
+  const int32_t tag_length = uloc_toLanguageTag(id.data(), tag.data(), static_cast<int32_t>(tag.size()),
                     true, &status);
-  if (U_FAILURE(status) || tag[0] == '\0') return std::nullopt;
-  return std::string(tag.data());
+  if (U_FAILURE(status) || tag_length <= 0 ||
+      tag_length >= static_cast<int32_t>(tag.size())) return std::nullopt;
+  return std::string(tag.data(), static_cast<size_t>(tag_length));
 }
 
 inline std::optional<std::string> CanonicalTimezone(std::string_view value) {
