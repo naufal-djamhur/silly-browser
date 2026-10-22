@@ -1,7 +1,7 @@
 import {mkdtemp, rm} from 'node:fs/promises';
 import {tmpdir} from 'node:os';
 import {basename, dirname, join, resolve} from 'node:path';
-import {buildLaunchOptions, verifyCustomBinary} from './index.mjs';
+import {buildLaunchOptions, buildContextOptions, verifyCustomBinary} from './index.mjs';
 import {persistentSeed} from './profile-seed.mjs';
 import {validateHumanConfig, motionPoints} from './humanize.mjs';
 
@@ -81,9 +81,11 @@ async function launchProfile(directory,options,temporary) {
     const launchOptions=buildLaunchOptions({...options,seed});
     await verifyCustomBinary({...launchOptions,engineMode:options.engineMode});
     const {default:puppeteer}=await import('puppeteer-core');
+    const proxyArgs = launchOptions.proxy ? [`--proxy-server=${launchOptions.proxy.server}`] : [];
+    if (launchOptions.proxy?.bypass !== undefined) proxyArgs.push(`--proxy-bypass-list=${launchOptions.proxy.bypass}`);
     const browser=await puppeteer.launch({executablePath:launchOptions.executablePath,headless:launchOptions.headless,userDataDir:directory,
-      args:[...launchOptions.args,...(launchOptions.proxy?[`--proxy-server=${launchOptions.proxy.server}`]:[])],
-      ...(launchOptions.ignoreDefaultArgs?{ignoreDefaultArgs:launchOptions.ignoreDefaultArgs}:{}),defaultViewport:options.viewport??null});
+      args:[...launchOptions.args,...proxyArgs],
+      ...(launchOptions.ignoreDefaultArgs?{ignoreDefaultArgs:launchOptions.ignoreDefaultArgs}:{}),defaultViewport:buildContextOptions({viewport:options.viewport}).viewport});
     const close=browser.close.bind(browser);
     browser.close=async(...args)=>{try{return await close(...args)}finally{await cleanTemporary()}};
     if(options.humanize)await humanizePuppeteerBrowser(browser,options.humanConfig??{});

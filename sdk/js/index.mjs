@@ -4,6 +4,8 @@ import { tmpdir } from 'node:os';
 import { resolve, join } from 'node:path';
 import { humanizeBrowser,validateHumanConfig } from './humanize.mjs';
 import {persistentSeed} from './profile-seed.mjs';
+import {buildContextOptions, contextOptionKeys} from './context-options.mjs';
+export {buildContextOptions} from './context-options.mjs';
 export { humanizeBrowser } from './humanize.mjs';
 export {launchPuppeteer,launchPuppeteerPersistent,humanizePuppeteerBrowser} from './puppeteer.mjs';
 
@@ -11,6 +13,8 @@ export function normalizeProxy(input) {
   if (!input) return undefined;
   if (typeof input === 'object') {
     if (!input.server) throw new TypeError('Proxy server is required');
+    if (input.bypass !== undefined && (typeof input.bypass !== 'string' || /[\r\n\x00]/.test(input.bypass)))
+      throw new TypeError('Proxy bypass must be a string without CR, LF or NUL');
     const parsed = normalizeProxy(input.server);
     const result = {...parsed, ...input, server: parsed.server};
     if (result.server.startsWith('socks5:') && (result.username || result.password))
@@ -29,6 +33,7 @@ export function normalizeProxy(input) {
 export function buildLaunchOptions(options = {}) {
   const known = new Set(['executablePath','engineMode','headless','proxy','platform','platformVersion','webrtcPolicy','extensionPaths','seed','args','geoip','humanize','humanConfig','locale','timezone','viewport']);
   for(const key of Object.keys(options)) if(!known.has(key)) throw new TypeError(`Unknown option: ${key}`);
+  contextOptionsFor(options);
   if(options.humanize) validateHumanConfig(options.humanConfig??{});
   const {executablePath, engineMode = 'custom', headless = true, proxy, platform = 'native', extensionPaths = [], seed, args = [], geoip = false} = options;
   if (!executablePath) throw new Error('Set executablePath to an actual built binary, or choose a stock executable with engineMode: baseline');
@@ -73,12 +78,18 @@ export async function verifyCustomBinary(options) {
 }
 
 export async function launch(options = {}) {
+  if (contextOptionKeys.some(key => Object.hasOwn(options, key)))
+    throw new TypeError('Context options require launchContext, launchPersistentContext or browser.newContext(buildContextOptions(...))');
   if (options.extensionPaths?.length) throw new Error('Extensions require launchContext or launchPersistentContext; Browser.newContext is incognito');
   const launchOptions = buildLaunchOptions(options);
   await verifyCustomBinary({...launchOptions, engineMode: options.engineMode});
   const browser = await chromium.launch(launchOptions);
   if (options.humanize) humanizeBrowser(browser, options.humanConfig);
   return browser;
+}
+
+function contextOptionsFor(options) {
+  return buildContextOptions(Object.fromEntries(contextOptionKeys.filter(key => Object.hasOwn(options, key)).map(key => [key, options[key]])));
 }
 
 export async function launchPersistentContext(userDataDir, options = {}) {
@@ -89,15 +100,14 @@ export async function launchPersistentContext(userDataDir, options = {}) {
   const launchOptions = buildLaunchOptions({...options, seed});
   await verifyCustomBinary({...launchOptions, engineMode: options.engineMode});
   const context = await chromium.launchPersistentContext(directory, {
-    ...launchOptions, ...(options.locale ? {locale: options.locale} : {}),
-    ...(options.timezone ? {timezoneId: options.timezone} : {}),
-    viewport: options.viewport ?? null
+    ...launchOptions, ...contextOptionsFor(options)
   });
   if (options.humanize) humanizeBrowser(context, options.humanConfig);
   return context;
 }
 
 export async function launchContext(options = {}) {
+  buildLaunchOptions(options);
   const directory = await mkdtemp(join(tmpdir(), 'custom-browser-'));
   try {
     const context = await launchPersistentContext(directory, options);

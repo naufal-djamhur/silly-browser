@@ -42,8 +42,9 @@ def _options(executable_path=None, engine_mode='custom', headless=True, proxy=No
     if platform_version is not None:
         import re
         if platform=='native' or not isinstance(platform_version,str) or len(platform_version)>32 or not re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+',platform_version):raise ValueError('platform_version requires a preset and major.minor.patch')
-    launch_args=list(args or [])
-    if not all(isinstance(a,str) for a in launch_args):raise TypeError('args must be strings')
+    if args is not None and (not isinstance(args,list) or not all(isinstance(a,str) for a in args)):
+        raise TypeError('args must be a list of strings')
+    launch_args=list(args) if args is not None else []
     if any(a.split('=')[0] in ('--no-sandbox','--disable-setuid-sandbox','--custom-browser-seed','--custom-browser-platform','--custom-browser-platform-version','--custom-browser-webrtc-policy','--user-data-dir') for a in launch_args):
         raise ValueError('Sandbox and profile lifecycle flags cannot be overridden')
     if seed is not None:
@@ -91,7 +92,36 @@ def _seed(directory,explicit):
     finally:temporary.unlink(missing_ok=True)
     return _seed(directory,None)
 
+def build_context_options(*,locale=None,timezone=None,viewport=None):
+    """Map explicit context configuration; the browser validates ICU identifiers."""
+    result={}
+    for name,value,target in [('locale',locale,'locale'),('timezone',timezone,'timezone_id')]:
+        if value is None:continue
+        if not isinstance(value,str) or not value or '\x00' in value or any(char.isspace() for char in value):
+            raise TypeError(f'{name} must be a nonempty string without whitespace or NUL')
+        result[target]=value
+    if viewport is None:result['no_viewport']=True
+    else:
+        if not isinstance(viewport,dict) or set(viewport)!= {'width','height'} or any(type(value) is not int or not 0<value<=2147483647 for value in viewport.values()):
+            raise TypeError('viewport must be None or contain positive int32 width and height')
+        result['viewport']=dict(viewport)
+    return result
+
+def _context_settings(kwargs):
+    launch_kwargs=dict(kwargs)
+    context=build_context_options(**{key:launch_kwargs.pop(key) for key in ('locale','timezone','viewport') if key in launch_kwargs})
+    humanize=launch_kwargs.pop('humanize',False)
+    human_config=launch_kwargs.pop('human_config',None)
+    if humanize:_human_config(human_config or {})
+    _options(**launch_kwargs)
+    return launch_kwargs,context,humanize,human_config
+
+def _reject_browser_context_options(kwargs):
+    if any(key in kwargs for key in ('locale','timezone','viewport')):
+        raise TypeError('Context options require launch_context, launch_persistent_context or browser.new_context(**build_context_options(...))')
+
 def launch(**kwargs):
+    _reject_browser_context_options(kwargs)
     from playwright.sync_api import sync_playwright
     humanize=kwargs.pop('humanize',False)
     human_config=kwargs.pop('human_config',None)
@@ -111,16 +141,11 @@ def launch(**kwargs):
 
 def launch_persistent_context(user_data_dir,**kwargs):
     from playwright.sync_api import sync_playwright
-    humanize=kwargs.pop('humanize',False);human_config=kwargs.pop('human_config',None)
-    if humanize:_human_config(human_config or {})
-    locale=kwargs.pop('locale',None);timezone=kwargs.pop('timezone',None)
-    _options(**kwargs)
+    kwargs,context_options,humanize,human_config=_context_settings(kwargs)
     directory=pathlib.Path(user_data_dir).resolve()
     kwargs['seed']=_seed(directory,kwargs.get('seed'))
     options=_options(**kwargs);_handshake(options,kwargs.get('engine_mode','custom'))
-    if locale:options['locale']=locale
-    if timezone:options['timezone_id']=timezone
-    options['no_viewport']=True
+    options.update(context_options)
     pw=sync_playwright().start()
     try:context=pw.chromium.launch_persistent_context(str(directory),**options)
     except BaseException:pw.stop();raise
@@ -133,6 +158,7 @@ def launch_persistent_context(user_data_dir,**kwargs):
     return context
 
 def launch_context(**kwargs):
+    _context_settings(kwargs)
     directory=tempfile.mkdtemp(prefix='custom-browser-')
     try:context=launch_persistent_context(directory,**kwargs)
     except BaseException:shutil.rmtree(directory);raise
@@ -144,6 +170,7 @@ def launch_context(**kwargs):
     return context
 
 async def launch_async(**kwargs):
+    _reject_browser_context_options(kwargs)
     from playwright.async_api import async_playwright
     import asyncio
     humanize=kwargs.pop('humanize',False);human_config=kwargs.pop('human_config',None)
@@ -165,17 +192,12 @@ async def launch_async(**kwargs):
 async def launch_persistent_context_async(user_data_dir,**kwargs):
     from playwright.async_api import async_playwright
     import asyncio
-    humanize=kwargs.pop('humanize',False);human_config=kwargs.pop('human_config',None)
-    if humanize:_human_config(human_config or {})
-    locale=kwargs.pop('locale',None);timezone=kwargs.pop('timezone',None)
-    _options(**kwargs)
+    kwargs,context_options,humanize,human_config=_context_settings(kwargs)
     directory=pathlib.Path(user_data_dir).resolve()
     kwargs['seed']=await asyncio.to_thread(_seed,directory,kwargs.get('seed'))
     options=_options(**kwargs)
     await asyncio.to_thread(_handshake,options,kwargs.get('engine_mode','custom'))
-    if locale:options['locale']=locale
-    if timezone:options['timezone_id']=timezone
-    options['no_viewport']=True
+    options.update(context_options)
     pw=await async_playwright().start()
     try:context=await pw.chromium.launch_persistent_context(str(directory),**options)
     except BaseException:await pw.stop();raise
@@ -188,6 +210,7 @@ async def launch_persistent_context_async(user_data_dir,**kwargs):
     return context
 
 async def launch_context_async(**kwargs):
+    _context_settings(kwargs)
     directory=tempfile.mkdtemp(prefix='custom-browser-')
     try:context=await launch_persistent_context_async(directory,**kwargs)
     except BaseException:shutil.rmtree(directory);raise

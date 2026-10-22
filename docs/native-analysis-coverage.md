@@ -6,6 +6,8 @@ The investigation is **partial**. Four function dossiers, nine retained records 
 
 **SDK continuation:** the [compatibility/privacy report](sdk-compatibility-privacy-analysis.md) now inventories selected contracts at one pinned wrapper revision and records 26 browser-free observations of our actual SDK. It reproduces dropped JS context fields, Python viewport/argument differences and dropped Puppeteer proxy bypass. These close specific source/adapter questions; they do not qualify native runtime behavior or resolve the remaining ledger entries.
 
+**23 October implementation:** [the compatibility patch checkpoint](compatibility-patches-20261023.md) records the native API repair and implemented SDK regressions. The failed native translation unit passes syntax checking; full linking and browser qualification are pending. Updated driver-boundary reports are separate from the preserved pre-change observations. No additional native function recovery or detector parity is claimed.
+
 ## Coverage ledger
 
 | Question | Existing evidence | Status | Acceptance criteria for a bounded conclusion |

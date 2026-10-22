@@ -37,7 +37,11 @@ with patch('playwright.sync_api.sync_playwright',return_value=manager):
             context.close()
             return {'localeForwarded':True,'timezoneForwarded':True,'noViewportAlwaysEnabled':True}
         observe('python-persistent-context-fields',persistent_config)
-        observe('python-persistent-viewport',lambda:rejected(lambda:sdk.launch_persistent_context(directory,**base,viewport={'width':900,'height':700})))
+        def persistent_viewport():
+            context=sdk.launch_persistent_context(directory,**base,viewport={'width':900,'height':700})
+            assert captured['viewport']=={'width':900,'height':700} and 'no_viewport' not in captured
+            context.close();return {'viewportForwarded':True,'noViewportForced':False}
+        observe('python-persistent-viewport',persistent_viewport)
     observe('python-browser-extensions',lambda:rejected(lambda:sdk.launch(**base,extension_paths=['fixture-extension'])))
 
 def credentials():
@@ -49,9 +53,8 @@ observe('python-http-credential-routing',credentials)
 observe('python-authenticated-socks5',lambda:rejected(lambda:sdk._proxy('socks5://fixture-user:fixture-password@127.0.0.1:1080')))
 observe('python-geoip',lambda:rejected(lambda:sdk._options(**base,geoip=True)))
 def args_string():
-    options=sdk._options(**base,args='--example')
-    assert options['args']==list('--example')
-    return {'rejected':False,'splitIntoCharacters':True}
+    result=rejected(lambda:sdk._options(**base,args='--example'))
+    assert result['rejected'];return {**result,'splitIntoCharacters':False}
 observe('python-raw-args-string',args_string)
 observe('python-context-options-passthrough',lambda:rejected(lambda:sdk._options(**base,context_options={'permissions':[]})))
 observe('python-sandbox-policy',lambda:rejected(lambda:sdk._options(**base,args=['--no-sandbox'])))

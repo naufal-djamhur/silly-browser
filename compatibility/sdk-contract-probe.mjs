@@ -21,15 +21,10 @@ chromium.launchPersistentContext=async(directory,options)=>{profile=directory;ca
 puppeteer.launch=async options=>{profile=options.userDataDir;captured=options;return fake()};
 async function observe(id,probe){rows.push({id,observation:await probe(),browserRuntimeValidated:false})}
 const rejected=async action=>{try{await action();return {rejected:false}}catch(error){return {rejected:true,errorType:error.name,message:error.message}}};
-const has=(object,key)=>Object.hasOwn(object,key);
 try {
   await observe('js-browser-context-fields',async()=>{
-    const browser=await launch({...base,...config});
-    const context=await browser.newContext({});
-    assert(!has(captured,'locale')&&!has(captured,'timezoneId')&&!has(captured,'viewport'));
-    assert.deepEqual(context.options,{});
-    await browser.close();
-    return {launchFieldsForwarded:false,newContextDefaultsApplied:false};
+    const result=await rejected(()=>launch({...base,...config}));
+    assert(result.rejected);return {...result,silentFieldDropPrevented:true};
   });
   await observe('js-persistent-context-fields',async()=>{
     const directory=await mkdtemp(join(tmpdir(),'silly-contract-'));
@@ -61,8 +56,8 @@ try {
     const browser=await launchPuppeteer({...base,proxy:{server:'http://127.0.0.1:8080',bypass:'localhost'}});
     assert(captured.args.includes('--proxy-server=http://127.0.0.1:8080'));
     const forwarded=captured.args.some(arg=>arg.startsWith('--proxy-bypass-list='));
-    assert.equal(forwarded,false);await browser.close();
-    return {proxyServerForwarded:true,explicitBypassForwarded:false};
+    assert.equal(forwarded,true);await browser.close();
+    return {proxyServerForwarded:true,explicitBypassForwarded:true};
   });
   await observe('js-raw-args-string',()=>rejected(()=>buildLaunchOptions({...base,args:'--example'})));
   await observe('js-context-options-passthrough',()=>rejected(()=>buildLaunchOptions({...base,contextOptions:{permissions:[]}})));
@@ -71,7 +66,7 @@ try {
   chromium.launch=originals.launch;chromium.launchPersistentContext=originals.persistent;puppeteer.launch=originals.puppeteer;
 }
 const sources={};
-for(const path of ['sdk/js/index.mjs','sdk/js/puppeteer.mjs','sdk/js/profile-seed.mjs'])sources[path]=createHash('sha256').update(await readFile(join(root,path))).digest('hex');
+for(const path of ['sdk/js/index.mjs','sdk/js/context-options.mjs','sdk/js/puppeteer.mjs','sdk/js/profile-seed.mjs'])sources[path]=createHash('sha256').update(await readFile(join(root,path))).digest('hex');
 const report={schemaVersion:1,scope:'Own SDK validation and stubbed driver-boundary observations; no browser runtime, comparator execution, downloads or external traffic',runtime:process.version,sources,observations:rows};
 const out=process.argv.indexOf('--output');
 if(out>=0){if(!process.argv[out+1])throw Error('--output requires a file');const path=resolve(process.argv[out+1]);await mkdir(resolve(path,'..'),{recursive:true});await writeFile(path,JSON.stringify(report,null,2)+'\n')}

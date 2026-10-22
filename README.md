@@ -60,6 +60,10 @@ For persistent state use `launchPersistentContext('profiles/my-profile', options
 
 `launch()` returns a Playwright Browser; `launchContext()` returns a profile-backed BrowserContext with temporary-directory cleanup. Custom mode is the default and requires the engine handshake; stock Chrome is allowed only when explicitly labeled baseline. No bundled/downloaded binary is misrepresented as our engine.
 
+Context settings are explicit: `launch()` rejects `locale`, `timezone` and `viewport`. Use a profile-context launch or `browser.newContext(buildContextOptions({locale: 'fr-FR', timezone: 'Europe/Paris', viewport: {width: 900, height: 700}}))`. The exported builder validates types and dimensions and maps `timezone` to Playwright's `timezoneId`. Python exports `build_context_options(...)`, mapping to `timezone_id`. Both profile APIs accept an explicit viewport; omitted/null (Python `None`) retains no viewport emulation. The browser validates locale/timezone identifiers using its own ICU data. These controls remain scoped to each context and do not change native automation reporting.
+
+Python `args` must be a list of strings. The Puppeteer adapter forwards a supplied proxy object's `bypass` value, including an empty string, through the native proxy-bypass argument. Actual network routing still requires the local proxy qualification fixture. See [the compatibility patch checkpoint](docs/compatibility-patches-20261023.md) for validation and pending browser tests.
+
 ### Puppeteer adapter
 
 ```javascript

@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "scope": "Own SDK validation and stubbed driver-boundary observations; no browser runtime, comparator execution, downloads or external traffic",
+  "runtime": "3.13.5",
+  "sources": {
+    "sdk/python/custom_browser/__init__.py": "5c2f99235a032c22c8cdbcc6ef8da63a4b69b27907fcd82ff185c19074b93098"
+  },
+  "observations": [
+    {
+      "id": "python-browser-locale",
+      "observation": {
+        "rejected": true,
+        "errorType": "TypeError",
+        "message": "Context options require launch_context, launch_persistent_context or browser.new_context(**build_context_options(...))"
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "python-browser-timezone",
+      "observation": {
+        "rejected": true,
+        "errorType": "TypeError",
+        "message": "Context options require launch_context, launch_persistent_context or browser.new_context(**build_context_options(...))"
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "python-persistent-context-fields",
+      "observation": {
+        "localeForwarded": true,
+        "timezoneForwarded": true,
+        "noViewportAlwaysEnabled": true
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "python-persistent-viewport",
+      "observation": {
+        "viewportForwarded": true,
+        "noViewportForced": false
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "python-browser-extensions",
+      "observation": {
+        "rejected": true,
+        "errorType": "ValueError",
+        "message": "Extensions require launch_context or launch_persistent_context"
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "python-http-credential-routing",
+      "observation": {
+        "credentialsSeparatedFromServer": true,
+        "credentialPresentInProcessArgs": false,
+        "credentialsStillSensitiveInLaunchObject": true
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "python-authenticated-socks5",
+      "observation": {
+        "rejected": true,
+        "errorType": "NotImplementedError",
+        "message": "Native authenticated SOCKS5 engine patch is not implemented yet"
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "python-geoip",
+      "observation": {
+        "rejected": true,
+        "errorType": "NotImplementedError",
+        "message": "GeoIP is not implemented yet"
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "python-raw-args-string",
+      "observation": {
+        "rejected": true,
+        "errorType": "TypeError",
+        "message": "args must be a list of strings",
+        "splitIntoCharacters": false
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "python-context-options-passthrough",
+      "observation": {
+        "rejected": true,
+        "errorType": "TypeError",
+        "message": "Unknown options: context_options"
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "python-sandbox-policy",
+      "observation": {
+        "rejected": true,
+        "errorType": "ValueError",
+        "message": "Sandbox and profile lifecycle flags cannot be overridden"
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "python-async-browser-locale",
+      "observation": {
+        "rejected": true,
+        "errorType": "TypeError",
+        "message": "Context options require launch_context, launch_persistent_context or browser.new_context(**build_context_options(...))"
+      },
+      "browserRuntimeValidated": false
+    },
+    {
+      "id": "python-async-persistent-context-fields",
+      "observation": {
+        "localeForwarded": true,
+        "timezoneForwarded": true,
+        "noViewportAlwaysEnabled": true
+      },
+      "browserRuntimeValidated": false
+    }
+  ]
+}

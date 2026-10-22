@@ -12,7 +12,13 @@
   },
   "patchSha256": {
     "0001-seed-lifecycle-and-engine-handshake.patch": "b1981e6030e7b6b7ee9bf157db3ff2761a201a984aa4193d96e80c42fa6f8914",
-    "0002-platform-web-identity.patch": "06451f26e8080411cb084911e52c604bb88140e4f6f10a2a119f0677e0b0a9d3",
+    "0002-platform-web-identity.patch": "08b189c9e05c93094b90c137c649088b29e422a60fce88b3827d94b884bdb706",
     "0003-webrtc-privacy-policy.patch": "d2f228e5c2c38b864a105150e525121b3d0cd898a648b0a40673575d4c7bab83"
+  },
+  "nativeCompatibilityFix": {
+    "date": "2026-10-23",
+    "file": "third_party/blink/renderer/core/execution_context/navigator_base.cc",
+    "change": "Use the Chromium 155 String::FromUtf8(std::string_view) overload",
+    "validation": "Direct clang-cl /Zs on the previously failing translation unit passed; full linking and browser runtime pending"
   }
 }

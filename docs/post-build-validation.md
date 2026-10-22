@@ -11,7 +11,7 @@ Preserve the previous runtime and reports. Record the source commit, selected re
 For the separate pinned stable build, run from the repository root with Node.js >=22.12 and the configured Python compatibility environment. Replace the example paths with the actual completed build and Python executable:
 
 ```powershell
-$env:CUSTOM_BROWSER_EXECUTABLE = 'T:\src\out\SillyStable\chrome.exe'
+$env:CUSTOM_BROWSER_EXECUTABLE = 'PATH_TO_FINISHED_155_RUNTIME\chrome.exe'
 $env:CUSTOM_BROWSER_RELEASE = '155.0.8059.80'
 $validationPython = 'PATH_TO_CONFIGURED_PYTHON.exe'
 $validationRun = Get-Date -Format 'yyyyMMdd-HHmmss'
@@ -34,9 +34,11 @@ Use a new report directory so the historical reports remain intact. Run each com
 $env:CUSTOM_ENGINE_REPORT = Join-Path $validationDir 'engine-results.json'
 $env:CUSTOM_PYTHON_ENGINE_REPORT = Join-Path $validationDir 'python-results.json'
 $env:CUSTOM_WEBRTC_REPORT = Join-Path $validationDir 'webrtc-results.json'
+$env:CUSTOM_CONTEXT_REPORT = Join-Path $validationDir 'context-results.json'
 
 npm run test:engine
 & $validationPython tests/python_custom_engine_test.py
+npm run test:context
 npm run compatibility -- --executable $env:CUSTOM_BROWSER_EXECUTABLE --engine-mode custom --python $validationPython --both-modes --output (Join-Path $validationDir 'drivers')
 ```
 
