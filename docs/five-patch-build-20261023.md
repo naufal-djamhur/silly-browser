@@ -4,6 +4,8 @@ The user authorized incremental build continuation after the native timezone/loc
 
 ## Live checkpoint
 
+**Latest recovery:** after a PC restart, incremental compilation reached a locale-patch scoping error in `SandboxInitialized`. The missing command-line reference is corrected in the applied source and saved patch; that exact object compiles and the complete five-patch checkout verification passes. The full incremental pipeline was restarted at 10:01 WIB with prior output preserved. See [the recovery evidence](native-startup-build-fix-20261023.md); inspect live state before acting on older process details.
+
 - Installed Visual Studio, MFC/ATL, SDK and debugger preflight passed.
 - Exact five-patch source verification passed.
 - GN regeneration passed: 35,755 targets from 5,036 files.

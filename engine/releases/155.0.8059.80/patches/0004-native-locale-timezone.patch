@@ -76,12 +76,13 @@ index 1788909..87efba1 100644
    crash_reporter::InitializeCrashKeys();
  
  #if BUILDFLAG(IS_POSIX)
-@@ -1742,6 +1772,12 @@ void ChromeMainDelegate::SandboxInitialized(const std::string& process_type) {
+@@ -1742,6 +1772,13 @@ void ChromeMainDelegate::SandboxInitialized(const std::string& process_type) {
      }
    }
  #endif  // !defined(BUILDING_CHROME_RENDERER)
 +  // Resource packs can select a fallback UI language. Preserve the explicit
 +  // ICU web default after loading them; UI resource fallback remains intact.
++  const auto& command_line = *base::CommandLine::ForCurrentProcess();
 +  if (command_line.HasSwitch("custom-browser-locale"))
 +    base::i18n::SetICUDefaultLocale(
 +        command_line.GetSwitchValueASCII("custom-browser-locale"));
