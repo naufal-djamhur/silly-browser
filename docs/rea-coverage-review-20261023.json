@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-23T04:17:34.063810+00:00",
+  "scope": "REA evidence coverage review, not new decompilation or full native patch recovery",
+  "rea": {
+    "serverVersion": "6.7.0",
+    "ghidraAvailableVersion": "12.1.4",
+    "targetOpen": false,
+    "liveRetainedRecords": 0,
+    "originalDllResourceMatchesInLiveLedger": 0
+  },
+  "portableBundle": {
+    "bytes": 8557792,
+    "sha256": "061c2c9f7bcc2c122c0ec6a8e1604586c6126334058081de7adbe69a4eee88e3",
+    "records": 9,
+    "matchingFunctionDossiers": 4,
+    "summarySha256": "e824d5885c18031899f8bcd5ebc1cbbbbc4c6da39f3a0cd7953db87072368880"
+  },
+  "referenceArtifact": {
+    "release": "chromium-v146.0.7680.177.5",
+    "originalDllSha256FromPriorBinding": "ed7009a70d76fa4da222a5b37c34012d77fcc04092ef8df5fb572062940fa4dd",
+    "sliceSha256": "f3a82793b25eed3865b006faedff28182d9807c185089782c1c104e38b258b99",
+    "versionMatchedToOwn155": false
+  },
+  "records": [
+    {
+      "name": "04-locale",
+      "evidenceId": "ev_932ad5c9a11a710d16a231357d568311bb3d9937ec1e1a1dd94ff16572558547",
+      "operation": "analyze_function",
+      "subjectSha256": "f3a82793b25eed3865b006faedff28182d9807c185089782c1c104e38b258b99",
+      "relationshipCoverage": {
+        "status": "partial",
+        "limitations": [
+          "Ghidra's callee inventory omits targets of 20 call reference(s) or decoded call(s) without destinations."
+        ],
+        "limited_directions": [
+          "callees"
+        ],
+        "diagnostics": [
+          "Only resolved Ghidra call references are returned; unresolved computed or indirect calls remain unknown, while function classifications distinguish thunks and externals."
+        ]
+      },
+      "valueFlowTruncated": false,
+      "unresolvedCallCount": 20,
+      "runtimeValidated": false,
+      "retention": "complete-record"
+    },
+    {
+      "name": "02-timezone",
+      "evidenceId": "ev_9880d5b5c5d55ed9046fc8fb98e926664668d1d6b31162bc6c3492fc3d0ccfe4",
+      "operation": "analyze_function",
+      "subjectSha256": "f3a82793b25eed3865b006faedff28182d9807c185089782c1c104e38b258b99",
+      "relationshipCoverage": {
+        "status": "partial",
+        "limitations": [
+          "Ghidra's callee inventory omits targets of 12 call reference(s) or decoded call(s) without destinations."
+        ],
+        "limited_directions": [
+          "callees"
+        ],
+        "diagnostics": [
+          "Only resolved Ghidra call references are returned; unresolved computed or indirect calls remain unknown, while function classifications distinguish thunks and externals."
+        ]
+      },
+      "valueFlowTruncated": false,
+      "unresolvedCallCount": 12,
+      "runtimeValidated": false,
+      "retention": "complete-record"
+    },
+    {
+      "name": "06-fonts",
+      "evidenceId": "ev_b6b51ba25eea0178245158fd541163156b1fc9203844768a3de6ca21c77f4962",
+      "operation": "analyze_function",
+      "subjectSha256": "f3a82793b25eed3865b006faedff28182d9807c185089782c1c104e38b258b99",
+      "relationshipCoverage": {
+        "status": "partial",
+        "limitations": [
+          "Ghidra's callee inventory omits targets of 93 call reference(s) or decoded call(s) without destinations."
+        ],
+        "limited_directions": [
+          "callees"
+        ],
+        "diagnostics": [
+          "Only resolved Ghidra call references are returned; unresolved computed or indirect calls remain unknown, while function classifications distinguish thunks and externals."
+        ]
+      },
+      "valueFlowTruncated": true,
+      "unresolvedCallCount": 93,
+      "runtimeValidated": false,
+      "retention": "complete-record"
+    },
+    {
+      "name": "05-storage",
+      "evidenceId": "ev_bb9cd19e58a0c85d7af4fa55a2868e25496351a8262c41d400924936a93118ed",
+      "operation": "analyze_function",
+      "subjectSha256": "f3a82793b25eed3865b006faedff28182d9807c185089782c1c104e38b258b99",
+      "relationshipCoverage": {
+        "status": "partial",
+        "limitations": [
+          "Ghidra's callee inventory omits targets of 25 call reference(s) or decoded call(s) without destinations."
+        ],
+        "limited_directions": [
+          "callees"
+        ],
+        "diagnostics": [
+          "Only resolved Ghidra call references are returned; unresolved computed or indirect calls remain unknown, while function classifications distinguish thunks and externals."
+        ]
+      },
+      "valueFlowTruncated": false,
+      "unresolvedCallCount": 25,
+      "runtimeValidated": false,
+      "retention": "complete-record"
+    }
+  ],
+  "newFunctionAnalyses": 0,
+  "newNativePatches": 0,
+  "compilerStarted": false,
+  "originalCppPatchSetRecovered": false,
+  "allAdvertisedPatchesInspected": false,
+  "ownRuntime": {
+    "release": "155.0.8059.80",
+    "sourcePatchCount": 5,
+    "localQualification": "docs/engine-validation-155.md",
+    "functionalComparison": "docs/functional-parity-155.md",
+    "externalMeasurements": "docs/reference-tests-155.md"
+  },
+  "limitations": [
+    "Complete-record retention does not establish complete call/value-flow coverage",
+    "The native reference subjects are an analytical slice of historical 146, not a current 155 comparator",
+    "No authoritative inventory supplies a denominator for an all-87 or percentage-complete claim",
+    "No original C++ patch set was reconstructed, and no new reference runtime behavior was observed"
+  ]
+}
