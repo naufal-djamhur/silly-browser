@@ -1,0 +1,122 @@
+{
+  "date": "2026-10-23",
+  "platform": "windows-x64",
+  "version": "155.0.8059.80",
+  "upstreamCommit": "43a195105613ac83c21d3f14de279f4a045c7da0",
+  "sourcePatchCount": 5,
+  "compiled": true,
+  "localIntegrationValidated": true,
+  "productionEligible": false,
+  "nativeDownloadPublished": false,
+  "binarySha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+  "runtimeSha256": "ed8619bbe2f4b087fa8e67628b16527393ce5498df596c27ac36fd9f19b5b04b",
+  "checks": {
+    "javascriptEngine": 28,
+    "pythonIntegration": 5,
+    "localWebrtc": 1,
+    "contextIsolation": 1,
+    "nativeEnvironmentAndFonts": 2,
+    "driverCompatibility": 10,
+    "optionalNotoFontPack": 1,
+    "totalPassed": 48,
+    "failed": 0,
+    "skipped": 0
+  },
+  "driverResults": [
+    {
+      "driver": "playwright-js-sdk",
+      "headless": true,
+      "status": "passed"
+    },
+    {
+      "driver": "playwright-js-cdp",
+      "headless": true,
+      "status": "passed"
+    },
+    {
+      "driver": "puppeteer-cdp",
+      "headless": true,
+      "status": "passed"
+    },
+    {
+      "driver": "playwright-python",
+      "headless": true,
+      "status": "passed"
+    },
+    {
+      "driver": "selenium",
+      "headless": true,
+      "status": "passed"
+    },
+    {
+      "driver": "playwright-js-sdk",
+      "headless": false,
+      "status": "passed"
+    },
+    {
+      "driver": "playwright-js-cdp",
+      "headless": false,
+      "status": "passed"
+    },
+    {
+      "driver": "puppeteer-cdp",
+      "headless": false,
+      "status": "passed"
+    },
+    {
+      "driver": "playwright-python",
+      "headless": false,
+      "status": "passed"
+    },
+    {
+      "driver": "selenium",
+      "headless": false,
+      "status": "passed"
+    }
+  ],
+  "libraryVersions": {
+    "node": "v24.19.0",
+    "playwright": "1.62.1",
+    "puppeteer": "25.13.0"
+  },
+  "fontPack": {
+    "pack": "noto-core",
+    "version": "0.1.0",
+    "upstreamCommit": "ffebf8c1ee449e544955a7e813c54f9b73848eac",
+    "facesPerMode": 10,
+    "baselineMissingFacesPerMode": 10,
+    "modes": [
+      "headless",
+      "headed"
+    ],
+    "loadedAndMeasured": true
+  },
+  "patchSha256": {
+    "0001-seed-lifecycle-and-engine-handshake.patch": "01077b66f90e755707b2582bf56d7c209bd0e780dfe99e5bc216afee0f3e3609",
+    "0002-platform-web-identity.patch": "08b189c9e05c93094b90c137c649088b29e422a60fce88b3827d94b884bdb706",
+    "0003-webrtc-privacy-policy.patch": "d2f228e5c2c38b864a105150e525121b3d0cd898a648b0a40673575d4c7bab83",
+    "0004-native-locale-timezone.patch": "a88504eed86a74af481f9179eb1d0083e5f2298669e1078d7b6f2cf3fcb43050",
+    "0005-windows-font-directory.patch": "f606db1186d4f1a1b00f8f35ea70e1137b0d3dadfb49b6f18d4313a41c63d446"
+  },
+  "evidenceSha256": {
+    "engine": "12739ac1abdff68158f9172b69fb636adeb506a62edd7537dcf1fc34166ea570",
+    "python": "9ecd26373fbd4b02d1512ca5832f4feefde33f46fca2f91ee0b8ba2b96089a41",
+    "webrtc": "f1a41ab2b096723ed9d5653e669823fca1486e44ae44fcb7f3469e87a1628c83",
+    "context": "99400c99e2cdc6672f920fcd501a914b4ea1f7d0a61862e809f7ed1d610a8117",
+    "nativeEnvironment": "e5782f8cf3818f9bdcd57ebc9e90dd46ced29531618743db7a8df9ad9e63aa91",
+    "drivers": "a629944d2eaf3305bf20d7e2b0016c55bff68f3cb19023549d88e4c4cceb1da4",
+    "fontPack": "53b932d5bb905de35f7e39530111c8dab06d0490a51785e5469f4be1960ce4a3"
+  },
+  "fixes": [
+    "Declare command_line locally in SandboxInitialized",
+    "Use Chromium immediate termination for native early exits and flush engine-info stdout",
+    "Wait for attachment of the empty iframe body in the context fixture; stock 156 and custom 155 controls both report zero height with script ready"
+  ],
+  "scope": "Local Windows x64 identity/seed, WebRTC policy/STUN, context isolation, native locale/timezone/DST/workers, Ahem/Noto font loading and ten driver smoke routes. Compatibility does not establish vendor detection outcomes.",
+  "limitations": [
+    "No independent unpatched Chromium 155 control was built; empty-frame fixture sanity control used installed stock Chrome 156.0.8078.47",
+    "Native managed-language policies, host-change events, UI resource fallback and full font enumeration remain separately unqualified",
+    "No Linux/macOS native runtime, staged distribution qualification, complete MVP or broad Chromium-version support claim",
+    "No new third-party detector scores were collected"
+  ]
+}

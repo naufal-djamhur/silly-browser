@@ -12,19 +12,23 @@ index 87efba1..6e9e8ab 100644
  #include "chrome/common/custom_browser_webrtc_policy.h"
  #include "chrome/common/logging_chrome.h"
  #include "chrome/common/profiler/chrome_thread_group_profiler_client.h"
-@@ -1544,11 +1547,27 @@ void ChromeMainDelegate::PreSandboxStartup() {
+@@ -1546,15 +1549,33 @@ void ChromeMainDelegate::PreSandboxStartup() {
      ucal_setDefaultTimeZone(utf16_zone.c_str(), &status);
-     if (U_FAILURE(status)) std::exit(CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
+     if (U_FAILURE(status))
+       base::Process::TerminateCurrentProcessImmediately(
+           CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
    }
 +  if (process_type.empty() && command_line.HasSwitch("custom-browser-fonts-dir")) {
 +#if BUILDFLAG(IS_WIN)
 +    if (!custom_browser::ConfiguredFontFiles()) {
 +      LOG(ERROR) << "custom-browser-fonts-dir requires a bounded local directory of valid TTF/OTF/TTC files";
-+      std::exit(CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
++      base::Process::TerminateCurrentProcessImmediately(
++          CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
 +    }
 +#else
 +    LOG(ERROR) << "custom-browser-fonts-dir is currently Windows-only";
-+    std::exit(CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
++    base::Process::TerminateCurrentProcessImmediately(
++        CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
 +#endif
 +  }
    if (process_type.empty() && command_line.HasSwitch("custom-browser-engine-info")) {
@@ -40,7 +44,9 @@ index 87efba1..6e9e8ab 100644
 +           "",
 +#endif
             command_line.GetSwitchValueASCII("custom-browser-seed").c_str());
-     std::exit(0);
+     // This callback cannot return an exit code; avoid CRT/DLL teardown.
+     fflush(stdout);
+     base::Process::TerminateCurrentProcessImmediately(0);
    }
 diff --git a/content/browser/renderer_host/dwrite_font_proxy_impl_win.cc b/content/browser/renderer_host/dwrite_font_proxy_impl_win.cc
 index 6b59bf2..2b3c402 100644

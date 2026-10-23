@@ -20,7 +20,7 @@
       "id": "CB-0001",
       "file": "0001-seed-lifecycle-and-engine-handshake.patch",
       "scope": "Browser seed initialization, child switch propagation and engine handshake",
-      "status": "rebased-source-not-compiled",
+      "status": "windows-x64-local-integration-validated",
       "platforms": [
         "windows",
         "linux"
@@ -35,15 +35,17 @@
         "No renderer fingerprint modification",
         "Persistent seed currently managed by SDK",
         "GPU/network service propagation requires further validation",
-        "Full stable Chromium compilation and browser integration pending"
+        "Local Windows x64 seed/identity integration qualified; other native platforms remain unqualified"
       ],
-      "validatedPlatforms": []
+      "validatedPlatforms": [
+        "windows"
+      ]
     },
     {
       "id": "CB-0002",
       "file": "0002-platform-web-identity.patch",
       "scope": "Explicit desktop web identity presets in UA, Client Hints and NavigatorBase",
-      "status": "rebased-source-not-compiled",
+      "status": "windows-x64-local-integration-validated",
       "dependencies": [
         "CB-0001"
       ],
@@ -59,15 +61,17 @@
       "limitations": [
         "No font/GPU/network OS emulation",
         "Synthetic platform-version defaults",
-        "Full stable Chromium compilation and browser integration pending"
+        "Local Windows x64 document/header/worker web identity qualified; wider OS/rendering consistency remains unqualified"
       ],
-      "validatedPlatforms": []
+      "validatedPlatforms": [
+        "windows"
+      ]
     },
     {
       "id": "CB-0003",
       "file": "0003-webrtc-privacy-policy.patch",
       "scope": "Explicit native WebRTC policy selection and renderer-preference routing with managed-policy precedence",
-      "status": "source-written-not-Chromium-compiled",
+      "status": "windows-x64-local-integration-validated",
       "dependencies": [
         "CB-0001",
         "CB-0002"
@@ -77,21 +81,22 @@
         "linux",
         "macos"
       ],
-      "validatedPlatforms": [],
+      "validatedPlatforms": [
+        "windows"
+      ],
       "regressions": [
         "tests/webrtc_policy_test.cc"
       ],
       "limitations": [
-        "Standalone policy checks do not validate ICE/STUN/TURN or actual proxy routing",
         "No IP spoofing or fabricated candidates",
-        "Full stable build and browser integration pending"
+        "Local Windows x64 STUN behavior qualified; IPv6/TURN and actual proxy routing remain unqualified"
       ]
     },
     {
       "id": "CB-0004",
       "file": "0004-native-locale-timezone.patch",
       "scope": "Explicit ICU-validated process locale/timezone, language routing and host-change handling",
-      "status": "source-written-full-browser-build-pending",
+      "status": "windows-x64-local-integration-validated",
       "dependencies": [
         "CB-0003"
       ],
@@ -100,37 +105,41 @@
         "linux",
         "macos"
       ],
-      "validatedPlatforms": [],
+      "validatedPlatforms": [
+        "windows"
+      ],
       "regressions": [
         "tests/native_environment_policy_test.cc"
       ],
       "limitations": [
-        "Full browser compile, linking and both-mode runtime qualification pending",
         "Explicit process defaults, not per-context configuration; CDP emulation remains a separate layer",
         "Managed Accept-Language policy remains authoritative; UI resources may use a fallback locale",
-        "IANA/ICU system timezone identifiers only; no arbitrary GMT offsets"
+        "IANA/ICU system timezone identifiers only; no arbitrary GMT offsets",
+        "Local Windows x64 native defaults qualified; managed policy, host-change events and UI fallback remain unqualified"
       ]
     },
     {
       "id": "CB-0005",
       "file": "0005-windows-font-directory.patch",
       "scope": "Bounded additive Windows font directory in DirectWrite and FontDataService collection paths",
-      "status": "source-written-full-browser-build-pending",
+      "status": "windows-x64-local-integration-validated",
       "dependencies": [
         "CB-0004"
       ],
       "platforms": [
         "windows"
       ],
-      "validatedPlatforms": [],
+      "validatedPlatforms": [
+        "windows"
+      ],
       "regressions": [
         "tests/native_font_directory_test.cc"
       ],
       "limitations": [
-        "Full browser compile, linking and both-mode runtime qualification pending",
         "Windows local fixed-drive directories only; additive system fallback; restart required for changes",
         "At most 256 TTF/OTF/TTC files, 64 MiB per file, 512 MiB total; no reparse points",
-        "Local Font Access OS enumeration and browser UI font metadata remain separately unqualified"
+        "Local Font Access OS enumeration and browser UI font metadata remain separately unqualified",
+        "Local Windows x64 Ahem and ten Noto faces qualified in both modes; wider font enumeration/fallback remains unqualified"
       ]
     }
   ],
@@ -156,5 +165,6 @@
     "timezone",
     "locale",
     "font-directory-windows"
-  ]
+  ],
+  "validationEvidence": "../../../../docs/engine-validation-155-summary.json"
 }

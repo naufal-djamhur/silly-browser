@@ -34,7 +34,7 @@ index 1788909..87efba1 100644
    }
  #elif BUILDFLAG(IS_WIN) || BUILDFLAG(IS_MAC)
    const bool is_browser = false;
-@@ -1523,6 +1518,41 @@ void ChromeMainDelegate::PreSandboxStartup() {
+@@ -1523,6 +1518,47 @@ void ChromeMainDelegate::PreSandboxStartup() {
    std::string process_type =
        command_line.GetSwitchValueASCII(switches::kProcessType);
  
@@ -45,7 +45,8 @@ index 1788909..87efba1 100644
 +        command_line.GetSwitchValueASCII("custom-browser-locale"));
 +    if (!locale) {
 +      LOG(ERROR) << "custom-browser-locale requires a complete BCP 47 tag";
-+      std::exit(CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
++      base::Process::TerminateCurrentProcessImmediately(
++          CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
 +    }
 +    environment_command_line->AppendSwitchASCII("custom-browser-locale", *locale);
 +    environment_command_line->AppendSwitchASCII(switches::kLang, *locale);
@@ -56,13 +57,16 @@ index 1788909..87efba1 100644
 +        command_line.GetSwitchValueASCII("custom-browser-timezone"));
 +    if (!zone) {
 +      LOG(ERROR) << "custom-browser-timezone requires an ICU system timezone";
-+      std::exit(CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
++      base::Process::TerminateCurrentProcessImmediately(
++          CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
 +    }
 +    environment_command_line->AppendSwitchASCII("custom-browser-timezone", *zone);
 +    const std::u16string utf16_zone = base::UTF8ToUTF16(*zone);
 +    UErrorCode status = U_ZERO_ERROR;
 +    ucal_setDefaultTimeZone(utf16_zone.c_str(), &status);
-+    if (U_FAILURE(status)) std::exit(CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
++    if (U_FAILURE(status))
++      base::Process::TerminateCurrentProcessImmediately(
++          CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
 +  }
 +  if (process_type.empty() && command_line.HasSwitch("custom-browser-engine-info")) {
 +    printf("{\"engine\":\"custom-browser\",\"policyVersion\":1,"
@@ -70,13 +74,15 @@ index 1788909..87efba1 100644
 +           "\"webrtc-policy\",\"native-timezone\",\"native-locale\"],"
 +           "\"fingerprintIntegrationValidated\":false,\"seed\":\"%s\"}\n",
 +           command_line.GetSwitchValueASCII("custom-browser-seed").c_str());
-+    std::exit(0);
++    // This callback cannot return an exit code; avoid CRT/DLL teardown.
++    fflush(stdout);
++    base::Process::TerminateCurrentProcessImmediately(0);
 +  }
 +
    crash_reporter::InitializeCrashKeys();
  
  #if BUILDFLAG(IS_POSIX)
-@@ -1742,6 +1772,13 @@ void ChromeMainDelegate::SandboxInitialized(const std::string& process_type) {
+@@ -1742,6 +1778,13 @@ void ChromeMainDelegate::SandboxInitialized(const std::string& process_type) {
      }
    }
  #endif  // !defined(BUILDING_CHROME_RENDERER)

@@ -29,7 +29,7 @@ test('actual engine: context locale, timezone/DST and viewport stay isolated in 
         try {
           for(const settings of [{locale:'fr-FR',timezone:'Europe/Paris',jan:-60,jul:-120},{locale:'en-US',timezone:'America/New_York',jan:300,jul:240}]){
             const context=await browser.newContext(buildContextOptions({locale:settings.locale,timezone:settings.timezone,viewport:{width:900,height:700}}));contexts.push(context);
-            const page=await context.newPage();await page.goto(url);await page.frameLocator('iframe').locator('body').waitFor();
+            const page=await context.newPage();await page.goto(url);await page.frameLocator('iframe').locator('body').waitFor({state:'attached'});
             const observed=await page.evaluate(()=>window.observe());
             const frame=await page.frames().find(frame=>frame!==page.mainFrame()).evaluate(()=>window.observe());
             const headers=await page.evaluate(async()=>await(await fetch('/headers')).json());

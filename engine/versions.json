@@ -22,9 +22,9 @@
       "version": "155.0.8059.80",
       "commit": "43a195105613ac83c21d3f14de279f4a045c7da0",
       "role": "verified-stable-target-at-2026-10-14",
-      "status": "native-build-in-progress-windows-x64",
+      "status": "integration-validated-windows-x64",
       "productionEligible": false,
-      "evidence": "../docs/iteration-03-build-resume.md",
+      "evidence": "../docs/engine-validation-155-summary.json",
       "source": "https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Windows&num=1"
     },
     {

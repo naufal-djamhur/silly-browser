@@ -2,7 +2,7 @@
 
 An open-source, source-patched Chromium project for browser automation and E2E testing, with JavaScript and Python SDKs. Original project code is [MIT-licensed](LICENSE); Chromium and dependencies retain their [upstream licenses](NOTICE).
 
-**Experimental:** Chromium **155.0.8059.80** is currently compiling with five native patches. There is no qualified native download or npm/PyPI release yet. The preserved Chromium 146 build has historical local integration results; it is not a current supported browser release. See [build progress](docs/five-patch-build-20261023.md) and [native feature evidence](docs/native-environment-fonts-20261023.md).
+**Experimental:** the five-patch Chromium **155.0.8059.80 Windows x64** build compiles and passes [48 local integration checks](docs/engine-validation-155.md), including headed/headless drivers and native locale/timezone/fonts. There is no published native download or npm/PyPI release yet. The preserved Chromium 146 build remains historical evidence. Native distribution qualification and the complete MVP are still pending.
 
 ## Install the SDK today
 
@@ -24,7 +24,7 @@ After registry publication, the install commands will be `npm install silly-brow
 
 Fonts are a separate [silly-browser-fonts package](packages/fonts/README.md), containing ten unmodified OFL-licensed Noto TTF faces with provenance and checksums. After publication, add it with `npm install silly-browser-fonts` or `python -m pip install silly-browser-fonts` (Python also supports `silly-browser[fonts]`). From a source checkout it can already be installed with `npm install ./packages/fonts` and `python -m pip install ./packages/fonts`.
 
-Use `launch({fontPack: 'noto-core'})` in JS or `launch(font_pack="noto-core")` in Python. For your own licensed font files, use `fontDirectory` / `font_directory`. These options select the native font directory; they do not inject browser properties. The loader is currently implemented for Windows and awaits native runtime qualification. No Linux/macOS font-loader support is implied by installing the font files there.
+Use `launch({fontPack: 'noto-core'})` in JS or `launch(font_pack="noto-core")` in Python. For your own licensed font files, use `fontDirectory` / `font_directory`. These options select the native font directory; they do not inject browser properties. The Windows 155 loader passes local Ahem and ten-face Noto checks in both modes. No Linux/macOS font-loader support is implied by installing the font files there.
 
 Windows retains its real system fonts. For Linux, the font package README includes the same eight-package font selection used in CloakBrowser's public Dockerfile. Noto core alone is a smaller optional pack; full rendering equivalence remains unmeasured. See [the font comparison](docs/font-compatibility.md).
 
@@ -83,7 +83,7 @@ The installer verifies archive and individual file SHA256 values, bounds downloa
 
 ## Project status and development
 
-Implemented SDK foundations include profile lifecycle, explicit context configuration, driver adapters and optional paced input helpers. The current five-patch native source adds seed lifecycle, platform web identity, WebRTC policy, ICU timezone/locale defaults and additive Windows font-directory configuration. These source changes await linking and runtime qualification on 155. Linux/macOS native artifacts, broader rendering/network work, signed releases and production support remain future work. No detector score or universal driver compatibility is guaranteed.
+Implemented SDK foundations include profile lifecycle, explicit context configuration, driver adapters and optional paced input helpers. The five-patch native source adds seed lifecycle, platform web identity, WebRTC policy, ICU timezone/locale defaults and additive Windows font-directory configuration. The exact Windows 155 build now passes the measured local integration gates. Linux/macOS native artifacts, broader rendering/network work, signed releases and production support remain future work. No detector score or universal driver compatibility is guaranteed.
 
 Read [CONTRIBUTING](CONTRIBUTING.md), [the security policy](SECURITY.md), [community guidelines](CODE_OF_CONDUCT.md), [the implementation plan](docs/implementation-plan.md), and [release instructions](docs/releasing.md). Lightweight CI checks SDKs and packages across Windows, Linux and macOS; native Chromium qualification is a separate build process.
 

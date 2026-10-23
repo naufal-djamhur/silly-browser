@@ -2,7 +2,7 @@
 
 Experimental Python SDK for the independent source-patched Chromium project [silly-browser](https://github.com/naufal-djamhur/silly-browser). Python 3.10 or newer is required. Original SDK code is MIT-licensed; Chromium and dependencies retain their upstream licenses.
 
-The native Chromium 155 runtime is still compiling and being qualified. No native runtime download is published yet. The package can be built and installed from source now:
+The native Chromium 155.0.8059.80 Windows x64 runtime compiles and passes 48 local integration checks. No native runtime download is published yet; complete release qualification remains pending. The package can be built and installed from source now:
 
 ```sh
 python -m pip install "git+https://github.com/naufal-djamhur/silly-browser.git#subdirectory=sdk/python"
@@ -30,4 +30,4 @@ JavaScript and Python share a versioned user cache. Configure it with `SILLY_BRO
 
 Only published host/architecture combinations can be downloaded. SDK platform identity settings do not select a different native operating-system binary. See the repository for persistent-context APIs, async APIs, native feature scope, pending qualification and contribution instructions.
 
-Fonts are optional and separately packaged as `silly-browser-fonts`. After publication, use `python -m pip install 'silly-browser[fonts]'`; from a checkout, use `python -m pip install ./packages/fonts` alongside this SDK. `launch(font_pack="noto-core", executable_path="PATH_TO_YOUR_BUILT_CHROME")` selects the ten packaged Noto faces through the native directory loader, which currently targets Windows and awaits linked-browser qualification. `font_directory` accepts your own licensed directory instead. The default retains installed system fonts. The font package README includes the reference Linux font recipe; Noto core alone does not match that broader environment.
+Fonts are optional and separately packaged as `silly-browser-fonts`. After publication, use `python -m pip install 'silly-browser[fonts]'`; from a checkout, use `python -m pip install ./packages/fonts` alongside this SDK. `launch(font_pack="noto-core", executable_path="PATH_TO_YOUR_BUILT_CHROME")` selects the ten packaged Noto faces through the native Windows directory loader. All ten load and match expected metrics on the tested Windows 155 runtime in both modes. `font_directory` accepts your own licensed directory instead. The default retains installed system fonts. The font package README includes the reference Linux font recipe; Noto core alone does not match that broader environment.

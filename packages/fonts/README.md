@@ -32,7 +32,7 @@ finally:
     browser.close()
 ```
 
-The SDK forwards the actual package font directory through the native `--custom-browser-fonts-dir` flag. **The current native loader is Windows-only and awaits browser runtime qualification.** A binary missing its capability rejects the option. It adds fonts to system fallback for that browser process; it does not install system fonts or override JavaScript browser properties.
+The SDK forwards the actual package font directory through the native `--custom-browser-fonts-dir` flag. **The current native loader is Windows-only.** All ten faces load and match expected metrics in both headed/headless modes on the tested Chromium 155.0.8059.80 Windows x64 build; all ten were missing from each baseline without the optional directory. A binary missing its capability rejects the option. It adds fonts to system fallback for that browser process; it does not install system fonts or override JavaScript browser properties. See [the native results](https://github.com/naufal-djamhur/silly-browser/blob/main/docs/engine-validation-155.md).
 
 For custom integrations, use JavaScript `getFontDirectory()` or Python `get_font_directory()`, then pass that directory to an engine supporting native directory loading. `npx silly-browser-fonts path` / `python -m silly_browser_fonts path` prints the location; `verify` checks all ten files against the inventory.
 

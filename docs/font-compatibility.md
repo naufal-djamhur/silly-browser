@@ -25,8 +25,8 @@ The Linux recipe obtains fonts and their associated notices from the distributio
 
 | Path | Current state | Required evidence |
 | --- | --- | --- |
-| Windows system fonts | Stock host font fallback retained in the native source | Compare real local font loading and rendering in both modes on the linked binary |
-| Windows optional Noto directory | Ten files pass standalone native DirectWrite acceptance, plus a corrupt-file negative control | `npm run test:font-pack:engine` with the finished five-patch engine; record actual face loading/advance widths, baseline presence and binary hashes |
+| Windows system fonts | Host fallback retained; Noto baseline controls show ten packaged faces absent before adding the directory | Full system-font enumeration/fallback comparisons remain separate |
+| Windows optional Noto directory | Ten files pass standalone DirectWrite acceptance and actual local face loading/advance widths in both modes on the completed five-patch 155 engine | [Runtime results](engine-validation-155.md) bind this narrow qualification to the executable/DLL hashes; broader script coverage remains separate |
 | Linux reference package list | Recipe documented, not installed or tested here | Qualified Linux runtime and container; preserve image digest, package versions, actual file hashes and local font rendering results |
 | macOS system fonts | Future native product | Qualified macOS runtime and host-font checks |
 

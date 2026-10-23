@@ -4,6 +4,8 @@ The user authorized incremental build continuation after the native timezone/loc
 
 ## Live checkpoint
 
+**Completed:** the startup compile and CRT-exit defects are repaired. Chromium 155 now compiles/links and passes [48 local checks](engine-validation-155.md), including native fonts and both-mode drivers. No compiler remains active. Preserve this completed runtime; the earlier in-progress notes below describe prior snapshots. Native archive publication and the complete MVP remain pending.
+
 **Latest recovery:** after a PC restart, incremental compilation reached a locale-patch scoping error in `SandboxInitialized`. The missing command-line reference is corrected in the applied source and saved patch; that exact object compiles and the complete five-patch checkout verification passes. The full incremental pipeline was restarted at 10:01 WIB with prior output preserved. See [the recovery evidence](native-startup-build-fix-20261023.md); inspect live state before acting on older process details.
 
 - Installed Visual Studio, MFC/ATL, SDK and debugger preflight passed.
