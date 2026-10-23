@@ -6,6 +6,8 @@ An open-source, source-patched Chromium project for browser automation and E2E t
 
 [Reference example measurements](docs/reference-tests-155.md) are available for both modes. Navigation and profile persistence pass; the public reCAPTCHA demo returned 0.9 per mode. Fingerprint Scan/CreepJS and the detector suite fail their criteria, so no overall benchmark pass or reference-product parity is claimed.
 
+[Local functional parity](docs/functional-parity-155.md) also passes eight paired scenarios covering layout/fonts, graphics/audio, editing, scrolling, popups, storage and worker configuration. No native defect was reproduced in that bounded inspection.
+
 ## Install the SDK today
 
 Requires Node.js **22.12+** or Python **3.10+**, plus Git for these source installs:

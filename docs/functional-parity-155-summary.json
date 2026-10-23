@@ -1,0 +1,453 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "createdAt": "2026-10-23T03:57:10.952191+00:00",
+  "platform": "windows-x64",
+  "release": "155.0.8059.80",
+  "upstreamCommit": "43a195105613ac83c21d3f14de279f4a045c7da0",
+  "sourcePatchCount": 5,
+  "newNativePatches": 0,
+  "reproducedNativeDefects": [],
+  "inspectionScope": "Selected C++ startup, native configuration and Windows font paths; not a complete Chromium audit",
+  "binarySha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+  "runtimeSha256": "ed8619bbe2f4b087fa8e67628b16527393ce5498df596c27ac36fd9f19b5b04b",
+  "runtimeUnchanged": true,
+  "compilerStarted": false,
+  "conditions": {
+    "viewport": {
+      "width": 960,
+      "height": 720
+    },
+    "deviceScaleFactor": 1,
+    "locale": "fr-FR",
+    "timezone": "Europe/Paris",
+    "profile": "fresh isolated context per scenario",
+    "humanize": false,
+    "proxy": false
+  },
+  "functional": {
+    "nodeTestsPassed": 18,
+    "scenarioObservationsPassed": 16,
+    "pairedComparisonsPassed": 8,
+    "failed": 0,
+    "skipped": 0,
+    "startedAt": "2026-10-23T03:53:11.138Z",
+    "completedAt": "2026-10-23T03:53:19.579Z",
+    "observations": [
+      {
+        "mode": "headed",
+        "name": "layout-and-native-font",
+        "status": "passed",
+        "data": {
+          "box": {
+            "x": 13,
+            "y": 24,
+            "width": 134,
+            "height": 54
+          },
+          "textWidth": 80,
+          "viewport": [
+            960,
+            720
+          ]
+        }
+      },
+      {
+        "mode": "headed",
+        "name": "canvas-and-offscreen-worker",
+        "status": "passed",
+        "data": {
+          "document": [
+            17,
+            34,
+            51,
+            255
+          ],
+          "offscreen": [
+            17,
+            34,
+            51,
+            255
+          ]
+        }
+      },
+      {
+        "mode": "headed",
+        "name": "webgl-render-readback",
+        "status": "passed",
+        "data": {
+          "pixel": [
+            64,
+            127,
+            191,
+            255
+          ],
+          "error": 0
+        }
+      },
+      {
+        "mode": "headed",
+        "name": "offline-audio-gain",
+        "status": "passed",
+        "data": {
+          "maxError": 0,
+          "frames": 128,
+          "sampleRate": 48000
+        }
+      },
+      {
+        "mode": "headed",
+        "name": "unicode-editing-and-tab-order",
+        "status": "passed",
+        "data": {
+          "value": "\u3053\u3093\u306b\u3061\u306f",
+          "activations": "1"
+        }
+      },
+      {
+        "mode": "headed",
+        "name": "nested-scroll-and-iframe-input",
+        "status": "passed",
+        "data": {
+          "windowY": 0,
+          "scrolled": true,
+          "target": "clicked",
+          "frameValue": "frame value"
+        }
+      },
+      {
+        "mode": "headed",
+        "name": "popup-navigation-and-close",
+        "status": "passed",
+        "data": {
+          "popupTitle": "Parity popup",
+          "popupClosed": true,
+          "openerOpen": true
+        }
+      },
+      {
+        "mode": "headed",
+        "name": "indexeddb-and-native-worker-configuration",
+        "status": "passed",
+        "data": {
+          "document": {
+            "language": "fr-FR",
+            "locale": "fr-FR",
+            "timezone": "Europe/Paris",
+            "jan": -60,
+            "jul": -120
+          },
+          "worker": {
+            "language": "fr-FR",
+            "locale": "fr-FR",
+            "timezone": "Europe/Paris",
+            "jan": -60,
+            "jul": -120
+          },
+          "stored": "saved",
+          "headers": {
+            "language": "fr-FR,fr;q=0.9"
+          }
+        }
+      },
+      {
+        "mode": "headless",
+        "name": "layout-and-native-font",
+        "status": "passed",
+        "data": {
+          "box": {
+            "x": 13,
+            "y": 24,
+            "width": 134,
+            "height": 54
+          },
+          "textWidth": 80,
+          "viewport": [
+            960,
+            720
+          ]
+        }
+      },
+      {
+        "mode": "headless",
+        "name": "canvas-and-offscreen-worker",
+        "status": "passed",
+        "data": {
+          "document": [
+            17,
+            34,
+            51,
+            255
+          ],
+          "offscreen": [
+            17,
+            34,
+            51,
+            255
+          ]
+        }
+      },
+      {
+        "mode": "headless",
+        "name": "webgl-render-readback",
+        "status": "passed",
+        "data": {
+          "pixel": [
+            64,
+            127,
+            191,
+            255
+          ],
+          "error": 0
+        }
+      },
+      {
+        "mode": "headless",
+        "name": "offline-audio-gain",
+        "status": "passed",
+        "data": {
+          "maxError": 0,
+          "frames": 128,
+          "sampleRate": 48000
+        }
+      },
+      {
+        "mode": "headless",
+        "name": "unicode-editing-and-tab-order",
+        "status": "passed",
+        "data": {
+          "value": "\u3053\u3093\u306b\u3061\u306f",
+          "activations": "1"
+        }
+      },
+      {
+        "mode": "headless",
+        "name": "nested-scroll-and-iframe-input",
+        "status": "passed",
+        "data": {
+          "windowY": 0,
+          "scrolled": true,
+          "target": "clicked",
+          "frameValue": "frame value"
+        }
+      },
+      {
+        "mode": "headless",
+        "name": "popup-navigation-and-close",
+        "status": "passed",
+        "data": {
+          "popupTitle": "Parity popup",
+          "popupClosed": true,
+          "openerOpen": true
+        }
+      },
+      {
+        "mode": "headless",
+        "name": "indexeddb-and-native-worker-configuration",
+        "status": "passed",
+        "data": {
+          "document": {
+            "language": "fr-FR",
+            "locale": "fr-FR",
+            "timezone": "Europe/Paris",
+            "jan": -60,
+            "jul": -120
+          },
+          "worker": {
+            "language": "fr-FR",
+            "locale": "fr-FR",
+            "timezone": "Europe/Paris",
+            "jan": -60,
+            "jul": -120
+          },
+          "stored": "saved",
+          "headers": {
+            "language": "fr-FR,fr;q=0.9"
+          }
+        }
+      }
+    ],
+    "comparisons": [
+      {
+        "name": "layout-and-native-font",
+        "status": "passed"
+      },
+      {
+        "name": "canvas-and-offscreen-worker",
+        "status": "passed"
+      },
+      {
+        "name": "webgl-render-readback",
+        "status": "passed"
+      },
+      {
+        "name": "offline-audio-gain",
+        "status": "passed"
+      },
+      {
+        "name": "unicode-editing-and-tab-order",
+        "status": "passed"
+      },
+      {
+        "name": "nested-scroll-and-iframe-input",
+        "status": "passed"
+      },
+      {
+        "name": "popup-navigation-and-close",
+        "status": "passed"
+      },
+      {
+        "name": "indexeddb-and-native-worker-configuration",
+        "status": "passed"
+      }
+    ]
+  },
+  "configurationRerun": {
+    "nodeTestsPassed": 3,
+    "failed": 0,
+    "skipped": 0,
+    "contextModeObservations": 4,
+    "nativeEnvironmentModeObservations": 2,
+    "invalidCliCases": 2
+  },
+  "driverRerun": {
+    "passed": 10,
+    "failed": 0,
+    "libraryVersions": {
+      "node": "v24.19.0",
+      "playwright": "1.62.1",
+      "puppeteer": "25.13.0"
+    },
+    "results": [
+      {
+        "driver": "playwright-js-sdk",
+        "headless": true,
+        "status": "passed"
+      },
+      {
+        "driver": "playwright-js-cdp",
+        "headless": true,
+        "status": "passed"
+      },
+      {
+        "driver": "puppeteer-cdp",
+        "headless": true,
+        "status": "passed"
+      },
+      {
+        "driver": "playwright-python",
+        "headless": true,
+        "status": "passed"
+      },
+      {
+        "driver": "selenium",
+        "headless": true,
+        "status": "passed"
+      },
+      {
+        "driver": "playwright-js-sdk",
+        "headless": false,
+        "status": "passed"
+      },
+      {
+        "driver": "playwright-js-cdp",
+        "headless": false,
+        "status": "passed"
+      },
+      {
+        "driver": "puppeteer-cdp",
+        "headless": false,
+        "status": "passed"
+      },
+      {
+        "driver": "playwright-python",
+        "headless": false,
+        "status": "passed"
+      },
+      {
+        "driver": "selenium",
+        "headless": false,
+        "status": "passed"
+      }
+    ],
+    "startedAt": "2026-10-23T03:54:04.151Z",
+    "completedAt": "2026-10-23T03:54:22.866Z",
+    "hashScope": "Driver report binds executable; complete surrounding native sequence and final summary verify executable and DLL"
+  },
+  "reviewedNativeFiles": [
+    {
+      "path": "chrome/app/chrome_main_delegate.cc",
+      "sha256": "79ae0fb61eba261751be4b166cc120fd10d647b2755d39cf8943596a8833cf05"
+    },
+    {
+      "path": "chrome/browser/headless/headless_mode_init.cc",
+      "sha256": "c92b4eabcdd8ee557e0536caddc4d49f313892a918c8b365688c8ff76928d0a4"
+    },
+    {
+      "path": "chrome/browser/headless/headless_mode_util.cc",
+      "sha256": "f71905ac61493ba167e9b948e5c18ec4683fec3b2937b04874121b290477f28a"
+    },
+    {
+      "path": "chrome/browser/headless/chrome_browser_main_extra_parts_headless.cc",
+      "sha256": "841d9f2fa114e05e9cc7357e8d40c6e7a961402112fdbb25bd964a229d255fde"
+    },
+    {
+      "path": "chrome/common/custom_browser_locale_policy.h",
+      "sha256": "150d02b4bc9bf3b5775b2aa8680f0758c8518d7909b498836dd691582ea63a36"
+    },
+    {
+      "path": "services/device/time_zone_monitor/time_zone_monitor.cc",
+      "sha256": "fe477745a0bfe92d54fa0b92fe4c82f5a10b35009fbb9b8b21866862c9be34f2"
+    },
+    {
+      "path": "third_party/blink/renderer/core/timezone/timezone_controller.cc",
+      "sha256": "bb654fcc80acb3d1046fa71cdc7f7669753ef80ddc74a6f05c5db36e40a7294f"
+    },
+    {
+      "path": "ui/gfx/win/custom_browser_font_directory.h",
+      "sha256": "eb0711f2c87e826eb2987b76f3066b481c4c2e5f0a8401a00bcd96d021455142"
+    },
+    {
+      "path": "ui/gfx/win/custom_browser_font_files.h",
+      "sha256": "d9e304a5d3bc64bf49bb8d79ac980834621a523f2f0b7a65b20e47ce057dd233"
+    },
+    {
+      "path": "ui/gfx/win/direct_write.cc",
+      "sha256": "67fe49aae29bf2e78675e6471b2c334169515abb84091a79c7615b261f267274"
+    },
+    {
+      "path": "content/browser/renderer_host/dwrite_font_proxy_impl_win.cc",
+      "sha256": "996eb950ebb667ddb464aa849e7020a82b48036643e3b558bf60bb9f305539f6"
+    }
+  ],
+  "evidence": [
+    {
+      "path": "artifacts/functional-parity/20261023-155/results.json",
+      "sha256": "f897d80b8724fc7d26691e946c944aa9cbe5a08f38b9636115ed6b40a8c223d0"
+    },
+    {
+      "path": "artifacts/functional-parity/20261023-155/context-results.json",
+      "sha256": "32ed28e69c7e5b005679f8815dac16523298973a84fc65f0443d0cabbf09bc4e"
+    },
+    {
+      "path": "artifacts/functional-parity/20261023-155/native-environment-results.json",
+      "sha256": "e5782f8cf3818f9bdcd57ebc9e90dd46ced29531618743db7a8df9ad9e63aa91"
+    },
+    {
+      "path": "artifacts/functional-parity/20261023-155/drivers/results.json",
+      "sha256": "dddd3227b4e852c9cd1838584bc5c40ab332f21e85b7d64c261816c1ad2f5a5a"
+    }
+  ],
+  "fixture": {
+    "path": "tests/functional-parity-browser.test.mjs",
+    "sha256": "9699402467e4482907ec97e7a1d46547a19a624bf99db0d31d55f4b923f4367e"
+  },
+  "ahemFixtureSha256": "63d2abd0041c3e3b4b52ad8d382353b53c51c6785e76ce56ed9dacad2d2e31c4",
+  "limitations": [
+    "One paired execution per scenario, no repeated reliability or all-driver functional matrix claim",
+    "Layout/font measurements and flat canvas/WebGL colors do not qualify all rendering or GPU operations",
+    "OS clipboard, host timezone notifications, managed policies, full font fallback/enumeration and physical devices unqualified",
+    "Cancellation, contention, extension/proxy features and other operating systems remain separate gates",
+    "External detector failures remain unchanged; those services were not rerun during this local correctness task"
+  ]
+}
