@@ -1,0 +1,301 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "platform": "windows-x64",
+  "version": "155.0.8059.80",
+  "upstreamCommit": "43a195105613ac83c21d3f14de279f4a045c7da0",
+  "sourcePatchCount": 6,
+  "compiled": true,
+  "localIntegrationValidated": true,
+  "productionEligible": false,
+  "nativeDownloadPublished": false,
+  "binarySha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+  "runtimeSha256": "951fbc14ffb40db20aff024f69f6c0c743cabe2fb63c33d67d1e673b53f44ece",
+  "capability": "http-proxy-inline-auth",
+  "nativeProxy": {
+    "report": "artifacts/native-http-proxy/20261023/results.json",
+    "reportSha256": "b48861d06f98f9e6a3886387fd43726500682ba72b4e6a6827884287efd54fce",
+    "passed": 10,
+    "failed": 0,
+    "nodeTestsPassed": 12,
+    "startupRejectionCases": 13,
+    "driverProxyOptionUsed": false,
+    "httpCredentialsUsed": false,
+    "scenarios": [
+      {
+        "name": "inline-http",
+        "headless": false,
+        "status": "passed"
+      },
+      {
+        "name": "inline-connect",
+        "headless": false,
+        "status": "passed"
+      },
+      {
+        "name": "file-http",
+        "headless": false,
+        "status": "passed"
+      },
+      {
+        "name": "wrong-credentials",
+        "headless": false,
+        "status": "passed"
+      },
+      {
+        "name": "bypass",
+        "headless": false,
+        "status": "passed"
+      },
+      {
+        "name": "inline-http",
+        "headless": true,
+        "status": "passed"
+      },
+      {
+        "name": "inline-connect",
+        "headless": true,
+        "status": "passed"
+      },
+      {
+        "name": "file-http",
+        "headless": true,
+        "status": "passed"
+      },
+      {
+        "name": "wrong-credentials",
+        "headless": true,
+        "status": "passed"
+      },
+      {
+        "name": "bypass",
+        "headless": true,
+        "status": "passed"
+      }
+    ],
+    "wrongPasswordCredentialBearingAttempts": [
+      {
+        "headless": false,
+        "attempts": 1
+      },
+      {
+        "headless": true,
+        "attempts": 1
+      }
+    ],
+    "originAuthorizationAbsent": true,
+    "browserCommandLineSanitized": true,
+    "scope": "One process-wide HTTP Basic proxy, HTTP forwarding and HTTPS CONNECT, ASCII percent-encoded credentials; owned loopback fixtures only"
+  },
+  "regressions": {
+    "existingJavascriptNativeAndContext": 32,
+    "python": 5,
+    "driverRoutes": 10,
+    "optionalNotoPack": 1,
+    "totalPassed": 48,
+    "failed": 0,
+    "skipped": 0
+  },
+  "drivers": [
+    {
+      "driver": "playwright-js-sdk",
+      "headless": true,
+      "status": "passed"
+    },
+    {
+      "driver": "playwright-js-cdp",
+      "headless": true,
+      "status": "passed"
+    },
+    {
+      "driver": "puppeteer-cdp",
+      "headless": true,
+      "status": "passed"
+    },
+    {
+      "driver": "playwright-python",
+      "headless": true,
+      "status": "passed"
+    },
+    {
+      "driver": "selenium",
+      "headless": true,
+      "status": "passed"
+    },
+    {
+      "driver": "playwright-js-sdk",
+      "headless": false,
+      "status": "passed"
+    },
+    {
+      "driver": "playwright-js-cdp",
+      "headless": false,
+      "status": "passed"
+    },
+    {
+      "driver": "puppeteer-cdp",
+      "headless": false,
+      "status": "passed"
+    },
+    {
+      "driver": "playwright-python",
+      "headless": false,
+      "status": "passed"
+    },
+    {
+      "driver": "selenium",
+      "headless": false,
+      "status": "passed"
+    }
+  ],
+  "libraryVersions": {
+    "node": "v24.19.0",
+    "playwright": "1.62.1",
+    "puppeteer": "25.13.0",
+    "python": "3.13.5",
+    "pythonPlaywright": "1.62.0"
+  },
+  "standalonePolicies": [
+    {
+      "program": "environment",
+      "exitCode": 0
+    },
+    {
+      "program": "fonts",
+      "exitCode": 0
+    },
+    {
+      "program": "seed",
+      "exitCode": 0
+    },
+    {
+      "program": "http-proxy",
+      "exitCode": 0
+    }
+  ],
+  "sourceVerification": {
+    "exactSixPatchCheckout": true,
+    "gnHeaderDependencyChecks": [
+      "//chrome:chrome_dll",
+      "//chrome/browser:core"
+    ],
+    "incrementalObjectTargetsCurrent": true,
+    "linkResponseMatchesRegeneratedGraph": true
+  },
+  "preservedFivePatchRuntime": {
+    "binarySha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+    "runtimeSha256": "ed8619bbe2f4b087fa8e67628b16527393ce5498df596c27ac36fd9f19b5b04b",
+    "manualSessionKeptOpen": true,
+    "sourcePatchCount": 5
+  },
+  "controls": {
+    "fivePatch": {
+      "report": "artifacts/native-http-proxy/20261023/baseline.json",
+      "reportSha256": "53e0e3e27dd160dfb2aab1971f7253f2e6b3efbb8c226a1da945a25f0a318ab1",
+      "passed": 0,
+      "failed": 2,
+      "error": "ERR_NO_SUPPORTED_PROXIES"
+    },
+    "savedFreeReference146": {
+      "report": "artifacts/native-http-proxy/20261023/reference-146.json",
+      "reportSha256": "49b4260848042b46c0bc9df182850dd040c51cbfaebf95d1022f1b506877357b",
+      "passed": 0,
+      "failed": 2,
+      "error": "ERR_INVALID_AUTH_CREDENTIALS",
+      "referenceDllSha256": "ed7009a70d76fa4da222a5b37c34012d77fcc04092ef8df5fb572062940fa4dd",
+      "scope": "This encoded-password HTTP fixture only; not a conclusion about the current product"
+    }
+  },
+  "rea": {
+    "wrapperRevision": "160f56da85860e89f0e7d9bfdc80266b984057d5",
+    "wrapperModule": "js/src/proxy.ts",
+    "wrapperModuleSha256": "bf82ed56a84aef8040f4a3b3f141f2397dcfa6620d11c2dfd3a858ffa99dab00",
+    "analysisEvidenceId": "ev_d20ee5c47824953848764702ab970c621eca41da148478154f85bb1465f2fc74",
+    "factsEvidenceId": "ev_6cbcf2e5a9c46eebb976d95671ca143d4ebaddbec3272e2655ff0a3747a326e8",
+    "referenceRuntimeReplay": "failed: protocol_error; observer cleanup reported incomplete; owned browser/fixture closed",
+    "nativeReferenceAuthFunctionRecovered": false,
+    "limitations": [
+      "Inert wrapper syntax is not native function recovery",
+      "Historical 146 reference is not a matched current-155 control",
+      "Full advertised patch inventory remains unresolved"
+    ]
+  },
+  "patches": [
+    {
+      "id": "CB-0001",
+      "file": "0001-seed-lifecycle-and-engine-handshake.patch",
+      "sha256": "01077b66f90e755707b2582bf56d7c209bd0e780dfe99e5bc216afee0f3e3609"
+    },
+    {
+      "id": "CB-0002",
+      "file": "0002-platform-web-identity.patch",
+      "sha256": "08b189c9e05c93094b90c137c649088b29e422a60fce88b3827d94b884bdb706"
+    },
+    {
+      "id": "CB-0003",
+      "file": "0003-webrtc-privacy-policy.patch",
+      "sha256": "d2f228e5c2c38b864a105150e525121b3d0cd898a648b0a40673575d4c7bab83"
+    },
+    {
+      "id": "CB-0004",
+      "file": "0004-native-locale-timezone.patch",
+      "sha256": "a88504eed86a74af481f9179eb1d0083e5f2298669e1078d7b6f2cf3fcb43050"
+    },
+    {
+      "id": "CB-0005",
+      "file": "0005-windows-font-directory.patch",
+      "sha256": "f606db1186d4f1a1b00f8f35ea70e1137b0d3dadfb49b6f18d4313a41c63d446"
+    },
+    {
+      "id": "CB-0006",
+      "file": "0006-native-http-proxy-auth.patch",
+      "sha256": "3999cd5525338ea88b7e32372dfee126cafcb93f932cc47ee0074be770844bf1"
+    }
+  ],
+  "sourceSha256": {
+    "engine/native_http_proxy_policy.h": "bda53abef24f118657c30dd12d8280ff65802f11aba72e1c076f24d956848ffb",
+    "tests/native_http_proxy_policy_test.cc": "667a60a75865024015fa4ef0ead133fa6b1fb4c660fc7ec37b85e62d4705e782",
+    "tests/http-proxy-native.test.mjs": "16b0c04f4d3c332acf0c7ebb74f8db8de5dde67ec31c3c0f968dfafa721a7187",
+    "build/test_native_policies.py": "f65506daca7b39671df403c12029e61b72171c7b7cf9c9e2eff0a9922e286ec8"
+  },
+  "reports": [
+    {
+      "file": "artifacts/native-http-proxy/20261023/regression/context.json",
+      "sha256": "5cae2b059a7689ce9a36c38a9eed478ef5a6f64d701291db3702dddb4aa643bb"
+    },
+    {
+      "file": "artifacts/native-http-proxy/20261023/regression/drivers/results.json",
+      "sha256": "a945f233ecf91ac8e5f92f398e1b1a729da72398e8998d6f8a9a5e31db7ebf7c"
+    },
+    {
+      "file": "artifacts/native-http-proxy/20261023/regression/engine.json",
+      "sha256": "5ee7a583b95f843344cea71867814ccaf5a91e074b65450b41e995ed8990dd13"
+    },
+    {
+      "file": "artifacts/native-http-proxy/20261023/regression/native-environment.json",
+      "sha256": "ad2f7cbda844ce6b1d5f88d961ee3b1fb51c4f15f6ea75286a862dc139d6914c"
+    },
+    {
+      "file": "artifacts/native-http-proxy/20261023/regression/noto.json",
+      "sha256": "1bf6fd624f4d32ccd509337064f03a8d867306794412596674d3129e49c6c943"
+    },
+    {
+      "file": "artifacts/native-http-proxy/20261023/regression/python.json",
+      "sha256": "9e8298ed412227e83469ea4746e9cbc0e44bb03abde8a2fb17e6e7ae07e8aef6"
+    },
+    {
+      "file": "artifacts/native-http-proxy/20261023/regression/webrtc.json",
+      "sha256": "06552a41d406cecd5dea0b3f541b7d6796272ed64788831ef97660d55834c79a"
+    }
+  ],
+  "limitations": [
+    "HTTP Basic proxies and HTTPS origins via CONNECT; TLS-to-proxy, Digest/NTLM/Negotiate, SOCKS and PAC remain outside qualification",
+    "Process-wide credentials; no per-context credentials or automatic APIRequestContext proxy configuration",
+    "ASCII credentials only; percent decode exactly once; nonempty username and no colon in username",
+    "Literal inline credentials remain visible in initial OS argv and launcher logs; use an ACL-restricted private file for actual secrets",
+    "Managed proxy precedence and origin/mismatched endpoint rejection have standalone policy checks; managed-policy integration is unqualified",
+    "Not a CAPTCHA, detector-evasion, current-reference parity or complete-MVP result",
+    "TLS fixture uses context-scoped ignoreHTTPSErrors and a generated certificate; no OS trust change",
+    "Existing SDK proxy option still uses driver behavior; select native mode explicitly with args"
+  ]
+}

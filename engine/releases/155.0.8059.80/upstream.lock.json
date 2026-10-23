@@ -2,12 +2,13 @@
   "repository": "https://chromium.googlesource.com/chromium/src.git",
   "tag": "155.0.8059.80",
   "commit": "43a195105613ac83c21d3f14de279f4a045c7da0",
-  "purpose": "Verified Windows stable target; not build-qualified yet",
+  "purpose": "Locally integration-qualified Windows x64 build; production/distribution qualification pending",
   "windows": {
     "visualStudioMinimum": "18.0.0",
     "sdk": "10.0.28000.2270",
     "debuggerMinimum": "10.0.26100.3323",
     "freeDiskGBMinimum": 100
   },
-  "built": false
+  "built": true,
+  "validationEvidence": "../../../docs/native-http-proxy-155-summary.json"
 }

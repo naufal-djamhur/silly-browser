@@ -1,0 +1,295 @@
+diff --git a/chrome/app/chrome_main_delegate.cc b/chrome/app/chrome_main_delegate.cc
+--- a/chrome/app/chrome_main_delegate.cc
++++ b/chrome/app/chrome_main_delegate.cc
+@@ -51,6 +51,7 @@
+ #include "chrome/common/chrome_result_codes.h"
+ #include "chrome/common/chrome_switches.h"
+ #include "chrome/common/crash_keys.h"
++#include "chrome/common/custom_browser_http_proxy_state.h"
+ #include "chrome/common/custom_browser_seed_policy.h"
+ #include "chrome/common/custom_browser_locale_policy.h"
+ #if BUILDFLAG(IS_WIN)
+@@ -91,6 +92,8 @@
+ #include "extensions/buildflags/buildflags.h"
+ #include "net/http/http_cache.h"
+ #include "net/url_request/url_request.h"
++#include "url/gurl.h"
++#include "url/scheme_host_port.h"
+ #include "pdf/buildflags.h"
+ #include "printing/buildflags/buildflags.h"
+ #include "services/tracing/public/cpp/stack_sampling/tracing_sampler_profiler.h"
+@@ -289,6 +292,55 @@
+ }
+ 
+ namespace {
++
++#if !defined(BUILDING_CHROME_RENDERER)
++// Consume credentials before command-line preferences or child processes are
++// created. The standard proxy configuration contains only the sanitized URI.
++bool ConfigureCustomBrowserHttpProxy(base::CommandLine& command_line) {
++  constexpr char kProxyFile[] = "custom-browser-http-proxy-file";
++  const bool from_file = command_line.HasSwitch(kProxyFile);
++  std::string input = command_line.GetSwitchValueASCII("proxy-server");
++  if (!from_file && input.find('@') == std::string::npos) {
++    return true;  // Preserve Chromium's existing unauthenticated proxy syntax.
++  }
++  if (command_line.HasSwitch("no-proxy-server") ||
++      command_line.HasSwitch("proxy-pac-url") ||
++      command_line.HasSwitch("proxy-auto-detect")) {
++    return false;
++  }
++  if (from_file) {
++    if (command_line.HasSwitch("proxy-server")) return false;
++    const base::FilePath path = command_line.GetSwitchValuePath(kProxyFile);
++    if (!path.IsAbsolute() ||
++        !base::ReadFileToStringWithMaxSize(path, &input, 4096)) {
++      return false;
++    }
++    base::TrimWhitespaceASCII(input, base::TRIM_ALL, &input);
++  }
++  if (input.empty() || input.size() > 4096) return false;
++  for (const unsigned char c : input) {
++    if (c <= 0x20 || c > 0x7e || c == '\\') return false;
++  }
++  const GURL proxy(input);
++  // This iteration qualifies HTTP Basic proxies, including HTTPS CONNECT.
++  // PAC lists, SOCKS, TLS-to-proxy and integrated authentication are separate.
++  if (!proxy.is_valid() || !proxy.SchemeIs("http") || !proxy.has_host() ||
++      proxy.has_query() || proxy.has_ref() || proxy.path() != "/") {
++    return false;
++  }
++  auto username = custom_browser::DecodeHttpProxyCredential(proxy.username(), true);
++  auto password = custom_browser::DecodeHttpProxyCredential(proxy.password(), false);
++  if (!username || !password) return false;
++  const url::SchemeHostPort endpoint(proxy);
++  if (!endpoint.IsValid()) return false;
++  custom_browser::GetHttpProxyCredentials().emplace(
++      endpoint.Serialize(), std::move(*username), std::move(*password));
++  command_line.RemoveSwitch("proxy-server");
++  command_line.RemoveSwitch(kProxyFile);
++  command_line.AppendSwitchASCII("proxy-server", endpoint.Serialize());
++  return true;
++}
++#endif  // !defined(BUILDING_CHROME_RENDERER)
+ 
+ #if BUILDFLAG(IS_WIN)
+ #if !defined(BUILDING_CHROME_RENDERER)
+@@ -1521,6 +1573,17 @@
+   std::string process_type =
+       command_line.GetSwitchValueASCII(switches::kProcessType);
+ 
++  // GURL use must follow RegisterContentSchemes. This still precedes browser
++  // preferences, network contexts and child process creation.
++#if !defined(BUILDING_CHROME_RENDERER)
++  if (process_type.empty() &&
++      !ConfigureCustomBrowserHttpProxy(*base::CommandLine::ForCurrentProcess())) {
++    LOG(ERROR) << "Invalid native HTTP proxy configuration";
++    base::Process::TerminateCurrentProcessImmediately(
++        CHROME_RESULT_CODE_UNSUPPORTED_PARAM);
++  }
++#endif
++
+   // Explicit process defaults; ICU is initialized before PreSandboxStartup.
+   auto* environment_command_line = base::CommandLine::ForCurrentProcess();
+   if (command_line.HasSwitch("custom-browser-locale")) {
+@@ -1566,11 +1629,11 @@
+   }
+   if (process_type.empty() && command_line.HasSwitch("custom-browser-engine-info")) {
+     printf("{\"engine\":\"custom-browser\",\"policyVersion\":1,"
+-           "\"sourcePatchCount\":5,\"capabilities\":[\"seed\",\"platform-identity\","
++           "\"sourcePatchCount\":6,\"capabilities\":[\"seed\",\"platform-identity\","
+            "\"webrtc-policy\",\"native-timezone\",\"native-locale\"%s],"
+            "\"fingerprintIntegrationValidated\":false,\"seed\":\"%s\"}\n",
+ #if BUILDFLAG(IS_WIN)
+-           ",\"font-directory-windows\"",
++           ",\"font-directory-windows\",\"http-proxy-inline-auth\"",
+ #else
+            "",
+ #endif
+diff --git a/chrome/browser/BUILD.gn b/chrome/browser/BUILD.gn
+--- a/chrome/browser/BUILD.gn
++++ b/chrome/browser/BUILD.gn
+@@ -879,6 +879,7 @@
+   }
+ 
+   deps = [
++    "//components/proxy_config",
+     ":active_use_util",
+     ":after_startup_task_utils",
+     ":bad_message",
+diff --git a/chrome/browser/chrome_content_browser_client.cc b/chrome/browser/chrome_content_browser_client.cc
+--- a/chrome/browser/chrome_content_browser_client.cc
++++ b/chrome/browser/chrome_content_browser_client.cc
+@@ -453,6 +453,11 @@
+ #include "ui/gfx/switches.h"
+ #include "ui/native_theme/native_theme.h"
+ #include "url/gurl.h"
++#include "base/memory/weak_ptr.h"
++#include "chrome/common/custom_browser_http_proxy_state.h"
++#include "components/proxy_config/proxy_config_pref_names.h"
++#include "content/public/browser/login_delegate.h"
++#include "net/base/auth.h"
+ #include "url/origin.h"
+ #include "url/third_party/mozilla/url_parse.h"
+ #include "url/url_constants.h"
+@@ -840,6 +845,32 @@
+ 
+ namespace {
+ 
++// The request owns this delegate. A queued completion is canceled if the
++// request goes away, and completion may synchronously destroy the delegate.
++class CustomBrowserProxyLoginDelegate final : public content::LoginDelegate {
++ public:
++  CustomBrowserProxyLoginDelegate(
++      LoginAuthRequiredCallback callback,
++      std::optional<net::AuthCredentials> credentials)
++      : callback_(std::move(callback)), credentials_(std::move(credentials)) {
++    base::SequencedTaskRunner::GetCurrentDefault()->PostTask(
++        FROM_HERE,
++        base::BindOnce(&CustomBrowserProxyLoginDelegate::Complete,
++                       weak_factory_.GetWeakPtr()));
++  }
++
++ private:
++  void Complete() {
++    auto callback = std::move(callback_);
++    auto credentials = std::move(credentials_);
++    std::move(callback).Run(credentials);
++  }
++
++  LoginAuthRequiredCallback callback_;
++  std::optional<net::AuthCredentials> credentials_;
++  base::WeakPtrFactory<CustomBrowserProxyLoginDelegate> weak_factory_{this};
++};
++
+ const char kAIManagerUserDataKey[] = "ai_manager";
+ 
+ #if BUILDFLAG(IS_MAC)
+@@ -7222,6 +7253,23 @@
+     bool first_auth_attempt,
+     content::GuestPageHolder* guest,
+     content::LoginDelegate::LoginAuthRequiredCallback auth_required_callback) {
++  const auto& proxy = custom_browser::GetHttpProxyCredentials();
++  const bool managed_proxy = browser_context &&
++      Profile::FromBrowserContext(browser_context)->GetPrefs()->IsManagedPreference(
++          proxy_config::prefs::kProxy);
++  if (proxy && proxy->MatchesChallenge(auth_info.is_proxy,
++                                       auth_info.challenger.Serialize(),
++                                       managed_proxy)) {
++    std::optional<net::AuthCredentials> credentials;
++    if (proxy->CanSupply(auth_info.is_proxy, auth_info.challenger.Serialize(),
++                         auth_info.scheme, first_auth_attempt, managed_proxy)) {
++      credentials.emplace(base::ASCIIToUTF16(proxy->username),
++                          base::ASCIIToUTF16(proxy->password));
++    }
++    // Refused/unsupported credentials cancel without opening a login dialog.
++    return std::make_unique<CustomBrowserProxyLoginDelegate>(
++        std::move(auth_required_callback), std::move(credentials));
++  }
+ #if BUILDFLAG(IS_CHROMEOS)
+   // Negotiate challenge is handled via GSSAPI library, which can not receive
+   // external credentials. However, on ChromeOS we can suggest the user to
+diff --git a/chrome/common/BUILD.gn b/chrome/common/BUILD.gn
+--- a/chrome/common/BUILD.gn
++++ b/chrome/common/BUILD.gn
+@@ -468,6 +468,8 @@
+     "chrome_constants.cc",
+     "chrome_constants.h",
+     "chrome_switches.h",
++    "custom_browser_http_proxy_policy.h",
++    "custom_browser_http_proxy_state.h",
+     "custom_browser_locale_policy.h",
+     "custom_browser_seed_policy.h",
+     "custom_browser_webrtc_policy.h",
+diff --git a/chrome/common/custom_browser_http_proxy_policy.h b/chrome/common/custom_browser_http_proxy_policy.h
+new file mode 100644
+--- /dev/null
++++ b/chrome/common/custom_browser_http_proxy_policy.h
+@@ -0,0 +1,64 @@
++// Copyright 2026 Custom Browser contributors. MIT license.
++#ifndef CHROME_COMMON_CUSTOM_BROWSER_HTTP_PROXY_POLICY_H_
++#define CHROME_COMMON_CUSTOM_BROWSER_HTTP_PROXY_POLICY_H_
++
++#include <optional>
++#include <string>
++#include <string_view>
++
++namespace custom_browser {
++
++// URI userinfo is decoded exactly once. Basic authentication cannot represent a
++// colon in the username. This first version intentionally accepts ASCII only.
++inline std::optional<std::string> DecodeHttpProxyCredential(
++    std::string_view encoded, bool username) {
++  if (encoded.size() > 4096) {
++    return std::nullopt;
++  }
++  const auto hex = [](char c) -> int {
++    if (c >= '0' && c <= '9') return c - '0';
++    if (c >= 'a' && c <= 'f') return c - 'a' + 10;
++    if (c >= 'A' && c <= 'F') return c - 'A' + 10;
++    return -1;
++  };
++  std::string decoded;
++  for (size_t i = 0; i < encoded.size(); ++i) {
++    unsigned char c = static_cast<unsigned char>(encoded[i]);
++    if (c == '%') {
++      if (i + 2 >= encoded.size()) return std::nullopt;
++      const int high = hex(encoded[i + 1]);
++      const int low = hex(encoded[i + 2]);
++      if (high < 0 || low < 0) return std::nullopt;
++      c = static_cast<unsigned char>((high << 4) | low);
++      i += 2;
++    }
++    if (c < 0x20 || c > 0x7e || (username && c == ':')) {
++      return std::nullopt;
++    }
++    decoded.push_back(static_cast<char>(c));
++  }
++  if (username && decoded.empty()) return std::nullopt;
++  return decoded;
++}
++
++struct HttpProxyCredentials {
++  // Canonical url::SchemeHostPort serialization, including the proxy transport.
++  std::string endpoint;
++  std::string username;
++  std::string password;
++
++  bool MatchesChallenge(bool is_proxy, std::string_view challenger,
++                        bool managed_proxy) const {
++    return is_proxy && !managed_proxy && challenger == endpoint;
++  }
++
++  bool CanSupply(bool is_proxy, std::string_view challenger,
++                 std::string_view auth_scheme, bool first_attempt,
++                 bool managed_proxy) const {
++    return MatchesChallenge(is_proxy, challenger, managed_proxy) &&
++           first_attempt && auth_scheme == "basic";
++  }
++};
++
++}  // namespace custom_browser
++#endif  // CHROME_COMMON_CUSTOM_BROWSER_HTTP_PROXY_POLICY_H_
+diff --git a/chrome/common/custom_browser_http_proxy_state.h b/chrome/common/custom_browser_http_proxy_state.h
+new file mode 100644
+--- /dev/null
++++ b/chrome/common/custom_browser_http_proxy_state.h
+@@ -0,0 +1,18 @@
++// Copyright 2026 Custom Browser contributors. MIT license.
++#ifndef CHROME_COMMON_CUSTOM_BROWSER_HTTP_PROXY_STATE_H_
++#define CHROME_COMMON_CUSTOM_BROWSER_HTTP_PROXY_STATE_H_
++
++#include <optional>
++
++#include "base/no_destructor.h"
++#include "chrome/common/custom_browser_http_proxy_policy.h"
++
++namespace custom_browser {
++// Initialized by browser startup, read on the browser UI sequence. Never passed
++// to renderer or network-service command lines or persisted to preferences.
++inline std::optional<HttpProxyCredentials>& GetHttpProxyCredentials() {
++  static base::NoDestructor<std::optional<HttpProxyCredentials>> credentials;
++  return *credentials;
++}
++}  // namespace custom_browser
++#endif  // CHROME_COMMON_CUSTOM_BROWSER_HTTP_PROXY_STATE_H_

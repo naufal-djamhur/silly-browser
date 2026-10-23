@@ -41,7 +41,7 @@ def build_program(name,extra):
     if name=='environment':
         lines += [command(['lib','/nologo','/OUT:'+str(output/'test-libcpp.lib'),'@'+str(rsp)]),'if errorlevel 1 exit /b %errorlevel%']
     flags=[compiler,'-fuse-ld=lld','/nologo','/EHsc','/std:c++20','/MT','/I'+str(source)]
-    test={'environment':'native_environment_policy_test.cc','fonts':'native_font_directory_test.cc','seed':'native_seed_policy_test.cc'}[name]
+    test={'environment':'native_environment_policy_test.cc','fonts':'native_font_directory_test.cc','seed':'native_seed_policy_test.cc','http-proxy':'native_http_proxy_policy_test.cc'}[name]
     flags += [ROOT/'tests'/test,'/Fo'+str(output/(name+'.obj')),'/Fe'+str(output/(name+'.exe'))]
     flags += extra
     lines.append(command(flags));script.write_text('\n'.join(lines)+'\n')
@@ -51,17 +51,18 @@ def build_program(name,extra):
 build_program('environment',['/DU_STATIC_IMPLEMENTATION','/I'+str(source/'third_party/icu/source/common'),'/I'+str(source/'third_party/icu/source/i18n'),'/link',*icu,output/'test-libcpp.lib','advapi32.lib'])
 build_program('fonts',['/link','dwrite.lib'])
 build_program('seed',[])
+build_program('http-proxy',[])
 checks=[]
-for name,arguments in [('environment',[build/'icudtl.dat']),('fonts',[valid,invalid]),('seed',[])]:
+for name,arguments in [('environment',[build/'icudtl.dat']),('fonts',[valid,invalid]),('seed',[]),('http-proxy',[])]:
     result=subprocess.run([str(output/(name+'.exe')),*map(str,arguments)],capture_output=True,text=True,creationflags=subprocess.CREATE_NO_WINDOW,timeout=30)
     (output/(name+'-run.log')).write_text(result.stdout+result.stderr)
     checks.append({'program':name,'exitCode':result.returncode})
     print(name+': '+('passed' if result.returncode==0 else 'failed'))
-header_pairs={'engine/native_locale_policy.h':'chrome/common/custom_browser_locale_policy.h','engine/native_font_directory_win.h':'ui/gfx/win/custom_browser_font_directory.h'}
+header_pairs={'engine/native_locale_policy.h':'chrome/common/custom_browser_locale_policy.h','engine/native_font_directory_win.h':'ui/gfx/win/custom_browser_font_directory.h','engine/native_http_proxy_policy.h':'chrome/common/custom_browser_http_proxy_policy.h'}
 hashes={}
 for own,native in header_pairs.items():
     assert (ROOT/own).read_bytes()==(source/native).read_bytes(),native
     hashes[own]=hashlib.sha256((ROOT/own).read_bytes()).hexdigest()
-report={'scope':'Three standalone native policy executables only; no browser build or runtime qualification','checks':checks,'headerSha256':hashes,'icuDataSha256':hashlib.sha256((build/'icudtl.dat').read_bytes()).hexdigest(),'fontFixtureSha256':hashlib.sha256(font.read_bytes()).hexdigest(),'reusedLibcppObjects':len(objects),'fullBrowserBuildStarted':False}
+report={'scope':'Four standalone native policy executables only; no browser build or runtime qualification','checks':checks,'headerSha256':hashes,'icuDataSha256':hashlib.sha256((build/'icudtl.dat').read_bytes()).hexdigest(),'fontFixtureSha256':hashlib.sha256(font.read_bytes()).hexdigest(),'reusedLibcppObjects':len(objects),'fullBrowserBuildStarted':False}
 (output/'results.json').write_text(json.dumps(report,indent=2)+'\n')
 raise SystemExit(any(row['exitCode'] for row in checks))

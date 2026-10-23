@@ -2,7 +2,7 @@
 
 An open-source, source-patched Chromium project for browser automation and E2E testing, with JavaScript and Python SDKs. Original project code is [MIT-licensed](LICENSE); Chromium and dependencies retain their [upstream licenses](NOTICE).
 
-**Experimental:** the five-patch Chromium **155.0.8059.80 Windows x64** build compiles and passes [48 local integration checks](docs/engine-validation-155.md), including headed/headless drivers and native locale/timezone/fonts. There is no published native download or npm/PyPI release yet. The preserved Chromium 146 build remains historical evidence. Native distribution qualification and the complete MVP are still pending.
+**Experimental:** the six-patch Chromium **155.0.8059.80 Windows x64** build passes [native HTTP proxy authentication tests and 48 existing integration checks](docs/native-http-proxy-155.md), including headed/headless drivers and native locale/timezone/fonts. The [five-patch qualification](docs/engine-validation-155.md) remains preserved. There is no published native download or npm/PyPI release yet. Native distribution qualification and the complete MVP are still pending.
 
 [Reference example measurements](docs/reference-tests-155.md) are available for both modes. Navigation and profile persistence pass; the public reCAPTCHA demo returned 0.9 per mode. Fingerprint Scan/CreepJS and the detector suite fail their criteria, so no overall benchmark pass or reference-product parity is claimed.
 
@@ -87,7 +87,7 @@ The installer verifies archive and individual file SHA256 values, bounds downloa
 
 ## Project status and development
 
-Implemented SDK foundations include profile lifecycle, explicit context configuration, driver adapters and optional paced input helpers. The five-patch native source adds seed lifecycle, platform web identity, WebRTC policy, ICU timezone/locale defaults and additive Windows font-directory configuration. The exact Windows 155 build now passes the measured local integration gates. Linux/macOS native artifacts, broader rendering/network work, signed releases and production support remain future work. No detector score or universal driver compatibility is guaranteed.
+Implemented SDK foundations include profile lifecycle, explicit context configuration, driver adapters and optional paced input helpers. The six-patch native source adds seed lifecycle, platform web identity, WebRTC policy, ICU timezone/locale defaults, additive Windows fonts and [HTTP Basic proxy credentials](docs/native-http-proxy-155.md). The exact Windows 155 build passes the measured local integration gates. Linux/macOS native artifacts, broader rendering/network work, signed releases and production support remain future work. No detector score or universal driver compatibility is guaranteed.
 
 Read [CONTRIBUTING](CONTRIBUTING.md), [the security policy](SECURITY.md), [community guidelines](CODE_OF_CONDUCT.md), [the implementation plan](docs/implementation-plan.md), and [release instructions](docs/releasing.md). Lightweight CI checks SDKs and packages across Windows, Linux and macOS; native Chromium qualification is a separate build process.
 

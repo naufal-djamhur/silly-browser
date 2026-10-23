@@ -12,7 +12,8 @@
     "services/device/time_zone_monitor/time_zone_monitor.cc": "d982fe5b64046b8fa754d9a2fd67885869fd139023fe7caaf858eb8f5b9554c9",
     "ui/gfx/BUILD.gn": "303909a22f7b045ef7820a7df59716d09f4dd0c8f42dc73c4166149b771c9054",
     "ui/gfx/win/direct_write.cc": "8ef8fd82b4ce653e336ad5cc696503ceb0df0a3bbd86f3759732f3ed45918dad",
-    "content/browser/renderer_host/dwrite_font_proxy_impl_win.cc": "629f77c916de27a09da6535fed3a2a163a2a813504c2815372b59d97656b9587"
+    "content/browser/renderer_host/dwrite_font_proxy_impl_win.cc": "629f77c916de27a09da6535fed3a2a163a2a813504c2815372b59d97656b9587",
+    "chrome/browser/BUILD.gn": "5c9a66b731954d1d28c7f630071880f0a879bfef924338362004b9ad19f4444b"
   },
   "fingerprintPatchesImplemented": 0,
   "patches": [
@@ -141,6 +142,33 @@
         "Local Font Access OS enumeration and browser UI font metadata remain separately unqualified",
         "Local Windows x64 Ahem and ten Noto faces qualified in both modes; wider font enumeration/fallback remains unqualified"
       ]
+    },
+    {
+      "id": "CB-0006",
+      "file": "0006-native-http-proxy-auth.patch",
+      "scope": "Native process-wide HTTP Basic proxy credentials from URI or private file, scoped challenge handling, sanitized Chromium proxy configuration",
+      "status": "windows-x64-local-integration-validated",
+      "dependencies": [
+        "CB-0005"
+      ],
+      "platforms": [
+        "windows"
+      ],
+      "validatedPlatforms": [
+        "windows"
+      ],
+      "regressions": [
+        "tests/native_http_proxy_policy_test.cc",
+        "tests/http-proxy-native.test.mjs"
+      ],
+      "limitations": [
+        "HTTP Basic proxies and HTTPS origins via CONNECT; TLS-to-proxy, Digest/NTLM/Negotiate, SOCKS and PAC remain outside qualification",
+        "Process-wide credentials; no per-context credentials or automatic APIRequestContext proxy configuration",
+        "ASCII credentials only; percent decode exactly once; nonempty username and no colon in username",
+        "Literal inline credentials remain visible in initial OS argv and launcher logs; use an ACL-restricted private file for actual secrets",
+        "Managed proxy precedence and origin/mismatched endpoint rejection have standalone policy checks; managed-policy integration is unqualified"
+      ],
+      "validationEvidence": "../../../../docs/native-http-proxy-155-summary.json"
     }
   ],
   "plannedFamilies": [
@@ -166,5 +194,8 @@
     "locale",
     "font-directory-windows"
   ],
-  "validationEvidence": "../../../../docs/engine-validation-155-summary.json"
+  "validationEvidence": "../../../../docs/native-http-proxy-155-summary.json",
+  "transportCompatibilityFamiliesWritten": [
+    "http-proxy-basic-auth"
+  ]
 }

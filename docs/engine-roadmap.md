@@ -6,7 +6,7 @@ The [implementation plan](implementation-plan.md) turns these gates into 26 iter
 
 ## Release lines
 
-See `engine/versions.json` for exact revision pins. Chromium 146 is the historical integration build. The current independently verified stable rebase target is **155.0.8059.80**; its source and toolchain are ready, but dependency sync and compilation are incomplete. Stock Chrome 155.0.8059.40 only supplies harness evidence. The earlier 156 pin is retained as a proposed snapshot, not a verified current-stable claim. No custom Chromium version is advertised as supported yet.
+See `engine/versions.json` for exact revision pins. Chromium 146 is historical evidence. The six-patch **155.0.8059.80 Windows x64** build passes [native HTTP proxy tests and 48 existing regression checks](native-http-proxy-155.md); production/distribution qualification remains pending. Stock Chrome 155.0.8059.40 only supplies harness evidence. The earlier 156 pin remains a proposed snapshot. No broad Chromium version range is advertised.
 
 Every maintained revision needs a separate ordered patch series, clean checkout verification, build output, binary hash, feature report, and driver matrix. A user-agent override never selects an engine version. A release line becomes supported only after its actual binary qualifies. Security updates require rebasing and re-running these gates.
 
@@ -22,7 +22,7 @@ Every maintained revision needs a separate ordered patch series, clean checkout 
 | ENGINE-06 | Audio policies | Not implemented | Offline/real-time audio consistency, stable profile policy, bounded changes and native-mode comparison |
 | ENGINE-07 | Screen/display consistency | Native defaults only | Multiple displays, scaling, viewport and outer-window geometry; headed/headless coverage |
 | ENGINE-08 | WebRTC privacy/routing | Stable source policy and standalone parser checks written; native browser/network qualification pending | ICE/STUN/TURN, IPv4/IPv6, proxy routing and leak tests; explicit policy and failure behavior |
-| NET-09 | Native HTTP proxy credentials | SDK uses Playwright HTTP authentication | Native auth challenge, HTTPS CONNECT, encoded credentials and authenticated proxy fixture tests |
+| NET-09 | Native HTTP proxy credentials | Sixth C++ patch passes HTTP Basic/CONNECT/encoded credentials/private-file/denial/bypass in both modes on Windows 155; [scope and evidence](native-http-proxy-155.md) | Bounded local gate complete; TLS-to-proxy, other auth schemes and managed-policy deployment need separate qualification |
 | NET-10 | Native SOCKS5 authentication | Unsupported and rejected explicitly | RFC negotiation, credentials, remote DNS, IPv6, timeouts and error propagation |
 | NET-11 | SOCKS5 UDP and HTTP/3 | Not implemented | UDP ASSOCIATE and QUIC end-to-end traffic capture; truthful fallback behavior |
 | NET-12 | Network exposure policy | Not implemented | Headers/cache/timing policy with protocol correctness and diagnostic evidence |
