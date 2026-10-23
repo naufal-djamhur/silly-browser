@@ -1,0 +1,356 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "dateTimezone": "Asia/Jakarta",
+  "startingRepositoryCommit": "4fa1be1dff8821bcad229298bb61a1083422a4c5",
+  "scope": "Native C++/CDP functional review and proposed fix; no detector-concealment patch",
+  "finding": "Invalid timezone update reports success, corrupts serialized inspector state and loses the last valid timezone after cross-site navigation",
+  "findingStatus": "Reproduced on Silly 155, upstream-source 155 and saved free CloakBrowser 146 in both modes",
+  "engineIdentities": [
+    {
+      "id": "silly-patch-six",
+      "version": "155.0.8059.80",
+      "exeSha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+      "dllSha256": "951fbc14ffb40db20aff024f69f6c0c743cabe2fb63c33d67d1e673b53f44ece",
+      "runtimeUnchanged": true
+    },
+    {
+      "id": "upstream-155",
+      "version": "155.0.8059.80",
+      "exeSha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+      "dllSha256": "e719c01be39b2aff0903480bdd209b2f5cc03894691f64c3dff7261c8b6683c1",
+      "runtimeUnchanged": true
+    },
+    {
+      "id": "cloakbrowser-free-146",
+      "version": "146.0.7680.177",
+      "exeSha256": "03f53661a5c47e7b0a661bee2bce8a0d302b7a60834c328df417561fa0636d80",
+      "dllSha256": "ed7009a70d76fa4da222a5b37c34012d77fcc04092ef8df5fb572062940fa4dd",
+      "runtimeUnchanged": true
+    }
+  ],
+  "observations": [
+    {
+      "engine": "silly-patch-six",
+      "configuration": "default",
+      "mode": "headed",
+      "status": "collected",
+      "baseline": {
+        "locale": "en-GB",
+        "timezone": "Asia/Jakarta",
+        "jan": -420,
+        "jul": -420
+      },
+      "validOnlyTimezonePreservedAcrossNavigation": true,
+      "validOnlyTimezonePreservedOnReturn": true,
+      "invalidTimezoneUpdateAccepted": true,
+      "invalidTimezoneUpdateChangedEffectiveValue": false,
+      "lastValidTimezonePreservedAcrossNavigation": false,
+      "rendererUsable": true,
+      "revision": "@0000000000000000000000000000000000000000",
+      "afterInvalidUpdate": {
+        "locale": "en-GB",
+        "timezone": "Pacific/Honolulu",
+        "jan": 600,
+        "jul": 600
+      },
+      "afterInvalidUpdateAndNavigation": {
+        "locale": "en-GB",
+        "timezone": "Asia/Jakarta",
+        "jan": -420,
+        "jul": -420
+      },
+      "resetAndDetachRestoreBaseline": true
+    },
+    {
+      "engine": "silly-patch-six",
+      "configuration": "default",
+      "mode": "headless",
+      "status": "collected",
+      "baseline": {
+        "locale": "en-GB",
+        "timezone": "Asia/Jakarta",
+        "jan": -420,
+        "jul": -420
+      },
+      "validOnlyTimezonePreservedAcrossNavigation": true,
+      "validOnlyTimezonePreservedOnReturn": true,
+      "invalidTimezoneUpdateAccepted": true,
+      "invalidTimezoneUpdateChangedEffectiveValue": false,
+      "lastValidTimezonePreservedAcrossNavigation": false,
+      "rendererUsable": true,
+      "revision": "@0000000000000000000000000000000000000000",
+      "afterInvalidUpdate": {
+        "locale": "en-GB",
+        "timezone": "Pacific/Honolulu",
+        "jan": 600,
+        "jul": 600
+      },
+      "afterInvalidUpdateAndNavigation": {
+        "locale": "en-GB",
+        "timezone": "Asia/Jakarta",
+        "jan": -420,
+        "jul": -420
+      },
+      "resetAndDetachRestoreBaseline": true
+    },
+    {
+      "engine": "silly-patch-six",
+      "configuration": "native-environment",
+      "mode": "headed",
+      "status": "collected",
+      "baseline": {
+        "locale": "fr-FR",
+        "timezone": "Europe/Paris",
+        "jan": -60,
+        "jul": -120
+      },
+      "validOnlyTimezonePreservedAcrossNavigation": true,
+      "validOnlyTimezonePreservedOnReturn": true,
+      "invalidTimezoneUpdateAccepted": true,
+      "invalidTimezoneUpdateChangedEffectiveValue": false,
+      "lastValidTimezonePreservedAcrossNavigation": false,
+      "rendererUsable": true,
+      "revision": "@0000000000000000000000000000000000000000",
+      "afterInvalidUpdate": {
+        "locale": "fr-FR",
+        "timezone": "Pacific/Honolulu",
+        "jan": 600,
+        "jul": 600
+      },
+      "afterInvalidUpdateAndNavigation": {
+        "locale": "fr-FR",
+        "timezone": "Europe/Paris",
+        "jan": -60,
+        "jul": -120
+      },
+      "resetAndDetachRestoreBaseline": true
+    },
+    {
+      "engine": "silly-patch-six",
+      "configuration": "native-environment",
+      "mode": "headless",
+      "status": "collected",
+      "baseline": {
+        "locale": "fr-FR",
+        "timezone": "Europe/Paris",
+        "jan": -60,
+        "jul": -120
+      },
+      "validOnlyTimezonePreservedAcrossNavigation": true,
+      "validOnlyTimezonePreservedOnReturn": true,
+      "invalidTimezoneUpdateAccepted": true,
+      "invalidTimezoneUpdateChangedEffectiveValue": false,
+      "lastValidTimezonePreservedAcrossNavigation": false,
+      "rendererUsable": true,
+      "revision": "@0000000000000000000000000000000000000000",
+      "afterInvalidUpdate": {
+        "locale": "fr-FR",
+        "timezone": "Pacific/Honolulu",
+        "jan": 600,
+        "jul": 600
+      },
+      "afterInvalidUpdateAndNavigation": {
+        "locale": "fr-FR",
+        "timezone": "Europe/Paris",
+        "jan": -60,
+        "jul": -120
+      },
+      "resetAndDetachRestoreBaseline": true
+    },
+    {
+      "engine": "upstream-155",
+      "configuration": "default",
+      "mode": "headed",
+      "status": "collected",
+      "baseline": {
+        "locale": "en-GB",
+        "timezone": "Asia/Jakarta",
+        "jan": -420,
+        "jul": -420
+      },
+      "validOnlyTimezonePreservedAcrossNavigation": true,
+      "validOnlyTimezonePreservedOnReturn": true,
+      "invalidTimezoneUpdateAccepted": true,
+      "invalidTimezoneUpdateChangedEffectiveValue": false,
+      "lastValidTimezonePreservedAcrossNavigation": false,
+      "rendererUsable": true,
+      "revision": "@0000000000000000000000000000000000000000",
+      "afterInvalidUpdate": {
+        "locale": "en-GB",
+        "timezone": "Pacific/Honolulu",
+        "jan": 600,
+        "jul": 600
+      },
+      "afterInvalidUpdateAndNavigation": {
+        "locale": "en-GB",
+        "timezone": "Asia/Jakarta",
+        "jan": -420,
+        "jul": -420
+      },
+      "resetAndDetachRestoreBaseline": true
+    },
+    {
+      "engine": "upstream-155",
+      "configuration": "default",
+      "mode": "headless",
+      "status": "collected",
+      "baseline": {
+        "locale": "en-GB",
+        "timezone": "Asia/Jakarta",
+        "jan": -420,
+        "jul": -420
+      },
+      "validOnlyTimezonePreservedAcrossNavigation": true,
+      "validOnlyTimezonePreservedOnReturn": true,
+      "invalidTimezoneUpdateAccepted": true,
+      "invalidTimezoneUpdateChangedEffectiveValue": false,
+      "lastValidTimezonePreservedAcrossNavigation": false,
+      "rendererUsable": true,
+      "revision": "@0000000000000000000000000000000000000000",
+      "afterInvalidUpdate": {
+        "locale": "en-GB",
+        "timezone": "Pacific/Honolulu",
+        "jan": 600,
+        "jul": 600
+      },
+      "afterInvalidUpdateAndNavigation": {
+        "locale": "en-GB",
+        "timezone": "Asia/Jakarta",
+        "jan": -420,
+        "jul": -420
+      },
+      "resetAndDetachRestoreBaseline": true
+    },
+    {
+      "engine": "cloakbrowser-free-146",
+      "configuration": "default",
+      "mode": "headed",
+      "status": "collected",
+      "baseline": {
+        "locale": "en-GB",
+        "timezone": "Asia/Jakarta",
+        "jan": -420,
+        "jul": -420
+      },
+      "validOnlyTimezonePreservedAcrossNavigation": true,
+      "validOnlyTimezonePreservedOnReturn": true,
+      "invalidTimezoneUpdateAccepted": true,
+      "invalidTimezoneUpdateChangedEffectiveValue": false,
+      "lastValidTimezonePreservedAcrossNavigation": false,
+      "rendererUsable": true,
+      "revision": "@ae03f7fb2cf1215853896d6a4c15fdceee2badb7",
+      "afterInvalidUpdate": {
+        "locale": "en-GB",
+        "timezone": "Pacific/Honolulu",
+        "jan": 600,
+        "jul": 600
+      },
+      "afterInvalidUpdateAndNavigation": {
+        "locale": "en-GB",
+        "timezone": "Asia/Jakarta",
+        "jan": -420,
+        "jul": -420
+      },
+      "resetAndDetachRestoreBaseline": true
+    },
+    {
+      "engine": "cloakbrowser-free-146",
+      "configuration": "default",
+      "mode": "headless",
+      "status": "collected",
+      "baseline": {
+        "locale": "en-GB",
+        "timezone": "Asia/Jakarta",
+        "jan": -420,
+        "jul": -420
+      },
+      "validOnlyTimezonePreservedAcrossNavigation": true,
+      "validOnlyTimezonePreservedOnReturn": true,
+      "invalidTimezoneUpdateAccepted": true,
+      "invalidTimezoneUpdateChangedEffectiveValue": false,
+      "lastValidTimezonePreservedAcrossNavigation": false,
+      "rendererUsable": true,
+      "revision": "@ae03f7fb2cf1215853896d6a4c15fdceee2badb7",
+      "afterInvalidUpdate": {
+        "locale": "en-GB",
+        "timezone": "Pacific/Honolulu",
+        "jan": 600,
+        "jul": 600
+      },
+      "afterInvalidUpdateAndNavigation": {
+        "locale": "en-GB",
+        "timezone": "Asia/Jakarta",
+        "jan": -420,
+        "jul": -420
+      },
+      "resetAndDetachRestoreBaseline": true
+    }
+  ],
+  "counts": {
+    "collected": 8,
+    "collectionErrors": 0,
+    "validOnlyCrossSiteControlsPassed": 8,
+    "invalidTimezoneUpdatesWronglyAccepted": 8,
+    "lastValidTimezoneLostAfterNavigation": 8,
+    "localeAndTimezoneResetChecksPassed": 8,
+    "detachRestorationChecksPassed": 8
+  },
+  "regressionGate": {
+    "option": "--expect-fixed",
+    "observedExitCode": 1,
+    "expectedOnCurrentRuntimes": true,
+    "meaning": "RED for the desired validation contract; collection itself completed"
+  },
+  "nativeProposal": {
+    "path": "docs/proposals/cdp-timezone-validation.patch",
+    "proposalApplied": false,
+    "compiled": false,
+    "dryApplyExitCode": 0,
+    "proposalSha256": "2000bd4d216aa18840fe520e509a6aab04b90582c4e813e38632ba4ab03cf95a",
+    "sourceBeforeSha256": {
+      "third_party/blink/renderer/core/timezone/timezone_controller.h": "ce117c893d79e4c4e61ea4d2c5d7cc752f4de294337b10100c2652cfca149e02",
+      "third_party/blink/renderer/core/timezone/timezone_controller.cc": "bb654fcc80acb3d1046fa71cdc7f7669753ef80ddc74a6f05c5db36e40a7294f",
+      "third_party/blink/renderer/core/inspector/inspector_emulation_agent.cc": "4d01c60b9fbde5c91834decf1ec775872a40f2129423f4b4af6fd25d6fd713ea"
+    },
+    "mechanism": "Return a boolean from the existing change helper, propagate invalid-parameter errors before updating serialized timezone state, preserve the last valid override",
+    "requiredGreenGate": "Run the strict probe on the separately built candidate only, in both modes and with/without explicit native defaults; retain stock/reference runtimes as known RED controls"
+  },
+  "metadataReview": {
+    "source": "build/util/lastchange.gni:8-15",
+    "default": "use_dummy_lastchange = !is_official_build",
+    "interpretation": "Zero CDP revision is intentional for this nonofficial build configuration, not a native runtime defect",
+    "releaseProposal": "If actual upstream source revision is required, configure use_dummy_lastchange=false and verify generated metadata against Git/LASTCHANGE and the custom patch manifest",
+    "configurationChanged": false
+  },
+  "sourceHashes": {
+    "third_party/blink/renderer/core/timezone/timezone_controller.h": "ce117c893d79e4c4e61ea4d2c5d7cc752f4de294337b10100c2652cfca149e02",
+    "third_party/blink/renderer/core/timezone/timezone_controller.cc": "bb654fcc80acb3d1046fa71cdc7f7669753ef80ddc74a6f05c5db36e40a7294f",
+    "third_party/blink/renderer/core/inspector/inspector_emulation_agent.cc": "4d01c60b9fbde5c91834decf1ec775872a40f2129423f4b4af6fd25d6fd713ea",
+    "third_party/blink/renderer/core/inspector/locale_controller.cc": "78db7722703ba0a9ccf308a2d8fa8f74cec718788ee97c63333ae6ad55c126f1",
+    "third_party/blink/public/devtools_protocol/domains/Emulation.pdl": "50bc574f54715e4a983313ee46d42f00b008b719080326f0d95aaeaecade9992",
+    "build/util/lastchange.gni": "63cb16e1cdd6632bab19f820e485dc88686d1fc31637d8539e0f40a1abe7117f",
+    "build/util/LASTCHANGE": "e77e6279d4ddbdd3c4cc3f7fd1de68218b0bbebd39cc94dfcb36bd2ef42c7957",
+    "build/util/LASTCHANGE.dummy": "2e5563eda7ed43a30ce029a437a8f53347f514ab4717da6b29c4a0fea5ffb19f",
+    "build/util/BUILD.gn": "65cce5c8a3a138da9b7f2883b1988b60fb59ae1ad438de1c5ece0d21cdd15cd7",
+    "content/browser/devtools/protocol/browser_handler.cc": "8fe7be266c100e544ada7f909415e49af87d99051c4d25de5f9961a69a12b961",
+    "out/SillyBrowserStable/gen/build/util/chromium_git_revision.h": "a67a3d93b9856c3045c3e9f40f94146c3f219af8f5e584f3030dd13ab5645f70"
+  },
+  "evidenceSha256": {
+    "checkedResults": "ea7f40fc3192c3030c4bbe8adea848fc782839cdf2c88b798ef0e3710f6f0382",
+    "checkedLog": "c9f1fa17f5f1d35916f03b6d65feaa983543f278fa65bb03b9096047e454f9c0",
+    "initialProbeResults": "4f5e8656e7e42c4c5e731950e21b3c89cdc5c04e3b822601186009fb020c911f",
+    "probeSource": "2aef750d11c2412f6755ff746a7d04c02332763b7c4555e9d36b31e4e2ee909c",
+    "proposalReceipt": "64cc3015d26ca412be4d251bc8130d31c284f1f1284ea05972e3a62107e300a4"
+  },
+  "engineSourcePatchCountAfter": 6,
+  "nativeSourceChanged": false,
+  "nativeCompilerStarted": false,
+  "limits": [
+    "The proposal is not applied, compiled or browser-validated",
+    "The same defect in CloakBrowser means this finding does not explain its lower detector scores",
+    "Known detector classifications were not rerun or improved by this review",
+    "One Windows host; source review covers selected paths, not the whole engine",
+    "Zero revision output follows the chosen build configuration; release identity changes require a separate build/validation gate"
+  ]
+}
