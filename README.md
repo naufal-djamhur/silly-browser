@@ -10,7 +10,7 @@ An open-source, source-patched Chromium project for browser automation and E2E t
 
 [Fresh Fingerprint Scan and CreepJS measurements](docs/detector-comparison-155-146.md) match Silly Browser against upstream 155 and a saved free CloakBrowser 146 binary. Silly and upstream retain the same failing classifications; the saved CloakBrowser passes the CreepJS criterion but scores 43/100 on Fingerprint Scan in both modes. The historical/version difference and common raw launch conditions limit the comparison; current Pro results are unqualified.
 
-The [native CDP timezone fix](docs/cdp-timezone-validation-155.md) now rejects invalid updates and preserves the last valid override across navigation in both modes. The inherited bug remains reproducible on the old runtimes; this correctness fix carries no detector-score improvement claim.
+The [native CDP timezone fix](docs/cdp-timezone-validation-155.md) now rejects invalid updates and preserves the last valid override across navigation in both modes. The inherited bug remains reproducible on the old runtimes. A [fresh patch-seven diagnostic rerun](docs/detector-results-155-patch7.md) scores Fingerprint Scan 100/100 in both modes and CreepJS headless 33% headed / 100% headless, with stealth 0% in both. All four diagnostic criteria fail; no score improvement is observed.
 
 ## Install the SDK today
 

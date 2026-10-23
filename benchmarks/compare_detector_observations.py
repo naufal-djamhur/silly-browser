@@ -113,6 +113,12 @@ def main():
                             text = page.inner_text('body',timeout=5000)
                             if site == 'fingerprint-scan':
                                 result.update(scan_details(text))
+                                # Capture the site's documented public result after
+                                # measurement. Raw identifiers remain private.
+                                public_result = page.evaluate('() => window.FINGERPRINT_SCAN ?? null')
+                                result['publicInterfaceAvailable'] = isinstance(public_result, dict)
+                                (args.output/f'{name}-public.json').write_text(
+                                    json.dumps(public_result,indent=2)+'\n',encoding='utf8')
                             else:
                                 fields = [observation.get('headlessPct'),observation.get('stealthPct')]
                                 result['status'] = 'unavailable' if any(x is None for x in fields) else 'pass' if all(x<=30 for x in fields) else 'fail'

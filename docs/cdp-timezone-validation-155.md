@@ -1,5 +1,7 @@
 # CDP timezone validation: patch seven
 
+**Subsequent diagnostic follow-up:** [the patch-seven rerun](detector-results-155-patch7.md) now measures both external sites in both modes; all four criteria fail. The original native qualification checkpoint below remains preserved.
+
 **24 October 2026 — Windows x64, Chromium 155.0.8059.80.** The independently tracked C++ fix is compiled and passes the strict regression in both headed and headless modes. Invalid timezone updates now return an error without replacing saved state, and the last valid override survives cross-site navigation. [Machine-readable evidence](cdp-timezone-validation-155-summary.json) binds the results to the candidate hashes.
 
 ## Native change

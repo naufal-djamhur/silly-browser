@@ -1,0 +1,434 @@
+{
+  "schemaVersion": 1,
+  "measurementDate": "2026-10-24",
+  "dateTimezone": "Asia/Jakarta",
+  "startingRepositoryCommit": "e79652355f70eac140aad44e874b0d6c229c5844",
+  "scope": "Four public diagnostic observations on patch seven; published flags and categories only",
+  "sourcePatchCount": 7,
+  "newNativePatches": 0,
+  "engine": {
+    "id": "silly-patch-seven",
+    "version": "155.0.8059.80",
+    "exeSha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+    "dllSha256": "4791896fcfe854ffd50d14cf88f51857967b8159995ba346f61b5a14183de526",
+    "runtimeUnchanged": true
+  },
+  "conditions": {
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "deviceScaleFactor": 1,
+    "profile": "fresh isolated context per site",
+    "proxy": false,
+    "humanize": false,
+    "nativeOverrides": false,
+    "sdkLaunchDefaultsApplied": false
+  },
+  "playwrightVersion": "1.62.0",
+  "criteria": {
+    "fingerprintScan": "Complete numeric score < 10",
+    "creepjs": "Complete headlessPct <= 30 and stealthPct <= 30; likeHeadlessPct is informational in the reviewed example"
+  },
+  "counts": {
+    "pass": 0,
+    "fail": 4,
+    "unavailable": 0,
+    "error": 0
+  },
+  "observations": [
+    {
+      "engine": "silly-patch-seven",
+      "mode": "headed",
+      "site": "fingerprint-scan",
+      "status": "fail",
+      "browserVersion": "155.0.8059.80",
+      "diagnostics": [],
+      "score": 100,
+      "categories": [
+        {
+          "category": "Hardware / OS",
+          "level": "LOW",
+          "renderedPoints": null
+        },
+        {
+          "category": "Browser",
+          "level": "HIGH",
+          "renderedPoints": 305
+        },
+        {
+          "category": "Network / proxy",
+          "level": "MEDIUM",
+          "renderedPoints": 49
+        }
+      ],
+      "renderedChecks": {
+        "Webdriver": [
+          true
+        ],
+        "Webdriver Writable": [
+          true
+        ],
+        "Iframe Overridden": [
+          false
+        ],
+        "Selenium Properties": [
+          false
+        ],
+        "CDP Stack Check": [
+          true
+        ],
+        "Playwright Flags": [
+          false
+        ],
+        "Chrome Driver Flags": [
+          false
+        ],
+        "CDP Check": [
+          true
+        ]
+      },
+      "publicChecks": {
+        "webdriver": true,
+        "webdriverWritable": true,
+        "seleniumProperties": false,
+        "cdpStackCheck": true,
+        "playwrightFlags": false,
+        "chromeDriverFlags": false,
+        "automationKeysCheck.detected": true,
+        "iframe.cdpCheck": true,
+        "iframe.webdriver": true,
+        "iframe.iframeOverridden": false,
+        "worker.cdpCheck": true
+      },
+      "publicStatus": "COLLECT_SUCCESSFUL",
+      "publicReasons": [
+        {
+          "category": "hardware",
+          "score": 0,
+          "level": "low"
+        },
+        {
+          "category": "browser",
+          "score": 305,
+          "level": "high"
+        },
+        {
+          "category": "network",
+          "score": 49,
+          "level": "medium"
+        }
+      ],
+      "directApiObservations": {
+        "noTaskbar": true,
+        "taskbarSize": 0,
+        "noContentIndex": true,
+        "noContactsManager": true,
+        "noDownlinkMax": true,
+        "downlinkMax": null,
+        "timezone": "Asia/Jakarta",
+        "webdriver": true,
+        "isPlaywright": false,
+        "webgpu": "available",
+        "scrollbarWidth": 15
+      }
+    },
+    {
+      "engine": "silly-patch-seven",
+      "mode": "headed",
+      "site": "creepjs",
+      "status": "fail",
+      "browserVersion": "155.0.8059.80",
+      "diagnostics": [],
+      "likeHeadlessPct": 31,
+      "headlessPct": 33,
+      "stealthPct": 0,
+      "signals": {
+        "likeHeadless": {
+          "noChrome": false,
+          "hasPermissionsBug": false,
+          "noPlugins": false,
+          "noMimeTypes": false,
+          "notificationIsDenied": false,
+          "hasKnownBgColor": false,
+          "prefersLightColor": true,
+          "uaDataIsBlank": false,
+          "pdfIsDisabled": false,
+          "noTaskbar": true,
+          "hasVvpScreenRes": false,
+          "hasSwiftShader": false,
+          "noWebShare": false,
+          "noContentIndex": true,
+          "noContactsManager": true,
+          "noDownlinkMax": true
+        },
+        "headless": {
+          "webDriverIsOn": true,
+          "hasHeadlessUA": false,
+          "hasHeadlessWorkerUA": false
+        },
+        "stealth": {
+          "hasIframeProxy": false,
+          "hasHighChromeIndex": false,
+          "hasBadChromeRuntime": false,
+          "hasToStringProxy": false,
+          "hasBadWebGL": false
+        }
+      },
+      "platform": null,
+      "trueSignals": {
+        "likeHeadless": [
+          "prefersLightColor",
+          "noTaskbar",
+          "noContentIndex",
+          "noContactsManager",
+          "noDownlinkMax"
+        ],
+        "headless": [
+          "webDriverIsOn"
+        ],
+        "stealth": []
+      }
+    },
+    {
+      "engine": "silly-patch-seven",
+      "mode": "headless",
+      "site": "fingerprint-scan",
+      "status": "fail",
+      "browserVersion": "155.0.8059.80",
+      "diagnostics": [],
+      "score": 100,
+      "categories": [
+        {
+          "category": "Hardware / OS",
+          "level": "LOW",
+          "renderedPoints": null
+        },
+        {
+          "category": "Browser",
+          "level": "HIGH",
+          "renderedPoints": 480
+        },
+        {
+          "category": "Network / proxy",
+          "level": "MEDIUM",
+          "renderedPoints": 50
+        }
+      ],
+      "renderedChecks": {
+        "Webdriver": [
+          true
+        ],
+        "Webdriver Writable": [
+          true
+        ],
+        "Iframe Overridden": [
+          false
+        ],
+        "Selenium Properties": [
+          false
+        ],
+        "CDP Stack Check": [
+          true
+        ],
+        "Playwright Flags": [
+          false
+        ],
+        "Chrome Driver Flags": [
+          false
+        ],
+        "CDP Check": [
+          true
+        ]
+      },
+      "publicChecks": {
+        "webdriver": true,
+        "webdriverWritable": true,
+        "seleniumProperties": false,
+        "cdpStackCheck": true,
+        "playwrightFlags": false,
+        "chromeDriverFlags": false,
+        "automationKeysCheck.detected": true,
+        "iframe.cdpCheck": true,
+        "iframe.webdriver": true,
+        "iframe.iframeOverridden": false,
+        "worker.cdpCheck": true
+      },
+      "publicStatus": "COLLECT_SUCCESSFUL",
+      "publicReasons": [
+        {
+          "category": "hardware",
+          "score": 0,
+          "level": "low"
+        },
+        {
+          "category": "browser",
+          "score": 480,
+          "level": "high"
+        },
+        {
+          "category": "network",
+          "score": 50,
+          "level": "medium"
+        }
+      ],
+      "directApiObservations": {
+        "noTaskbar": true,
+        "taskbarSize": 0,
+        "noContentIndex": true,
+        "noContactsManager": true,
+        "noDownlinkMax": true,
+        "downlinkMax": null,
+        "timezone": "Asia/Jakarta",
+        "webdriver": true,
+        "isPlaywright": false,
+        "webgpu": "available",
+        "scrollbarWidth": 0
+      }
+    },
+    {
+      "engine": "silly-patch-seven",
+      "mode": "headless",
+      "site": "creepjs",
+      "status": "fail",
+      "browserVersion": "155.0.8059.80",
+      "diagnostics": [],
+      "likeHeadlessPct": 38,
+      "headlessPct": 100,
+      "stealthPct": 0,
+      "signals": {
+        "likeHeadless": {
+          "noChrome": false,
+          "hasPermissionsBug": false,
+          "noPlugins": false,
+          "noMimeTypes": false,
+          "notificationIsDenied": false,
+          "hasKnownBgColor": false,
+          "prefersLightColor": true,
+          "uaDataIsBlank": false,
+          "pdfIsDisabled": false,
+          "noTaskbar": true,
+          "hasVvpScreenRes": true,
+          "hasSwiftShader": false,
+          "noWebShare": false,
+          "noContentIndex": true,
+          "noContactsManager": true,
+          "noDownlinkMax": true
+        },
+        "headless": {
+          "webDriverIsOn": true,
+          "hasHeadlessUA": true,
+          "hasHeadlessWorkerUA": true
+        },
+        "stealth": {
+          "hasIframeProxy": false,
+          "hasHighChromeIndex": false,
+          "hasBadChromeRuntime": false,
+          "hasToStringProxy": false,
+          "hasBadWebGL": false
+        }
+      },
+      "platform": null,
+      "trueSignals": {
+        "likeHeadless": [
+          "prefersLightColor",
+          "noTaskbar",
+          "hasVvpScreenRes",
+          "noContentIndex",
+          "noContactsManager",
+          "noDownlinkMax"
+        ],
+        "headless": [
+          "webDriverIsOn",
+          "hasHeadlessUA",
+          "hasHeadlessWorkerUA"
+        ],
+        "stealth": []
+      }
+    }
+  ],
+  "historicalComparison": [
+    {
+      "mode": "headed",
+      "site": "fingerprint-scan",
+      "scoreEqual": true,
+      "renderedChecksEqual": true,
+      "categoriesEqual": true,
+      "comparisonType": "historical patch-six capture; not a simultaneous paired rerun"
+    },
+    {
+      "mode": "headed",
+      "site": "creepjs",
+      "scoresAndCapturedSignalsEqual": true,
+      "comparisonType": "historical patch-six capture; not a simultaneous paired rerun"
+    },
+    {
+      "mode": "headless",
+      "site": "fingerprint-scan",
+      "scoreEqual": true,
+      "renderedChecksEqual": true,
+      "categoriesEqual": true,
+      "comparisonType": "historical patch-six capture; not a simultaneous paired rerun"
+    },
+    {
+      "mode": "headless",
+      "site": "creepjs",
+      "scoresAndCapturedSignalsEqual": true,
+      "comparisonType": "historical patch-six capture; not a simultaneous paired rerun"
+    }
+  ],
+  "diagnostics": {
+    "pageCrashes": 0,
+    "pageErrors": 0,
+    "navigationFailures": 0,
+    "unexpectedDisconnects": 0,
+    "expectedBrowserCloses": 2
+  },
+  "measurementStartedAtUtc": "2026-10-23T22:11:57Z",
+  "measurementCompletedAtUtc": "2026-10-23T22:13:49Z",
+  "nativeCheckoutVerification": "Exact seven-patch series verified after measurement",
+  "collectorParserTests": {
+    "passed": 4,
+    "failed": 0
+  },
+  "collectorSourceSha256": {
+    "benchmarks/compare_detector_observations.py": "e50dfc52a87ce63465f0299f294f582768be056ac1374965750e6ac127b67099",
+    "benchmarks/reference_measurements.py": "1d10790f4a1946303cf1eff7c3eb76c876f6ec9216906f3b625cd5355725f21c",
+    "tests/detector_observation_parser_test.py": "de1292d2c2761e557662eeec707267bb682ecf8a89b070045bcbb92fae61ed75"
+  },
+  "reviewedReferenceSource": {
+    "gitBlobSha1": "472dc99b9faa3cb8f4f006f56b45ee83d75573d8",
+    "workingFileSha256": "bf7c17f9bb7c4d3847012698b665565a61afa80291dcd9ed7d35c63ca6241fe1"
+  },
+  "rawEvidenceRoot": "artifacts/detector-patch7/20261024-run1",
+  "evidenceSha256": {
+    "results.json": "1b9620562d42c4f9806a15bd7c0ba3fa5f1139fdf805ded1869f2c6e8483c22a",
+    "silly-patch-seven-headed-creepjs-reference-creepjs.png": "5445bf4a988a3aeb71d01a13e7748fe1fc596328d06bea43e4649e429c7ea294",
+    "silly-patch-seven-headed-creepjs.html": "900fc6d54edacb34c81530c0856c38c5184826aef8499e785eb3c18ecb81211e",
+    "silly-patch-seven-headed-creepjs.log": "0217332d2a0287830d1250f9b88d3dbceb639889fe45ee24fb5045a3b9062f13",
+    "silly-patch-seven-headed-creepjs.txt": "45943a78fbb69b0fafc9834dcb1b81b5fc29d8344af0c3c6ab6eacb32f8e3d7d",
+    "silly-patch-seven-headed-fingerprint-scan-public.json": "4ccd12332cc7a6408eeaf2c0083814570cd88a07f2ae54abc4d41e920646723c",
+    "silly-patch-seven-headed-fingerprint-scan-reference-fingerprint-scan.png": "bbeb57ce17866ebf1df941565ede4701e214f6991a28ca7a4b769cdbc2c226e3",
+    "silly-patch-seven-headed-fingerprint-scan.html": "fb38d92bed41e74a1c16fea6c646e061eae449c0f57992ae719162f4e1f58b1d",
+    "silly-patch-seven-headed-fingerprint-scan.log": "bdb715c35931b8e5d838903e105a1fb873310abb16c258e0d9314e6b0334dcd2",
+    "silly-patch-seven-headed-fingerprint-scan.txt": "f9ee0e8d77475d2bbb71d883c773d22f7fd3469e882cc5ef1830af87facf04f8",
+    "silly-patch-seven-headless-creepjs-reference-creepjs.png": "9861724bd44925961b0edcda0b7eefcf1c62afb2f036d005a2cdd78531603438",
+    "silly-patch-seven-headless-creepjs.html": "775f4da318396890a3eff57645ef9e41c23200c9821ed2d91d7b3b424280ec9c",
+    "silly-patch-seven-headless-creepjs.log": "a87e2945231dd9255042bc455811e427c84ef3d08e79a3aabb4629ef8666a617",
+    "silly-patch-seven-headless-creepjs.txt": "d8a919985e943c4ef8b6e2f9c4ac998d7864469ca736b7b1f0844a5fa0d60409",
+    "silly-patch-seven-headless-fingerprint-scan-public.json": "856765afd8461e203e49dfbfd1469415c68b5c769728dff6e238018eab1b6092",
+    "silly-patch-seven-headless-fingerprint-scan-reference-fingerprint-scan.png": "9f03dde2b2804912aba0a04f4e62970fcf28952771b68188819f08849c286466",
+    "silly-patch-seven-headless-fingerprint-scan.html": "9c63912b064dc00e7e0802631fc132f16d4b455511ff7290554b3ed5f8f419a2",
+    "silly-patch-seven-headless-fingerprint-scan.log": "81cf4dd85e072058ba74afd06817e04e2d5774b09bcd353bbb0c4cd676a5d7a3",
+    "silly-patch-seven-headless-fingerprint-scan.txt": "fc0658b13fdba12355ae0d6b977d788f267805f06d6d5216dc3d6ae91702fbd3"
+  },
+  "limitations": [
+    "One observation per mode/site on one Windows host; site/network conditions can change",
+    "Common raw Python Playwright launch and configured viewport; no SDK defaults, proxy, pacing or native environment overrides",
+    "Exact published boolean flags/category totals are captured; private rule thresholds and per-check weights are not recovered",
+    "CreepJS flag names describe heuristics; an API absence or active automation status alone does not prove a native engine defect",
+    "Patch-six comparison uses saved historical captures; stock and CloakBrowser were not rerun in this iteration",
+    "Raw HTML, screenshots and public interface objects can contain identifiers/IPs and remain private",
+    "No source/binary concealment change or CAPTCHA workflow was executed"
+  ]
+}
