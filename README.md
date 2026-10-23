@@ -8,6 +8,8 @@ An open-source, source-patched Chromium project for browser automation and E2E t
 
 [Comparison with an exact-version upstream-source control](docs/stock-comparison-155-patch6.md) passes 61 Node tests and 20 driver smoke checks. Nine shared functional scenarios agree across patch six and unpatched 155.0.8059.80 in headed and headless modes. No native defect was reproduced in that bounded inspection; the [original native configuration parity results](docs/functional-parity-155.md) remain preserved.
 
+[Fresh Fingerprint Scan and CreepJS measurements](docs/detector-comparison-155-146.md) match Silly Browser against upstream 155 and a saved free CloakBrowser 146 binary. Silly and upstream retain the same failing classifications; the saved CloakBrowser passes the CreepJS criterion but scores 43/100 on Fingerprint Scan in both modes. The historical/version difference and common raw launch conditions limit the comparison; current Pro results are unqualified.
+
 ## Install the SDK today
 
 Requires Node.js **22.12+** or Python **3.10+**, plus Git for these source installs:

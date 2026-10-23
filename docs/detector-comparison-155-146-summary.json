@@ -1,0 +1,1091 @@
+{
+  "schemaVersion": 1,
+  "measurementDate": "2026-10-24",
+  "dateTimezone": "Asia/Jakarta",
+  "startingRepositoryCommit": "0ba1aa207bf7eb8874e768d4bdd673cb85f8257c",
+  "scope": "Rendered diagnostic observations under common raw Playwright launch; no concealment or CAPTCHA workflow",
+  "conditions": {
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "deviceScaleFactor": 1,
+    "profile": "fresh isolated context per site",
+    "proxy": false,
+    "humanize": false,
+    "nativeOverrides": false,
+    "sdkLaunchDefaultsApplied": false
+  },
+  "playwrightVersion": "1.62.0",
+  "engines": [
+    {
+      "id": "silly-patch-six",
+      "version": "155.0.8059.80",
+      "exeSha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+      "dllSha256": "951fbc14ffb40db20aff024f69f6c0c743cabe2fb63c33d67d1e673b53f44ece",
+      "runtimeUnchanged": true
+    },
+    {
+      "id": "upstream-155",
+      "version": "155.0.8059.80",
+      "exeSha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+      "dllSha256": "e719c01be39b2aff0903480bdd209b2f5cc03894691f64c3dff7261c8b6683c1",
+      "runtimeUnchanged": true
+    },
+    {
+      "id": "cloakbrowser-free-146",
+      "version": "146.0.7680.177",
+      "exeSha256": "03f53661a5c47e7b0a661bee2bce8a0d302b7a60834c328df417561fa0636d80",
+      "dllSha256": "ed7009a70d76fa4da222a5b37c34012d77fcc04092ef8df5fb572062940fa4dd",
+      "runtimeUnchanged": true
+    }
+  ],
+  "referenceBinaryProvenance": {
+    "release": "chromium-v146.0.7680.177.5",
+    "url": "https://github.com/CloakHQ/CloakBrowser/releases/download/chromium-v146.0.7680.177.5/cloakbrowser-windows-x64.zip",
+    "archiveSha256": "b213795cb32c3169f766c74ce1d0275fc89d3df256de39c04da7fb4c23b7fdbe"
+  },
+  "comparisonQualification": {
+    "stockSourceControl": "Exact 155.0.8059.80 locally rebuilt upstream C++ using shared unchanged artifacts/generated GN graph; see stock-comparison-155-patch6.md",
+    "referenceProduct": "Saved free 146.0.7680.177.5 release; browser reports 146.0.7680.177; current Pro 155 was not tested",
+    "productSdkDefaultsApplied": false,
+    "versionMatchedReferenceProduct": false,
+    "officialLatestReleaseObserved": "https://github.com/CloakHQ/CloakBrowser/releases/tag/chromium-v155.0.8059.39.1-pro"
+  },
+  "counts": {
+    "pass": 2,
+    "fail": 10,
+    "unavailable": 0,
+    "error": 0
+  },
+  "observations": [
+    {
+      "engine": "silly-patch-six",
+      "mode": "headed",
+      "site": "fingerprint-scan",
+      "status": "fail",
+      "browserVersion": "155.0.8059.80",
+      "score": 100,
+      "categories": [
+        {
+          "category": "Hardware / OS",
+          "level": "LOW",
+          "renderedPoints": null
+        },
+        {
+          "category": "Browser",
+          "level": "HIGH",
+          "renderedPoints": 305
+        },
+        {
+          "category": "Network / proxy",
+          "level": "MEDIUM",
+          "renderedPoints": 49
+        }
+      ],
+      "reportedChecks": {
+        "Webdriver": [
+          true
+        ],
+        "Webdriver Writable": [
+          true
+        ],
+        "Iframe Overridden": [
+          false
+        ],
+        "Selenium Properties": [
+          false
+        ],
+        "CDP Stack Check": [
+          true
+        ],
+        "Playwright Flags": [
+          false
+        ],
+        "Chrome Driver Flags": [
+          false
+        ],
+        "CDP Check": [
+          true
+        ]
+      },
+      "directApiObservations": {
+        "noTaskbar": true,
+        "taskbarSize": 0,
+        "noContentIndex": true,
+        "noContactsManager": true,
+        "noDownlinkMax": true,
+        "downlinkMax": null,
+        "timezone": "Asia/Jakarta",
+        "webdriver": true,
+        "isPlaywright": false,
+        "webgpu": "available",
+        "scrollbarWidth": 15
+      },
+      "referenceScoreField": "Score not rendered"
+    },
+    {
+      "engine": "silly-patch-six",
+      "mode": "headed",
+      "site": "creepjs",
+      "status": "fail",
+      "browserVersion": "155.0.8059.80",
+      "likeHeadlessPct": 31,
+      "headlessPct": 33,
+      "stealthPct": 0,
+      "signals": {
+        "likeHeadless": {
+          "noChrome": false,
+          "hasPermissionsBug": false,
+          "noPlugins": false,
+          "noMimeTypes": false,
+          "notificationIsDenied": false,
+          "hasKnownBgColor": false,
+          "prefersLightColor": true,
+          "uaDataIsBlank": false,
+          "pdfIsDisabled": false,
+          "noTaskbar": true,
+          "hasVvpScreenRes": false,
+          "hasSwiftShader": false,
+          "noWebShare": false,
+          "noContentIndex": true,
+          "noContactsManager": true,
+          "noDownlinkMax": true
+        },
+        "headless": {
+          "webDriverIsOn": true,
+          "hasHeadlessUA": false,
+          "hasHeadlessWorkerUA": false
+        },
+        "stealth": {
+          "hasIframeProxy": false,
+          "hasHighChromeIndex": false,
+          "hasBadChromeRuntime": false,
+          "hasToStringProxy": false,
+          "hasBadWebGL": false
+        }
+      },
+      "platform": null,
+      "trueSignals": {
+        "likeHeadless": [
+          "prefersLightColor",
+          "noTaskbar",
+          "noContentIndex",
+          "noContactsManager",
+          "noDownlinkMax"
+        ],
+        "headless": [
+          "webDriverIsOn"
+        ],
+        "stealth": []
+      }
+    },
+    {
+      "engine": "silly-patch-six",
+      "mode": "headless",
+      "site": "fingerprint-scan",
+      "status": "fail",
+      "browserVersion": "155.0.8059.80",
+      "score": 100,
+      "categories": [
+        {
+          "category": "Hardware / OS",
+          "level": "LOW",
+          "renderedPoints": null
+        },
+        {
+          "category": "Browser",
+          "level": "HIGH",
+          "renderedPoints": 480
+        },
+        {
+          "category": "Network / proxy",
+          "level": "MEDIUM",
+          "renderedPoints": 50
+        }
+      ],
+      "reportedChecks": {
+        "Webdriver": [
+          true
+        ],
+        "Webdriver Writable": [
+          true
+        ],
+        "Iframe Overridden": [
+          false
+        ],
+        "Selenium Properties": [
+          false
+        ],
+        "CDP Stack Check": [
+          true
+        ],
+        "Playwright Flags": [
+          false
+        ],
+        "Chrome Driver Flags": [
+          false
+        ],
+        "CDP Check": [
+          true
+        ]
+      },
+      "directApiObservations": {
+        "noTaskbar": true,
+        "taskbarSize": 0,
+        "noContentIndex": true,
+        "noContactsManager": true,
+        "noDownlinkMax": true,
+        "downlinkMax": null,
+        "timezone": "Asia/Jakarta",
+        "webdriver": true,
+        "isPlaywright": false,
+        "webgpu": "available",
+        "scrollbarWidth": 0
+      },
+      "referenceScoreField": "Score not rendered"
+    },
+    {
+      "engine": "silly-patch-six",
+      "mode": "headless",
+      "site": "creepjs",
+      "status": "fail",
+      "browserVersion": "155.0.8059.80",
+      "likeHeadlessPct": 38,
+      "headlessPct": 100,
+      "stealthPct": 0,
+      "signals": {
+        "likeHeadless": {
+          "noChrome": false,
+          "hasPermissionsBug": false,
+          "noPlugins": false,
+          "noMimeTypes": false,
+          "notificationIsDenied": false,
+          "hasKnownBgColor": false,
+          "prefersLightColor": true,
+          "uaDataIsBlank": false,
+          "pdfIsDisabled": false,
+          "noTaskbar": true,
+          "hasVvpScreenRes": true,
+          "hasSwiftShader": false,
+          "noWebShare": false,
+          "noContentIndex": true,
+          "noContactsManager": true,
+          "noDownlinkMax": true
+        },
+        "headless": {
+          "webDriverIsOn": true,
+          "hasHeadlessUA": true,
+          "hasHeadlessWorkerUA": true
+        },
+        "stealth": {
+          "hasIframeProxy": false,
+          "hasHighChromeIndex": false,
+          "hasBadChromeRuntime": false,
+          "hasToStringProxy": false,
+          "hasBadWebGL": false
+        }
+      },
+      "platform": null,
+      "trueSignals": {
+        "likeHeadless": [
+          "prefersLightColor",
+          "noTaskbar",
+          "hasVvpScreenRes",
+          "noContentIndex",
+          "noContactsManager",
+          "noDownlinkMax"
+        ],
+        "headless": [
+          "webDriverIsOn",
+          "hasHeadlessUA",
+          "hasHeadlessWorkerUA"
+        ],
+        "stealth": []
+      }
+    },
+    {
+      "engine": "upstream-155",
+      "mode": "headed",
+      "site": "fingerprint-scan",
+      "status": "fail",
+      "browserVersion": "155.0.8059.80",
+      "score": 100,
+      "categories": [
+        {
+          "category": "Hardware / OS",
+          "level": "LOW",
+          "renderedPoints": null
+        },
+        {
+          "category": "Browser",
+          "level": "HIGH",
+          "renderedPoints": 305
+        },
+        {
+          "category": "Network / proxy",
+          "level": "MEDIUM",
+          "renderedPoints": 49
+        }
+      ],
+      "reportedChecks": {
+        "Webdriver": [
+          true
+        ],
+        "Webdriver Writable": [
+          true
+        ],
+        "Iframe Overridden": [
+          false
+        ],
+        "Selenium Properties": [
+          false
+        ],
+        "CDP Stack Check": [
+          true
+        ],
+        "Playwright Flags": [
+          false
+        ],
+        "Chrome Driver Flags": [
+          false
+        ],
+        "CDP Check": [
+          true
+        ]
+      },
+      "directApiObservations": {
+        "noTaskbar": true,
+        "taskbarSize": 0,
+        "noContentIndex": true,
+        "noContactsManager": true,
+        "noDownlinkMax": true,
+        "downlinkMax": null,
+        "timezone": "Asia/Jakarta",
+        "webdriver": true,
+        "isPlaywright": false,
+        "webgpu": "available",
+        "scrollbarWidth": 15
+      },
+      "referenceScoreField": "Score not rendered"
+    },
+    {
+      "engine": "upstream-155",
+      "mode": "headed",
+      "site": "creepjs",
+      "status": "fail",
+      "browserVersion": "155.0.8059.80",
+      "likeHeadlessPct": 31,
+      "headlessPct": 33,
+      "stealthPct": 0,
+      "signals": {
+        "likeHeadless": {
+          "noChrome": false,
+          "hasPermissionsBug": false,
+          "noPlugins": false,
+          "noMimeTypes": false,
+          "notificationIsDenied": false,
+          "hasKnownBgColor": false,
+          "prefersLightColor": true,
+          "uaDataIsBlank": false,
+          "pdfIsDisabled": false,
+          "noTaskbar": true,
+          "hasVvpScreenRes": false,
+          "hasSwiftShader": false,
+          "noWebShare": false,
+          "noContentIndex": true,
+          "noContactsManager": true,
+          "noDownlinkMax": true
+        },
+        "headless": {
+          "webDriverIsOn": true,
+          "hasHeadlessUA": false,
+          "hasHeadlessWorkerUA": false
+        },
+        "stealth": {
+          "hasIframeProxy": false,
+          "hasHighChromeIndex": false,
+          "hasBadChromeRuntime": false,
+          "hasToStringProxy": false,
+          "hasBadWebGL": false
+        }
+      },
+      "platform": null,
+      "trueSignals": {
+        "likeHeadless": [
+          "prefersLightColor",
+          "noTaskbar",
+          "noContentIndex",
+          "noContactsManager",
+          "noDownlinkMax"
+        ],
+        "headless": [
+          "webDriverIsOn"
+        ],
+        "stealth": []
+      }
+    },
+    {
+      "engine": "upstream-155",
+      "mode": "headless",
+      "site": "fingerprint-scan",
+      "status": "fail",
+      "browserVersion": "155.0.8059.80",
+      "score": 100,
+      "categories": [
+        {
+          "category": "Hardware / OS",
+          "level": "LOW",
+          "renderedPoints": null
+        },
+        {
+          "category": "Browser",
+          "level": "HIGH",
+          "renderedPoints": 480
+        },
+        {
+          "category": "Network / proxy",
+          "level": "MEDIUM",
+          "renderedPoints": 50
+        }
+      ],
+      "reportedChecks": {
+        "Webdriver": [
+          true
+        ],
+        "Webdriver Writable": [
+          true
+        ],
+        "Iframe Overridden": [
+          false
+        ],
+        "Selenium Properties": [
+          false
+        ],
+        "CDP Stack Check": [
+          true
+        ],
+        "Playwright Flags": [
+          false
+        ],
+        "Chrome Driver Flags": [
+          false
+        ],
+        "CDP Check": [
+          true
+        ]
+      },
+      "directApiObservations": {
+        "noTaskbar": true,
+        "taskbarSize": 0,
+        "noContentIndex": true,
+        "noContactsManager": true,
+        "noDownlinkMax": true,
+        "downlinkMax": null,
+        "timezone": "Asia/Jakarta",
+        "webdriver": true,
+        "isPlaywright": false,
+        "webgpu": "available",
+        "scrollbarWidth": 0
+      },
+      "referenceScoreField": "Score not rendered"
+    },
+    {
+      "engine": "upstream-155",
+      "mode": "headless",
+      "site": "creepjs",
+      "status": "fail",
+      "browserVersion": "155.0.8059.80",
+      "likeHeadlessPct": 38,
+      "headlessPct": 100,
+      "stealthPct": 0,
+      "signals": {
+        "likeHeadless": {
+          "noChrome": false,
+          "hasPermissionsBug": false,
+          "noPlugins": false,
+          "noMimeTypes": false,
+          "notificationIsDenied": false,
+          "hasKnownBgColor": false,
+          "prefersLightColor": true,
+          "uaDataIsBlank": false,
+          "pdfIsDisabled": false,
+          "noTaskbar": true,
+          "hasVvpScreenRes": true,
+          "hasSwiftShader": false,
+          "noWebShare": false,
+          "noContentIndex": true,
+          "noContactsManager": true,
+          "noDownlinkMax": true
+        },
+        "headless": {
+          "webDriverIsOn": true,
+          "hasHeadlessUA": true,
+          "hasHeadlessWorkerUA": true
+        },
+        "stealth": {
+          "hasIframeProxy": false,
+          "hasHighChromeIndex": false,
+          "hasBadChromeRuntime": false,
+          "hasToStringProxy": false,
+          "hasBadWebGL": false
+        }
+      },
+      "platform": null,
+      "trueSignals": {
+        "likeHeadless": [
+          "prefersLightColor",
+          "noTaskbar",
+          "hasVvpScreenRes",
+          "noContentIndex",
+          "noContactsManager",
+          "noDownlinkMax"
+        ],
+        "headless": [
+          "webDriverIsOn",
+          "hasHeadlessUA",
+          "hasHeadlessWorkerUA"
+        ],
+        "stealth": []
+      }
+    },
+    {
+      "engine": "cloakbrowser-free-146",
+      "mode": "headed",
+      "site": "fingerprint-scan",
+      "status": "fail",
+      "browserVersion": "146.0.7680.177",
+      "score": 43,
+      "categories": [
+        {
+          "category": "Hardware / OS",
+          "level": "LOW",
+          "renderedPoints": null
+        },
+        {
+          "category": "Browser",
+          "level": "MEDIUM",
+          "renderedPoints": 43
+        },
+        {
+          "category": "Network / proxy",
+          "level": "LOW",
+          "renderedPoints": null
+        }
+      ],
+      "reportedChecks": {
+        "Webdriver": [
+          false
+        ],
+        "Webdriver Writable": [
+          false
+        ],
+        "Iframe Overridden": [
+          false
+        ],
+        "Selenium Properties": [
+          false
+        ],
+        "CDP Stack Check": [
+          false
+        ],
+        "Playwright Flags": [
+          false
+        ],
+        "Chrome Driver Flags": [
+          false
+        ],
+        "CDP Check": [
+          false
+        ]
+      },
+      "directApiObservations": {
+        "noTaskbar": false,
+        "taskbarSize": 48,
+        "noContentIndex": true,
+        "noContactsManager": true,
+        "noDownlinkMax": true,
+        "downlinkMax": null,
+        "timezone": "Asia/Jakarta",
+        "webdriver": false,
+        "isPlaywright": false,
+        "webgpu": "available",
+        "scrollbarWidth": 15
+      },
+      "referenceScoreField": "Score not rendered"
+    },
+    {
+      "engine": "cloakbrowser-free-146",
+      "mode": "headed",
+      "site": "creepjs",
+      "status": "pass",
+      "browserVersion": "146.0.7680.177",
+      "likeHeadlessPct": 25,
+      "headlessPct": 0,
+      "stealthPct": 0,
+      "signals": {
+        "likeHeadless": {
+          "noChrome": false,
+          "hasPermissionsBug": false,
+          "noPlugins": false,
+          "noMimeTypes": false,
+          "notificationIsDenied": false,
+          "hasKnownBgColor": false,
+          "prefersLightColor": true,
+          "uaDataIsBlank": false,
+          "pdfIsDisabled": false,
+          "noTaskbar": false,
+          "hasVvpScreenRes": false,
+          "hasSwiftShader": false,
+          "noWebShare": false,
+          "noContentIndex": true,
+          "noContactsManager": true,
+          "noDownlinkMax": true
+        },
+        "headless": {
+          "webDriverIsOn": false,
+          "hasHeadlessUA": false,
+          "hasHeadlessWorkerUA": false
+        },
+        "stealth": {
+          "hasIframeProxy": false,
+          "hasHighChromeIndex": false,
+          "hasBadChromeRuntime": false,
+          "hasToStringProxy": false,
+          "hasBadWebGL": false
+        }
+      },
+      "platform": null,
+      "trueSignals": {
+        "likeHeadless": [
+          "prefersLightColor",
+          "noContentIndex",
+          "noContactsManager",
+          "noDownlinkMax"
+        ],
+        "headless": [],
+        "stealth": []
+      }
+    },
+    {
+      "engine": "cloakbrowser-free-146",
+      "mode": "headless",
+      "site": "fingerprint-scan",
+      "status": "fail",
+      "browserVersion": "146.0.7680.177",
+      "score": 43,
+      "categories": [
+        {
+          "category": "Hardware / OS",
+          "level": "LOW",
+          "renderedPoints": null
+        },
+        {
+          "category": "Browser",
+          "level": "MEDIUM",
+          "renderedPoints": 43
+        },
+        {
+          "category": "Network / proxy",
+          "level": "LOW",
+          "renderedPoints": null
+        }
+      ],
+      "reportedChecks": {
+        "Webdriver": [
+          false
+        ],
+        "Webdriver Writable": [
+          false
+        ],
+        "Iframe Overridden": [
+          false
+        ],
+        "Selenium Properties": [
+          false
+        ],
+        "CDP Stack Check": [
+          false
+        ],
+        "Playwright Flags": [
+          false
+        ],
+        "Chrome Driver Flags": [
+          false
+        ],
+        "CDP Check": [
+          false
+        ]
+      },
+      "directApiObservations": {
+        "noTaskbar": false,
+        "taskbarSize": 48,
+        "noContentIndex": true,
+        "noContactsManager": true,
+        "noDownlinkMax": true,
+        "downlinkMax": null,
+        "timezone": "Asia/Jakarta",
+        "webdriver": false,
+        "isPlaywright": false,
+        "webgpu": "available",
+        "scrollbarWidth": 0
+      },
+      "referenceScoreField": "Score not rendered"
+    },
+    {
+      "engine": "cloakbrowser-free-146",
+      "mode": "headless",
+      "site": "creepjs",
+      "status": "pass",
+      "browserVersion": "146.0.7680.177",
+      "likeHeadlessPct": 31,
+      "headlessPct": 0,
+      "stealthPct": 0,
+      "signals": {
+        "likeHeadless": {
+          "noChrome": false,
+          "hasPermissionsBug": false,
+          "noPlugins": false,
+          "noMimeTypes": false,
+          "notificationIsDenied": false,
+          "hasKnownBgColor": false,
+          "prefersLightColor": true,
+          "uaDataIsBlank": false,
+          "pdfIsDisabled": false,
+          "noTaskbar": false,
+          "hasVvpScreenRes": true,
+          "hasSwiftShader": false,
+          "noWebShare": false,
+          "noContentIndex": true,
+          "noContactsManager": true,
+          "noDownlinkMax": true
+        },
+        "headless": {
+          "webDriverIsOn": false,
+          "hasHeadlessUA": false,
+          "hasHeadlessWorkerUA": false
+        },
+        "stealth": {
+          "hasIframeProxy": false,
+          "hasHighChromeIndex": false,
+          "hasBadChromeRuntime": false,
+          "hasToStringProxy": false,
+          "hasBadWebGL": false
+        }
+      },
+      "platform": null,
+      "trueSignals": {
+        "likeHeadless": [
+          "prefersLightColor",
+          "hasVvpScreenRes",
+          "noContentIndex",
+          "noContactsManager",
+          "noDownlinkMax"
+        ],
+        "headless": [],
+        "stealth": []
+      }
+    }
+  ],
+  "sameRevisionFinding": "Silly patch six and upstream 155 match Fingerprint Scan score, browser category points, captured boolean checks/API observations, and all captured CreepJS score/signal fields within each mode",
+  "nativeLocalControls": {
+    "nodeTestsPassed": 10,
+    "nodeTestsFailed": 0,
+    "skipped": 0,
+    "browserObservationsPassed": 8,
+    "modeConfigurationComparisonsPassed": 4,
+    "nativeViewportEqualityRequired": false,
+    "observations": [
+      {
+        "engine": "upstream-155",
+        "mode": "headed",
+        "viewportMode": "configured",
+        "status": "passed",
+        "apis": {
+          "contentIndex": "undefined",
+          "contacts": false,
+          "downlinkMax": false,
+          "webdriver": true,
+          "lightColor": true
+        },
+        "screen": {
+          "width": 1920,
+          "height": 1080,
+          "availWidth": 1920,
+          "availHeight": 1080
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "documentWorkerEnvironmentEqual": true,
+        "frameContentWindowMatches": true
+      },
+      {
+        "engine": "upstream-155",
+        "mode": "headed",
+        "viewportMode": "native-window",
+        "status": "passed",
+        "apis": {
+          "contentIndex": "undefined",
+          "contacts": false,
+          "downlinkMax": false,
+          "webdriver": true,
+          "lightColor": true
+        },
+        "screen": {
+          "width": 1920,
+          "height": 1080,
+          "availWidth": 1920,
+          "availHeight": 1032
+        },
+        "viewport": {
+          "width": 929,
+          "height": 917
+        },
+        "documentWorkerEnvironmentEqual": true,
+        "frameContentWindowMatches": true
+      },
+      {
+        "engine": "upstream-155",
+        "mode": "headless",
+        "viewportMode": "configured",
+        "status": "passed",
+        "apis": {
+          "contentIndex": "undefined",
+          "contacts": false,
+          "downlinkMax": false,
+          "webdriver": true,
+          "lightColor": true
+        },
+        "screen": {
+          "width": 1920,
+          "height": 1080,
+          "availWidth": 1920,
+          "availHeight": 1080
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "documentWorkerEnvironmentEqual": true,
+        "frameContentWindowMatches": true
+      },
+      {
+        "engine": "upstream-155",
+        "mode": "headless",
+        "viewportMode": "native-window",
+        "status": "passed",
+        "apis": {
+          "contentIndex": "undefined",
+          "contacts": false,
+          "downlinkMax": false,
+          "webdriver": true,
+          "lightColor": true
+        },
+        "screen": {
+          "width": 800,
+          "height": 600,
+          "availWidth": 800,
+          "availHeight": 600
+        },
+        "viewport": {
+          "width": 764,
+          "height": 485
+        },
+        "documentWorkerEnvironmentEqual": true,
+        "frameContentWindowMatches": true
+      },
+      {
+        "engine": "silly-patch-six",
+        "mode": "headed",
+        "viewportMode": "configured",
+        "status": "passed",
+        "apis": {
+          "contentIndex": "undefined",
+          "contacts": false,
+          "downlinkMax": false,
+          "webdriver": true,
+          "lightColor": true
+        },
+        "screen": {
+          "width": 1920,
+          "height": 1080,
+          "availWidth": 1920,
+          "availHeight": 1080
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "documentWorkerEnvironmentEqual": true,
+        "frameContentWindowMatches": true
+      },
+      {
+        "engine": "silly-patch-six",
+        "mode": "headed",
+        "viewportMode": "native-window",
+        "status": "passed",
+        "apis": {
+          "contentIndex": "undefined",
+          "contacts": false,
+          "downlinkMax": false,
+          "webdriver": true,
+          "lightColor": true
+        },
+        "screen": {
+          "width": 1920,
+          "height": 1080,
+          "availWidth": 1920,
+          "availHeight": 1032
+        },
+        "viewport": {
+          "width": 929,
+          "height": 917
+        },
+        "documentWorkerEnvironmentEqual": true,
+        "frameContentWindowMatches": true
+      },
+      {
+        "engine": "silly-patch-six",
+        "mode": "headless",
+        "viewportMode": "configured",
+        "status": "passed",
+        "apis": {
+          "contentIndex": "undefined",
+          "contacts": false,
+          "downlinkMax": false,
+          "webdriver": true,
+          "lightColor": true
+        },
+        "screen": {
+          "width": 1920,
+          "height": 1080,
+          "availWidth": 1920,
+          "availHeight": 1080
+        },
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "documentWorkerEnvironmentEqual": true,
+        "frameContentWindowMatches": true
+      },
+      {
+        "engine": "silly-patch-six",
+        "mode": "headless",
+        "viewportMode": "native-window",
+        "status": "passed",
+        "apis": {
+          "contentIndex": "undefined",
+          "contacts": false,
+          "downlinkMax": false,
+          "webdriver": true,
+          "lightColor": true
+        },
+        "screen": {
+          "width": 800,
+          "height": 600,
+          "availWidth": 800,
+          "availHeight": 600
+        },
+        "viewport": {
+          "width": 764,
+          "height": 485
+        },
+        "documentWorkerEnvironmentEqual": true,
+        "frameContentWindowMatches": true
+      }
+    ]
+  },
+  "parserTests": {
+    "passed": 4,
+    "failed": 0,
+    "scope": "Complete/missing/invalid scores and conflicting rendered check values"
+  },
+  "diagnostics": {
+    "publicPageCrashes": 0,
+    "publicUncaughtPageErrors": 0,
+    "publicNavigationFailures": 0,
+    "expectedBrowserCloses": 6,
+    "unexpectedDisconnects": 0,
+    "limitPerObservation": 64
+  },
+  "sourcePatchCountAfter": 6,
+  "newCppPatches": 0,
+  "nativeDefectsReproduced": 0,
+  "nativeCheckoutVerification": "Exact six-patch series verified after measurement and local controls",
+  "sourceSha256": {
+    "benchmarks/compare_detector_observations.py": "fa516835d254289171389830d7ed4cbaa80cfd5ed139c971534432bda0409c61",
+    "benchmarks/reference_measurements.py": "1d10790f4a1946303cf1eff7c3eb76c876f6ec9216906f3b625cd5355725f21c",
+    "tests/browser-observation-controls.test.mjs": "b41af1d89e1eb1634ab9ae75677badbe5a9bbb8ddc2352d169afcb0f281f43d6",
+    "tests/detector_observation_parser_test.py": "de1292d2c2761e557662eeec707267bb682ecf8a89b070045bcbb92fae61ed75"
+  },
+  "reviewedReferenceSource": {
+    "gitBlobSha1": "472dc99b9faa3cb8f4f006f56b45ee83d75573d8",
+    "workingFileSha256": "bf7c17f9bb7c4d3847012698b665565a61afa80291dcd9ed7d35c63ca6241fe1"
+  },
+  "rawEvidenceRoot": "artifacts/detector-comparison/20261024-three-engine",
+  "evidenceSha256": {
+    "cloakbrowser-free-146-headed-creepjs-reference-creepjs.png": "6f13c8a06423b90bd19040c569bd8261a92e8864645024228c3fd56f2ad54d03",
+    "cloakbrowser-free-146-headed-creepjs.html": "871d31eba800ddda1d923b7ffd1da8f4a6c99ec0e0a5a082da52ad9948b5b405",
+    "cloakbrowser-free-146-headed-creepjs.log": "8df3af29e573453d468868fbe46a3bc117e87e34c80f494f57415c2610062c1f",
+    "cloakbrowser-free-146-headed-creepjs.txt": "f517e01380ca2fbce82032f5f112564d0588dd1014e31d6630deb26edb593c2a",
+    "cloakbrowser-free-146-headed-fingerprint-scan-reference-fingerprint-scan.png": "012a06c940196e17d32e9d37725b654dda5fb85a85a3dbf0fc03c7d29a6b0b83",
+    "cloakbrowser-free-146-headed-fingerprint-scan.html": "5448c769e1a2c0eeda165ab7ef7d14c5a6e5249560694f5158e00c686d4c5623",
+    "cloakbrowser-free-146-headed-fingerprint-scan.log": "bd9cdeb64ccd2f7338cbdfada06925530e54999844dedd9715a53b973c4ad296",
+    "cloakbrowser-free-146-headed-fingerprint-scan.txt": "3fc7f5a96c16096fb8bce808de3bea585dbbb5f8cfa245e0fb8af422aa286636",
+    "cloakbrowser-free-146-headless-creepjs-reference-creepjs.png": "18b22fb779f9306b46517dc249da78e2ac27732095f2dc41fe0ef798fdd72b80",
+    "cloakbrowser-free-146-headless-creepjs.html": "1ebb6c5f52d364682ae4362a97d8c275184078b2e24985a31bf27c8e8a83d1d4",
+    "cloakbrowser-free-146-headless-creepjs.log": "43b479edf6c5fe4c2fe6fe558e48eadbc45171762ac50b8211e259d3dc5cc962",
+    "cloakbrowser-free-146-headless-creepjs.txt": "6ecab8273d669296a81005849ec6ab28f851fb5da5d481521795f55cf509819a",
+    "cloakbrowser-free-146-headless-fingerprint-scan-reference-fingerprint-scan.png": "6b942eac59c4d21273ac261951b8232c038713eacfb5143b6e83c70c8e5eeecd",
+    "cloakbrowser-free-146-headless-fingerprint-scan.html": "818301ee88c8698c23239b244de6fa4dda7d487c721cda00b7ba00e690784ee4",
+    "cloakbrowser-free-146-headless-fingerprint-scan.log": "8d24346c45ded4154cf6ad939bf8d12ad7a6f531e15735415621e1f961543d6b",
+    "cloakbrowser-free-146-headless-fingerprint-scan.txt": "a6c5868ac115f5e6bd4dac28cf0dc80ba6e255339922706b534dc128cd9f35f5",
+    "observation-controls.json": "2d3a615249f4be1499062561eacf7d4931ada2530f33f48a1a2d80822ebed73d",
+    "observation-controls.log": "20ab34ed99a94c841a113e422580d185722526def42dbd118feb1d8475420b3d",
+    "results.json": "35ff492fb62d883e479c0b94fdacd91b028367591de8a42dea01b01919fc3212",
+    "silly-patch-six-headed-creepjs-reference-creepjs.png": "f83e54d30bd1284eb4670b40aa06ef7b08eed9d313a2171249335b31c5748e86",
+    "silly-patch-six-headed-creepjs.html": "316f649cbf2ebfb423aad17fd68d9dff5c1f26ce973ae4c7d65355351af86b65",
+    "silly-patch-six-headed-creepjs.log": "0217332d2a0287830d1250f9b88d3dbceb639889fe45ee24fb5045a3b9062f13",
+    "silly-patch-six-headed-creepjs.txt": "92848c9b5c06ac2cc2806764f64dd3f704093d7f895c33f0a6e2a500b1d7ba6f",
+    "silly-patch-six-headed-fingerprint-scan-reference-fingerprint-scan.png": "ca755aad6a57d3c9851c110b3c16e15d5430991cfc0542a469999b33915c3c5e",
+    "silly-patch-six-headed-fingerprint-scan.html": "5448cf8fb82c62829ad4666fb8a703b5d4e5f87d4228ef6afacf8939790b6999",
+    "silly-patch-six-headed-fingerprint-scan.log": "bdb715c35931b8e5d838903e105a1fb873310abb16c258e0d9314e6b0334dcd2",
+    "silly-patch-six-headed-fingerprint-scan.txt": "6a3a5b805cdfd22c8553ce782549f94f6efdae5e5f9069691fff4fc2a029ce0e",
+    "silly-patch-six-headless-creepjs-reference-creepjs.png": "46758987990f1f1954b94fbcfd77f94c10d655aacb3dedc20714d57ab9f9b52a",
+    "silly-patch-six-headless-creepjs.html": "299f8ad6162587ed4c31630fb72a57669b6b5aba4023db5ed9e454cece0a8c36",
+    "silly-patch-six-headless-creepjs.log": "a87e2945231dd9255042bc455811e427c84ef3d08e79a3aabb4629ef8666a617",
+    "silly-patch-six-headless-creepjs.txt": "2cae8b69ac698d45bf5d997367fda797791775eff4b2805d95e8f52114d4b07c",
+    "silly-patch-six-headless-fingerprint-scan-reference-fingerprint-scan.png": "84f1774c9ab9df8193362e924757a78f711384c03c19351e16471d9964b5195b",
+    "silly-patch-six-headless-fingerprint-scan.html": "5108cc78ff84b4ca720d0fc9aeff034a621b8cbdba0bf7c7ecc516c749d84d4e",
+    "silly-patch-six-headless-fingerprint-scan.log": "81cf4dd85e072058ba74afd06817e04e2d5774b09bcd353bbb0c4cd676a5d7a3",
+    "silly-patch-six-headless-fingerprint-scan.txt": "cd31dda18fc4e4746c25e01f529e174229af3b44f4ff42f184ec43237d234b06",
+    "upstream-155-headed-creepjs-reference-creepjs.png": "0474fcadec7f1c042f69c60107614f6cdd27d69abed357338e6bef4fe48e977a",
+    "upstream-155-headed-creepjs.html": "a1a0b31b9d6438c8842fdcf562bb138434b23636d34d31ec25c1276de99887bd",
+    "upstream-155-headed-creepjs.log": "0217332d2a0287830d1250f9b88d3dbceb639889fe45ee24fb5045a3b9062f13",
+    "upstream-155-headed-creepjs.txt": "076a173a242661ac15413590ce6374dea53555547a202212a635a38ae323ee0e",
+    "upstream-155-headed-fingerprint-scan-reference-fingerprint-scan.png": "8df023cb601900be5604b9eddc4dcb44463c9ab7213c2e9c198f2feeb8430e68",
+    "upstream-155-headed-fingerprint-scan.html": "a7a44929c4cd1cd2c4ecea1a49d5457d8541605549ce41880a8717fcf4c19508",
+    "upstream-155-headed-fingerprint-scan.log": "bdb715c35931b8e5d838903e105a1fb873310abb16c258e0d9314e6b0334dcd2",
+    "upstream-155-headed-fingerprint-scan.txt": "227dda29610a853d6b0df81c446c7160d319fa915dc3250d6b51452e7214e139",
+    "upstream-155-headless-creepjs-reference-creepjs.png": "fcc6d1e093918e0f767cfec85c902f95ed1263d9509862a2e1cd3f7dd1c9bdd1",
+    "upstream-155-headless-creepjs.html": "ecbc5bbcbd9694940e9084f2805d89ad6ccbf0d33c56c983335ce532901cb7d9",
+    "upstream-155-headless-creepjs.log": "a87e2945231dd9255042bc455811e427c84ef3d08e79a3aabb4629ef8666a617",
+    "upstream-155-headless-creepjs.txt": "621d6b267005dc57c0627bfdb73a4f991d1b159d518aa6b6503c40db125642f1",
+    "upstream-155-headless-fingerprint-scan-reference-fingerprint-scan.png": "74544a7685fd84887363259a87b2b3e538c4f65bb4a508eba5c0674eb68ea8f1",
+    "upstream-155-headless-fingerprint-scan.html": "4270dbae3fdd2148e25d2c624531ab5df9852e6e267219ae3c14ec4bb3b28d74",
+    "upstream-155-headless-fingerprint-scan.log": "81cf4dd85e072058ba74afd06817e04e2d5774b09bcd353bbb0c4cd676a5d7a3",
+    "upstream-155-headless-fingerprint-scan.txt": "eb751ae20e16ba5d9cf2a9aa15176e40821af382323f4319e8007d47bf6e1dd8"
+  },
+  "limitations": [
+    "One fresh observation per engine/mode/site, common raw Playwright launch, one Windows host; not a production acceptance guarantee",
+    "CloakBrowser free 146 and Silly 155 differ in revision/build; this does not establish parity or results of current Pro 155",
+    "Fingerprint Scan captured category points and selected displayed checks do not establish every internal scoring weight or the cause of the remaining CloakBrowser score",
+    "Diagnostic flags are not automatically native functional defects; expected automation/mode indicators were not concealed",
+    "Native-window inner dimensions are OS-controlled and were observed but excluded from strict paired equality",
+    "Raw HTML/text/screenshots retain private identifiers and are not published",
+    "No native binary, package release or CAPTCHA workflow was published or executed"
+  ]
+}

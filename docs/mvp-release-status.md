@@ -21,7 +21,7 @@ The user authorizes publication once the requested behavior is implemented and q
 | Canvas/audio/WebGL/screen/network policies | Broad earlier requests remain future, independently specified native work; no 87-patch or reference-product parity claim |
 | npm and pip installation | SDK packages, entry points, shared cache and verified runtime installer implemented; isolated package checks pass. Registry publication and a qualified runtime asset remain pending |
 | Linux/macOS native products | No qualified native artifacts. SDK cache paths/CI on those hosts do not establish native support |
-| Authorized E2E automation-specific consistency | Investigate reproducible differences using driver/native/manual controls after initial runtime tests; universal detector outcomes cannot be guaranteed |
+| Authorized E2E automation-specific consistency | [Fresh detector and native observation controls](detector-comparison-155-146.md) reproduce identical failing classifications on Silly/upstream 155 and no functional defect in the tested scope; saved free CloakBrowser 146 comparison is version-confounded. Universal detector outcomes and production provider traffic remain unqualified |
 
 CAPTCHA solving/bypass is outside the user's clarified scope. A source patch count, reference example, or compatibility pass does not itself establish third-party detector classification.
 
