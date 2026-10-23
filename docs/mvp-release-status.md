@@ -4,7 +4,7 @@ The user authorizes publication once the requested behavior is implemented and q
 
 | Requested capability | Current evidence / remaining gate |
 | --- | --- |
-| Source-patched Chromium | Six-patch 155.0.8059.80 Windows x64 build passes [native HTTP proxy and 48 existing checks](native-http-proxy-155.md); native distribution and CDP source-revision metadata remain release gates |
+| Source-patched Chromium | Seven-patch 155.0.8059.80 Windows x64 candidate passes [106 Node, five Python, ten driver and strict CDP timezone gates](cdp-timezone-validation-155.md); native distribution and CDP source-revision metadata remain release gates |
 | Headed and headless operation | [Exact-version upstream comparison](stock-comparison-155-patch6.md): 61 Node tests pass, including nine shared scenarios in all four engine/mode combinations and separate native configuration checks |
 | Playwright, Python, Puppeteer/CDP, Selenium | All ten custom driver routes pass again alongside ten upstream-control routes on Windows 155; broader driver operations remain separate |
 | Native timezone/locale | Document/frame/worker/HTTP/DST and invalid-option native gates pass on Windows 155; managed policy/host-change behavior remains unqualified |
@@ -21,7 +21,7 @@ The user authorizes publication once the requested behavior is implemented and q
 | Canvas/audio/WebGL/screen/network policies | Broad earlier requests remain future, independently specified native work; no 87-patch or reference-product parity claim |
 | npm and pip installation | SDK packages, entry points, shared cache and verified runtime installer implemented; isolated package checks pass. Registry publication and a qualified runtime asset remain pending |
 | Linux/macOS native products | No qualified native artifacts. SDK cache paths/CI on those hosts do not establish native support |
-| Authorized E2E automation-specific consistency | [Detector classifications](detector-comparison-155-146.md) still fail on Silly/upstream 155. Expanded [CDP validation/lifecycle coverage](native-cdp-review-155.md) finds a shared timezone-update state bug in both modes; its C++ proposal remains unapplied/uncompiled and the regression gate is RED. Universal detector outcomes and production provider traffic remain unqualified |
+| Authorized E2E automation-specific consistency | [Detector classifications](detector-comparison-155-146.md) still fail on Silly/upstream 155. Expanded [CDP validation/lifecycle coverage](native-cdp-review-155.md) finds a shared timezone-update state bug in both modes; its [separate C++ candidate](cdp-timezone-validation-155.md) passes the strict gate in all four default/native × headed/headless cases. External detector sites were not rerun on patch seven. Universal detector outcomes and production provider traffic remain unqualified |
 
 CAPTCHA solving/bypass is outside the user's clarified scope. A source patch count, reference example, or compatibility pass does not itself establish third-party detector classification.
 

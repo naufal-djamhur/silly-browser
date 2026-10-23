@@ -13,7 +13,11 @@
     "ui/gfx/BUILD.gn": "303909a22f7b045ef7820a7df59716d09f4dd0c8f42dc73c4166149b771c9054",
     "ui/gfx/win/direct_write.cc": "8ef8fd82b4ce653e336ad5cc696503ceb0df0a3bbd86f3759732f3ed45918dad",
     "content/browser/renderer_host/dwrite_font_proxy_impl_win.cc": "629f77c916de27a09da6535fed3a2a163a2a813504c2815372b59d97656b9587",
-    "chrome/browser/BUILD.gn": "5c9a66b731954d1d28c7f630071880f0a879bfef924338362004b9ad19f4444b"
+    "chrome/browser/BUILD.gn": "5c9a66b731954d1d28c7f630071880f0a879bfef924338362004b9ad19f4444b",
+    "third_party/blink/renderer/core/timezone/timezone_controller.h": "ce117c893d79e4c4e61ea4d2c5d7cc752f4de294337b10100c2652cfca149e02",
+    "third_party/blink/renderer/core/inspector/inspector_emulation_agent.cc": "4d01c60b9fbde5c91834decf1ec775872a40f2129423f4b4af6fd25d6fd713ea",
+    "third_party/blink/web_tests/inspector-protocol/emulation/set-invalid-timezone-override.js": "2aebe7d21b6f6d4e8b9e5e88e60335ef35448f563566051b11f5182aab2da7ba",
+    "third_party/blink/web_tests/inspector-protocol/emulation/set-invalid-timezone-override-expected.txt": "d625f5a80fde60ca372fdd7b68108f81ee4e0b0bbee8f3b0b7debd0f4862d9af"
   },
   "fingerprintPatchesImplemented": 0,
   "patches": [
@@ -169,6 +173,33 @@
         "Managed proxy precedence and origin/mismatched endpoint rejection have standalone policy checks; managed-policy integration is unqualified"
       ],
       "validationEvidence": "../../../../docs/native-http-proxy-155-summary.json"
+    },
+    {
+      "id": "CB-0007",
+      "file": "0007-cdp-timezone-validation.patch",
+      "scope": "Reject invalid CDP timezone updates before changing serialized state; preserve the last valid override across navigation",
+      "status": "windows-x64-local-integration-validated",
+      "dependencies": [
+        "CB-0006"
+      ],
+      "platforms": [
+        "windows",
+        "linux",
+        "macos"
+      ],
+      "validatedPlatforms": [
+        "windows"
+      ],
+      "regressions": [
+        "benchmarks/cdp_emulation_probe.mjs",
+        "third_party/blink/web_tests/inspector-protocol/emulation/set-invalid-timezone-override.js"
+      ],
+      "limitations": [
+        "Windows x64 headed/headless local CDP validation qualified; Linux/macOS and concurrent-client/full worker lifecycles remain unqualified",
+        "Blink protocol test source extended but full Blink harness not run; owned real-browser CDP regression is qualified",
+        "Protocol correctness fix; no automation concealment or detector-score claim"
+      ],
+      "validationEvidence": "../../../../docs/cdp-timezone-validation-155-summary.json"
     }
   ],
   "plannedFamilies": [
@@ -194,7 +225,7 @@
     "locale",
     "font-directory-windows"
   ],
-  "validationEvidence": "../../../../docs/native-http-proxy-155-summary.json",
+  "validationEvidence": "../../../../docs/cdp-timezone-validation-155-summary.json",
   "transportCompatibilityFamiliesWritten": [
     "http-proxy-basic-auth"
   ]

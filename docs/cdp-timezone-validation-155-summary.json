@@ -1,0 +1,397 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "dateTimezone": "Asia/Jakarta",
+  "startingRepositoryCommit": "d174d0eb143ead5a728e12b72bfd69921a3997d0",
+  "scope": "Native CDP timezone validation and state preservation; local Windows functional qualification",
+  "status": "windows-x64-local-integration-validated",
+  "version": "155.0.8059.80",
+  "upstreamCommit": "43a195105613ac83c21d3f14de279f4a045c7da0",
+  "sourcePatchCount": 7,
+  "patch": {
+    "id": "CB-0007",
+    "file": "engine/releases/155.0.8059.80/patches/0007-cdp-timezone-validation.patch",
+    "sha256": "40f759d87920440028def3c7c154a586196c85d52fb1aaa0ef7f868d0ccc6f53"
+  },
+  "candidate": {
+    "exeSha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+    "dllSha256": "4791896fcfe854ffd50d14cf88f51857967b8159995ba346f61b5a14183de526",
+    "engineInfo": {
+      "engine": "custom-browser",
+      "policyVersion": 1,
+      "sourcePatchCount": 7,
+      "capabilities": [
+        "seed",
+        "platform-identity",
+        "webrtc-policy",
+        "native-timezone",
+        "native-locale",
+        "font-directory-windows",
+        "http-proxy-inline-auth"
+      ],
+      "fingerprintIntegrationValidated": false
+    }
+  },
+  "build": {
+    "revision": "43a195105613ac83c21d3f14de279f4a045c7da0",
+    "version": "155.0.8059.80",
+    "sourcePatchCount": 7,
+    "method": "Six translation units rebuilt using exact GN commands; two separate thin Blink archives and DLL linked from the unchanged remaining artifacts",
+    "cleanFromScratch": false,
+    "officialDistribution": false,
+    "argsGn": "is_debug = false\nis_component_build = false\nsymbol_level = 0\nis_official_build = false\ntarget_cpu = \"x64\"\n\n# Use the physical Windows checkout path consistently across GN, Python and Go.\n# Keep Chromium's default TypeScript compiler selection.\n",
+    "objects": [
+      {
+        "source": "third_party/blink/renderer/core/timezone/timezone_controller.cc",
+        "target": "obj/third_party/blink/renderer/core/core/timezone_controller.obj",
+        "sha256": "11006e49ab8ec9e7d45d7f41c5b5d4c1c06bea22155b735af8f5acb1bb5cd11b",
+        "durationSeconds": 18.934
+      },
+      {
+        "source": "chrome/app/chrome_main_delegate.cc",
+        "target": "obj/chrome/chrome_dll/chrome_main_delegate.obj",
+        "sha256": "f14ef17b4c95cdbb26811307c7ba0fca9b61b53409bc32034325ff64f1af9d73",
+        "durationSeconds": 21.309
+      },
+      {
+        "source": "third_party/blink/renderer/core/core_initializer.cc",
+        "target": "obj/third_party/blink/renderer/core/core/core_initializer.obj",
+        "sha256": "5ea186e8dcf29e074de8d7ceae452bd13cd5c6df38b8f7592310e188bbd51b98",
+        "durationSeconds": 7.7
+      },
+      {
+        "source": "third_party/blink/renderer/core/inspector/worker_inspector_controller.cc",
+        "target": "obj/third_party/blink/renderer/core/core/worker_inspector_controller.obj",
+        "sha256": "65dfb23fdca53cad03b8bc42d8e6d162ca8697670d084da6de3890be246b44ac",
+        "durationSeconds": 10.786
+      },
+      {
+        "source": "third_party/blink/renderer/core/inspector/inspector_emulation_agent.cc",
+        "target": "obj/third_party/blink/renderer/core/core/inspector_emulation_agent.obj",
+        "sha256": "febe96bcd61b51c71f0ae2f9d35b3fdc8cbc2b2afe184cf58c59f03eae3044cf",
+        "durationSeconds": 25.054
+      },
+      {
+        "source": "third_party/blink/renderer/core/exported/web_dev_tools_agent_impl.cc",
+        "target": "obj/third_party/blink/renderer/core/exported/exported/web_dev_tools_agent_impl.obj",
+        "sha256": "2182d5fd64bce3db0bdf1f7faec6b9bf18d7b90d73a0e69f62c1b6df4d139444",
+        "durationSeconds": 22.949
+      }
+    ],
+    "preservedInputsUnchanged": true,
+    "exeSha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+    "dllSha256": "4791896fcfe854ffd50d14cf88f51857967b8159995ba346f61b5a14183de526",
+    "linkDurationSeconds": 27.313,
+    "durationSeconds": 137.031
+  },
+  "protocolRegression": {
+    "baseline": {
+      "cases": 4,
+      "invalidUpdatesIncorrectlyAccepted": 4,
+      "lastValidTimezoneLostAfterNavigation": 4,
+      "strictExitCode": 1,
+      "collectionErrors": 0
+    },
+    "candidate": {
+      "cases": 4,
+      "invalidUpdatesIncorrectlyAccepted": 0,
+      "lastValidTimezoneLostAfterNavigation": 0,
+      "strictExitCode": 0,
+      "collectionErrors": 0
+    },
+    "observations": [
+      {
+        "configuration": "default",
+        "mode": "headed",
+        "initialInvalidTimezoneRejected": true,
+        "sameTimezoneAccepted": true,
+        "canonicalEquivalentTimezoneAccepted": true,
+        "validTimezoneUpdateAccepted": true,
+        "invalidUpdateRejected": true,
+        "lastValidTimezonePreservedAcrossNavigation": true,
+        "baseline": {
+          "locale": "en-GB",
+          "timezone": "Asia/Jakarta",
+          "jan": -420,
+          "jul": -420
+        },
+        "afterRejectedUpdate": {
+          "locale": "en-GB",
+          "timezone": "Pacific/Honolulu",
+          "jan": 600,
+          "jul": 600
+        },
+        "afterCrossSiteNavigation": {
+          "locale": "en-GB",
+          "timezone": "Pacific/Honolulu",
+          "jan": 600,
+          "jul": 600
+        },
+        "reset": {
+          "locale": "en-GB",
+          "timezone": "Asia/Jakarta",
+          "jan": -420,
+          "jul": -420
+        },
+        "afterDetach": {
+          "locale": "en-GB",
+          "timezone": "Asia/Jakarta",
+          "jan": -420,
+          "jul": -420
+        },
+        "otherContextUnchanged": true,
+        "rendererUsable": true,
+        "pageErrors": [],
+        "crashes": []
+      },
+      {
+        "configuration": "default",
+        "mode": "headless",
+        "initialInvalidTimezoneRejected": true,
+        "sameTimezoneAccepted": true,
+        "canonicalEquivalentTimezoneAccepted": true,
+        "validTimezoneUpdateAccepted": true,
+        "invalidUpdateRejected": true,
+        "lastValidTimezonePreservedAcrossNavigation": true,
+        "baseline": {
+          "locale": "en-GB",
+          "timezone": "Asia/Jakarta",
+          "jan": -420,
+          "jul": -420
+        },
+        "afterRejectedUpdate": {
+          "locale": "en-GB",
+          "timezone": "Pacific/Honolulu",
+          "jan": 600,
+          "jul": 600
+        },
+        "afterCrossSiteNavigation": {
+          "locale": "en-GB",
+          "timezone": "Pacific/Honolulu",
+          "jan": 600,
+          "jul": 600
+        },
+        "reset": {
+          "locale": "en-GB",
+          "timezone": "Asia/Jakarta",
+          "jan": -420,
+          "jul": -420
+        },
+        "afterDetach": {
+          "locale": "en-GB",
+          "timezone": "Asia/Jakarta",
+          "jan": -420,
+          "jul": -420
+        },
+        "otherContextUnchanged": true,
+        "rendererUsable": true,
+        "pageErrors": [],
+        "crashes": []
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headed",
+        "initialInvalidTimezoneRejected": true,
+        "sameTimezoneAccepted": true,
+        "canonicalEquivalentTimezoneAccepted": true,
+        "validTimezoneUpdateAccepted": true,
+        "invalidUpdateRejected": true,
+        "lastValidTimezonePreservedAcrossNavigation": true,
+        "baseline": {
+          "locale": "fr-FR",
+          "timezone": "Europe/Paris",
+          "jan": -60,
+          "jul": -120
+        },
+        "afterRejectedUpdate": {
+          "locale": "fr-FR",
+          "timezone": "Pacific/Honolulu",
+          "jan": 600,
+          "jul": 600
+        },
+        "afterCrossSiteNavigation": {
+          "locale": "fr-FR",
+          "timezone": "Pacific/Honolulu",
+          "jan": 600,
+          "jul": 600
+        },
+        "reset": {
+          "locale": "fr-FR",
+          "timezone": "Europe/Paris",
+          "jan": -60,
+          "jul": -120
+        },
+        "afterDetach": {
+          "locale": "fr-FR",
+          "timezone": "Europe/Paris",
+          "jan": -60,
+          "jul": -120
+        },
+        "otherContextUnchanged": true,
+        "rendererUsable": true,
+        "pageErrors": [],
+        "crashes": []
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headless",
+        "initialInvalidTimezoneRejected": true,
+        "sameTimezoneAccepted": true,
+        "canonicalEquivalentTimezoneAccepted": true,
+        "validTimezoneUpdateAccepted": true,
+        "invalidUpdateRejected": true,
+        "lastValidTimezonePreservedAcrossNavigation": true,
+        "baseline": {
+          "locale": "fr-FR",
+          "timezone": "Europe/Paris",
+          "jan": -60,
+          "jul": -120
+        },
+        "afterRejectedUpdate": {
+          "locale": "fr-FR",
+          "timezone": "Pacific/Honolulu",
+          "jan": 600,
+          "jul": 600
+        },
+        "afterCrossSiteNavigation": {
+          "locale": "fr-FR",
+          "timezone": "Pacific/Honolulu",
+          "jan": 600,
+          "jul": 600
+        },
+        "reset": {
+          "locale": "fr-FR",
+          "timezone": "Europe/Paris",
+          "jan": -60,
+          "jul": -120
+        },
+        "afterDetach": {
+          "locale": "fr-FR",
+          "timezone": "Europe/Paris",
+          "jan": -60,
+          "jul": -120
+        },
+        "otherContextUnchanged": true,
+        "rendererUsable": true,
+        "pageErrors": [],
+        "crashes": []
+      }
+    ]
+  },
+  "regressions": {
+    "node": {
+      "passed": 106,
+      "failed": 0,
+      "skipped": 0,
+      "includesUpstreamControls": true
+    },
+    "python": {
+      "passed": 5,
+      "failed": 0
+    },
+    "stockComparison": {
+      "scenarios": 9,
+      "observations": 36,
+      "equalComparisons": 27,
+      "finalLabelRerunNodeTests": 38,
+      "rerunIsNotAdditionalUniqueCoverage": true
+    },
+    "drivers": {
+      "passed": 10,
+      "failed": 0,
+      "modes": [
+        "headed",
+        "headless"
+      ],
+      "routes": [
+        "playwright-js-cdp",
+        "playwright-js-sdk",
+        "playwright-python",
+        "puppeteer-cdp",
+        "selenium"
+      ],
+      "versions": {
+        "node": "v24.22.1",
+        "playwright": "1.62.1",
+        "puppeteer": "25.13.0"
+      },
+      "chromeDriverVersions": [
+        "155.0.8059.84 (5869fe313571d75152b77813cf0a4ee26a4e6df0-refs/branch-heads/8059@{#1303})"
+      ]
+    }
+  },
+  "verification": {
+    "exactAppliedSeries": 7,
+    "pristineForwardSeries": 7,
+    "sourceAndOriginalBuildInputsPreservedAfterTests": true,
+    "existingRuntimeControlsPreserved": true
+  },
+  "execution": [
+    {
+      "name": "red",
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "durationSeconds": 8.055,
+      "passed": true
+    },
+    {
+      "name": "green",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "durationSeconds": 8.434,
+      "passed": true
+    },
+    {
+      "name": "browser-regressions",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "durationSeconds": 95.734,
+      "passed": true
+    },
+    {
+      "name": "python",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "durationSeconds": 11.109,
+      "passed": true
+    },
+    {
+      "name": "drivers",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "durationSeconds": 24.805,
+      "passed": true
+    }
+  ],
+  "finalSourceExecution": [
+    {
+      "name": "red-final",
+      "exitCode": 1,
+      "expectedExitCode": 1,
+      "durationSeconds": 7.69,
+      "passed": true
+    },
+    {
+      "name": "green-final",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "durationSeconds": 7.953,
+      "passed": true
+    },
+    {
+      "name": "stock-parity-final",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "durationSeconds": 19.593,
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "Incremental Windows x64 build using shared unchanged artifacts; not a clean full build or official distribution",
+    "Blink protocol test source extended; the full Blink/content_shell runner was not built or executed; owned real-browser CDP regression is the runtime gate",
+    "Linux/macOS, multi-client contention and full worker override lifecycle are unqualified",
+    "External detector sites were not rerun on patch seven; no score improvement, automation concealment or reference-product parity claim",
+    "Dummy CDP source revision remains the existing nonofficial build default",
+    "No native binary, npm or PyPI release was published"
+  ]
+}

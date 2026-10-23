@@ -1,8 +1,10 @@
 # silly-browser implementation plan
 
+**24 October native checkpoint:** [patch seven](cdp-timezone-validation-155.md) fixes CDP timezone validation/state and passes four strict default/native × headed/headless cases, 106 Node checks, five Python checks and ten driver routes on a separate Windows x64 155.0.8059.80 candidate. Preserve all older runtimes; distribution/MVP gates remain unfinished.
+
 Dated 14 October 2026, Asia/Jakarta. Repository: https://github.com/naufal-djamhur/silly-browser
 
-This document is a resumable engineering plan, not an automatic execution schedule. Steps 1 and 2 passed. Step 3 is now in progress: the separate stable source checkout and toolchain are verified, but native compilation has not started. See [iteration 3](iteration-03.md) and the [session handoff](session-handoff.md) for the build boundary and independently validated SDK work.
+This document is a resumable engineering plan, not an automatic execution schedule. The current native checkpoint above supersedes the original pre-build status: a separate seven-patch Windows 155 candidate is compiled and locally tested. Distribution and later feature iterations remain unfinished. See the [session handoff](session-handoff.md) for current evidence and continuation boundaries; [iteration 3](iteration-03.md) preserves the earlier checkpoint.
 
 ## Checkpoint and first action
 

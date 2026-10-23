@@ -1,5 +1,7 @@
 # Native Chromium/Blink and CDP review
 
+**Implemented follow-up:** [CB-0007 and its separate candidate](cdp-timezone-validation-155.md) now pass the owned regression in both modes. The review/proposal checkpoint below is preserved as the pre-implementation record.
+
 Reviewed and measured **24 October 2026**, Windows x64. **A real CDP timezone validation/state bug is reproduced in both modes on Silly Browser 155, its upstream-source 155 control and the saved free CloakBrowser 146.** A [three-file C++ patch proposal](proposals/cdp-timezone-validation.patch) is prepared and dry-applies cleanly to the current six-patch checkout. It is **not applied, compiled or browser-validated**. The [summary](native-cdp-review-155-summary.json) binds the reproduction, selected source files and proposal to hashes.
 
 ## Why the reference gets better detector results

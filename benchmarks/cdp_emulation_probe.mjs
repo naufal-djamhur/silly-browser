@@ -11,6 +11,7 @@ import {chromium} from 'playwright-core';
 const args=process.argv.slice(2);
 const option=name=>{const i=args.indexOf(name);assert(i>=0&&args[i+1],`${name} is required`);return args[i+1]};
 const engines=JSON.parse(await readFile(option('--engines'),'utf8'));
+assert(Array.isArray(engines)&&engines.length>0,'At least one engine is required');
 const output=resolve(option('--output'));
 await mkdir(output,{recursive:false});
 const hash=async path=>{const h=createHash('sha256');for await(const b of createReadStream(path))h.update(b);return h.digest('hex')};
@@ -33,7 +34,7 @@ try{
     assert.equal(await hash(executablePath),engine.exeSha256);
     assert.equal(await hash(join(dirname(executablePath),'chrome.dll')),engine.dllSha256);
     const identity={...engine};delete identity.executable;report.engines.push(identity);
-    const configurations=[['default',[]],...(engine.id==='silly-patch-six'?[['native-environment',['--custom-browser-locale=fr-FR','--custom-browser-timezone=Europe/Paris']]]:[])];
+    const configurations=[['default',[]],...((engine.nativeEnvironment===true||engine.id==='silly-patch-six')?[['native-environment',['--custom-browser-locale=fr-FR','--custom-browser-timezone=Europe/Paris']]]:[])];
     for(const [configuration,launchArgs] of configurations)for(const headless of [false,true]){
       const mode=headless?'headless':'headed';
       const observation={engine:engine.id,configuration,mode,status:'error',steps:{},pageErrors:[],crashes:[]};
@@ -60,6 +61,15 @@ try{
           assert(observation.steps.validTimezone.accepted);
           observation.steps.afterValidTimezone=await sample(page);
           assert.equal(observation.steps.afterValidTimezone.timezone,'Pacific/Honolulu');
+          observation.steps.sameTimezone=await command(session,'Emulation.setTimezoneOverride',{timezoneId:'Pacific/Honolulu'});
+          assert(observation.steps.sameTimezone.accepted);
+          observation.steps.equivalentTimezone=await command(session,'Emulation.setTimezoneOverride',{timezoneId:'US/Hawaii'});
+          assert(observation.steps.equivalentTimezone.accepted);
+          assert.equal((await sample(page)).timezone,'Pacific/Honolulu');
+          observation.steps.validTimezoneUpdate=await command(session,'Emulation.setTimezoneOverride',{timezoneId:'America/New_York'});
+          assert(observation.steps.validTimezoneUpdate.accepted);
+          assert.equal((await sample(page)).timezone,'America/New_York');
+          assert((await command(session,'Emulation.setTimezoneOverride',{timezoneId:'Pacific/Honolulu'})).accepted);
           await page.goto(otherUrl);
           observation.steps.validOnlyCrossSiteNavigation=await sample(page);
           observation.validOnlyTimezonePreservedAcrossNavigation=observation.steps.validOnlyCrossSiteNavigation.timezone==='Pacific/Honolulu';
@@ -70,6 +80,7 @@ try{
           observation.steps.afterInvalidTimezoneUpdate=await sample(page);
           observation.invalidTimezoneUpdateAccepted=observation.steps.invalidTimezoneUpdate.accepted;
           observation.invalidTimezoneUpdateChangedEffectiveValue=observation.steps.afterInvalidTimezoneUpdate.timezone!=='Pacific/Honolulu';
+          if(!observation.invalidTimezoneUpdateAccepted)assert.match(observation.steps.invalidTimezoneUpdate.error,/Invalid timezone id/);
           observation.steps.otherContextAfterTimezoneUpdate=await sample(control);
           assert.deepEqual(observation.steps.otherContextAfterTimezoneUpdate,otherBaseline);
           await page.goto(otherUrl);
@@ -129,6 +140,6 @@ if(report.collectionErrors)process.exitCode=1;
 // Optional RED/GREEN gate for the proposed C++ validation fix. A successful
 // diagnostic collection does not mean the protocol contract is correct.
 if(args.includes('--expect-fixed')&&report.observations.some(x=>
-  x.status!=='collected'||x.invalidTimezoneUpdateAccepted||
+  x.status!=='collected'||x.invalidTimezoneUpdateAccepted||x.invalidTimezoneUpdateChangedEffectiveValue||
   !x.validOnlyTimezonePreservedAcrossNavigation||!x.validOnlyTimezonePreservedOnReturn||
   !x.lastValidTimezonePreservedAcrossNavigation))process.exitCode=1;

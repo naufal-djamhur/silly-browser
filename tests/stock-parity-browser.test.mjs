@@ -169,7 +169,7 @@ const scenarios = [
   }],
 ];
 
-test('patch six matches exact upstream Chromium shared functional contracts',{
+test('custom candidate matches exact upstream Chromium shared functional contracts',{
   skip:!executablePath||!controlPath,timeout:300000,
 },async t=>{
   assert(fontDirectory,'Set CUSTOM_BROWSER_FONT_TEST_DIR to a directory containing Ahem.ttf');
@@ -201,7 +201,7 @@ test('patch six matches exact upstream Chromium shared functional contracts',{
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
   const url=`http://127.0.0.1:${server.address().port}`;
   try{
-    for(const [engine,path] of [['stock-control',controlPath],['patch-six',executablePath]]){
+    for(const [engine,path] of [['stock-control',controlPath],['custom-candidate',executablePath]]){
       const identity={engine,exeSha256:await hash(path),dllSha256:await hash(join(dirname(path),'chrome.dll'))};
       report.engines.push(identity);
       for(const headless of [false,true]){

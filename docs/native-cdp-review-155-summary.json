@@ -352,5 +352,11 @@
     "Known detector classifications were not rerun or improved by this review",
     "One Windows host; source review covers selected paths, not the whole engine",
     "Zero revision output follows the chosen build configuration; release identity changes require a separate build/validation gate"
-  ]
+  ],
+  "implementedFollowUp": {
+    "report": "cdp-timezone-validation-155.md",
+    "summary": "cdp-timezone-validation-155-summary.json",
+    "sourcePatchCount": 7,
+    "status": "windows-x64-local-integration-validated"
+  }
 }

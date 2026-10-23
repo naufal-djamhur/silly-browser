@@ -2,7 +2,7 @@
 
 An open-source, source-patched Chromium project for browser automation and E2E testing, with JavaScript and Python SDKs. Original project code is [MIT-licensed](LICENSE); Chromium and dependencies retain their [upstream licenses](NOTICE).
 
-**Experimental:** the six-patch Chromium **155.0.8059.80 Windows x64** build passes [native HTTP proxy authentication tests and 48 existing integration checks](docs/native-http-proxy-155.md), including headed/headless drivers and native locale/timezone/fonts. The [five-patch qualification](docs/engine-validation-155.md) remains preserved. There is no published native download or npm/PyPI release yet. Native distribution qualification and the complete MVP are still pending.
+**Experimental:** the seven-patch Chromium **155.0.8059.80 Windows x64** candidate passes the [native CDP timezone regression, 106 Node browser checks, five Python checks and ten driver routes](docs/cdp-timezone-validation-155.md), with headed/headless coverage. Prior five/six-patch runtimes and evidence remain preserved. Native distribution qualification and the complete MVP remain pending; no native download or npm/PyPI release is published.
 
 [Patch-six reference example measurements](docs/reference-tests-155-patch6.md) are available for both modes, including exact reported failing checks. Navigation and profile persistence pass; the public reCAPTCHA demo returned 0.9 per mode. Fingerprint Scan/CreepJS and the detector suite still fail their criteria. Local functional/API controls establish no native defect in the tested scope; no overall benchmark pass or reference-product parity is claimed.
 
@@ -10,7 +10,7 @@ An open-source, source-patched Chromium project for browser automation and E2E t
 
 [Fresh Fingerprint Scan and CreepJS measurements](docs/detector-comparison-155-146.md) match Silly Browser against upstream 155 and a saved free CloakBrowser 146 binary. Silly and upstream retain the same failing classifications; the saved CloakBrowser passes the CreepJS criterion but scores 43/100 on Fingerprint Scan in both modes. The historical/version difference and common raw launch conditions limit the comparison; current Pro results are unqualified.
 
-[Expanded native CDP review](docs/native-cdp-review-155.md) reproduces an inherited timezone-update validation/state bug on all three browsers in both modes. A C++ fix is proposed but remains unapplied and uncompiled. This protocol issue is separate from the detector score differences.
+The [native CDP timezone fix](docs/cdp-timezone-validation-155.md) now rejects invalid updates and preserves the last valid override across navigation in both modes. The inherited bug remains reproducible on the old runtimes; this correctness fix carries no detector-score improvement claim.
 
 ## Install the SDK today
 
@@ -91,7 +91,7 @@ The installer verifies archive and individual file SHA256 values, bounds downloa
 
 ## Project status and development
 
-Implemented SDK foundations include profile lifecycle, explicit context configuration, driver adapters and optional paced input helpers. The six-patch native source adds seed lifecycle, platform web identity, WebRTC policy, ICU timezone/locale defaults, additive Windows fonts and [HTTP Basic proxy credentials](docs/native-http-proxy-155.md). The exact Windows 155 build passes the measured local integration gates. Linux/macOS native artifacts, broader rendering/network work, signed releases and production support remain future work. No detector score or universal driver compatibility is guaranteed.
+Implemented SDK foundations include profile lifecycle, explicit context configuration, driver adapters and optional paced input helpers. The native source adds seed lifecycle, platform web identity, WebRTC policy, ICU timezone/locale defaults, additive Windows fonts, [HTTP Basic proxy credentials](docs/native-http-proxy-155.md) and [CDP timezone validation](docs/cdp-timezone-validation-155.md). The exact Windows 155 build passes the measured local integration gates. Linux/macOS native artifacts, broader rendering/network work, signed releases and production support remain future work. No detector score or universal driver compatibility is guaranteed.
 
 Read [CONTRIBUTING](CONTRIBUTING.md), [the security policy](SECURITY.md), [community guidelines](CODE_OF_CONDUCT.md), [the implementation plan](docs/implementation-plan.md), and [release instructions](docs/releasing.md). Lightweight CI checks SDKs and packages across Windows, Linux and macOS; native Chromium qualification is a separate build process.
 
