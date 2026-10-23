@@ -4,7 +4,7 @@ An open-source, source-patched Chromium project for browser automation and E2E t
 
 **Experimental:** the six-patch Chromium **155.0.8059.80 Windows x64** build passes [native HTTP proxy authentication tests and 48 existing integration checks](docs/native-http-proxy-155.md), including headed/headless drivers and native locale/timezone/fonts. The [five-patch qualification](docs/engine-validation-155.md) remains preserved. There is no published native download or npm/PyPI release yet. Native distribution qualification and the complete MVP are still pending.
 
-[Reference example measurements](docs/reference-tests-155.md) are available for both modes. Navigation and profile persistence pass; the public reCAPTCHA demo returned 0.9 per mode. Fingerprint Scan/CreepJS and the detector suite fail their criteria, so no overall benchmark pass or reference-product parity is claimed.
+[Patch-six reference example measurements](docs/reference-tests-155-patch6.md) are available for both modes, including exact reported failing checks. Navigation and profile persistence pass; the public reCAPTCHA demo returned 0.9 per mode. Fingerprint Scan/CreepJS and the detector suite still fail their criteria. Local functional/API controls establish no native defect in the tested scope; no overall benchmark pass or reference-product parity is claimed.
 
 [Local functional parity](docs/functional-parity-155.md) also passes eight paired scenarios covering layout/fonts, graphics/audio, editing, scrolling, popups, storage and worker configuration. No native defect was reproduced in that bounded inspection.
 

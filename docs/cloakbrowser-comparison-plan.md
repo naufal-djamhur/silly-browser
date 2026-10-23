@@ -1,6 +1,8 @@
-# Post-build CloakBrowser comparison — updated 23 October 2026
+# Post-build CloakBrowser comparison — updated 24 October 2026
 
 Status: the exact five-patch Windows 155 build passes [48 local integration checks](engine-validation-155.md). The five requested [reference example workflows have now been measured in both modes](reference-tests-155.md): navigation/persistence pass, the demo score is 0.9 per mode, and the overall detector benchmark fails. Preserve the completed runtime and separate manual session. This comparison iteration adds no native patches.
+
+**Latest continuation:** the [patch-six rerun](reference-tests-155-patch6.md) records unchanged headline results in both modes and exact failing check names. Local functional and API-contract controls establish no native defect in the tested scope. An own collector repair recovers missing rendered detail flags; native source, driver binaries and patch count remain unchanged. The [sanitized summary](reference-tests-155-patch6-summary.json) preserves runtime, source and report identities. The five-patch status above is the historical comparison point.
 
 ## Source checkpoint
 

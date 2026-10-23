@@ -33,7 +33,7 @@ Every maintained revision needs a separate ordered patch series, clean checkout 
 | DRIVER-17 | Driver compatibility | Ten stock-Chrome and ten custom-146 Windows smoke checks passed; expanded feature matrix pending | Same suite on custom binaries, supported exact library versions, headed/headless evidence |
 | RELEASE-18 | Multiple Chromium lines | Stable three-patch rebase applies to pristine pinned files; full stable build pending | Rebase/build/test each line separately; no broad untested range |
 | RELEASE-19 | Distribution | Not implemented | Reproducible packaging, signed version/platform manifests, verified download and safe extraction |
-| QA-20 | Competitive evidence | Stock baselines only | Repeated custom and reference runs with comparable versions, profiles, network and environment; retain failures/unavailable results |
+| QA-20 | Competitive evidence | [Patch-six canonical example flows measured in both modes](reference-tests-155-patch6.md), including exact failing labels; overall detector benchmark fails; no paired current-reference binary | Repeated custom and reference runs with comparable versions, profiles, network and environment; retain failures/unavailable results |
 | PLATFORM-21 | Linux/macOS builds | Not built/tested | Native platform builders, graphics/font fixtures, driver matrices and signed artifacts |
 | PERF-22 | Lightweight operation | Not measured for custom engine | Startup latency, idle and per-page RAM/CPU, concurrent-session stability and cleanup |
 

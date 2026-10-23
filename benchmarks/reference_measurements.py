@@ -16,8 +16,10 @@ import subprocess
 import time
 import traceback
 from importlib.metadata import version
+from urllib.parse import urlsplit
 
 from custom_browser import launch
+from reference_result_details import parse_detection_details
 
 REFERENCE_COMMIT = 'fbf005bc199920b592df17ac4d489324e29d56d8'
 EXPECTED_BLOBS = {
@@ -97,9 +99,9 @@ def main():
     parser.add_argument('--reference-dir', type=pathlib.Path, required=True)
     parser.add_argument('--output', type=pathlib.Path, required=True)
     parser.add_argument('--headed', action='store_true')
-    parser.add_argument('--only', choices=['all', 'recaptcha'], default='all')
+    parser.add_argument('--only', choices=['all', 'recaptcha', 'deviceandbrowserinfo'], default='all')
     args = parser.parse_args()
-    args.output.mkdir(parents=True, exist_ok=True)
+    args.output.mkdir(parents=True, exist_ok=False)
     sources = {filename: verified_source(args.reference_dir, filename) for filename in EXPECTED_BLOBS}
     fingerprint = reviewed_functions(sources['fingerprint_scan_test.py'])
     stealth = reviewed_functions(sources['stealth_test.py'], include_tests=True)
@@ -107,6 +109,8 @@ def main():
     info = json.loads(subprocess.check_output([str(executable), '--headless', '--custom-browser-engine-info'], timeout=10, text=True))
     assert info['engine'] == 'custom-browser' and info['policyVersion'] == 1
     report = dict(schemaVersion=1, referenceCommit=REFERENCE_COMMIT, referenceBlobs=EXPECTED_BLOBS,
+                  referenceCheckoutCommit=subprocess.check_output(
+                      ['git', '-C', str(args.reference_dir), 'rev-parse', 'HEAD'], text=True).strip(),
                   engineMode='custom', engineInfo=info, headless=not args.headed, selection=args.only,
                   startedAt=time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
                   executableSha256=hashlib.sha256(executable.read_bytes()).hexdigest(),
@@ -119,12 +123,16 @@ def main():
                                'Capture paths redirected to this run directory',
                                'Missing/incomplete data excluded from passes',
                                'Unsupported CloakBrowser-specific noise/GeoIP/identity flags are not passed'],
-                  results=[])
+                  diagnosticCoverage=['page-crash', 'page-error', 'navigation-request-failed', 'browser-disconnected'],
+                  browserEvents=[], results=[])
 
     def save():
         (args.output / 'results.json').write_text(json.dumps(report, indent=2) + '\n', encoding='utf-8')
 
     browser = launch(executable_path=str(executable), headless=not args.headed)
+    closing_browser = False
+    browser.on('disconnected', lambda _: report['browserEvents'].append(
+        {'event':'browser-disconnected', 'expectedClose':closing_browser}))
     report['browserVersion'] = browser.version
     save()
 
@@ -133,6 +141,21 @@ def main():
         page = context.new_page()
         captured = CapturePage(page, args.output, name)
         result = dict(example=example, name=name, status='error')
+        diagnostics = []
+        phase = 'measurement'
+        def observe(kind, detail=None):
+            if len(diagnostics) < 64:
+                diagnostics.append({'event':kind, 'phase':phase, 'detail':detail})
+        page.on('crash', lambda _: observe('page-crash'))
+        page.on('pageerror', lambda error: observe('page-error', str(error)[:2000]))
+        def navigation_failed(request):
+            if request.is_navigation_request():
+                url = urlsplit(request.url)
+                observe('navigation-request-failed', {
+                    'url':f'{url.scheme}://{url.netloc}{url.path}',
+                    'failure':request.failure,
+                })
+        page.on('requestfailed', navigation_failed)
         started = time.monotonic()
         stream = io.StringIO()
         try:
@@ -141,6 +164,7 @@ def main():
         except Exception as error:
             result.update(error=str(error), traceback=traceback.format_exc())
         finally:
+            phase = 'capture'
             (args.output / f'{name}.log').write_text(stream.getvalue(), encoding='utf-8')
             try:
                 text = page.inner_text('body', timeout=5000)
@@ -149,7 +173,9 @@ def main():
                 page.screenshot(path=str(args.output / f'{name}.png'), timeout=10000)
             except Exception as error:
                 result['captureError'] = str(error)
+            phase = 'closing'
             context.close()
+            result['diagnostics'] = diagnostics
             result['elapsedSeconds'] = round(time.monotonic() - started, 3)
             report['results'].append(result)
             save()
@@ -209,19 +235,36 @@ def main():
             score = valid['score'] if valid else None
             return {'status': 'unavailable' if score is None else 'pass' if score >= 0.9 else 'fail', 'score': score,
                     'criteria': 'reference expected score >=0.9; demo-only observation', 'verifiedResponses':responses, 'waitError':wait_error}
-        record('recaptcha_score.py', 'recaptcha-v3', recaptcha)
+        if args.only in ('all', 'recaptcha'):
+            record('recaptcha_score.py', 'recaptcha-v3', recaptcha)
 
         names = ['sannysoft','incolumitas','rebrowser','deviceandbrowserinfo','browserscan','creepjs-noise-off']
-        for name, test in (zip(names, stealth['TESTS'], strict=True) if args.only == 'all' else []):
+        for name, test in (zip(names, stealth['TESTS'], strict=True) if args.only != 'recaptcha' else []):
+            if args.only != 'all' and name != args.only:
+                continue
             def operation(page, name=name, test=test):
                 raw = test['runner'](page)
                 reference_pass = bool(test['pass'](raw))
-                return {'status':checked_status(name, raw, reference_pass), 'referenceReportedPass':reference_pass,
-                        'referenceObservation':raw, 'unsupportedReferenceFlags':test.get('args', []),
-                        'criteriaNote':'Reference comparison retained; availability and triggered coverage checked separately'}
+                result = {'status':checked_status(name, raw, reference_pass), 'referenceReportedPass':reference_pass,
+                          'referenceObservation':raw, 'unsupportedReferenceFlags':test.get('args', []),
+                          'criteriaNote':'Reference comparison retained; availability and triggered coverage checked separately'}
+                if name == 'deviceandbrowserinfo':
+                    # Keep the reviewed collector's raw result. Its RegExp
+                    # string loses a whitespace escape; use rendered JSON for
+                    # the same intended aggregate-plus-details criterion.
+                    parsed = parse_detection_details(page.inner_text('body'))
+                    result['capturedStructuredDetails'] = parsed
+                    result['status'] = ('unavailable' if parsed is None else
+                                        'pass' if not parsed['isBot'] and not any(parsed['checks'].values()) else 'fail')
+                    result['classificationBasis'] = 'captured structured JSON; original helper result retained'
+                return result
             record('stealth_test.py', name, operation)
     finally:
+        closing_browser = True
         browser.close()
+        report['runtimeUnchanged'] = (
+            report['executableSha256'] == hashlib.sha256(executable.read_bytes()).hexdigest() and
+            report['runtimeSha256'] == hashlib.sha256(executable.with_name('chrome.dll').read_bytes()).hexdigest())
         report['completedAt'] = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime())
         report['totals'] = {status:sum(result['status'] == status for result in report['results'])
                             for status in sorted({item['status'] for item in report['results']})}

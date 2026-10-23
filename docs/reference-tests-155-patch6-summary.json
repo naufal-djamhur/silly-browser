@@ -1,0 +1,764 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "clientTimezone": "Asia/Jakarta",
+  "platform": "windows-x64",
+  "browserVersion": "155.0.8059.80",
+  "sourcePatchCount": 6,
+  "binarySha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+  "runtimeSha256": "951fbc14ffb40db20aff024f69f6c0c743cabe2fb63c33d67d1e673b53f44ece",
+  "runtimeUnchanged": true,
+  "compilerStarted": false,
+  "newNativePatches": 0,
+  "nativeDefectsReproduced": [],
+  "referenceCheckoutCommit": "160f56da85860e89f0e7d9bfdc80266b984057d5",
+  "historicalReferenceReviewCommit": "fbf005bc199920b592df17ac4d489324e29d56d8",
+  "referenceBlobs": {
+    "basic.py": "951d581ebd2606a60b0510ebae52fddd491f6f17",
+    "fingerprint_scan_test.py": "472dc99b9faa3cb8f4f006f56b45ee83d75573d8",
+    "recaptcha_score.py": "50202e13a80c22c981c77a5f1bbba1a59f53957b",
+    "stealth_test.py": "bf9d26ed631c4b71e3131d2a00945c7f268f776c",
+    "persistent_context.py": "e8978d1b2a8ebc79b9ab9038adb96a877d05e553"
+  },
+  "allFiveExamplesPassBothModes": false,
+  "modes": [
+    {
+      "mode": "headed",
+      "startedAt": "2026-10-23T20:43:26Z",
+      "completedAt": "2026-10-23T20:45:52Z",
+      "conditions": {
+        "humanize": false,
+        "proxyConfigured": false,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "profileMode": "fresh-incognito-context-per-case",
+        "launch": "custom_browser.launch"
+      },
+      "libraries": {
+        "playwright": "1.62.0"
+      },
+      "results": [
+        {
+          "name": "basic",
+          "example": "basic.py",
+          "status": "pass",
+          "metrics": {},
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "fingerprint-scan",
+          "example": "fingerprint_scan_test.py",
+          "status": "fail",
+          "metrics": {
+            "score": 100
+          },
+          "score": 100,
+          "requiredScore": "<10",
+          "failedChecks": [
+            "Bot risk score must be <10; observed 100"
+          ],
+          "reportedBotTests": {
+            "CDP Check": "true"
+          },
+          "reportedHeadlessFailureCount": 4,
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "creepjs-headless",
+          "example": "fingerprint_scan_test.py",
+          "status": "fail",
+          "metrics": {
+            "likeHeadlessPct": 31,
+            "headlessPct": 33,
+            "stealthPct": 0
+          },
+          "criteria": "reference <=30% headless and <=30% stealth",
+          "failedChecks": [
+            "headlessPct exceeds 30%"
+          ],
+          "reportedTrueSignals": {
+            "likeHeadless": [
+              "prefersLightColor",
+              "noTaskbar",
+              "noContentIndex",
+              "noContactsManager",
+              "noDownlinkMax"
+            ],
+            "headless": [
+              "webDriverIsOn"
+            ],
+            "stealth": []
+          },
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "recaptcha-v3",
+          "example": "recaptcha_score.py",
+          "status": "pass",
+          "metrics": {
+            "score": 0.9
+          },
+          "score": 0.9,
+          "criteria": "reference expected score >=0.9; demo-only observation",
+          "verifiedBackendSuccess": true,
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "sannysoft",
+          "example": "stealth_test.py",
+          "status": "fail",
+          "metrics": {
+            "passed": 55,
+            "total": 56
+          },
+          "unsupportedReferenceFlags": [],
+          "failedChecks": [
+            "WebDriver\n(New)"
+          ],
+          "diagnosticEventCounts": {
+            "page-error": 2
+          }
+        },
+        {
+          "name": "incolumitas",
+          "example": "stealth_test.py",
+          "status": "fail",
+          "metrics": {
+            "passed": 32,
+            "failed": 3,
+            "total": 35
+          },
+          "unsupportedReferenceFlags": [],
+          "failedChecks": [
+            "webdriverPresent",
+            "webDriver",
+            "WEBDRIVER"
+          ],
+          "referenceExcludedChecks": [
+            "WEBDRIVER"
+          ],
+          "diagnosticEventCounts": {
+            "page-error": 5
+          }
+        },
+        {
+          "name": "rebrowser",
+          "example": "stealth_test.py",
+          "status": "fail",
+          "metrics": {
+            "totalFails": 6,
+            "passed": 10,
+            "notTriggered": 3,
+            "total": 20
+          },
+          "unsupportedReferenceFlags": [],
+          "failedChecks": [
+            "sourceUrlLeak",
+            "runtimeEnableLeak",
+            "navigatorWebdriver",
+            "ipcFloodingProtection",
+            "useragent",
+            "storagePartitioning"
+          ],
+          "unclassifiedEntries": 1,
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "deviceandbrowserinfo",
+          "example": "stealth_test.py",
+          "status": "fail",
+          "metrics": {},
+          "unsupportedReferenceFlags": [],
+          "isBot": true,
+          "failedChecks": [
+            "hasWebdriverTrue",
+            "hasWebdriverInFrameTrue",
+            "hasInconsistentTimingResolution",
+            "isAutomatedWithCDP",
+            "isAutomatedWithCDPInWebWorker"
+          ],
+          "allCapturedBooleanChecks": {
+            "hasBotUserAgent": false,
+            "hasWebdriverTrue": true,
+            "hasWebdriverInFrameTrue": true,
+            "isPlaywright": false,
+            "hasInconsistentChromeObject": false,
+            "isPhantom": false,
+            "isNightmare": false,
+            "isSequentum": false,
+            "isSeleniumChromeDefault": false,
+            "isHeadlessChrome": false,
+            "isWebGLInconsistent": false,
+            "hasInconsistentWebGLShaderLang": false,
+            "hasInconsistentTimingResolution": true,
+            "isAutomatedWithCDP": true,
+            "isAutomatedWithCDPInWebWorker": true,
+            "hasInconsistentClientHints": false,
+            "hasInconsistentGPUFeatures": false,
+            "isIframeOverridden": false,
+            "hasInconsistentWorkerValues": false,
+            "hasHighHardwareConcurrency": false,
+            "hasHeadlessChromeDefaultScreenResolution": false,
+            "hasSuspiciousWeakSignals": false
+          },
+          "detailAuthority": "Structured JSON in saved page text; original helper returned an empty map",
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "browserscan",
+          "example": "stealth_test.py",
+          "status": "captured-unqualified",
+          "metrics": {},
+          "unsupportedReferenceFlags": [],
+          "wordCounts": {
+            "normal": 17,
+            "abnormal": 0
+          },
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "creepjs-noise-off",
+          "example": "stealth_test.py",
+          "status": "unsupported-reference-option",
+          "metrics": {},
+          "unsupportedReferenceFlags": [
+            "--fingerprint-noise=false"
+          ],
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "persistent-context",
+          "example": "persistent_context.py",
+          "status": "pass",
+          "independentLaunches": 2
+        }
+      ],
+      "totals": {
+        "pass": 3,
+        "fail": 6,
+        "captured-unqualified": 1,
+        "unsupported-reference-option": 1
+      },
+      "unexpectedBrowserDisconnects": 0
+    },
+    {
+      "mode": "headless",
+      "startedAt": "2026-10-23T20:45:53Z",
+      "completedAt": "2026-10-23T20:48:02Z",
+      "conditions": {
+        "humanize": false,
+        "proxyConfigured": false,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "profileMode": "fresh-incognito-context-per-case",
+        "launch": "custom_browser.launch"
+      },
+      "libraries": {
+        "playwright": "1.62.0"
+      },
+      "results": [
+        {
+          "name": "basic",
+          "example": "basic.py",
+          "status": "pass",
+          "metrics": {},
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "fingerprint-scan",
+          "example": "fingerprint_scan_test.py",
+          "status": "fail",
+          "metrics": {
+            "score": 100
+          },
+          "score": 100,
+          "requiredScore": "<10",
+          "failedChecks": [
+            "Bot risk score must be <10; observed 100"
+          ],
+          "reportedBotTests": {
+            "CDP Check": "true"
+          },
+          "reportedHeadlessFailureCount": 4,
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "creepjs-headless",
+          "example": "fingerprint_scan_test.py",
+          "status": "fail",
+          "metrics": {
+            "likeHeadlessPct": 38,
+            "headlessPct": 100,
+            "stealthPct": 0
+          },
+          "criteria": "reference <=30% headless and <=30% stealth",
+          "failedChecks": [
+            "headlessPct exceeds 30%"
+          ],
+          "reportedTrueSignals": {
+            "likeHeadless": [
+              "prefersLightColor",
+              "noTaskbar",
+              "hasVvpScreenRes",
+              "noContentIndex",
+              "noContactsManager",
+              "noDownlinkMax"
+            ],
+            "headless": [
+              "webDriverIsOn",
+              "hasHeadlessUA",
+              "hasHeadlessWorkerUA"
+            ],
+            "stealth": []
+          },
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "recaptcha-v3",
+          "example": "recaptcha_score.py",
+          "status": "pass",
+          "metrics": {
+            "score": 0.9
+          },
+          "score": 0.9,
+          "criteria": "reference expected score >=0.9; demo-only observation",
+          "verifiedBackendSuccess": true,
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "sannysoft",
+          "example": "stealth_test.py",
+          "status": "fail",
+          "metrics": {
+            "passed": 52,
+            "total": 56
+          },
+          "unsupportedReferenceFlags": [],
+          "failedChecks": [
+            "User Agent\n(Old)",
+            "WebDriver\n(New)",
+            "HEADCHR_UA",
+            "CHR_MEMORY"
+          ],
+          "diagnosticEventCounts": {
+            "page-error": 2
+          }
+        },
+        {
+          "name": "incolumitas",
+          "example": "stealth_test.py",
+          "status": "fail",
+          "metrics": {
+            "passed": 30,
+            "failed": 6,
+            "total": 36
+          },
+          "unsupportedReferenceFlags": [],
+          "failedChecks": [
+            "webdriverPresent",
+            "userAgent",
+            "webDriver",
+            "HEADCHR_UA",
+            "WEBDRIVER",
+            "CHR_MEMORY"
+          ],
+          "referenceExcludedChecks": [
+            "WEBDRIVER"
+          ],
+          "diagnosticEventCounts": {
+            "page-error": 2
+          }
+        },
+        {
+          "name": "rebrowser",
+          "example": "stealth_test.py",
+          "status": "fail",
+          "metrics": {
+            "totalFails": 7,
+            "passed": 9,
+            "notTriggered": 3,
+            "total": 20
+          },
+          "unsupportedReferenceFlags": [],
+          "failedChecks": [
+            "sourceUrlLeak",
+            "runtimeEnableLeak",
+            "navigatorWebdriver",
+            "ipcFloodingProtection",
+            "useragent",
+            "headless",
+            "storagePartitioning"
+          ],
+          "unclassifiedEntries": 1,
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "deviceandbrowserinfo",
+          "example": "stealth_test.py",
+          "status": "fail",
+          "metrics": {},
+          "unsupportedReferenceFlags": [],
+          "isBot": true,
+          "failedChecks": [
+            "hasBotUserAgent",
+            "hasWebdriverTrue",
+            "hasWebdriverInFrameTrue",
+            "hasInconsistentTimingResolution",
+            "isAutomatedWithCDP",
+            "isAutomatedWithCDPInWebWorker"
+          ],
+          "allCapturedBooleanChecks": {
+            "hasBotUserAgent": true,
+            "hasWebdriverTrue": true,
+            "hasWebdriverInFrameTrue": true,
+            "isPlaywright": false,
+            "hasInconsistentChromeObject": false,
+            "isPhantom": false,
+            "isNightmare": false,
+            "isSequentum": false,
+            "isSeleniumChromeDefault": false,
+            "isHeadlessChrome": false,
+            "isWebGLInconsistent": false,
+            "hasInconsistentWebGLShaderLang": false,
+            "hasInconsistentTimingResolution": true,
+            "isAutomatedWithCDP": true,
+            "isAutomatedWithCDPInWebWorker": true,
+            "hasInconsistentClientHints": false,
+            "hasInconsistentGPUFeatures": false,
+            "isIframeOverridden": false,
+            "hasInconsistentWorkerValues": false,
+            "hasHighHardwareConcurrency": false,
+            "hasHeadlessChromeDefaultScreenResolution": false,
+            "hasSuspiciousWeakSignals": false
+          },
+          "detailAuthority": "Structured JSON in saved page text; original helper returned an empty map",
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "browserscan",
+          "example": "stealth_test.py",
+          "status": "captured-unqualified",
+          "metrics": {},
+          "unsupportedReferenceFlags": [],
+          "wordCounts": {
+            "normal": 17,
+            "abnormal": 0
+          },
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "creepjs-noise-off",
+          "example": "stealth_test.py",
+          "status": "unsupported-reference-option",
+          "metrics": {},
+          "unsupportedReferenceFlags": [
+            "--fingerprint-noise=false"
+          ],
+          "diagnosticEventCounts": {}
+        },
+        {
+          "name": "persistent-context",
+          "example": "persistent_context.py",
+          "status": "pass",
+          "independentLaunches": 2
+        }
+      ],
+      "totals": {
+        "pass": 3,
+        "fail": 6,
+        "captured-unqualified": 1,
+        "unsupported-reference-option": 1
+      },
+      "unexpectedBrowserDisconnects": 0
+    }
+  ],
+  "comparisonToFivePatch": {
+    "baselineSummary": "reference-tests-155-summary.json",
+    "changedStatusesOrHeadlineMetrics": [],
+    "causalAttribution": "Separate-day public-service observations; no causal effect of a patch established"
+  },
+  "diagnostics": {
+    "pageCrashes": 0,
+    "unexpectedBrowserDisconnects": 0,
+    "navigationRequestFailures": 0,
+    "pageErrors": [
+      {
+        "mode": "headed",
+        "case": "sannysoft",
+        "pageError": "Failed to execute 'sendBeacon' on 'Navigator': 1 argument required, but only 0 present.",
+        "count": 1
+      },
+      {
+        "mode": "headed",
+        "case": "sannysoft",
+        "pageError": "Failed to execute 'getUserMedia' on 'Navigator': 3 arguments required, but only 0 present.",
+        "count": 1
+      },
+      {
+        "mode": "headed",
+        "case": "incolumitas",
+        "pageError": "Cannot read properties of undefined (reading 'frames')",
+        "count": 5
+      },
+      {
+        "mode": "headless",
+        "case": "sannysoft",
+        "pageError": "Failed to execute 'sendBeacon' on 'Navigator': 1 argument required, but only 0 present.",
+        "count": 1
+      },
+      {
+        "mode": "headless",
+        "case": "sannysoft",
+        "pageError": "Failed to execute 'getUserMedia' on 'Navigator': 3 arguments required, but only 0 present.",
+        "count": 1
+      },
+      {
+        "mode": "headless",
+        "case": "incolumitas",
+        "pageError": "Cannot read properties of undefined (reading 'frames')",
+        "count": 2
+      }
+    ],
+    "coverage": "Selected page/crash/navigation events, at most 64 records per case; no case reached that bound"
+  },
+  "localFunctional": {
+    "nodeTestsPassed": 18,
+    "scenarioObservationsPassed": 16,
+    "pairedComparisonsPassed": 8,
+    "failed": 0,
+    "runtimeUnchanged": true
+  },
+  "argumentContracts": {
+    "nodeTestsPassed": 5,
+    "observations": [
+      {
+        "engine": "custom",
+        "headless": false,
+        "status": "passed",
+        "binarySha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+        "runtimeSha256": "951fbc14ffb40db20aff024f69f6c0c743cabe2fb63c33d67d1e673b53f44ece",
+        "browserVersion": "155.0.8059.80",
+        "results": [
+          {
+            "name": "sendBeacon-required-url",
+            "threw": true,
+            "errorName": "TypeError",
+            "message": "Failed to execute 'sendBeacon' on 'Navigator': 1 argument required, but only 0 present."
+          },
+          {
+            "name": "legacy-getUserMedia-required-callbacks",
+            "threw": true,
+            "errorName": "TypeError",
+            "message": "Failed to execute 'getUserMedia' on 'Navigator': 3 arguments required, but only 0 present."
+          },
+          {
+            "name": "undefined-frames-access",
+            "threw": true,
+            "errorName": "TypeError",
+            "message": "Cannot read properties of undefined (reading 'frames')"
+          }
+        ],
+        "rendererUsable": true,
+        "runtimeUnchanged": true
+      },
+      {
+        "engine": "custom",
+        "headless": true,
+        "status": "passed",
+        "binarySha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+        "runtimeSha256": "951fbc14ffb40db20aff024f69f6c0c743cabe2fb63c33d67d1e673b53f44ece",
+        "browserVersion": "155.0.8059.80",
+        "results": [
+          {
+            "name": "sendBeacon-required-url",
+            "threw": true,
+            "errorName": "TypeError",
+            "message": "Failed to execute 'sendBeacon' on 'Navigator': 1 argument required, but only 0 present."
+          },
+          {
+            "name": "legacy-getUserMedia-required-callbacks",
+            "threw": true,
+            "errorName": "TypeError",
+            "message": "Failed to execute 'getUserMedia' on 'Navigator': 3 arguments required, but only 0 present."
+          },
+          {
+            "name": "undefined-frames-access",
+            "threw": true,
+            "errorName": "TypeError",
+            "message": "Cannot read properties of undefined (reading 'frames')"
+          }
+        ],
+        "rendererUsable": true,
+        "runtimeUnchanged": true
+      },
+      {
+        "engine": "stock-control",
+        "headless": false,
+        "status": "passed",
+        "binarySha256": "10d6ee85be41b8b87be6c99a4c4c60c017416a35669f660b5c748b6103a1ec50",
+        "browserVersion": "156.0.8078.47",
+        "results": [
+          {
+            "name": "sendBeacon-required-url",
+            "threw": true,
+            "errorName": "TypeError",
+            "message": "Failed to execute 'sendBeacon' on 'Navigator': 1 argument required, but only 0 present."
+          },
+          {
+            "name": "legacy-getUserMedia-required-callbacks",
+            "threw": true,
+            "errorName": "TypeError",
+            "message": "Failed to execute 'getUserMedia' on 'Navigator': 3 arguments required, but only 0 present."
+          },
+          {
+            "name": "undefined-frames-access",
+            "threw": true,
+            "errorName": "TypeError",
+            "message": "Cannot read properties of undefined (reading 'frames')"
+          }
+        ],
+        "rendererUsable": true,
+        "runtimeUnchanged": true
+      },
+      {
+        "engine": "stock-control",
+        "headless": true,
+        "status": "passed",
+        "binarySha256": "10d6ee85be41b8b87be6c99a4c4c60c017416a35669f660b5c748b6103a1ec50",
+        "browserVersion": "156.0.8078.47",
+        "results": [
+          {
+            "name": "sendBeacon-required-url",
+            "threw": true,
+            "errorName": "TypeError",
+            "message": "Failed to execute 'sendBeacon' on 'Navigator': 1 argument required, but only 0 present."
+          },
+          {
+            "name": "legacy-getUserMedia-required-callbacks",
+            "threw": true,
+            "errorName": "TypeError",
+            "message": "Failed to execute 'getUserMedia' on 'Navigator': 3 arguments required, but only 0 present."
+          },
+          {
+            "name": "undefined-frames-access",
+            "threw": true,
+            "errorName": "TypeError",
+            "message": "Cannot read properties of undefined (reading 'frames')"
+          }
+        ],
+        "rendererUsable": true,
+        "runtimeUnchanged": true
+      }
+    ],
+    "nativeSourceContracts": [
+      {
+        "path": "third_party/blink/renderer/modules/beacon/navigator_beacon.idl",
+        "sha256": "299d41db5513e77bb75cd8a1863e33650c1e6b17b7e34f8422b9e6ff294f5489"
+      },
+      {
+        "path": "third_party/blink/renderer/modules/mediastream/navigator_media_stream.idl",
+        "sha256": "e2417f774087ffff3e6f6e85b43d16f770c05a7c414e5b6f2c90be27433b7ca8"
+      }
+    ],
+    "controlLimitation": "Installed stock Chrome 156.0.8078.47 is adjacent-version corroboration, not a matched unpatched 155 build",
+    "siteFramesErrorLimitation": "Undefined-property access produces TypeError locally; the third-party site variable/data flow remains untraced"
+  },
+  "collectorFix": {
+    "issue": "Reviewed helper returns no detail flags because its JS RegExp string loses the whitespace escape",
+    "originalFlags": 0,
+    "capturedFlags": 22,
+    "reproducedOffline": true,
+    "pythonTestsPassed": 5,
+    "liveTargetedModesRechecked": [
+      "headed",
+      "headless"
+    ],
+    "verdictChanged": false,
+    "rawResultsPreserved": true,
+    "executedAllWorkflowRunner": {
+      "path": "artifacts/reference-examples/20261024-155-patch6/measurement-runner-executed.py",
+      "sha256": "fb15d1104d4a0b05d8b479aae4bd30e195d0c949d9d822e9b7638a0c2421bbd2"
+    },
+    "currentCollectorFixedRunner": {
+      "path": "benchmarks/reference_measurements.py",
+      "sha256": "1d10790f4a1946303cf1eff7c3eb76c876f6ec9216906f3b625cd5355725f21c"
+    }
+  },
+  "evidence": [
+    {
+      "path": "artifacts/reference-examples/20261024-155-patch6/execution.json",
+      "sha256": "b9f00d7445952ad33f2d8130b40458c9291db55473328057ba7560c161b9a6b7"
+    },
+    {
+      "path": "artifacts/reference-examples/20261024-155-patch6/headed/results.json",
+      "sha256": "4af5dde0ad653187c25bb1a5ffa662427030b23296baf8d7b0b2a00aefe78d1f"
+    },
+    {
+      "path": "artifacts/reference-examples/20261024-155-patch6/headless/results.json",
+      "sha256": "f17f7ea393e7132dadb8b3238bd9b370d1ba1b7f9d71dd65ad0e379ccc8beeab"
+    },
+    {
+      "path": "artifacts/reference-examples/20261024-155-patch6/persistence/results.json",
+      "sha256": "ec9b18d533773f8c55fe529cabfbbc45283f3cb4794716e347fddceef99c82ee"
+    },
+    {
+      "path": "artifacts/reference-examples/20261024-155-patch6/functional/results.json",
+      "sha256": "5faa900e00c1ec2eaf4738fb30e18248c9e76692795cf797879cc4bf42f9b4c1"
+    },
+    {
+      "path": "artifacts/reference-examples/20261024-155-patch6/api-contracts-checked/results.json",
+      "sha256": "a1081341bd8669d9a2440ef495afb7827594e55016ef3c931e9896b1b28b35b9"
+    },
+    {
+      "path": "artifacts/reference-examples/20261024-155-patch6/collector-repro.json",
+      "sha256": "f78cf1f6ac6e4b383837b088abeee97d569754ad1a612ab6e954a2c06ee00796"
+    },
+    {
+      "path": "artifacts/reference-examples/20261024-155-patch6/collector-fixed-headed/results.json",
+      "sha256": "1b06f9b5baa2f56f4932192ab3d1115b0dcf093b09cf2a48208a11d5b1b4717b"
+    },
+    {
+      "path": "artifacts/reference-examples/20261024-155-patch6/collector-fixed-headless/results.json",
+      "sha256": "d6e49bf74ca6d581da71f811da1807e2d7f638d2481411b3615228dcfad10b3c"
+    }
+  ],
+  "ownSourceEvidence": [
+    {
+      "path": "benchmarks/reference_measurements.py",
+      "sha256": "1d10790f4a1946303cf1eff7c3eb76c876f6ec9216906f3b625cd5355725f21c"
+    },
+    {
+      "path": "benchmarks/reference_result_details.py",
+      "sha256": "86530d9f4656fd26485614ee84f496df895aaa1810dfcbe5302e1a672475083e"
+    },
+    {
+      "path": "benchmarks/reference_persistence.py",
+      "sha256": "93ecacb4a9b8fd96e3899a6aefb02905ce3d776d625f28b71691b901db16e90c"
+    },
+    {
+      "path": "tests/web-api-contract-browser.test.mjs",
+      "sha256": "9dd5c2f962810afac8da26b0f32a154bb88f1f292f74daf63c9601db38c7b333"
+    },
+    {
+      "path": "tests/reference_result_details_test.py",
+      "sha256": "d37a522f021d729bab5090d1445cedc8ed2c9c12f702aab559f6679e50079b60"
+    },
+    {
+      "path": "tests/functional-parity-browser.test.mjs",
+      "sha256": "9699402467e4482907ec97e7a1d46547a19a624bf99db0d31d55f4b923f4367e"
+    }
+  ],
+  "limitations": [
+    "One full run per mode; no production acceptance or universal detector conclusion",
+    "Own SDK and binary substituted into hash-guarded reference measurement functions; no CloakBrowser binary benchmarked",
+    "No proxy configured; patch-six proxy authentication is not exercised by these external examples",
+    "Unsupported reference launch flags omitted; noise-off unqualified despite a returned zero",
+    "BrowserScan word counts and untriggered/unclassified detector entries are not passes",
+    "Failure labels are observations, not native defect attribution or instructions for concealment",
+    "Only selected local functional contracts and invalid calls checked; this is not a full Chromium audit"
+  ]
+}
