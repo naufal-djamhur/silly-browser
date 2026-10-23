@@ -1,6 +1,6 @@
-# Post-build CloakBrowser comparison — 22 October 2026
+# Post-build CloakBrowser comparison — updated 23 October 2026
 
-Status: queued after actual Chromium 155 build qualification. The active Windows x64 build must be preserved. This document adds no native patches and reports no new browser measurements.
+Status: the exact five-patch Windows 155 build passes [48 local integration checks](engine-validation-155.md). The five requested [reference example workflows have now been measured in both modes](reference-tests-155.md): navigation/persistence pass, the demo score is 0.9 per mode, and the overall detector benchmark fails. Preserve the completed runtime and separate manual session. This comparison iteration adds no native patches.
 
 ## Source checkpoint
 
@@ -18,9 +18,9 @@ The four previously measured example blobs are unchanged from the earlier review
 
 ## Ordered iterations
 
-1. **Qualify the completed 155 binary.** Follow [post-build validation](post-build-validation.md). Bind results to executable/DLL hashes, source pin, three-patch manifest, driver versions and actual capabilities. Run the configured engine, Python, local WebRTC and driver gates. Repair the first actual failing gate before moving on. Do not substitute the historical 146 runtime.
-2. **Navigation and profile contracts.** Run equivalent basic navigation and cookie/localStorage restart workflows in both modes. Use isolated owned profiles and explicit assertions, with a local deterministic fixture alongside the public example. Verify session state and seed persistence across two independent launches; test profile isolation and cleanup. Existing persistence checks are useful coverage, but do not qualify every mode on the new binary until executed. Use SDK or fixture fixes when the engine already provides the correct behavior.
-3. **Bounded external measurements.** Rerun the hash-guarded reference measurements on the actual 155 binary in both modes, in new evidence folders. Preserve screenshots, backend responses, service availability and unsupported-option status. Missing/untriggered results are not passes. Report each detector separately; a reCAPTCHA demo observation does not qualify production traffic or establish a guaranteed score.
+1. **Qualify the completed 155 binary — complete for the measured Windows scope.** [48 local checks](engine-validation-155.md) bind results to executable/DLL hashes, the source pin, five-patch manifest, driver versions and actual capabilities. Keep this evidence distinct from the historical 146 runtime.
+2. **Navigation and profile contracts — measured.** Equivalent basic navigation and two-launch cookie/localStorage restart workflows pass in both modes with fresh owned profiles and explicit assertions. The local integration gates separately cover seed/storage, lifecycle and context isolation on this binary. Broader profile contention and interaction cases remain separate MVP work. Use SDK or fixture fixes when the engine already provides correct behavior.
+3. **Bounded external measurements — executed once per mode.** The [hash-bound report](reference-tests-155.md) preserves current 155 observations and documents missing/untriggered coverage and unsupported options. Fingerprint Scan/CreepJS and the qualified detector comparisons fail. A verified 0.9 reCAPTCHA demo score per mode does not qualify production traffic or establish repeatability. Keep raw screenshots/backend evidence private and report each detector separately.
 4. **Comparable product baseline.** Identify the exact lawfully available CloakBrowser binary version, platform, build identity and capabilities before runtime comparison. Pair the same machine, network/proxy policy, locale, viewport, driver, fixture and profile state. Separate cold profiles from persistent profiles. Free historical 146 versus our 155 is a version-confounded reference, not an equal-version control. A current free tier is not evidence that the native patch source is public.
 5. **One implementation change per reproducible defect.** Convert observed correctness, interoperability, rendering or documented privacy-policy failures into local regressions. Choose SDK, configuration or native C++ changes based on the cause. Rebuild incrementally and retest the affected regression in both modes plus relevant compatibility gates. Keep sandboxing enabled. Publish measured scope, not patch-count or detector-parity claims. The broader [interaction plan](headless-headed-e2e-plan.md) remains applicable.
 
@@ -41,11 +41,11 @@ Before native analysis, select and hash the actual comparator artifact, inspect 
 | Question | Evidence and conclusion | Status |
 | --- | --- | --- |
 | Which examples and mode defaults? | Exact source blobs above, source read only | Answered |
-| Do basic/persistence require native patches? | They exercise ordinary navigation/profile APIs; new 155 behavior awaits execution | Partially answered |
-| Does 155 pass the five examples in both modes? | No completed 155 runtime yet | Unresolved |
+| Do basic/persistence require native patches? | Ordinary navigation and two-launch cookie/localStorage workflows pass on the qualified 155 runtime in both modes, without new engine changes | Answered for the measured workflows |
+| Does 155 pass the five examples in both modes? | [Actual 155 measurements](reference-tests-155.md): basic/persistence pass and demo score 0.9 per mode, but Fingerprint Scan/CreepJS and detector suite fail; incomplete variants remain unqualified | Measured; overall target not achieved |
 | How did historical 146 perform? | [Earlier measured report](reference-tests-prestable.md): basic passes; detector/CreepJS failures and unavailable variants remain | Answered for that historical runtime only |
 | What are CloakBrowser's exact native changes? | Public wrapper, original resources and four partial source-bound native slice dossiers; no complete patch set | Partially answered for selected paths; full inventory unresolved |
-| Is product parity established? | No paired exact-artifact comparison and no completed 155 validation | Unresolved |
+| Is product parity established? | Local 155 validation and example measurements exist, but no paired exact-artifact comparison or all-integration qualification | Unresolved |
 
 The initial Ghidra launcher inventory completed successfully (Evidence `ev_b6808de3249cfbe78cbbc4291b37c9b6f600c4121aee52d808c2cf334cfdd626`), reporting 12 segments, 7,350 local/external function entries and 3,664 defined strings. A separate source-built one-function DLL probe passed too (Evidence `ev_049136c2adc3fb387567778e80daf6bcc3362de957b52c18312fb551af5c0935`). Both owned analysis processes closed. These counts establish bounded provider observations, not complete code discovery, original C++ recovery or fingerprint-patch parity. The retained evidence preserves warnings/limitations; the full engine DLL has not been analysed.
 
@@ -53,4 +53,4 @@ The initial Ghidra launcher inventory completed successfully (Evidence `ev_b6808
 
 **SDK/privacy continuation:** the [contract analysis](sdk-compatibility-privacy-analysis.md) adds a pinned source inventory and 26 own SDK observations using browser-free driver stubs. It distinguishes temporary regular profiles from isolated contexts, credential/routing data flows and specific adapter gaps. No native implementation or product parity is qualified by those probes.
 
-The build runner already schedules local validation after linking. This comparison document does not schedule a background implementation agent or automatically run external services. Resume from the next ready iteration using live state and saved evidence.
+The build and its configured local validation have completed. The bounded external measurements were subsequently executed at the user's request. No background implementation agent is scheduled. Resume from the next ready iteration using live state and saved evidence; historical setup/build notes above are not instructions to restart the completed compiler.

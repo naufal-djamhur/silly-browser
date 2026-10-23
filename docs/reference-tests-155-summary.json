@@ -1,0 +1,338 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-23",
+  "platform": "windows-x64",
+  "browserVersion": "155.0.8059.80",
+  "binarySha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+  "runtimeSha256": "ed8619bbe2f4b087fa8e67628b16527393ce5498df596c27ac36fd9f19b5b04b",
+  "sourcePatchCount": 5,
+  "referenceCheckoutCommit": "160f56da85860e89f0e7d9bfdc80266b984057d5",
+  "referenceCheckoutClean": true,
+  "manualSession": {
+    "headed": true,
+    "freshProfile": true,
+    "automationAttached": false,
+    "launchedAt": "2026-10-23T03:35:58.4370976+00:00"
+  },
+  "allFiveExamplesPassBothModes": false,
+  "modes": [
+    {
+      "startedAt": "2026-10-23T03:42:05Z",
+      "completedAt": "2026-10-23T03:44:14Z",
+      "libraries": {
+        "playwright": "1.62.0"
+      },
+      "conditions": {
+        "humanize": false,
+        "proxyConfigured": false,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "profileMode": "fresh-incognito-context-per-case",
+        "launch": "custom_browser.launch"
+      },
+      "adaptations": [
+        "Own custom binary instead of CloakBrowser download/launch",
+        "Only reviewed reference function definitions and TESTS criteria loaded",
+        "Capture paths redirected to this run directory",
+        "Missing/incomplete data excluded from passes",
+        "Unsupported CloakBrowser-specific noise/GeoIP/identity flags are not passed"
+      ],
+      "mode": "headless",
+      "results": [
+        {
+          "example": "basic.py",
+          "name": "basic",
+          "status": "pass",
+          "elapsedSeconds": 0.348,
+          "metrics": {}
+        },
+        {
+          "example": "fingerprint_scan_test.py",
+          "name": "fingerprint-scan",
+          "status": "fail",
+          "score": 100,
+          "requiredScore": "<10",
+          "elapsedSeconds": 23.421,
+          "metrics": {}
+        },
+        {
+          "example": "fingerprint_scan_test.py",
+          "name": "creepjs-headless",
+          "status": "fail",
+          "criteria": "reference <=30% headless and <=30% stealth",
+          "elapsedSeconds": 31.753,
+          "metrics": {
+            "likeHeadlessPct": 38,
+            "headlessPct": 100,
+            "stealthPct": 0
+          }
+        },
+        {
+          "example": "recaptcha_score.py",
+          "name": "recaptcha-v3",
+          "status": "pass",
+          "score": 0.9,
+          "criteria": "reference expected score >=0.9; demo-only observation",
+          "elapsedSeconds": 2.188,
+          "metrics": {},
+          "verifiedBackendSuccess": true
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "sannysoft",
+          "status": "fail",
+          "elapsedSeconds": 8.639,
+          "metrics": {
+            "passed": 52,
+            "total": 56
+          }
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "incolumitas",
+          "status": "fail",
+          "elapsedSeconds": 8.92,
+          "metrics": {
+            "passed": 30,
+            "total": 36,
+            "failed": 6
+          }
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "rebrowser",
+          "status": "fail",
+          "elapsedSeconds": 12.023,
+          "metrics": {
+            "passed": 9,
+            "total": 20,
+            "totalFails": 7,
+            "notTriggered": 3
+          }
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "deviceandbrowserinfo",
+          "status": "fail",
+          "elapsedSeconds": 12.29,
+          "metrics": {
+            "isBot": true
+          }
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "browserscan",
+          "status": "captured-unqualified",
+          "elapsedSeconds": 9.909,
+          "metrics": {
+            "normal": 17,
+            "abnormal": 0
+          }
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "creepjs-noise-off",
+          "status": "unsupported-reference-option",
+          "elapsedSeconds": 15.59,
+          "metrics": {}
+        },
+        {
+          "example": "persistent_context.py",
+          "name": "persistent-context",
+          "status": "pass",
+          "independentLaunches": 2,
+          "browserProduct": "Chrome/155.0.8059.80"
+        }
+      ],
+      "originalMeasurementReferenceCommit": "fbf005bc199920b592df17ac4d489324e29d56d8",
+      "totals": {
+        "captured-unqualified": 1,
+        "fail": 6,
+        "pass": 3,
+        "unsupported-reference-option": 1
+      }
+    },
+    {
+      "startedAt": "2026-10-23T03:39:43Z",
+      "completedAt": "2026-10-23T03:41:50Z",
+      "libraries": {
+        "playwright": "1.62.0"
+      },
+      "conditions": {
+        "humanize": false,
+        "proxyConfigured": false,
+        "viewport": {
+          "width": 1920,
+          "height": 1080
+        },
+        "profileMode": "fresh-incognito-context-per-case",
+        "launch": "custom_browser.launch"
+      },
+      "adaptations": [
+        "Own custom binary instead of CloakBrowser download/launch",
+        "Only reviewed reference function definitions and TESTS criteria loaded",
+        "Capture paths redirected to this run directory",
+        "Missing/incomplete data excluded from passes",
+        "Unsupported CloakBrowser-specific noise/GeoIP/identity flags are not passed"
+      ],
+      "mode": "headed",
+      "results": [
+        {
+          "example": "basic.py",
+          "name": "basic",
+          "status": "pass",
+          "elapsedSeconds": 0.389,
+          "metrics": {}
+        },
+        {
+          "example": "fingerprint_scan_test.py",
+          "name": "fingerprint-scan",
+          "status": "fail",
+          "score": 100,
+          "requiredScore": "<10",
+          "elapsedSeconds": 23.127,
+          "metrics": {}
+        },
+        {
+          "example": "fingerprint_scan_test.py",
+          "name": "creepjs-headless",
+          "status": "fail",
+          "criteria": "reference <=30% headless and <=30% stealth",
+          "elapsedSeconds": 32.251,
+          "metrics": {
+            "likeHeadlessPct": 31,
+            "headlessPct": 33,
+            "stealthPct": 0
+          }
+        },
+        {
+          "example": "recaptcha_score.py",
+          "name": "recaptcha-v3",
+          "status": "pass",
+          "score": 0.9,
+          "criteria": "reference expected score >=0.9; demo-only observation",
+          "elapsedSeconds": 2.391,
+          "metrics": {},
+          "verifiedBackendSuccess": true
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "sannysoft",
+          "status": "fail",
+          "elapsedSeconds": 8.522,
+          "metrics": {
+            "passed": 55,
+            "total": 56
+          }
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "incolumitas",
+          "status": "fail",
+          "elapsedSeconds": 8.876,
+          "metrics": {
+            "passed": 32,
+            "total": 35,
+            "failed": 3
+          }
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "rebrowser",
+          "status": "fail",
+          "elapsedSeconds": 11.977,
+          "metrics": {
+            "passed": 10,
+            "total": 20,
+            "totalFails": 6,
+            "notTriggered": 3
+          }
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "deviceandbrowserinfo",
+          "status": "fail",
+          "elapsedSeconds": 12.349,
+          "metrics": {
+            "isBot": true
+          }
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "browserscan",
+          "status": "captured-unqualified",
+          "elapsedSeconds": 7.7,
+          "metrics": {
+            "normal": 17,
+            "abnormal": 0
+          }
+        },
+        {
+          "example": "stealth_test.py",
+          "name": "creepjs-noise-off",
+          "status": "unsupported-reference-option",
+          "elapsedSeconds": 15.641,
+          "metrics": {}
+        },
+        {
+          "example": "persistent_context.py",
+          "name": "persistent-context",
+          "status": "pass",
+          "independentLaunches": 2,
+          "browserProduct": "Chrome/155.0.8059.80"
+        }
+      ],
+      "originalMeasurementReferenceCommit": "fbf005bc199920b592df17ac4d489324e29d56d8",
+      "totals": {
+        "captured-unqualified": 1,
+        "fail": 6,
+        "pass": 3,
+        "unsupported-reference-option": 1
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "path": "artifacts/reference-examples/20261023-155-manual/persistence/results.json",
+      "sha256": "4cd7c7b4f1c3dd12ee4b2066dda7e15e15a014bc4f0d99bae57a1a9d1c52136b"
+    },
+    {
+      "path": "artifacts/reference-examples/20261023-155-manual/headless/results.json",
+      "sha256": "5aa3c3cb7258828d0467238031eb6abc4984263dd8fec233f01ff632516dd9c3"
+    },
+    {
+      "path": "artifacts/reference-examples/20261023-155-manual/headed/results.json",
+      "sha256": "ed75a99dcd3879d484d39d8e98f30383b0dfd309d6f896c559b35fcfb5ba5468"
+    }
+  ],
+  "limitations": [
+    "One run per display mode; no production or repeated-release acceptance claim",
+    "Adapted reviewed examples using our SDK and exact local binary; no reference binary executed",
+    "Unsupported reference identity/screen/GeoIP/noise launch options were omitted",
+    "Public services, driver defaults and host/network affect observations",
+    "The reCAPTCHA score is from its public demonstration backend, not production provider qualification",
+    "Untriggered checks and raw BrowserScan word counts do not establish a pass",
+    "No new native, driver, property-override or CAPTCHA solver changes were made for these results"
+  ],
+  "referenceBlobs": {
+    "basic.py": "951d581ebd2606a60b0510ebae52fddd491f6f17",
+    "persistent_context.py": "e8978d1b2a8ebc79b9ab9038adb96a877d05e553",
+    "fingerprint_scan_test.py": "472dc99b9faa3cb8f4f006f56b45ee83d75573d8",
+    "recaptcha_score.py": "50202e13a80c22c981c77a5f1bbba1a59f53957b",
+    "stealth_test.py": "bf9d26ed631c4b71e3131d2a00945c7f268f776c"
+  },
+  "runnerEvidence": [
+    {
+      "path": "benchmarks/reference_measurements.py",
+      "sha256": "68f563aa1beff57e5d6bc4a1bc165b0834f9037ece8f894ca94cfe2d8b440258"
+    },
+    {
+      "path": "benchmarks/reference_persistence.py",
+      "sha256": "93ecacb4a9b8fd96e3899a6aefb02905ce3d776d625f28b71691b901db16e90c"
+    }
+  ],
+  "runtimeUnchanged": true,
+  "createdAt": "2026-10-23T03:44:38.903970+00:00"
+}

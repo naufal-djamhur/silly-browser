@@ -4,6 +4,8 @@ An open-source, source-patched Chromium project for browser automation and E2E t
 
 **Experimental:** the five-patch Chromium **155.0.8059.80 Windows x64** build compiles and passes [48 local integration checks](docs/engine-validation-155.md), including headed/headless drivers and native locale/timezone/fonts. There is no published native download or npm/PyPI release yet. The preserved Chromium 146 build remains historical evidence. Native distribution qualification and the complete MVP are still pending.
 
+[Reference example measurements](docs/reference-tests-155.md) are available for both modes. Navigation and profile persistence pass; the public reCAPTCHA demo returned 0.9 per mode. Fingerprint Scan/CreepJS and the detector suite fail their criteria, so no overall benchmark pass or reference-product parity is claimed.
+
 ## Install the SDK today
 
 Requires Node.js **22.12+** or Python **3.10+**, plus Git for these source installs:
