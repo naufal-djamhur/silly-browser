@@ -6,7 +6,7 @@ An open-source, source-patched Chromium project for browser automation and E2E t
 
 [Patch-six reference example measurements](docs/reference-tests-155-patch6.md) are available for both modes, including exact reported failing checks. Navigation and profile persistence pass; the public reCAPTCHA demo returned 0.9 per mode. Fingerprint Scan/CreepJS and the detector suite still fail their criteria. Local functional/API controls establish no native defect in the tested scope; no overall benchmark pass or reference-product parity is claimed.
 
-[Local functional parity](docs/functional-parity-155.md) also passes eight paired scenarios covering layout/fonts, graphics/audio, editing, scrolling, popups, storage and worker configuration. No native defect was reproduced in that bounded inspection.
+[Comparison with an exact-version upstream-source control](docs/stock-comparison-155-patch6.md) passes 61 Node tests and 20 driver smoke checks. Nine shared functional scenarios agree across patch six and unpatched 155.0.8059.80 in headed and headless modes. No native defect was reproduced in that bounded inspection; the [original native configuration parity results](docs/functional-parity-155.md) remain preserved.
 
 ## Install the SDK today
 

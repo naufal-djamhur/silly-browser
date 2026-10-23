@@ -4,9 +4,9 @@ The user authorizes publication once the requested behavior is implemented and q
 
 | Requested capability | Current evidence / remaining gate |
 | --- | --- |
-| Source-patched Chromium | Five-patch 155.0.8059.80 Windows x64 build compiles, links and passes [48 local checks](engine-validation-155.md) |
-| Headed and headless operation | Local Windows 155 identity/configuration/font and driver gates pass in both modes |
-| Playwright, Python, Puppeteer/CDP, Selenium | Ten driver routes pass on the completed Windows 155 runtime; broader driver operations remain separate |
+| Source-patched Chromium | Six-patch 155.0.8059.80 Windows x64 build passes [native HTTP proxy and 48 existing checks](native-http-proxy-155.md); native distribution and CDP source-revision metadata remain release gates |
+| Headed and headless operation | [Exact-version upstream comparison](stock-comparison-155-patch6.md): 61 Node tests pass, including nine shared scenarios in all four engine/mode combinations and separate native configuration checks |
+| Playwright, Python, Puppeteer/CDP, Selenium | All ten custom driver routes pass again alongside ten upstream-control routes on Windows 155; broader driver operations remain separate |
 | Native timezone/locale | Document/frame/worker/HTTP/DST and invalid-option native gates pass on Windows 155; managed policy/host-change behavior remains unqualified |
 | Fonts and native hardware defaults | Native Ahem and ten-face Noto loading/metrics pass in both modes. Broader rendering/font/GPU consistency remains unqualified |
 | Separate font installation | Identical licensed Noto data packages install successfully, and ten real faces load with expected metrics on Windows 155 in both modes; broader Linux reference recipe remains untested |
@@ -14,7 +14,7 @@ The user authorizes publication once the requested behavior is implemented and q
 | Paced mouse/keyboard/scroll and actionability | SDK helpers exist with historical local evidence; new-runtime checks and broader method coverage remain |
 | Persistent profiles | Seed/storage and temporary/persistent context lifecycle checks pass on Windows 155; broader contention/interaction cases remain |
 | Extensions | SDK argument forwarding exists; extension behavior needs a local owned fixture on the finished runtime |
-| HTTP proxy credentials | Playwright authentication adapter exists; native inline-auth network patch and owned proxy routing tests remain unfinished |
+| HTTP proxy credentials | [Native HTTP Basic inline/private-file authentication](native-http-proxy-155.md) passes owned HTTP/CONNECT, bypass, denial and invalid-option checks in both modes; managed-policy integration, other proxy protocols/authentication schemes and per-context native credentials remain unqualified |
 | Authenticated SOCKS5, UDP ASSOCIATE and HTTP3 | Native transport work remains unfinished; unsupported SDK options fail explicitly |
 | GeoIP timezone/locale | Automatic resolver remains unfinished; manual native/context settings are separate implemented paths |
 | WebRTC privacy policies | Local STUN policy behavior passes on Windows 155 in both modes. Broader IPv6/TURN/proxy routing remains unfinished |

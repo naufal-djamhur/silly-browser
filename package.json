@@ -20,6 +20,7 @@
     "test:native-environment": "node --test tests/native-environment-browser.test.mjs",
     "test:native-http-proxy": "node --test tests/http-proxy-native.test.mjs",
     "test:functional-parity": "node --test tests/functional-parity-browser.test.mjs",
+    "test:stock-parity": "node --test tests/stock-parity-browser.test.mjs",
     "test:font-pack:engine": "node --test tests/native-font-pack-browser.test.mjs",
     "benchmark": "node benchmarks/run.mjs",
     "inventory": "node benchmarks/inventory.mjs",

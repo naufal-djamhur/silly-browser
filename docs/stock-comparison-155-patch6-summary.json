@@ -1,0 +1,419 @@
+{
+  "schemaVersion": 1,
+  "measurementDate": "2026-10-24",
+  "dateTimezone": "Asia/Jakarta",
+  "startingRepositoryCommit": "01ae113c302aa0b300aea135f5a6f57c91eeea11",
+  "upstreamRevision": "43a195105613ac83c21d3f14de279f4a045c7da0",
+  "browserVersion": "155.0.8059.80",
+  "platform": "windows",
+  "arch": "x64",
+  "result": "No native defect reproduced in the declared local shared contracts; six-patch runtime unchanged",
+  "engines": [
+    {
+      "engine": "stock-control",
+      "exeSha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+      "dllSha256": "e719c01be39b2aff0903480bdd209b2f5cc03894691f64c3dff7261c8b6683c1",
+      "browserVersion": "155.0.8059.80",
+      "runtimeUnchanged": true,
+      "sourcePatchCount": 0,
+      "officialDistribution": false
+    },
+    {
+      "engine": "patch-six",
+      "exeSha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+      "dllSha256": "951fbc14ffb40db20aff024f69f6c0c743cabe2fb63c33d67d1e673b53f44ece",
+      "browserVersion": "155.0.8059.80",
+      "runtimeUnchanged": true,
+      "sourcePatchCount": 6,
+      "officialDistribution": false
+    }
+  ],
+  "controlBuild": {
+    "method": "Upstream git blobs through Clang VFS; ten translation units rebuilt; three thin archives reconstructed; separate DLL linked from unchanged remaining artifacts",
+    "officialDistribution": false,
+    "argsGn": "is_debug = false\nis_component_build = false\nsymbol_level = 0\nis_official_build = false\ntarget_cpu = \"x64\"\n\n# Use the physical Windows checkout path consistently across GN, Python and Go.\n# Keep Chromium's default TypeScript compiler selection.\n",
+    "sources": [
+      {
+        "path": "chrome/app/chrome_main_delegate.cc",
+        "upstreamSha256": "f0c26e4db79a0ec99cb1de5876f8b162a3ce0ac9f1fdad574f5161a6d4bb6f44"
+      },
+      {
+        "path": "chrome/browser/BUILD.gn",
+        "upstreamSha256": "5c9a66b731954d1d28c7f630071880f0a879bfef924338362004b9ad19f4444b"
+      },
+      {
+        "path": "chrome/browser/chrome_content_browser_client.cc",
+        "upstreamSha256": "5acf5a81454ca1ad8da7474d4aeee057c2ad7f765a443957ffe4a0bb5e70326f"
+      },
+      {
+        "path": "chrome/browser/net/profile_network_context_service.cc",
+        "upstreamSha256": "55d29972186221adc500576187a5ac9f4b4084aa5384bda05a6f9359ed2350bc"
+      },
+      {
+        "path": "chrome/browser/renderer_preferences_util.cc",
+        "upstreamSha256": "5704803c2ccce48ae3b614b876ff1a3730e07b2dcbbe2ab08a527372074bbef4"
+      },
+      {
+        "path": "chrome/common/BUILD.gn",
+        "upstreamSha256": "cbf3b87b865bf44777757d2702cb15372e00ffc763b271608f190b71eb6ac2ab"
+      },
+      {
+        "path": "components/embedder_support/user_agent_utils.cc",
+        "upstreamSha256": "21d06edd8f0b76a0bfef8c7aab2448e4f046f788e24da5591713c3561ea54708"
+      },
+      {
+        "path": "content/browser/renderer_host/dwrite_font_proxy_impl_win.cc",
+        "upstreamSha256": "629f77c916de27a09da6535fed3a2a163a2a813504c2815372b59d97656b9587"
+      },
+      {
+        "path": "services/device/time_zone_monitor/time_zone_monitor.cc",
+        "upstreamSha256": "d982fe5b64046b8fa754d9a2fd67885869fd139023fe7caaf858eb8f5b9554c9"
+      },
+      {
+        "path": "third_party/blink/public/common/BUILD.gn",
+        "upstreamSha256": "4ac2f2eca3762d426cd06f54bc2cf03a5e6f899097ca5af52da9e6b7d04ecd7f"
+      },
+      {
+        "path": "third_party/blink/renderer/core/execution_context/navigator_base.cc",
+        "upstreamSha256": "64b29bb294db26511bd68cb304837bca69fd13b16daf318eae6efbe0565d944b"
+      },
+      {
+        "path": "third_party/blink/renderer/core/timezone/timezone_controller.cc",
+        "upstreamSha256": "c378fecb1cd84682c73ac7ec7122dff402f4a1c9afc4156803f53ccb2db1ea3b"
+      },
+      {
+        "path": "ui/gfx/BUILD.gn",
+        "upstreamSha256": "303909a22f7b045ef7820a7df59716d09f4dd0c8f42dc73c4166149b771c9054"
+      },
+      {
+        "path": "ui/gfx/win/direct_write.cc",
+        "upstreamSha256": "8ef8fd82b4ce653e336ad5cc696503ceb0df0a3bbd86f3759732f3ed45918dad"
+      }
+    ],
+    "objects": [
+      {
+        "source": "chrome/app/chrome_main_delegate.cc",
+        "target": "obj/chrome/chrome_dll/chrome_main_delegate.obj",
+        "sha256": "430a04c50fc7376e4a1cdadf94fc603d6da4e4cf885f019c9f65d4bc555e7c96",
+        "durationSeconds": 17.297
+      },
+      {
+        "source": "chrome/browser/net/profile_network_context_service.cc",
+        "target": "obj/chrome/browser/net/impl/profile_network_context_service.obj",
+        "sha256": "733269cf4783e8955ea7a1e173be89968f8dcafce6ce04d7250cc1cba59d1ae7",
+        "durationSeconds": 11.544
+      },
+      {
+        "source": "chrome/browser/renderer_preferences_util.cc",
+        "target": "obj/chrome/browser/core/renderer_preferences_util.obj",
+        "sha256": "7bd5cbe28177db0d1bf674a2607446506b2a36ad2915d5dc5313d1132797aa01",
+        "durationSeconds": 3.468
+      },
+      {
+        "source": "components/embedder_support/user_agent_utils.cc",
+        "target": "obj/components/embedder_support/user_agent/user_agent_utils.obj",
+        "sha256": "d0574dd88c89c0ca9f4ccbe22ad61c554c3ce6b697aef7be6f5582963b9b06e6",
+        "durationSeconds": 1.77
+      },
+      {
+        "source": "content/browser/renderer_host/dwrite_font_proxy_impl_win.cc",
+        "target": "obj/content/browser/browser/dwrite_font_proxy_impl_win.obj",
+        "sha256": "bac0481829b321731c083735191f85aef179e072bdfc29959e7403864d33e87d",
+        "durationSeconds": 5.992
+      },
+      {
+        "source": "services/device/time_zone_monitor/time_zone_monitor.cc",
+        "target": "obj/services/device/time_zone_monitor/time_zone_monitor/time_zone_monitor.obj",
+        "sha256": "6cec69f4a78283a4d171b0eb3ebef6cf8ccee7b4d28801111c7ecd292806d821",
+        "durationSeconds": 2.078
+      },
+      {
+        "source": "chrome/browser/chrome_content_browser_client.cc",
+        "target": "obj/chrome/browser/core/chrome_content_browser_client.obj",
+        "sha256": "f4af8354f4856bc5f7a7f226b87fef52e2477618d5294b4375b8f254ab611e50",
+        "durationSeconds": 53.34
+      },
+      {
+        "source": "third_party/blink/renderer/core/execution_context/navigator_base.cc",
+        "target": "obj/third_party/blink/renderer/core/core/navigator_base.obj",
+        "sha256": "a699b218b703c82b49b0a8d2b34ee540df5fa4227ba985d6ad56990829857a94",
+        "durationSeconds": 11.739
+      },
+      {
+        "source": "ui/gfx/win/direct_write.cc",
+        "target": "obj/ui/gfx/gfx/direct_write.obj",
+        "sha256": "03b5bdfe6ebf1333b3127204e403a89dfba66929c694d6fe17ccf15357084a34",
+        "durationSeconds": 1.574
+      },
+      {
+        "source": "third_party/blink/renderer/core/timezone/timezone_controller.cc",
+        "target": "obj/third_party/blink/renderer/core/core/timezone_controller.obj",
+        "sha256": "f11f81d238711bac0b46b254e8c81ba2787e3ca6d23686d1f62c7fc50105cdd7",
+        "durationSeconds": 10.671
+      }
+    ],
+    "preservedInputsUnchanged": true,
+    "linkDurationSeconds": 28.951,
+    "durationSeconds": 157.699
+  },
+  "controlAudit": {
+    "modifiedCppFilesRebuilt": 10,
+    "originalTrackedFilesVerified": 14,
+    "customHeadersInPristineCompileLogs": 0,
+    "sharedGeneratedGraphRetained": true,
+    "gnDifferences": "Added header declarations and direct dependency edges retained; no new compiler defines or additional modified C++ translation units",
+    "provenanceSha256": "c38185bc3d7801d82e4d47cc7a0050ad74ebf8c7854d73ac1b4328e8c9e5ff58",
+    "buildScriptSha256": "898ef15c5ff4ed662babc4dff08e62eeb9c30ac032e49c227aca692f3b207ea3",
+    "cdpRevisionMetadata": "@0000000000000000000000000000000000000000; source provenance established through Git blobs and build receipts, not runtime revision text"
+  },
+  "sharedContracts": {
+    "conditions": {
+      "viewport": {
+        "width": 960,
+        "height": 720
+      },
+      "deviceScaleFactor": 1,
+      "environment": "native defaults",
+      "font": "HTTP Ahem web font",
+      "fontSha256": "63d2abd0041c3e3b4b52ad8d382353b53c51c6785e76ce56ed9dacad2d2e31c4",
+      "profile": "fresh isolated context per scenario",
+      "proxy": false,
+      "humanize": false,
+      "expectedNativeEnvironment": {
+        "language": "en-GB",
+        "locale": "en-GB",
+        "timezone": "Asia/Jakarta",
+        "jan": -420,
+        "jul": -420
+      }
+    },
+    "observationsPassed": 36,
+    "observationsFailed": 0,
+    "comparisonCount": 27,
+    "comparisonsPassed": 27,
+    "scenarios": [
+      "valid-beacon-delivery",
+      "layout-and-web-font",
+      "canvas-and-offscreen-worker",
+      "webgl-render-readback",
+      "offline-audio-gain",
+      "unicode-editing-and-tab-order",
+      "nested-scroll-and-iframe-input",
+      "popup-navigation-and-close",
+      "indexeddb-and-default-worker-configuration"
+    ],
+    "crashes": 0,
+    "uncaughtPageErrors": 0
+  },
+  "invalidApiContracts": {
+    "browserModeObservationsPassed": 4,
+    "expectedExceptionsPerObservation": 3,
+    "resultsEqualAcrossAllFourObservations": true,
+    "expectedResults": [
+      {
+        "name": "sendBeacon-required-url",
+        "threw": true,
+        "errorName": "TypeError",
+        "message": "Failed to execute 'sendBeacon' on 'Navigator': 1 argument required, but only 0 present."
+      },
+      {
+        "name": "legacy-getUserMedia-required-callbacks",
+        "threw": true,
+        "errorName": "TypeError",
+        "message": "Failed to execute 'getUserMedia' on 'Navigator': 3 arguments required, but only 0 present."
+      },
+      {
+        "name": "undefined-frames-access",
+        "threw": true,
+        "errorName": "TypeError",
+        "message": "Cannot read properties of undefined (reading 'frames')"
+      }
+    ],
+    "rendererUsableInAllFour": true
+  },
+  "customNativeConfiguration": {
+    "observationsPassed": 16,
+    "observationsFailed": 0,
+    "modeComparisonsPassed": 8,
+    "scope": "Existing native Ahem font-directory, fr-FR locale and Europe/Paris timezone fixtures; stock does not receive custom flags"
+  },
+  "nodeTestTotals": {
+    "passed": 61,
+    "failed": 0,
+    "skipped": 0,
+    "note": "Includes parent/comparison tests; 36 shared, four invalid-call and 16 custom-configuration browser observations"
+  },
+  "drivers": {
+    "passed": 20,
+    "failed": 0,
+    "libraryVersions": {
+      "node": "v24.22.1",
+      "playwright": "1.62.1",
+      "puppeteer": "25.13.0"
+    },
+    "observations": [
+      {
+        "engine": "stock-control",
+        "driver": "playwright-js-sdk",
+        "mode": "headless",
+        "status": "passed"
+      },
+      {
+        "engine": "stock-control",
+        "driver": "playwright-js-cdp",
+        "mode": "headless",
+        "status": "passed"
+      },
+      {
+        "engine": "stock-control",
+        "driver": "puppeteer-cdp",
+        "mode": "headless",
+        "status": "passed"
+      },
+      {
+        "engine": "stock-control",
+        "driver": "playwright-python",
+        "mode": "headless",
+        "status": "passed",
+        "libraryVersion": "1.62.0"
+      },
+      {
+        "engine": "stock-control",
+        "driver": "selenium",
+        "mode": "headless",
+        "status": "passed",
+        "libraryVersion": "4.51.0",
+        "chromeDriverVersion": "155.0.8059.84 (5869fe313571d75152b77813cf0a4ee26a4e6df0-refs/branch-heads/8059@{#1303})"
+      },
+      {
+        "engine": "stock-control",
+        "driver": "playwright-js-sdk",
+        "mode": "headed",
+        "status": "passed"
+      },
+      {
+        "engine": "stock-control",
+        "driver": "playwright-js-cdp",
+        "mode": "headed",
+        "status": "passed"
+      },
+      {
+        "engine": "stock-control",
+        "driver": "puppeteer-cdp",
+        "mode": "headed",
+        "status": "passed"
+      },
+      {
+        "engine": "stock-control",
+        "driver": "playwright-python",
+        "mode": "headed",
+        "status": "passed",
+        "libraryVersion": "1.62.0"
+      },
+      {
+        "engine": "stock-control",
+        "driver": "selenium",
+        "mode": "headed",
+        "status": "passed",
+        "libraryVersion": "4.51.0",
+        "chromeDriverVersion": "155.0.8059.84 (5869fe313571d75152b77813cf0a4ee26a4e6df0-refs/branch-heads/8059@{#1303})"
+      },
+      {
+        "engine": "patch-six",
+        "driver": "playwright-js-sdk",
+        "mode": "headless",
+        "status": "passed"
+      },
+      {
+        "engine": "patch-six",
+        "driver": "playwright-js-cdp",
+        "mode": "headless",
+        "status": "passed"
+      },
+      {
+        "engine": "patch-six",
+        "driver": "puppeteer-cdp",
+        "mode": "headless",
+        "status": "passed"
+      },
+      {
+        "engine": "patch-six",
+        "driver": "playwright-python",
+        "mode": "headless",
+        "status": "passed",
+        "libraryVersion": "1.62.0"
+      },
+      {
+        "engine": "patch-six",
+        "driver": "selenium",
+        "mode": "headless",
+        "status": "passed",
+        "libraryVersion": "4.51.0",
+        "chromeDriverVersion": "155.0.8059.84 (5869fe313571d75152b77813cf0a4ee26a4e6df0-refs/branch-heads/8059@{#1303})"
+      },
+      {
+        "engine": "patch-six",
+        "driver": "playwright-js-sdk",
+        "mode": "headed",
+        "status": "passed"
+      },
+      {
+        "engine": "patch-six",
+        "driver": "playwright-js-cdp",
+        "mode": "headed",
+        "status": "passed"
+      },
+      {
+        "engine": "patch-six",
+        "driver": "puppeteer-cdp",
+        "mode": "headed",
+        "status": "passed"
+      },
+      {
+        "engine": "patch-six",
+        "driver": "playwright-python",
+        "mode": "headed",
+        "status": "passed",
+        "libraryVersion": "1.62.0"
+      },
+      {
+        "engine": "patch-six",
+        "driver": "selenium",
+        "mode": "headed",
+        "status": "passed",
+        "libraryVersion": "4.51.0",
+        "chromeDriverVersion": "155.0.8059.84 (5869fe313571d75152b77813cf0a4ee26a4e6df0-refs/branch-heads/8059@{#1303})"
+      }
+    ]
+  },
+  "sourcePatchCountAfter": 6,
+  "newNativePatches": 0,
+  "nativeCheckoutVerification": "Exact six-patch series verified after control build",
+  "evidenceRoot": "artifacts/stock-parity/20261024-155-patch6",
+  "evidenceSha256": {
+    "shared-results.json": "38b54b9d41cee83af21cd41419bd0cf38fa20a1e2cc4e8d40cc49ce303c733ca",
+    "api-results.json": "c07a1b506a9306bea94516de72086ded02089cbcc14d87e98b13280311cb259b",
+    "native-results.json": "46b8f5f438f9324b97e19020b5e4530823915d0f93e25718b205cd7484f4c7f4",
+    "tests.log": "309b3711cf6e984bae685b3aa4d7ed30b037d994bab1eec0edb04800e0a9f2e5",
+    "execution.json": "e64b3b9ac6090613395dde4f5204c4a7d8a359a8f5d7e6d4f19eb3d5bf3aecf2",
+    "stock-drivers/results.json": "cf4b3ffd23ff332fec11d7b25ebfc30233729e24f24ab835cc0fe514d658aa72",
+    "stock-drivers.log": "d470bf7a987904359af2b89bc179b4c35c84b3f4f95237cd6c3cd155d0453c14",
+    "patch-six-drivers/results.json": "d03af180a8e48eb0438aa76b04cfb7b51e5014c6106b008b52d3ebfbe5104e31",
+    "patch-six-drivers.log": "57c885771bcbde0b8e9ee254eb6fcdac4820b3aea367cd455cd18afcf69f2f5e"
+  },
+  "testSourceSha256": {
+    "tests/stock-parity-browser.test.mjs": "c5568ffb6a13b649ad8682e0a3743f5c22d249068ef3d6b6213c7925ac7a1f76",
+    "tests/web-api-contract-browser.test.mjs": "9dd5c2f962810afac8da26b0f32a154bb88f1f292f74daf63c9601db38c7b333",
+    "tests/functional-parity-browser.test.mjs": "9699402467e4482907ec97e7a1d46547a19a624bf99db0d31d55f4b923f4367e",
+    "compatibility/run.mjs": "3b3a916e7e623253d6b8b81643ad7facdca07b8c9cd7def815c9b29e24e26168",
+    "compatibility/python_driver.py": "d46f87b32990e84f0cd52c1974ee4e5505f08b2b18ab493fbf13dc3d22bd6fd2"
+  },
+  "limitations": [
+    "Locally rebuilt upstream-source control using the same generated build graph and unchanged artifacts; not a separately distributed official Chromium binary or a clean-from-scratch build",
+    "Single paired run on one Windows x64 host; nine deterministic shared contracts are not complete Chromium or rendering coverage",
+    "WebGPU, real-time audio/camera, host-change notifications, wider font fallback and other operating systems remain unqualified by this run",
+    "Reproducing undefined.frames TypeError does not trace the third-party site variable/data flow that became undefined",
+    "External Fingerprint Scan, CreepJS and other detector pages were not rerun; earlier recorded failures remain",
+    "No CAPTCHA, detector-concealment or ChromeDriver binary patch was added; no package/native binary release was published"
+  ]
+}

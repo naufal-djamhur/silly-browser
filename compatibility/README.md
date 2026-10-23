@@ -17,3 +17,5 @@ The ten local checks cover JS Playwright SDK, JS Playwright CDP, Puppeteer CDP, 
 CDP tests use a dedicated temporary profile and an ephemeral loopback port. Clients connect to a browser launched by our SDK. This proves basic attachment, not every driver feature or Puppeteer launch-wrapper parity. No bot detector or CAPTCHA is part of this suite.
 
 The fixture does not cover downloads, file uploads, permissions, mobile/touch, tracing, native dialogs, proxies, extensions, reconnect, simultaneous clients or long-lived sessions yet. Those require additional feature tests before claiming full compatibility.
+
+For the separate exact-version engine comparison, see [patch six versus upstream 155.0.8059.80](../docs/stock-comparison-155-patch6.md). `npm run test:stock-parity` uses both explicit executable paths and an owned Ahem web-font fixture to compare nine shared functional contracts in both modes. It does not require custom configuration features from the upstream control.
