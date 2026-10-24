@@ -6,6 +6,8 @@ Dated 14 October 2026, Asia/Jakarta. Repository: https://github.com/naufal-djamh
 
 This document is a resumable engineering plan, not an automatic execution schedule. The current native checkpoint above supersedes the original pre-build status: a separate seven-patch Windows 155 candidate is compiled and locally tested. Distribution and later feature iterations remain unfinished. See the [session handoff](session-handoff.md) for current evidence and continuation boundaries; [iteration 3](iteration-03.md) preserves the earlier checkpoint.
 
+**Next ready iteration:** [cross-layer native correctness plan](next-native-iteration-155.md), N8-1/N8-2. Add the missing owned CDP lifecycle coverage first; a native patch eight is conditional on a reproduced contract failure. Geometry, font fallback, graphics, routing and extension follow-ups have separate gates. This is planned work, with no compilation started.
+
 ## Checkpoint and first action
 
 - Source: Chromium 146.0.7680.177, with two applied C++ patches. The Windows x64 custom integration binary is built; seed infrastructure and the desktop web identity family have local browser evidence. See [validation summary](engine-validation-summary.json).
