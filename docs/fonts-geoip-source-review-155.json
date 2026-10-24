@@ -1,0 +1,42 @@
+{
+  "reviewDate": "2026-10-24",
+  "dateTimezone": "Asia/Jakarta",
+  "scope": "Public fonts.ts and geoip.py source review for a feature plan, not inspection of proprietary native patches",
+  "referenceFiles": [
+    {
+      "path": "js/src/fonts.ts",
+      "commit": "f0d904c4772eec0fa8a1b07309ec6ba230061bb5",
+      "url": "https://raw.githubusercontent.com/CloakHQ/CloakBrowser/f0d904c4772eec0fa8a1b07309ec6ba230061bb5/js/src/fonts.ts",
+      "sha256": "a646be522532f8d81981f109e9b2c17c7d0cfc1057ffb299bb83b22896f4db94",
+      "bytes": 5438
+    },
+    {
+      "path": "cloakbrowser/geoip.py",
+      "commit": "f0d904c4772eec0fa8a1b07309ec6ba230061bb5",
+      "url": "https://raw.githubusercontent.com/CloakHQ/CloakBrowser/f0d904c4772eec0fa8a1b07309ec6ba230061bb5/cloakbrowser/geoip.py",
+      "sha256": "f53914491b1d8c46b96a0020ab5042a7ff266a3d459366d8680c7b967b02ac87",
+      "bytes": 14040
+    },
+    {
+      "path": "LICENSE",
+      "commit": "f0d904c4772eec0fa8a1b07309ec6ba230061bb5",
+      "url": "https://raw.githubusercontent.com/CloakHQ/CloakBrowser/f0d904c4772eec0fa8a1b07309ec6ba230061bb5/LICENSE",
+      "sha256": "93a9c5b5542faf5ff6c7956406b56930fde10bd4d3e8dc7b89f01a88a8d2b29b",
+      "bytes": 1064
+    }
+  ],
+  "creepjsHeadlessSource": {
+    "path": "src/headless/index.ts",
+    "commit": "10aa6724cd33a1015db1574211890518cd04f0cc",
+    "url": "https://raw.githubusercontent.com/abrahamjuliot/creepjs/10aa6724cd33a1015db1574211890518cd04f0cc/src/headless/index.ts",
+    "sha256": "5641e78ae81b85576cd06ad3bf31b60e2ad73d7ab373451181938d9b99724a23",
+    "bytes": 9343
+  },
+  "localFinding": {
+    "nativePatchCount": 9,
+    "fonts": "Host Windows DirectWrite fonts retained, optional ten-face Noto core pack installed/qualified; broad-script pack and host-audit API pending",
+    "geoip": "Both JS and Python currently reject geoip=True as unimplemented",
+    "externalDiagnosticPass": false
+  },
+  "implementationStarted": false
+}

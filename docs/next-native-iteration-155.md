@@ -4,6 +4,8 @@
 
 The objective is to use the requested diagnostics to identify reproducible inconsistencies between Chromium, CDP, browser APIs and SDK configuration, then repair the responsible layer. Each engine change needs a failing owned fixture and a stated API contract. A positive detector flag alone does not establish that an API is broken.
 
+**Current follow-up:** [the source-backed fonts/GeoIP plan](fonts-geoip-next-plan-155.md) defines F1/P2 followed by G1–G3 and fresh validation. [Patch-nine external measurements](detector-results-155-patch9.md) are now the latest and still fail both sites in both modes. The original starting snapshot below remains historical.
+
 ## Starting point
 
 - Repository checkpoint: `86dfa41803d780d638e487573ff786576a9add71`.
@@ -172,4 +174,4 @@ Use `nativeEnvironment: true` in the owned CDP engine list to include the explic
 
 Every completed iteration records the contract, source diff or no-change conclusion, baseline/candidate evidence, modes tested, remaining limitations and source checkpoint. Update this plan and [the handoff](session-handoff.md). No detector pass, current CloakBrowser parity or production release is qualified by writing the plan.
 
-**Next-session instruction:** N8 and P1 execution are complete. Preserve the nine-patch candidate, patches seven/eight and all controls. Read the geometry report/contracts and select a separately ready P2 font fallback/text investigation from the follow-up queue. Do not rerun a completed build or overwrite qualified runtimes merely because a new session starts.
+**Next-session instruction:** N8 and P1 execution are complete. Preserve the nine-patch candidate, patches seven/eight and all controls. Read the new fonts/GeoIP plan and source review; start F1/P2 font contracts before the dependent implementation and GeoIP milestones. Do not rerun a completed build or overwrite qualified runtimes merely because a new session starts.

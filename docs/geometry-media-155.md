@@ -59,6 +59,8 @@ Exact reverse verification and pristine forward application pass for all nine re
 
 This closes P1 for the scoped contracts. Cross-process frames, real OS DPI changes, multi-monitor movement, Linux/macOS and exhaustive rendering/geometry cases remain unqualified. The scale-reset observation is bounded as described above. No compiler or test pipeline remains active.
 
-**CreepJS and Fingerprint Scan have not been rerun on patch eight or nine.** The latest [patch-seven measurements](detector-results-155-patch7.md) still fail: Fingerprint Scan bot-risk **100/100 in both modes**, CreepJS headless **33% headed / 100% headless**, with stealth **0% / 0%**. This native correctness fix does not establish a detector pass or score improvement.
+**At the P1 completion checkpoint, CreepJS/Fingerprint Scan had not been rerun on patch eight or nine.** The latest [patch-seven measurements](detector-results-155-patch7.md) still fail: Fingerprint Scan bot-risk **100/100 in both modes**, CreepJS headless **33% headed / 100% headless**, with stealth **0% / 0%**. This native correctness fix does not establish a detector pass or score improvement.
 
 The next planned family is **P2: licensed font fallback and text rendering**, requiring its own scoped contract/reproducer before any further native patch. No native binary/npm/PyPI release is qualified or published.
+
+**Subsequent follow-up:** [fresh patch-nine measurements](detector-results-155-patch9.md) now exist and still fail both sites in both modes. They are a separate diagnostic run; the native correctness results above remain unchanged.

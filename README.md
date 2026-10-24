@@ -12,6 +12,8 @@ An open-source, source-patched Chromium project for browser automation and E2E t
 
 The [native CDP timezone fix](docs/cdp-timezone-validation-155.md) now rejects invalid updates and preserves the last valid override across navigation in both modes. The inherited bug remains reproducible on the old runtimes. A [fresh patch-seven diagnostic rerun](docs/detector-results-155-patch7.md) scores Fingerprint Scan 100/100 in both modes and CreepJS headless 33% headed / 100% headless, with stealth 0% in both. All four diagnostic criteria fail; no score improvement is observed.
 
+The latest [patch-nine diagnostic measurements](docs/detector-results-155-patch9.md) still fail Fingerprint Scan and CreepJS in both modes. [The next feature plan](docs/fonts-geoip-next-plan-155.md) covers font diagnostics/licensed rendering and opt-in GeoIP; these features are planned and do not establish a detector pass.
+
 ## Install the SDK today
 
 Requires Node.js **22.12+** or Python **3.10+**, plus Git for these source installs:

@@ -1,6 +1,8 @@
 # silly-browser implementation plan
 
-**24 October native checkpoint:** [patch nine](geometry-media-155.md) fixes stale CSS resolution queries and missing change events on DPR-only updates. A separate Windows x64 155.0.8059.80 candidate passes 16 geometry observations, 36 lifecycle observations, four prior timezone cases, 106 existing Node checks, five Python checks and ten driver routes. Patches seven/eight and older runtimes are preserved. External diagnostics were last measured on patch seven and still failed; no patch-eight/nine diagnostic rerun or release qualification is claimed.
+**24 October native checkpoint:** [patch nine](geometry-media-155.md) fixes stale CSS resolution queries and missing change events on DPR-only updates. A separate Windows x64 155.0.8059.80 candidate passes 16 geometry observations, 36 lifecycle observations, four prior timezone cases, 106 existing Node checks, five Python checks and ten driver routes. Patches seven/eight and older runtimes are preserved. The subsequent patch-nine diagnostic rerun still fails both sites in both modes; no release qualification is claimed.
+
+**Latest requested follow-up:** the [font/GeoIP implementation plan](fonts-geoip-next-plan-155.md) is complete and source-backed. A [fresh patch-nine rerun](detector-results-155-patch9.md) still fails Fingerprint Scan/CreepJS in both modes. Font diagnostics/expanded licensed coverage and GeoIP resolution/integration are planned, not implemented; the detector gate remains unmet.
 
 Dated 14 October 2026, Asia/Jakarta. Repository: https://github.com/naufal-djamhur/silly-browser
 
