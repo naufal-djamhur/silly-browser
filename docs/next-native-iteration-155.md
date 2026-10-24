@@ -1,6 +1,6 @@
 # Next native iteration: browser API correctness across layers
 
-**N8-1 through N8-4 complete — 24 October 2026, Asia/Jakarta.** [Runtime evidence](cdp-lifecycle-155.md) records the native defect, independent CB-0008 and separate qualified candidate. The original plan below is preserved with completed-step annotations; follow-up families remain planned.
+**N8-1 through N8-4 and P1 complete — 24 October 2026, Asia/Jakarta.** [N8 evidence](cdp-lifecycle-155.md) records CB-0008; [P1 evidence](geometry-media-155.md) records the DPR-only invalidation defect, independent CB-0009 and separate qualified candidate. Original planning snapshots below remain historical; the current source/candidate count is nine and P2 is the next planned family.
 
 The objective is to use the requested diagnostics to identify reproducible inconsistencies between Chromium, CDP, browser APIs and SDK configuration, then repair the responsible layer. Each engine change needs a failing owned fixture and a stated API contract. A positive detector flag alone does not establish that an API is broken.
 
@@ -13,7 +13,7 @@ The objective is to use the requested diagnostics to identify reproducible incon
 - Existing gates: four strict CDP timezone cases, 106 Node checks including stock controls, five Python checks and ten driver routes pass. The full Blink/content_shell test harness remains unrun.
 - Latest external observations: Fingerprint Scan **100/100** in both modes; CreepJS headless **33% headed / 100% headless**, like-headless **31% / 38%**, stealth **0% / 0%**. Four complete observations, four criterion failures, no collection errors. See [the exact check tables](detector-results-155-patch7.md) and [hash-bound summary](detector-results-155-patch7-summary.json).
 
-At planning time no additional native defect was established. Execution subsequently reproduced malformed timezone acquisition/update acceptance and implemented CB-0008. Patch seven remains the preserved baseline; the current source/candidate count is eight.
+At planning time no additional native defect was established. Execution subsequently reproduced malformed timezone acquisition/update acceptance and implemented CB-0008. Patch seven remains the preserved baseline; P1 subsequently added the qualified CB-0009; the current source/candidate count is nine.
 
 ## What the references establish
 
@@ -121,7 +121,7 @@ These are ordered coverage investigations, not a claim that each needs a patch:
 
 | Priority | Follow-up | Concrete owned checks | Fix gate |
 | --- | --- | --- | --- |
-| P1 | Native geometry and media queries | Resize/window bounds, visual viewport, screen/available bounds and DPR relationships; configured versus native-window conditions; no silent system-DPI changes | Demonstrated incorrect geometry or propagation; preserve legitimate headed/headless differences |
+| P1 — complete | [Native geometry and media queries](geometry-media-155.md) | Resize/window bounds, visual viewport, screen/available bounds and DPR relationships; configured versus native-window conditions; no silent system-DPI changes | Demonstrated incorrect geometry or propagation; preserve legitimate headed/headless differences |
 | P2 | Font fallback and text rendering | Existing licensed Noto/Ahem pack plus supported-script shaping, missing-glyph fallback, document/worker canvas and permitted local font loading | Incorrect glyph/metric/fallback or permission behavior; no copied host-font identity |
 | P3 | Graphics lifecycle | Deterministic pixel/readback fixtures, OffscreenCanvas, context loss/restoration and reported backend capability | Rendering/API failure under the actual backend; no fabricated GPU identity |
 | P4 | Explicit network/privacy policies | Existing owned proxy fixtures plus separately specified IPv6/TURN/routing tests and truthful timing/error behavior | Violation of an explicit supported routing/privacy policy; category scores alone are insufficient |
@@ -155,7 +155,7 @@ Rollback means select the preserved last-qualified runtime and revert the indepe
 | N8-2 | N8-1 | Complete | Owned lifecycle fixture and both-mode baseline/control report |
 | N8-3 | Confirmed N8-2 contract defect | Complete | Minimal fix and regression; CB-0008 only for an actual native patch |
 | N8-4 | N8-3 | Complete | Separate compiled candidate and final regression/driver evidence |
-| Follow-up queue | N8 investigation closed with a fix or no-change result | Later | One independently scoped family investigation at a time |
+| Follow-up queue | N8 and P1 closed with qualified fixes | P2 planned | One independently scoped family investigation at a time |
 
 Plan completion means this document has a source-bound starting point, check/layer mapping, coverage gaps, ordered tasks, dependencies, acceptance criteria, rollback and continuation instructions. It does not mean the proposed fixtures, fixes or builds have executed. No external score improvement or implementation duration is promised before the relevant defect and build scope are known.
 
@@ -172,4 +172,4 @@ Use `nativeEnvironment: true` in the owned CDP engine list to include the explic
 
 Every completed iteration records the contract, source diff or no-change conclusion, baseline/candidate evidence, modes tested, remaining limitations and source checkpoint. Update this plan and [the handoff](session-handoff.md). No detector pass, current CloakBrowser parity or production release is qualified by writing the plan.
 
-**Next-session instruction:** N8 execution is complete. Preserve the eight-patch candidate, patch seven and all controls. Read the lifecycle report and select the next separately ready geometry/media-query investigation from the follow-up queue. Do not rerun the completed N8 build or overwrite qualified runtimes merely because a new session starts.
+**Next-session instruction:** N8 and P1 execution are complete. Preserve the nine-patch candidate, patches seven/eight and all controls. Read the geometry report/contracts and select a separately ready P2 font fallback/text investigation from the follow-up queue. Do not rerun a completed build or overwrite qualified runtimes merely because a new session starts.

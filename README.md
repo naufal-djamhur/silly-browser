@@ -2,7 +2,7 @@
 
 An open-source, source-patched Chromium project for browser automation and E2E testing, with JavaScript and Python SDKs. Original project code is [MIT-licensed](LICENSE); Chromium and dependencies retain their [upstream licenses](NOTICE).
 
-**Experimental:** the eight-patch Chromium **155.0.8059.80 Windows x64** candidate passes [36 CDP lifecycle observations, four prior timezone cases, 106 existing Node tests, five Python checks and ten driver routes](docs/cdp-lifecycle-155.md), with headed/headless coverage. Patch seven and all earlier controls remain preserved. Native distribution qualification and the complete MVP remain pending; no native download or npm/PyPI release is published.
+**Experimental:** the nine-patch Chromium **155.0.8059.80 Windows x64** candidate passes [16 geometry/media-query observations, 36 CDP lifecycle observations, four prior timezone cases, 106 existing Node tests, five Python checks and ten driver routes](docs/geometry-media-155.md), with headed/headless coverage. Patches seven/eight and all earlier controls remain preserved. Native distribution qualification and the complete MVP remain pending; no native download or npm/PyPI release is published.
 
 [Patch-six reference example measurements](docs/reference-tests-155-patch6.md) are available for both modes, including exact reported failing checks. Navigation and profile persistence pass; the public reCAPTCHA demo returned 0.9 per mode. Fingerprint Scan/CreepJS and the detector suite still fail their criteria. Local functional/API controls establish no native defect in the tested scope; no overall benchmark pass or reference-product parity is claimed.
 

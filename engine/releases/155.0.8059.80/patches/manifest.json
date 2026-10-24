@@ -17,7 +17,8 @@
     "third_party/blink/renderer/core/timezone/timezone_controller.h": "ce117c893d79e4c4e61ea4d2c5d7cc752f4de294337b10100c2652cfca149e02",
     "third_party/blink/renderer/core/inspector/inspector_emulation_agent.cc": "4d01c60b9fbde5c91834decf1ec775872a40f2129423f4b4af6fd25d6fd713ea",
     "third_party/blink/web_tests/inspector-protocol/emulation/set-invalid-timezone-override.js": "2aebe7d21b6f6d4e8b9e5e88e60335ef35448f563566051b11f5182aab2da7ba",
-    "third_party/blink/web_tests/inspector-protocol/emulation/set-invalid-timezone-override-expected.txt": "d625f5a80fde60ca372fdd7b68108f81ee4e0b0bbee8f3b0b7debd0f4862d9af"
+    "third_party/blink/web_tests/inspector-protocol/emulation/set-invalid-timezone-override-expected.txt": "d625f5a80fde60ca372fdd7b68108f81ee4e0b0bbee8f3b0b7debd0f4862d9af",
+    "third_party/blink/renderer/core/frame/web_frame_widget_impl.cc": "5178b1e9f03a664216446a5c74f14a773a9940dbf006fe5398fb829879998c17"
   },
   "fingerprintPatchesImplemented": 0,
   "patches": [
@@ -227,6 +228,33 @@
         "No detector-score or automation-concealment claim"
       ],
       "validationEvidence": "../../../../docs/cdp-lifecycle-155-summary.json"
+    },
+    {
+      "id": "CB-0009",
+      "file": "0009-device-metrics-resolution-invalidation.patch",
+      "scope": "Invalidate CSS resolution queries and MediaQueryList change events for DPR-only device metrics updates in the local frame subtree",
+      "status": "windows-x64-local-integration-validated",
+      "dependencies": [
+        "CB-0008"
+      ],
+      "platforms": [
+        "windows",
+        "linux",
+        "macos"
+      ],
+      "validatedPlatforms": [
+        "windows"
+      ],
+      "regressions": [
+        "tests/geometry-media-browser.test.mjs",
+        "third_party/blink/web_tests/inspector-protocol/emulation/device-metrics-resolution-change.js"
+      ],
+      "limitations": [
+        "Windows x64 document/same-origin-frame DPR-only updates, clear and both display modes locally qualified; real OS DPI changes, cross-process frames and other platforms unqualified",
+        "Blink inspector-protocol regression source added but full harness unrun; owned actual-browser fixture is qualified",
+        "Native CSS/query invalidation fix; no automation-status or detector-score claim"
+      ],
+      "validationEvidence": "../../../../docs/geometry-media-155-summary.json"
     }
   ],
   "plannedFamilies": [
@@ -252,7 +280,7 @@
     "locale",
     "font-directory-windows"
   ],
-  "validationEvidence": "../../../../docs/cdp-lifecycle-155-summary.json",
+  "validationEvidence": "../../../../docs/geometry-media-155-summary.json",
   "transportCompatibilityFamiliesWritten": [
     "http-proxy-basic-auth"
   ]

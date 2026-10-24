@@ -19,6 +19,7 @@
     "test:context": "node --test tests/context-browser.test.mjs",
     "test:native-environment": "node --test tests/native-environment-browser.test.mjs",
     "test:cdp-lifecycle": "node --test tests/cdp-timezone-lifecycle-browser.test.mjs",
+    "test:geometry-media": "node --test tests/geometry-media-browser.test.mjs",
     "test:native-http-proxy": "node --test tests/http-proxy-native.test.mjs",
     "test:functional-parity": "node --test tests/functional-parity-browser.test.mjs",
     "test:stock-parity": "node --test tests/stock-parity-browser.test.mjs",
