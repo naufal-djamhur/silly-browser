@@ -1,6 +1,6 @@
 # Next native iteration: browser API correctness across layers
 
-**Planning complete — 24 October 2026, Asia/Jakarta. Implementation status: planned; no new fixture, engine patch or compilation has started.**
+**N8-1 through N8-4 complete — 24 October 2026, Asia/Jakarta.** [Runtime evidence](cdp-lifecycle-155.md) records the native defect, independent CB-0008 and separate qualified candidate. The original plan below is preserved with completed-step annotations; follow-up families remain planned.
 
 The objective is to use the requested diagnostics to identify reproducible inconsistencies between Chromium, CDP, browser APIs and SDK configuration, then repair the responsible layer. Each engine change needs a failing owned fixture and a stated API contract. A positive detector flag alone does not establish that an API is broken.
 
@@ -13,7 +13,7 @@ The objective is to use the requested diagnostics to identify reproducible incon
 - Existing gates: four strict CDP timezone cases, 106 Node checks including stock controls, five Python checks and ten driver routes pass. The full Blink/content_shell test harness remains unrun.
 - Latest external observations: Fingerprint Scan **100/100** in both modes; CreepJS headless **33% headed / 100% headless**, like-headless **31% / 38%**, stealth **0% / 0%**. Four complete observations, four criterion failures, no collection errors. See [the exact check tables](detector-results-155-patch7.md) and [hash-bound summary](detector-results-155-patch7-summary.json).
 
-The current measurements have not reproduced another native defect. **CB-0008 is not yet specified or implemented.** Keep the patch count at seven until a concrete source change is justified and tracked.
+At planning time no additional native defect was established. Execution subsequently reproduced malformed timezone acquisition/update acceptance and implemented CB-0008. Patch seven remains the preserved baseline; the current source/candidate count is eight.
 
 ## What the references establish
 
@@ -31,7 +31,7 @@ The current measurements have not reproduced another native defect. **CB-0008 is
 | `noTaskbar`, `hasVvpScreenRes` | Configured 1920×1080 context has no available-screen gap; earlier native-window controls match stock | Browser display/viewport configuration and Windows geometry; distinguish virtual screens from physical displays | Patch only invalid geometry/DPI/resize behavior against an explicit contract |
 | `prefersLightColor` | Light preference was selected in both modes | Explicit context/browser color-scheme configuration | A supported preference is not a malfunction |
 | `noContentIndex`, `noContactsManager`, `noDownlinkMax` | The selected API absences also occur in stock 155 and the saved reference | Platform/version/secure-context/permission support matrix and capability reporting | No placeholder API or fabricated value; a complete new API is a separately scoped feature |
-| Timezone/locale | CB-0007 fixes invalid-update state corruption; basic navigation/reset/context gates pass | Blink timezone controller, inspector emulation lifecycle and native defaults | First ready correctness investigation: extend missing lifecycle cases below |
+| Timezone/locale | CB-0007 fixes invalid-update state corruption; basic navigation/reset/context gates pass | Blink timezone controller, inspector emulation lifecycle and native defaults | Completed by N8, including CB-0008; next family is geometry/media-query coverage |
 | Fonts, canvas/text, WebGL/GPU | Basic functional fixtures pass; CreepJS `hasBadWebGL=false`; broad rendering/fallback coverage remains incomplete | Native font/rendering paths and actual graphics backend | Add contract coverage first; fix confirmed rendering defects while preserving actual capabilities |
 | Network/WebRTC | Fingerprint Scan network reason is +49/+50 despite no configured proxy; cause is not established by the public reasons | Owned transport, timing and configured WebRTC-policy fixtures | No native patch based only on category points; do not fabricate timing, headers or network identity |
 
@@ -64,7 +64,7 @@ Both references can change. Freeze the source/reference version and collector ha
 
 ### N8-1 — Define the additional contracts
 
-**Status:** ready. **Depends on:** preserved patch-seven evidence. **Output:** an owned contract matrix; no C++ changes.
+**Status:** complete. **Depends on:** preserved patch-seven evidence. **Output:** [owned contract matrix](cdp-lifecycle-contracts-155.md).
 
 Use the existing CDP probe and native environment tests as context. Record each new scenario's required behavior, affected target/process, expected error or state transition, and how the upstream control behaves. Mark behavior unspecified when documentation does not establish a requirement. Do not assert that page, dedicated worker, service worker and unrelated targets must share every value: their configuration scopes can differ.
 
@@ -74,9 +74,9 @@ The matrix must distinguish existing coverage from new coverage. Existing single
 
 ### N8-2 — Expand the owned CDP lifecycle reproducer
 
-**Status:** planned. **Depends on:** N8-1. **First implementation task next session.**
+**Status:** complete. **Depends on:** N8-1. Nine implemented scenarios include the eight planned cases and the new initial-malformed-ID control.
 
-Add an owned loopback fixture, with test code provisionally named `tests/cdp-timezone-lifecycle-browser.test.mjs` (not created yet). Test both headed and headless modes, with native defaults and explicit native locale/timezone where applicable. Record upstream-control and patch-seven results separately.
+The owned loopback fixture is implemented in `tests/cdp-timezone-lifecycle-browser.test.mjs`; see runtime evidence. Test both headed and headless modes, with native defaults and explicit native locale/timezone where applicable. Record upstream-control and patch-seven results separately.
 
 New cases to qualify:
 
@@ -95,7 +95,7 @@ Record the first failure, accepted/rejected responses, baseline/effective/restor
 
 ### N8-3 — Implement the first confirmed native defect
 
-**Status:** conditional. **Depends on:** an actionable failure from N8-2.
+**Status:** complete. **Depends on:** the reproduced embedded-NUL acquisition/update failure from N8-2. CB-0008 is locally qualified as documented.
 
 Before editing, write the violated contract, exact trigger, expected versus observed result, regression/control result and minimal native cause. A shared upstream defect is eligible if it violates the established contract; matching upstream alone is not proof of correctness.
 
@@ -107,7 +107,7 @@ Add the smallest meaningful regression. When available, add/run the relevant nat
 
 ### N8-4 — Build and qualify a separate candidate
 
-**Status:** conditional. **Depends on:** N8-3.
+**Status:** complete. **Depends on:** N8-3. Separate candidate build and both-mode gates pass.
 
 Inspect live processes first and preserve an active build. Verify the exact ordered patch series and pristine application. Reuse the verified toolchain and appropriate incremental build graph, but write the new runtime into a fresh candidate directory. Preserve the original five-patch output, patch-six/seven runtimes, stock control, reference and manual profiles. Do not restart the old full pipeline into a preserved runtime directory.
 
@@ -151,10 +151,10 @@ Rollback means select the preserved last-qualified runtime and revert the indepe
 
 | Work item | Dependency | Ready now? | Deliverable |
 | --- | --- | --- | --- |
-| N8-1 | Existing patch-seven evidence | Yes | Scoped contract matrix and coverage inventory |
-| N8-2 | N8-1 | After contract review | Owned lifecycle fixture and both-mode baseline/control report |
-| N8-3 | Confirmed N8-2 contract defect | Conditional | Minimal fix and regression; CB-0008 only for an actual native patch |
-| N8-4 | N8-3 | Conditional | Separate compiled candidate and final regression/driver evidence |
+| N8-1 | Existing patch-seven evidence | Complete | Scoped contract matrix and coverage inventory |
+| N8-2 | N8-1 | Complete | Owned lifecycle fixture and both-mode baseline/control report |
+| N8-3 | Confirmed N8-2 contract defect | Complete | Minimal fix and regression; CB-0008 only for an actual native patch |
+| N8-4 | N8-3 | Complete | Separate compiled candidate and final regression/driver evidence |
 | Follow-up queue | N8 investigation closed with a fix or no-change result | Later | One independently scoped family investigation at a time |
 
 Plan completion means this document has a source-bound starting point, check/layer mapping, coverage gaps, ordered tasks, dependencies, acceptance criteria, rollback and continuation instructions. It does not mean the proposed fixtures, fixes or builds have executed. No external score improvement or implementation duration is promised before the relevant defect and build scope are known.
@@ -168,8 +168,8 @@ python build/verify_applied_checkout.py PATH_TO_CHROMIUM_SRC --release 155.0.805
 node benchmarks/cdp_emulation_probe.mjs --engines PATH_TO_ENGINE_LIST.json --output NEW_REPORT_DIRECTORY --expect-fixed
 ```
 
-Use `nativeEnvironment: true` in the owned CDP engine list to include the explicit-native-default cases. The new lifecycle test command will be added when N8-2 is implemented; it does not exist yet. Existing browser/Python/driver commands and their report requirements are documented in [the patch-seven qualification](cdp-timezone-validation-155.md).
+Use `nativeEnvironment: true` in the owned CDP engine list to include the explicit-native-default cases. The implemented lifecycle command is `npm run test:cdp-lifecycle`, with `CUSTOM_CDP_LIFECYCLE_ENGINES` and a fresh `CUSTOM_CDP_LIFECYCLE_REPORT`; see the contract record. Existing browser/Python/driver commands and their report requirements are documented in [the patch-seven qualification](cdp-timezone-validation-155.md).
 
 Every completed iteration records the contract, source diff or no-change conclusion, baseline/candidate evidence, modes tested, remaining limitations and source checkpoint. Update this plan and [the handoff](session-handoff.md). No detector pass, current CloakBrowser parity or production release is qualified by writing the plan.
 
-**Next-session instruction:** continue with N8-1 and N8-2 using the preserved patch-seven and exact-version upstream control. Keep compilation stopped while preparing the missing owned lifecycle tests. Proceed to a native patch/build only when a reproducible contract failure justifies it. Preserve all existing runtimes and unrelated legacy changes.
+**Next-session instruction:** N8 execution is complete. Preserve the eight-patch candidate, patch seven and all controls. Read the lifecycle report and select the next separately ready geometry/media-query investigation from the follow-up queue. Do not rerun the completed N8 build or overwrite qualified runtimes merely because a new session starts.

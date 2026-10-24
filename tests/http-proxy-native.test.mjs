@@ -36,6 +36,12 @@ async function fixture(){
     upstream.on('error',()=>{res.writeHead(502);res.end()});req.pipe(upstream);
   });
   proxy.on('connect',(req,client,head)=>{
+    // CONNECT hands this raw socket to the fixture, including early rejections.
+    // Browsers can cancel background/rejected tunnels with a connection reset.
+    client.on('error',error=>{
+      if(error.code!=='ECONNRESET')throw error;
+      records.push({kind:'connect-client-reset',code:error.code});
+    });
     if(req.url!==`tunnel.test:${tlsOrigin.address().port}`){client.end('HTTP/1.1 502 Bad Gateway\r\nConnection: close\r\n\r\n');return}
     const valid=req.headers['proxy-authorization']===expected;
     records.push({kind:'connect-proxy',credentialsProvided:!!req.headers['proxy-authorization'],authenticated:valid});

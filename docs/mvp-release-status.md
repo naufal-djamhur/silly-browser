@@ -4,7 +4,7 @@ The user authorizes publication once the requested behavior is implemented and q
 
 | Requested capability | Current evidence / remaining gate |
 | --- | --- |
-| Source-patched Chromium | Seven-patch 155.0.8059.80 Windows x64 candidate passes [106 Node, five Python, ten driver and strict CDP timezone gates](cdp-timezone-validation-155.md); native distribution and CDP source-revision metadata remain release gates |
+| Source-patched Chromium | Eight-patch 155.0.8059.80 Windows x64 candidate passes [36 lifecycle observations, four prior timezone cases, 106 existing Node, five Python and ten driver checks](cdp-lifecycle-155.md); native distribution and CDP source-revision metadata remain release gates |
 | Headed and headless operation | [Exact-version upstream comparison](stock-comparison-155-patch6.md): 61 Node tests pass, including nine shared scenarios in all four engine/mode combinations and separate native configuration checks |
 | Playwright, Python, Puppeteer/CDP, Selenium | All ten custom driver routes pass again alongside ten upstream-control routes on Windows 155; broader driver operations remain separate |
 | Native timezone/locale | Document/frame/worker/HTTP/DST and invalid-option native gates pass on Windows 155; managed policy/host-change behavior remains unqualified |

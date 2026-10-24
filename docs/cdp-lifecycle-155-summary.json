@@ -1,0 +1,894 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-24",
+  "dateTimezone": "Asia/Jakarta",
+  "startingRepositoryCommit": "8ebce53e553a1c3b3c652525c4a6f8d6641daff9",
+  "scope": "N8 CDP lifecycle contracts and native embedded-NUL timezone validation; no external detector rerun",
+  "status": "windows-x64-local-integration-validated",
+  "version": "155.0.8059.80",
+  "upstreamCommit": "43a195105613ac83c21d3f14de279f4a045c7da0",
+  "sourcePatchCount": 8,
+  "patch": {
+    "id": "CB-0008",
+    "file": "engine/releases/155.0.8059.80/patches/0008-timezone-embedded-nul-validation.patch",
+    "sha256": "f21a19e634b3968bd9caa6a2686458571a0279240fa82e82c096c611b10c5fc1"
+  },
+  "finding": {
+    "trigger": "A supported timezone prefix followed by embedded U+0000 and extra characters",
+    "before": "Accepted after truncation at NUL; acquisition or update may change the effective timezone",
+    "after": "Rejected on acquisition and update before ICU canonicalization; last accepted state preserved",
+    "nativeCause": "NUL-terminated ICU input conversion and canonical-equivalence early return without embedded-NUL rejection",
+    "baselineReproducedModes": [
+      "headed",
+      "headless"
+    ],
+    "baselineReproducedEngines": [
+      "silly-patch-seven",
+      "upstream-155"
+    ]
+  },
+  "candidate": {
+    "exeSha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+    "dllSha256": "afd67b2deb35a39080830b801451148d5c2eadffe64225f1902f41177daaff3e",
+    "engineInfo": {
+      "engine": "custom-browser",
+      "policyVersion": 1,
+      "sourcePatchCount": 8,
+      "capabilities": [
+        "seed",
+        "platform-identity",
+        "webrtc-policy",
+        "native-timezone",
+        "native-locale",
+        "font-directory-windows",
+        "http-proxy-inline-auth"
+      ],
+      "fingerprintIntegrationValidated": false
+    }
+  },
+  "build": {
+    "revision": "43a195105613ac83c21d3f14de279f4a045c7da0",
+    "version": "155.0.8059.80",
+    "sourcePatchCount": 8,
+    "method": "Six translation units rebuilt using exact GN commands; two separate thin Blink archives and DLL linked from the unchanged remaining artifacts",
+    "cleanFromScratch": false,
+    "officialDistribution": false,
+    "argsGn": "is_debug = false\nis_component_build = false\nsymbol_level = 0\nis_official_build = false\ntarget_cpu = \"x64\"\n\n# Use the physical Windows checkout path consistently across GN, Python and Go.\n# Keep Chromium's default TypeScript compiler selection.\n",
+    "objects": [
+      {
+        "source": "third_party/blink/renderer/core/timezone/timezone_controller.cc",
+        "target": "obj/third_party/blink/renderer/core/core/timezone_controller.obj",
+        "sha256": "bce3a1693e95c56f336d8901b5cf6fd429295f063b4320021c1df7e327cc6b82",
+        "durationSeconds": 20.332
+      },
+      {
+        "source": "chrome/app/chrome_main_delegate.cc",
+        "target": "obj/chrome/chrome_dll/chrome_main_delegate.obj",
+        "sha256": "351b78b430116743f9a43422fd15aea49fd52e7ca43dc2a4b251c7c036dec66a",
+        "durationSeconds": 20.778
+      },
+      {
+        "source": "third_party/blink/renderer/core/core_initializer.cc",
+        "target": "obj/third_party/blink/renderer/core/core/core_initializer.obj",
+        "sha256": "5ea186e8dcf29e074de8d7ceae452bd13cd5c6df38b8f7592310e188bbd51b98",
+        "durationSeconds": 7.614
+      },
+      {
+        "source": "third_party/blink/renderer/core/inspector/worker_inspector_controller.cc",
+        "target": "obj/third_party/blink/renderer/core/core/worker_inspector_controller.obj",
+        "sha256": "65dfb23fdca53cad03b8bc42d8e6d162ca8697670d084da6de3890be246b44ac",
+        "durationSeconds": 10.078
+      },
+      {
+        "source": "third_party/blink/renderer/core/inspector/inspector_emulation_agent.cc",
+        "target": "obj/third_party/blink/renderer/core/core/inspector_emulation_agent.obj",
+        "sha256": "febe96bcd61b51c71f0ae2f9d35b3fdc8cbc2b2afe184cf58c59f03eae3044cf",
+        "durationSeconds": 23.384
+      },
+      {
+        "source": "third_party/blink/renderer/core/exported/web_dev_tools_agent_impl.cc",
+        "target": "obj/third_party/blink/renderer/core/exported/exported/web_dev_tools_agent_impl.obj",
+        "sha256": "2182d5fd64bce3db0bdf1f7faec6b9bf18d7b90d73a0e69f62c1b6df4d139444",
+        "durationSeconds": 22.606
+      }
+    ],
+    "preservedInputsUnchanged": true,
+    "exeSha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+    "dllSha256": "afd67b2deb35a39080830b801451148d5c2eadffe64225f1902f41177daaff3e",
+    "linkDurationSeconds": 29.182,
+    "durationSeconds": 150.833
+  },
+  "baseline": {
+    "observations": 54,
+    "passed": 36,
+    "failed": 18,
+    "engines": [
+      {
+        "id": "silly-patch-seven",
+        "version": "155.0.8059.80",
+        "exeSha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+        "dllSha256": "4791896fcfe854ffd50d14cf88f51857967b8159995ba346f61b5a14183de526",
+        "nativeEnvironment": true,
+        "runtimeUnchanged": true
+      },
+      {
+        "id": "upstream-155",
+        "version": "155.0.8059.80",
+        "exeSha256": "97b9577437513d19f289fd9bd76e2953956c1e7e014fa2d09cf622ebebcff052",
+        "dllSha256": "e719c01be39b2aff0903480bdd209b2f5cc03894691f64c3dff7261c8b6683c1",
+        "runtimeUnchanged": true
+      }
+    ],
+    "byEngine": {
+      "silly-patch-seven": {
+        "observations": 36,
+        "passed": 28,
+        "failed": 8,
+        "failedScenarios": {
+          "interleaved-invalid-updates": 4,
+          "initial-malformed-timezone-identifiers": 4
+        }
+      },
+      "upstream-155": {
+        "observations": 18,
+        "passed": 8,
+        "failed": 10,
+        "failedScenarios": {
+          "interleaved-invalid-updates": 2,
+          "rejected-update-cross-site-and-return": 2,
+          "rejected-update-reload-and-document-replacement": 2,
+          "detach-after-rejected-update": 2,
+          "initial-malformed-timezone-identifiers": 2
+        }
+      }
+    },
+    "explanation": "Intentional RED contracts; stock additionally retains the invalid-update state defect fixed by CB-0007"
+  },
+  "candidateLifecycle": {
+    "scenarios": 9,
+    "configurations": [
+      "default",
+      "native-environment"
+    ],
+    "modes": [
+      "headed",
+      "headless"
+    ],
+    "observations": 36,
+    "passed": 36,
+    "failed": 0,
+    "nodeTestsIncludingOuterWrapper": 37,
+    "scenarioNames": [
+      "close-target-and-create-target",
+      "detach-after-rejected-update",
+      "initial-malformed-timezone-identifiers",
+      "interleaved-invalid-updates",
+      "multiple-client-ownership",
+      "persistent-profile-relaunch",
+      "rejected-update-cross-site-and-return",
+      "rejected-update-reload-and-document-replacement",
+      "worker-creation-and-restoration"
+    ],
+    "observationsDetail": [
+      {
+        "configuration": "default",
+        "mode": "headed",
+        "name": "interleaved-invalid-updates",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 25,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 10
+      },
+      {
+        "configuration": "default",
+        "mode": "headed",
+        "name": "rejected-update-cross-site-and-return",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 5,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "default",
+        "mode": "headed",
+        "name": "rejected-update-reload-and-document-replacement",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 5,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "default",
+        "mode": "headed",
+        "name": "detach-after-rejected-update",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 4,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "default",
+        "mode": "headed",
+        "name": "close-target-and-create-target",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 3,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "default",
+        "mode": "headed",
+        "name": "persistent-profile-relaunch",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 5,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "default",
+        "mode": "headed",
+        "name": "multiple-client-ownership",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 8,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "default",
+        "mode": "headed",
+        "name": "worker-creation-and-restoration",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 4,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "default",
+        "mode": "headed",
+        "name": "initial-malformed-timezone-identifiers",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 12,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 5
+      },
+      {
+        "configuration": "default",
+        "mode": "headless",
+        "name": "interleaved-invalid-updates",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 25,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 10
+      },
+      {
+        "configuration": "default",
+        "mode": "headless",
+        "name": "rejected-update-cross-site-and-return",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 5,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "default",
+        "mode": "headless",
+        "name": "rejected-update-reload-and-document-replacement",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 5,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "default",
+        "mode": "headless",
+        "name": "detach-after-rejected-update",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 4,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "default",
+        "mode": "headless",
+        "name": "close-target-and-create-target",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 3,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "default",
+        "mode": "headless",
+        "name": "persistent-profile-relaunch",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 5,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "default",
+        "mode": "headless",
+        "name": "multiple-client-ownership",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 8,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "default",
+        "mode": "headless",
+        "name": "worker-creation-and-restoration",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 4,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "default",
+        "mode": "headless",
+        "name": "initial-malformed-timezone-identifiers",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Asia/Jakarta",
+          "locale": "en-GB",
+          "jan": -420,
+          "jul": -420
+        },
+        "contractChecksPassed": 12,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 5
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headed",
+        "name": "interleaved-invalid-updates",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 25,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 10
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headed",
+        "name": "rejected-update-cross-site-and-return",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 5,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headed",
+        "name": "rejected-update-reload-and-document-replacement",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 5,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headed",
+        "name": "detach-after-rejected-update",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 4,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headed",
+        "name": "close-target-and-create-target",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 3,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headed",
+        "name": "persistent-profile-relaunch",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 5,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headed",
+        "name": "multiple-client-ownership",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 8,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headed",
+        "name": "worker-creation-and-restoration",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 4,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headed",
+        "name": "initial-malformed-timezone-identifiers",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 12,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 5
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headless",
+        "name": "interleaved-invalid-updates",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 25,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 10
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headless",
+        "name": "rejected-update-cross-site-and-return",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 5,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headless",
+        "name": "rejected-update-reload-and-document-replacement",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 5,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headless",
+        "name": "detach-after-rejected-update",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 4,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headless",
+        "name": "close-target-and-create-target",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 3,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headless",
+        "name": "persistent-profile-relaunch",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 5,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headless",
+        "name": "multiple-client-ownership",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 8,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headless",
+        "name": "worker-creation-and-restoration",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 4,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 0
+      },
+      {
+        "configuration": "native-environment",
+        "mode": "headless",
+        "name": "initial-malformed-timezone-identifiers",
+        "status": "passed",
+        "baseline": {
+          "timezone": "Europe/Paris",
+          "locale": "fr-FR",
+          "jan": -60,
+          "jul": -120
+        },
+        "contractChecksPassed": 12,
+        "contractChecksFailed": 0,
+        "pageErrors": [],
+        "crashes": [],
+        "malformedRequestsRejected": 5
+      }
+    ]
+  },
+  "regressions": {
+    "previousTimezoneContractCasesPassed": 4,
+    "nodeBrowserTestsPassed": 106,
+    "nodeBrowserTestsFailed": 0,
+    "nodeSkipped": 0,
+    "pythonTestsPassed": 5,
+    "driverRoutesPassed": 10,
+    "driverRoutesFailed": 0,
+    "stockFunctionalObservationsPassed": 36,
+    "stockEqualComparisonsPassed": 27,
+    "libraryVersions": {
+      "node": "v24.22.1",
+      "playwright": "1.62.1",
+      "puppeteer": "25.13.0"
+    },
+    "chromeDriverVersions": [
+      "155.0.8059.84 (5869fe313571d75152b77813cf0a4ee26a4e6df0-refs/branch-heads/8059@{#1303})"
+    ]
+  },
+  "preservation": {
+    "patchSevenRuntimeUnchanged": true,
+    "originalSourceBuildRuntimeInputsUnchangedAfterTests": true,
+    "baselineRuntimeHashesUnchanged": true,
+    "exactAppliedSeries": 8,
+    "pristineForwardSeries": 8
+  },
+  "execution": [
+    {
+      "name": "lifecycle",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "durationSeconds": 28.739,
+      "passed": true
+    },
+    {
+      "name": "timezone-contract",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "durationSeconds": 7.65,
+      "passed": true
+    },
+    {
+      "name": "browser-regressions",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "durationSeconds": 91.685,
+      "passed": true
+    },
+    {
+      "name": "python",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "durationSeconds": 11.397,
+      "passed": true
+    },
+    {
+      "name": "drivers",
+      "exitCode": 0,
+      "expectedExitCode": 0,
+      "durationSeconds": 23.266,
+      "passed": true
+    }
+  ],
+  "fixtureCorrection": {
+    "initialNodePassed": 101,
+    "initialNodeFailedIncludingParent": 5,
+    "initialFunctionalProxyObservationsPassed": 10,
+    "initialUncaughtResetErrors": 4,
+    "cause": "CONNECT transfers raw socket ownership to the fixture; early rejection paths lacked a reset handler",
+    "change": "Record ECONNRESET on CONNECT clients, including early rejected/background tunnels; other errors and auth assertions remain failures",
+    "patchSevenProxyControl": {
+      "exitCode": 0,
+      "functionalObservationsPassed": 10,
+      "functionalObservationsFailed": 0,
+      "uncaughtConnectionResetErrors": 0,
+      "runtimeUnchanged": true
+    },
+    "correctedCandidateProxyObservationsPassed": 10,
+    "correctedCandidateConnectionResetsRecorded": 0,
+    "attributionLimit": "Initial TCP stack did not identify each connection; corrected run may observe no resets, so no per-connection cause is claimed",
+    "initialEvidencePreserved": "artifacts/cdp-lifecycle/20261024-candidate8/initial-browser-regression"
+  },
+  "sourceSha256": {
+    "tests/cdp-timezone-lifecycle-browser.test.mjs": "d075ee559e32ed18bb7fcb9d573652b92d122d2843326bd28097770492508bd5",
+    "tests/http-proxy-native.test.mjs": "b2afa93454dd74730b2d65c3879e607899e4842d4663e2663cb2f7b62a95c19c",
+    "benchmarks/cdp_emulation_probe.mjs": "d99f9187a5f00a8e53fe66d17d9867d770001b45fb04efd3d6da6c67f042ecfc"
+  },
+  "rawEvidence": {
+    "baseline": "artifacts/cdp-lifecycle/20261024-baseline",
+    "candidate": "artifacts/cdp-lifecycle/20261024-candidate8"
+  },
+  "evidenceSha256": {
+    "baseline-results.json": "ac07f3fb94f36a72f5f6341a6c44a5b199b6307b40a699efcdfe8178e3d00aff",
+    "candidate-lifecycle-results.json": "fa1b2be63ec7ea4632e0aca7846dcfd52349e6f7bf169761671b4df9f9e734ed",
+    "execution.json": "c5fa489202e8e9f6292143a23071df3161a487e68c93a93aaeaf623279c6abcd",
+    "browser-regressions.log": "2f252d982d08002e15709d87dcca24cf320d5d51001b502050546b0cffa5ee8f",
+    "driver-results.json": "06c473841ae349a4180a375081853d6c2a25bb0cb8a00ffd790f8630d7f5d9e2"
+  },
+  "limitations": [
+    "Windows x64 incremental build using shared unchanged artifacts; no clean full build or official distribution",
+    "Blink inspector-protocol source regression extended; full Blink/content_shell harness not built or run",
+    "Matching second-client request does not establish independent ownership; post-owner-detach state is observational",
+    "Worker during-override inheritance is observational; explicit native baseline/restoration is asserted",
+    "Linux/macOS, real OS-timezone change events and exhaustive client/worker races remain unqualified",
+    "No external diagnostic rerun, detector-score improvement or automation-concealment claim",
+    "No native binary, npm or PyPI release published"
+  ]
+}

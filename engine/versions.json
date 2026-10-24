@@ -24,7 +24,7 @@
       "role": "verified-stable-target-at-2026-10-14",
       "status": "integration-validated-windows-x64",
       "productionEligible": false,
-      "evidence": "../docs/cdp-timezone-validation-155-summary.json",
+      "evidence": "../docs/cdp-lifecycle-155-summary.json",
       "source": "https://chromiumdash.appspot.com/fetch_releases?channel=Stable&platform=Windows&num=1"
     },
     {

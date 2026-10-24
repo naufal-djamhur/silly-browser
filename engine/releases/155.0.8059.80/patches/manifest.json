@@ -200,6 +200,33 @@
         "Protocol correctness fix; no automation concealment or detector-score claim"
       ],
       "validationEvidence": "../../../../docs/cdp-timezone-validation-155-summary.json"
+    },
+    {
+      "id": "CB-0008",
+      "file": "0008-timezone-embedded-nul-validation.patch",
+      "scope": "Reject embedded-NUL timezone identifiers on acquisition and update before ICU canonicalization; preserve effective and serialized state",
+      "status": "windows-x64-local-integration-validated",
+      "dependencies": [
+        "CB-0007"
+      ],
+      "platforms": [
+        "windows",
+        "linux",
+        "macos"
+      ],
+      "validatedPlatforms": [
+        "windows"
+      ],
+      "regressions": [
+        "tests/cdp-timezone-lifecycle-browser.test.mjs",
+        "third_party/blink/web_tests/inspector-protocol/emulation/set-invalid-timezone-override.js"
+      ],
+      "limitations": [
+        "Windows x64 default/native configurations and headed/headless local lifecycle qualified; other platforms and exhaustive races unqualified",
+        "Blink protocol regression extended but full Blink harness unrun; owned real-browser fixture is qualified",
+        "No detector-score or automation-concealment claim"
+      ],
+      "validationEvidence": "../../../../docs/cdp-lifecycle-155-summary.json"
     }
   ],
   "plannedFamilies": [
@@ -225,7 +252,7 @@
     "locale",
     "font-directory-windows"
   ],
-  "validationEvidence": "../../../../docs/cdp-timezone-validation-155-summary.json",
+  "validationEvidence": "../../../../docs/cdp-lifecycle-155-summary.json",
   "transportCompatibilityFamiliesWritten": [
     "http-proxy-basic-auth"
   ]

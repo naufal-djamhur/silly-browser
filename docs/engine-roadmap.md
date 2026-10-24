@@ -6,7 +6,7 @@ The [implementation plan](implementation-plan.md) turns these gates into 26 iter
 
 ## Release lines
 
-See `engine/versions.json` for exact revision pins. Chromium 146 is historical evidence. The seven-patch **155.0.8059.80 Windows x64** candidate passes the [CDP timezone regression, 106 Node checks, five Python checks and ten driver routes](cdp-timezone-validation-155.md); prior five/six-patch evidence remains preserved. Production/distribution qualification stays pending. The earlier 156 pin remains a proposed snapshot. No broad Chromium version range is advertised.
+See `engine/versions.json` for exact revision pins. The eight-patch **155.0.8059.80 Windows x64** candidate passes the [CDP lifecycle, malformed-ID validation and existing regression/driver gates](cdp-lifecycle-155.md); prior runtimes and evidence remain preserved. Chromium 146 is historical. Distribution/production qualification remains pending, with no broad Chromium version range advertised.
 
 Every maintained revision needs a separate ordered patch series, clean checkout verification, build output, binary hash, feature report, and driver matrix. A user-agent override never selects an engine version. A release line becomes supported only after its actual binary qualifies. Security updates require rebasing and re-running these gates.
 
@@ -14,24 +14,24 @@ Every maintained revision needs a separate ordered patch series, clean checkout 
 
 | ID | Work | Current evidence/status | Required completion evidence |
 |---|---|---|---|
-| BUILD-01 | Windows native engine | Seven-patch Windows 155 candidate compiles; version/hash/handshake and local gates pass; [evidence](cdp-timezone-validation-155-summary.json) | Successful build, engine handshake, exact binary version/hash |
+| BUILD-01 | Windows native engine | Eight-patch Windows 155 candidate compiles; lifecycle/version/hash/handshake and local gates pass; [evidence](cdp-lifecycle-155-summary.json) | Successful build, engine handshake, exact binary version/hash |
 | ENGINE-02 | Platform identity | Windows 146 headed/headless native/preset identities pass on page, frame and three worker types | UA and Client Hints agree across HTTP, main page, frames and workers; native mode preserved |
 | ENGINE-03 | Native graphics | Chromium defaults retained; no custom spoofing implemented | Record hardware adapter, WebGL/WebGPU values and rendering on headed/headless custom builds |
 | ENGINE-04 | Fonts | Additive Windows directory, Ahem and ten Noto face metrics pass in both modes; wider enumeration/fallback unqualified | Font rendering/enumeration coverage, permissions, installed-font provenance and native fallback behavior |
 | ENGINE-05 | Canvas and geometry policies | Not implemented | Consistent behavior for canvas, OffscreenCanvas, worker rendering, image export and rectangles; native mode regression checks |
 | ENGINE-06 | Audio policies | Not implemented | Offline/real-time audio consistency, stable profile policy, bounded changes and native-mode comparison |
 | ENGINE-07 | Screen/display consistency | Native defaults only | Multiple displays, scaling, viewport and outer-window geometry; headed/headless coverage |
-| ENGINE-08 | WebRTC privacy/routing | Local Windows STUN policy fixture passes again on patch seven in both modes; IPv6/TURN/proxy routing remains unqualified | ICE/STUN/TURN, IPv4/IPv6, proxy routing and leak tests; explicit policy and failure behavior |
+| ENGINE-08 | WebRTC privacy/routing | Local Windows STUN policy fixture passes again on patch eight in both modes; IPv6/TURN/proxy routing remains unqualified | ICE/STUN/TURN, IPv4/IPv6, proxy routing and leak tests; explicit policy and failure behavior |
 | NET-09 | Native HTTP proxy credentials | Sixth C++ patch passes HTTP Basic/CONNECT/encoded credentials/private-file/denial/bypass in both modes on Windows 155; [scope and evidence](native-http-proxy-155.md) | Bounded local gate complete; TLS-to-proxy, other auth schemes and managed-policy deployment need separate qualification |
 | NET-10 | Native SOCKS5 authentication | Unsupported and rejected explicitly | RFC negotiation, credentials, remote DNS, IPv6, timeouts and error propagation |
 | NET-11 | SOCKS5 UDP and HTTP/3 | Not implemented | UDP ASSOCIATE and QUIC end-to-end traffic capture; truthful fallback behavior |
 | NET-12 | Network exposure policy | Not implemented | Headers/cache/timing policy with protocol correctness and diagnostic evidence |
-| INPUT-13 | Engine/CDP input behavior | CDP timezone validation/state fix passes both modes on patch seven; input pacing remains SDK behavior | Native event semantics, actionability, cancellation, timeouts, nested frames and raw driver coverage |
+| INPUT-13 | Engine/CDP input behavior | CDP validation/state and embedded-NUL rejection pass both modes through patch eight; input pacing remains SDK behavior | Native event semantics, actionability, cancellation, timeouts, nested frames and raw driver coverage |
 | SDK-14 | GeoIP/timezone/locale | GeoIP rejected explicitly | Deadline-limited resolution through the configured proxy, explicit overrides, cache and failure tests |
 | SDK-15 | Extensions and profiles | Profile storage tests pass; extension load unverified | Actual extension worker/content script executes; storage, seeds and lifecycle survive relaunch |
 | SDK-16 | Public SDK parity | Scoped review; Puppeteer launch/profile/input helpers pass on historical Windows headed/headless binary, broader parity pending | Typed API/options, Python sync/async behavior, Puppeteer launch adapter and lifecycle contracts |
-| DRIVER-17 | Driver compatibility | Ten patch-seven custom-155 routes pass in both modes; historical controls retained; broader operations pending | Same suite on custom binaries, supported exact library versions, headed/headless evidence |
-| RELEASE-18 | Multiple Chromium lines | Seven exact 155 patches apply to pristine files and candidate passes local Windows gates; distribution pending | Rebase/build/test each line separately; no broad untested range |
+| DRIVER-17 | Driver compatibility | Ten patch-eight custom-155 routes pass in both modes; historical controls retained; broader operations pending | Same suite on custom binaries, supported exact library versions, headed/headless evidence |
+| RELEASE-18 | Multiple Chromium lines | Eight exact 155 patches apply to pristine files and candidate passes local Windows gates; distribution pending | Rebase/build/test each line separately; no broad untested range |
 | RELEASE-19 | Distribution | Not implemented | Reproducible packaging, signed version/platform manifests, verified download and safe extraction |
 | QA-20 | Competitive evidence | [Patch-six canonical example flows measured in both modes](reference-tests-155-patch6.md), including exact failing labels; overall detector benchmark fails; no paired current-reference binary | Repeated custom and reference runs with comparable versions, profiles, network and environment; retain failures/unavailable results |
 | PLATFORM-21 | Linux/macOS builds | Not built/tested | Native platform builders, graphics/font fixtures, driver matrices and signed artifacts |

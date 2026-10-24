@@ -1,12 +1,12 @@
 # silly-browser implementation plan
 
-**24 October native checkpoint:** [patch seven](cdp-timezone-validation-155.md) fixes CDP timezone validation/state and passes four strict default/native × headed/headless cases, 106 Node checks, five Python checks and ten driver routes on a separate Windows x64 155.0.8059.80 candidate. Preserve all older runtimes; distribution/MVP gates remain unfinished. A [subsequent public diagnostic rerun](detector-results-155-patch7.md) fails Fingerprint Scan and CreepJS criteria in both modes, with four complete observations.
+**24 October native checkpoint:** [patch eight](cdp-lifecycle-155.md) fixes malformed timezone acquisition/update and passes 36 lifecycle observations, four prior timezone cases, 106 existing Node checks, five Python checks and ten driver routes on a separate Windows x64 155.0.8059.80 candidate. Patch seven and older runtimes are preserved. External diagnostics were last measured on patch seven and still failed; no patch-eight diagnostic rerun or release qualification is claimed.
 
 Dated 14 October 2026, Asia/Jakarta. Repository: https://github.com/naufal-djamhur/silly-browser
 
-This document is a resumable engineering plan, not an automatic execution schedule. The current native checkpoint above supersedes the original pre-build status: a separate seven-patch Windows 155 candidate is compiled and locally tested. Distribution and later feature iterations remain unfinished. See the [session handoff](session-handoff.md) for current evidence and continuation boundaries; [iteration 3](iteration-03.md) preserves the earlier checkpoint.
+This document is a resumable engineering plan, not an automatic execution schedule. The current native checkpoint above supersedes the original pre-build status: a separate eight-patch Windows 155 candidate is compiled and locally tested. Distribution and later feature iterations remain unfinished. See the [session handoff](session-handoff.md) for current evidence and continuation boundaries; [iteration 3](iteration-03.md) preserves the earlier checkpoint.
 
-**Next ready iteration:** [cross-layer native correctness plan](next-native-iteration-155.md), N8-1/N8-2. Add the missing owned CDP lifecycle coverage first; a native patch eight is conditional on a reproduced contract failure. Geometry, font fallback, graphics, routing and extension follow-ups have separate gates. This is planned work, with no compilation started.
+**Latest executed iteration:** [N8 CDP lifecycle work](cdp-lifecycle-155.md) is complete: independent CB-0008 rejects embedded-NUL timezone identifiers, and a separate Windows candidate passes its lifecycle and regression gates in both modes. [The plan](next-native-iteration-155.md) now points to geometry/media-query coverage as the next planned family; no further build has started.
 
 ## Checkpoint and first action
 
